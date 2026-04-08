@@ -7,6 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+
   body {
     background: #111210;
     min-height: 100vh;
@@ -16,37 +17,44 @@
     justify-content: center;
     font-family: 'Red Hat Display', sans-serif;
   }
+
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: radial-gradient(ellipse 60% 50% at 50% 50%, rgba(143,170,120,0.04) 0%, transparent 70%);
+    background:
+      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(143,170,120,0.04) 0%, transparent 70%);
     pointer-events: none;
   }
+
   .logo {
     font-family: 'Red Hat Display', sans-serif;
     font-size: 48px;
     letter-spacing: 0.02em;
     line-height: 1;
   }
+
   .logo .ageless { color: #b5c9a0; font-weight: 700; letter-spacing: 0.02em; }
   .logo .labs    { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; margin-right: -0.02em; }
   .logo .dot     { color: #b5c9a0; font-weight: 300; margin: 0; letter-spacing: 0; }
   .logo .ai      { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; }
+
   .tagline {
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.3em;
-    color: #3a3a36;
+    color: #6a6a64;
     text-transform: uppercase;
     margin-top: 20px;
   }
+
   .divider {
     width: 40px;
     height: 1px;
     background: rgba(143,170,120,0.2);
     margin: 32px auto;
   }
+
   .coming-soon {
     font-family: 'DM Mono', monospace;
     font-size: 10px;
