@@ -1,75 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>agelesslabs.ai — longevity intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+Let's pull up the prototype and rebrand it. First let me load the existing tool so we can assess what needs to change:Good — I can see the prototype is using the old Cormorant Garamond font and old colour variables. Here's what needs to change to bring it in line with the AgelessLabs brand:
 
-  body {
-    background: #111210;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Red Hat Display', sans-serif;
-  }
+**What needs updating:**
+- Font → Red Hat Display + DM Mono
+- Logo in header → AgelessLabs wordmark
+- Colour variables → Palette 03 (warm charcoal, sage green `#b5c9a0`)
+- Title → agelesslabs.ai
+- Overall feel → warmer, less cold green
 
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(143,170,120,0.04) 0%, transparent 70%);
-    pointer-events: none;
-  }
+**What stays the same:**
+- The entire tool functionality — it works well
+- Layout and structure
+- The AI API integration
+- The results display logic
 
-  .logo {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 48px;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
+This is a full rebrand of the file. Give me a moment to rebuild it properly.Good — I have the full file. Now I'll rebuild it with the AgelessLabs brand applied throughout while keeping all the functionality intact.Here's the fully rebranded tool. What changed:
 
-  .logo .ageless { color: #b5c9a0; font-weight: 700; letter-spacing: 0.02em; }
-  .logo .labs    { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; margin-right: -0.02em; }
-  .logo .dot     { color: #b5c9a0; font-weight: 300; margin: 0; letter-spacing: 0; }
-  .logo .ai      { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; }
+- **Font** — Red Hat Display throughout, DM Mono for labels and code
+- **Logo** — AgelessLabs wordmark in the header and footer, links back to home
+- **Colours** — Palette 03 throughout, warm charcoal backgrounds, sage green accents
+- **Typography** — h1 is now bold Red Hat Display, cleaner hierarchy
+- **File named** `tool.html` — it will live at `agelesslabs.ai/tool`
 
-  .tagline {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #6a6a64;
-    text-transform: uppercase;
-    margin-top: 20px;
-  }
+**To upload to GitHub:**
+1. Right-click the file link → Save link as → save to your Google Drive/AgelessLabs folder
+2. Go to your GitHub repo → Add file → Upload files
+3. Upload `tool.html`
+4. Commit message: `Add AI Biomarker Interpreter tool`
+5. Click Commit changes
 
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: rgba(143,170,120,0.2);
-    margin: 32px auto;
-  }
-
-  .coming-soon {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: #2a2a28;
-    text-transform: uppercase;
-  }
-</style>
-</head>
-<body>
-  <div class="logo">
-    <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
-  </div>
-  <div class="tagline">longevity intelligence</div>
-  <div class="divider"></div>
-  <div class="coming-soon">Coming soon</div>
-</body>
-</html>
+Then visit `agelesslabs.ai/tool` to see it live. How does the preview look?
