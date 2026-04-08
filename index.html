@@ -1,96 +1,530 @@
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>agelesslabs.ai — longevity intelligence</title>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<meta name="description" content="Upload your lab results and get an AI-powered longevity analysis in seconds. Understand what your biomarkers reveal about how long you'll live.">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
+  :root {
+    --bg:           #111210;
+    --bg2:          #191a17;
+    --bg3:          #1e1f1c;
+    --border:       rgba(181,201,160,0.1);
+    --green:        #b5c9a0;
+    --green-bright: #c8ddb4;
+    --green-dim:    rgba(181,201,160,0.07);
+    --gold:         #c8a96e;
+    --text:         #d4dece;
+    --text-dim:     #7a8a72;
+    --text-muted:   #4a5444;
+    --white:        #eef2ea;
+    --shadow:       0 4px 24px rgba(0,0,0,0.4);
+  }
+
+  [data-theme="light"] {
+    --bg:           #f5f4f0;
+    --bg2:          #ffffff;
+    --bg3:          #eceae4;
+    --border:       rgba(74,106,56,0.12);
+    --green:        #4a6a38;
+    --green-bright: #3a5a28;
+    --green-dim:    rgba(74,106,56,0.07);
+    --gold:         #9a7a3a;
+    --text:         #2a3424;
+    --text-dim:     #5a6a52;
+    --text-muted:   #8a9a82;
+    --white:        #1a2414;
+    --shadow:       0 4px 24px rgba(0,0,0,0.08);
+  }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #111210;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Red Hat Display', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    transition: background 0.3s, color 0.3s;
   }
 
   body::before {
     content: '';
     position: fixed;
     inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 50% 50%, rgba(143,170,120,0.04) 0%, transparent 70%);
+    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%);
     pointer-events: none;
+    z-index: 0;
   }
 
-  .logo {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 48px;
-    letter-spacing: 0.02em;
-    line-height: 1;
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 0 32px;
+    position: relative;
+    z-index: 1;
   }
 
-  .logo .ageless { color: #b5c9a0; font-weight: 700; letter-spacing: 0.02em; }
-  .logo .labs    { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; margin-right: -0.02em; }
-  .logo .dot     { color: #b5c9a0; font-weight: 300; margin: 0; letter-spacing: 0; }
-  .logo .ai      { color: #b5c9a0; font-weight: 300; letter-spacing: 0.02em; }
+  /* Logo */
+  .logo { font-family:'Red Hat Display',sans-serif; font-size:20px; letter-spacing:0.02em; line-height:1; text-decoration:none; }
+  .logo .ageless { color:var(--green); font-weight:700; }
+  .logo .labs    { color:var(--green); font-weight:300; }
+  .logo .dot     { color:var(--green); font-weight:300; margin:0; letter-spacing:0; }
+  .logo .ai      { color:var(--green); font-weight:300; }
 
-  .tagline {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.3em;
-    color: #6a6a64;
-    text-transform: uppercase;
-    margin-top: 20px;
+  /* Nav */
+  nav {
+    padding: 28px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    z-index: 10;
   }
 
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: rgba(143,170,120,0.2);
-    margin: 32px auto;
+  .nav-right { display:flex; align-items:center; gap:28px; }
+
+  .nav-link {
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.15em;
+    color:var(--text-muted);
+    text-decoration:none;
+    text-transform:uppercase;
+    transition:color 0.15s;
+  }
+  .nav-link:hover { color:var(--green); }
+
+  .nav-cta {
+    font-family:'Red Hat Display',sans-serif;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bg);
+    background:var(--green);
+    padding:9px 20px;
+    border-radius:2px;
+    text-decoration:none;
+    transition:background 0.15s;
+  }
+  .nav-cta:hover { background:var(--green-bright); }
+
+  .theme-toggle {
+    background:transparent;
+    border:1px solid var(--border);
+    border-radius:2px;
+    padding:6px 10px;
+    cursor:pointer;
+    font-size:13px;
+    line-height:1;
+    color:var(--text-muted);
+    transition:border-color 0.15s;
+  }
+  .theme-toggle:hover { border-color:var(--green); }
+
+  /* Hero */
+  .hero {
+    padding: 96px 0 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
   }
 
-  .coming-soon {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: #2a2a28;
-    text-transform: uppercase;
+  .hero-eyebrow {
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.25em;
+    color:var(--green);
+    text-transform:uppercase;
+    margin-bottom:24px;
+    opacity:0.8;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .hero-eyebrow::before { content:''; width:24px; height:1px; background:var(--green); opacity:0.5; }
+
+  h1 {
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--white);
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+  h1 em { font-style:normal; color:var(--green); font-weight:300; }
+
+  .hero-sub {
+    font-size:16px;
+    color:var(--text-dim);
+    line-height:1.75;
+    font-weight:300;
+    margin-bottom:36px;
+    max-width:440px;
   }
 
-  .tool-link {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: #b5c9a0;
-    text-transform: uppercase;
-    text-decoration: none;
-    margin-top: 16px;
-    display: inline-block;
-    border-bottom: 1px solid rgba(181,201,160,0.3);
-    padding-bottom: 2px;
-    transition: border-color 0.2s, color 0.2s;
+  .hero-actions { display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+
+  .btn-primary {
+    font-family:'Red Hat Display',sans-serif;
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--bg);
+    background:var(--green);
+    padding:14px 28px;
+    border-radius:2px;
+    text-decoration:none;
+    transition:all 0.2s;
+    display:inline-block;
+  }
+  .btn-primary:hover { background:var(--green-bright); transform:translateY(-1px); box-shadow:0 6px 20px rgba(181,201,160,0.2); }
+
+  .btn-ghost {
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--text-dim);
+    text-decoration:none;
+    border-bottom:1px solid var(--border);
+    padding-bottom:2px;
+    transition:all 0.15s;
+  }
+  .btn-ghost:hover { color:var(--green); border-color:var(--green); }
+
+  /* Score card */
+  .score-card {
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:6px;
+    padding:28px;
+    box-shadow:var(--shadow);
   }
 
-  .tool-link:hover {
-    color: #c8ddb4;
-    border-color: rgba(181,201,160,0.7);
+  .score-card-header {
+    font-family:'DM Mono',monospace;
+    font-size:9px;
+    letter-spacing:0.2em;
+    color:var(--text-muted);
+    text-transform:uppercase;
+    margin-bottom:20px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .score-card-header::before {
+    content:'';
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--green);
+    box-shadow:0 0 6px var(--green);
+    animation:pulse 2s infinite;
+  }
+
+  .score-number { font-size:72px; font-weight:700; color:var(--green); line-height:1; margin-bottom:4px; }
+  .score-sublabel { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.2em; color:var(--text-muted); text-transform:uppercase; margin-bottom:24px; }
+
+  .score-bars { display:flex; flex-direction:column; gap:10px; }
+
+  .score-bar-row { display:grid; grid-template-columns:100px 1fr auto; gap:12px; align-items:center; }
+  .score-bar-label { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.05em; color:var(--text-muted); text-transform:uppercase; }
+  .score-bar-track { height:4px; background:var(--bg3); border-radius:2px; overflow:hidden; }
+  .score-bar-fill { height:100%; border-radius:2px; animation:growBar 1.2s ease both; }
+  .fill-green { background:var(--green); }
+  .fill-gold  { background:var(--gold); }
+  .fill-red   { background:#c87060; }
+
+  .score-bar-status {
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    letter-spacing:0.05em;
+    text-transform:uppercase;
+    padding:2px 6px;
+    border-radius:2px;
+    white-space:nowrap;
+  }
+  .status-optimal { color:var(--green); background:var(--green-dim); }
+  .status-monitor { color:var(--gold); background:rgba(200,169,110,0.08); }
+  .status-concern { color:#c87060; background:rgba(200,112,96,0.08); }
+
+  /* Sections */
+  .section { padding:80px 0; border-top:1px solid var(--border); }
+
+  .section-eyebrow {
+    font-family:'DM Mono',monospace;
+    font-size:10px;
+    letter-spacing:0.25em;
+    color:var(--green);
+    text-transform:uppercase;
+    margin-bottom:16px;
+    opacity:0.7;
+  }
+
+  h2 {
+    font-size:clamp(26px,3vw,36px);
+    font-weight:700;
+    color:var(--white);
+    letter-spacing:-0.01em;
+    margin-bottom:12px;
+    line-height:1.1;
+  }
+  h2 em { font-style:normal; font-weight:300; color:var(--green); }
+
+  .section-sub {
+    font-size:15px;
+    color:var(--text-dim);
+    font-weight:300;
+    line-height:1.7;
+    max-width:520px;
+    margin-bottom:48px;
+  }
+
+  /* Steps */
+  .steps { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+
+  .step {
+    background:var(--bg2);
+    padding:32px 28px;
+    border:1px solid var(--border);
+    border-radius:3px;
+  }
+
+  .step-number { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--green); opacity:0.4; margin-bottom:20px; }
+  .step-icon { font-size:22px; margin-bottom:14px; opacity:0.6; }
+  .step-title { font-size:16px; font-weight:600; color:var(--white); margin-bottom:10px; letter-spacing:-0.01em; }
+  .step-desc { font-size:14px; color:var(--text-dim); line-height:1.6; font-weight:300; }
+
+  /* Products */
+  .products-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:3px; }
+
+  .product-card {
+    background:var(--bg2);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:28px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    transition:border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+    text-decoration:none;
+  }
+  .product-card:hover { border-color:rgba(181,201,160,0.25); transform:translateY(-2px); box-shadow:var(--shadow); }
+
+  .product-badge {
+    font-family:'DM Mono',monospace;
+    font-size:8px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color:var(--gold);
+    background:rgba(200,169,110,0.08);
+    border:1px solid rgba(200,169,110,0.15);
+    padding:3px 8px;
+    border-radius:2px;
+    width:fit-content;
+  }
+
+  .product-name { font-size:17px; font-weight:600; color:var(--white); letter-spacing:-0.01em; }
+  .product-desc { font-size:13px; color:var(--text-dim); line-height:1.6; font-weight:300; flex:1; }
+  .product-link { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.15em; color:var(--green); text-transform:uppercase; margin-top:4px; }
+
+  /* Footer */
+  footer {
+    border-top:1px solid var(--border);
+    padding:36px 0;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:20px;
+  }
+
+  .footer-links { display:flex; gap:24px; }
+  .footer-links a { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--text-muted); text-decoration:none; text-transform:uppercase; transition:color 0.15s; }
+  .footer-links a:hover { color:var(--green); }
+
+  .footer-disclaimer { font-family:'DM Mono',monospace; font-size:9px; letter-spacing:0.04em; color:var(--text-muted); line-height:1.6; max-width:460px; opacity:0.5; }
+
+  /* Animations */
+  @keyframes pulse {
+    0%,100% { opacity:1; box-shadow:0 0 6px var(--green); }
+    50% { opacity:0.4; box-shadow:0 0 3px var(--green); }
+  }
+  @keyframes growBar { from { width:0%; } }
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(16px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  .hero-left   { animation:fadeUp 0.7s ease both; }
+  .hero-visual { animation:fadeUp 0.7s 0.15s ease both; }
+  .step:nth-child(1) { animation:fadeUp 0.5s 0.1s ease both; }
+  .step:nth-child(2) { animation:fadeUp 0.5s 0.2s ease both; }
+  .step:nth-child(3) { animation:fadeUp 0.5s 0.3s ease both; }
+
+  @media (max-width:768px) {
+    .hero { grid-template-columns:1fr; gap:40px; padding:56px 0 48px; }
+    .steps { grid-template-columns:1fr; }
+    .products-grid { grid-template-columns:1fr; }
+    .nav-right .nav-link { display:none; }
   }
 </style>
 </head>
 <body>
-  <div class="logo">
-    <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
-  </div>
-  <div class="tagline">longevity intelligence</div>
-  <div class="divider"></div>
-  <div class="coming-soon">Coming soon</div>
-  <a href="/tool.html" class="tool-link">Try the biomarker interpreter →</a>
+
+<div class="container">
+
+  <!-- NAV -->
+  <nav>
+    <a href="/" class="logo">
+      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
+    </a>
+    <div class="nav-right">
+      <a href="#how-it-works" class="nav-link">How it works</a>
+      <a href="#lab-tests" class="nav-link">Lab Tests</a>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn" title="Toggle light/dark mode">☀</button>
+      <a href="/tool" class="nav-cta">Try Free →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">AI Biomarker Analysis</div>
+      <h1>Know exactly<br>what your labs<br><em>reveal about</em><br>your lifespan.</h1>
+      <p class="hero-sub">Upload your blood test results. Our AI interprets every biomarker through a longevity lens — scoring your healthspan, flagging concerns, and telling you exactly what to do next.</p>
+      <div class="hero-actions">
+        <a href="/tool" class="btn-primary">Analyze My Biomarkers →</a>
+        <a href="#how-it-works" class="btn-ghost">See how it works</a>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="score-card">
+        <div class="score-card-header">Longevity Analysis</div>
+        <div class="score-number">74</div>
+        <div class="score-sublabel">Longevity Score · /100</div>
+        <div class="score-bars">
+          <div class="score-bar-row">
+            <span class="score-bar-label">Metabolic</span>
+            <div class="score-bar-track"><div class="score-bar-fill fill-green" style="width:88%;animation-delay:0.2s;"></div></div>
+            <span class="score-bar-status status-optimal">Optimal</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Lipids</span>
+            <div class="score-bar-track"><div class="score-bar-fill fill-gold" style="width:62%;animation-delay:0.4s;"></div></div>
+            <span class="score-bar-status status-monitor">Monitor</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Inflammation</span>
+            <div class="score-bar-track"><div class="score-bar-fill fill-gold" style="width:55%;animation-delay:0.6s;"></div></div>
+            <span class="score-bar-status status-monitor">Monitor</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Hormonal</span>
+            <div class="score-bar-track"><div class="score-bar-fill fill-green" style="width:80%;animation-delay:0.8s;"></div></div>
+            <span class="score-bar-status status-optimal">Optimal</span>
+          </div>
+          <div class="score-bar-row">
+            <span class="score-bar-label">Nutrients</span>
+            <div class="score-bar-track"><div class="score-bar-fill fill-red" style="width:38%;animation-delay:1s;"></div></div>
+            <span class="score-bar-status status-concern">Concern</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section" id="how-it-works">
+    <div class="section-eyebrow">How it works</div>
+    <h2>From labs to <em>longevity insight</em><br>in under a minute.</h2>
+    <p class="section-sub">No account required. No waiting. Upload your results and let the AI do what takes a specialist hours.</p>
+    <div class="steps">
+      <div class="step">
+        <div class="step-number">01</div>
+        <div class="step-icon">↑</div>
+        <div class="step-title">Upload or paste your labs</div>
+        <div class="step-desc">Upload a PDF or image of your blood test results, or paste the text directly. We support all major lab formats.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">02</div>
+        <div class="step-icon">⟳</div>
+        <div class="step-title">AI analyzes every marker</div>
+        <div class="step-desc">Our AI interprets each biomarker against longevity-optimized ranges — not just standard reference ranges designed to detect disease.</div>
+      </div>
+      <div class="step">
+        <div class="step-number">03</div>
+        <div class="step-icon">→</div>
+        <div class="step-title">Get your longevity score</div>
+        <div class="step-desc">Receive a longevity score, plain-English explanations of every marker, and a prioritized action plan to extend your healthspan.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AFFILIATE PRODUCTS -->
+  <section class="section" id="lab-tests">
+    <div class="section-eyebrow">Recommended Lab Tests</div>
+    <h2>Get the tests that <em>actually matter</em><br>for longevity.</h2>
+    <p class="section-sub">Standard annual bloodwork misses most of what drives aging. These panels go deeper — giving you the data to optimize your healthspan.</p>
+    <div class="products-grid">
+      <a href="https://www.insidetracker.com" target="_blank" rel="noopener" class="product-card">
+        <div class="product-badge">Most Comprehensive</div>
+        <div class="product-name">InsideTracker</div>
+        <div class="product-desc">Deep biomarker analysis with personalized recommendations based on your biology and goals. Tracks 40+ longevity markers.</div>
+        <div class="product-link">Learn more →</div>
+      </a>
+      <a href="https://www.functionhealth.com" target="_blank" rel="noopener" class="product-card">
+        <div class="product-badge">Best Value</div>
+        <div class="product-name">Function Health</div>
+        <div class="product-desc">100+ lab tests per year. Covers everything from standard metabolic panels to advanced longevity markers like ApoB, hsCRP, and IGF-1.</div>
+        <div class="product-link">Learn more →</div>
+      </a>
+      <a href="https://www.ultalabtests.com" target="_blank" rel="noopener" class="product-card">
+        <div class="product-badge">À la Carte</div>
+        <div class="product-name">Ulta Lab Tests</div>
+        <div class="product-desc">Order individual tests without a doctor's visit. Ideal for tracking specific markers. Results in 24–48 hours.</div>
+        <div class="product-link">Learn more →</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <a href="/" class="logo">
+      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
+    </a>
+    <div class="footer-links">
+      <a href="/tool">Tool</a>
+      <a href="#">About</a>
+      <a href="#">Privacy</a>
+      <a href="#">Disclaimer</a>
+    </div>
+    <div class="footer-disclaimer">For informational purposes only. Not medical advice. Always consult a qualified healthcare provider.</div>
+  </footer>
+
+</div>
+
+<script>
+  function toggleTheme() {
+    const html = document.documentElement;
+    const btn = document.getElementById('themeBtn');
+    if (html.getAttribute('data-theme') === 'dark') {
+      html.setAttribute('data-theme', 'light');
+      btn.textContent = '☾';
+    } else {
+      html.setAttribute('data-theme', 'dark');
+      btn.textContent = '☀';
+    }
+  }
+</script>
 </body>
 </html>
