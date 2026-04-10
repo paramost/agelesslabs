@@ -5,55 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy — agelesslabs.ai</title>
 <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
 <style>
-  :root {
-    --bg:#111210; --bg2:#191a17; --bg3:#1e1f1c;
-    --border:rgba(181,201,160,0.1);
-    --green:#b5c9a0; --green-bright:#c8ddb4; --green-dim:rgba(181,201,160,0.07);
-    --text:#d4dece; --text-dim:#7a8a72; --text-muted:#4a5444; --white:#eef2ea;
-  }
-
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Red Hat Display',sans-serif; font-weight:300; min-height:100vh; transition:background 0.3s,color 0.3s; }
-  body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%); pointer-events:none; z-index:0; }
-  .container { max-width:1000px; margin:0 auto; padding:0 32px; position:relative; z-index:1; }
-  .logo { font-family:'Red Hat Display',sans-serif; font-size:20px; letter-spacing:0.02em; line-height:1; text-decoration:none; }
-  .logo .ageless { color:var(--green); font-weight:700; }
-  .logo .labs    { color:var(--green); font-weight:300; }
-  .logo .dot     { color:var(--green); font-weight:300; margin:0; letter-spacing:0; }
-  .logo .ai      { color:var(--green); font-weight:300; }
-  nav { padding:28px 0; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:relative; z-index:10; }
-  .nav-right { display:flex; align-items:center; gap:28px; }
-  .nav-link { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.15em; color:var(--text-muted); text-decoration:none; text-transform:uppercase; transition:color 0.15s; }
-  .nav-link:hover { color:var(--green); }
-  .nav-cta { font-family:'Red Hat Display',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--bg); background:var(--green); padding:9px 20px; border-radius:2px; text-decoration:none; }
-  .nav-cta:hover { background:var(--green-bright); }
-
-
-  .page-header { padding:72px 0 48px; max-width:640px; }
-  .page-eyebrow { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.25em; color:var(--green); text-transform:uppercase; margin-bottom:20px; opacity:0.7; display:flex; align-items:center; gap:10px; }
-  .page-eyebrow::before { content:''; width:24px; height:1px; background:var(--green); opacity:0.5; }
-  h1 { font-size:clamp(28px,3.5vw,42px); font-weight:700; color:var(--white); letter-spacing:-0.02em; line-height:1.08; margin-bottom:12px; }
-  .updated { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--text-muted); text-transform:uppercase; }
-
-  .content { max-width:640px; padding-bottom:96px; }
-  .policy-section { margin-bottom:40px; padding-bottom:40px; border-bottom:1px solid var(--border); }
-  .policy-section:last-child { border-bottom:none; }
-  .policy-section h2 { font-size:18px; font-weight:600; color:var(--white); letter-spacing:-0.01em; margin-bottom:16px; }
-  .policy-section p { font-size:14px; color:var(--text-dim); line-height:1.8; font-weight:300; margin-bottom:12px; }
-  .policy-section p:last-child { margin-bottom:0; }
-  .policy-section ul { margin:12px 0 12px 20px; }
-  .policy-section ul li { font-size:14px; color:var(--text-dim); line-height:1.8; font-weight:300; margin-bottom:6px; }
-  .highlight { background:var(--bg2); border:1px solid var(--border); border-radius:3px; padding:20px; margin-bottom:40px; }
-  .highlight p { font-size:15px; color:var(--text); font-weight:400; line-height:1.7; margin:0; }
-
-  footer { border-top:1px solid var(--border); padding:36px 0; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:20px; }
-  .footer-links { display:flex; gap:24px; }
-  .footer-links a { font-family:'DM Mono',monospace; font-size:10px; letter-spacing:0.1em; color:var(--text-muted); text-decoration:none; text-transform:uppercase; transition:color 0.15s; }
-  .footer-links a:hover { color:var(--green); }
-  .footer-disclaimer { font-family:'DM Mono',monospace; font-size:9px; color:var(--text-muted); line-height:1.6; max-width:460px; opacity:0.5; }
-
-  @media (max-width:600px) { .nav-right .nav-link { display:none; } }
+  .page-header { padding: 72px 0 48px; }
+  h1 { font-size: clamp(28px,3.5vw,42px); margin-bottom: 12px; }
 </style>
 </head>
 <body>

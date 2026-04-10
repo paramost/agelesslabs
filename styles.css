@@ -19,6 +19,7 @@
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { background: #111210; }
 body { background: #111210; color: #d4dece; font-family: 'Red Hat Display', sans-serif; font-weight: 300; min-height: 100vh; }
+body::before { content: ''; position: fixed; inset: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 a { color: inherit; text-decoration: none; }
 
 .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
@@ -53,11 +54,24 @@ h2 em { font-style: normal; font-weight: 300; color: #b5c9a0; }
 .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: #b5c9a0; text-transform: uppercase; margin-bottom: 16px; opacity: 0.7; }
 .section-sub { font-size: 15px; color: #7a8a72; font-weight: 300; line-height: 1.7; max-width: 520px; margin-bottom: 48px; }
 
-footer { border-top: 1px solid rgba(181,201,160,0.15); padding: 28px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+footer { border-top: 1px solid rgba(181,201,160,0.15); padding: 36px 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
 .footer-links { display: flex; gap: 24px; }
 .footer-links a { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: #4a5444; text-decoration: none; text-transform: uppercase; transition: color 0.15s; }
 .footer-links a:hover { color: #b5c9a0; }
 .footer-disclaimer { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: #4a5444; line-height: 1.6; max-width: 460px; opacity: 0.5; }
+
+.content { max-width: 640px; padding-bottom: 96px; }
+
+.highlight { background: #191a17; border: 1px solid rgba(181,201,160,0.15); border-radius: 3px; padding: 20px; margin-bottom: 40px; }
+.highlight p { font-size: 15px; color: #d4dece; font-weight: 400; line-height: 1.7; margin: 0; }
+
+.policy-section { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid rgba(181,201,160,0.15); }
+.policy-section:last-child { border-bottom: none; }
+.policy-section h2 { font-size: 18px; font-weight: 600; color: #eef2ea; letter-spacing: -0.01em; margin-bottom: 16px; }
+.policy-section p { font-size: 14px; color: #7a8a72; line-height: 1.8; font-weight: 300; margin-bottom: 12px; }
+.policy-section p:last-child { margin-bottom: 0; }
+.policy-section ul { margin: 12px 0 12px 20px; }
+.policy-section ul li { font-size: 14px; color: #7a8a72; line-height: 1.8; font-weight: 300; margin-bottom: 6px; }
 
 .page-header { padding: 48px 0 36px; max-width: 640px; }
 .page-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: #b5c9a0; text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; display: flex; align-items: center; gap: 10px; }

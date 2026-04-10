@@ -4,51 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>agelesslabs.ai — AI Biomarker Interpreter</title>
-<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;700&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/styles.css">
 <style>
-  :root {
-    --bg:           #111210;
-    --bg2:          #191a17;
-    --bg3:          #1e1f1c;
-    --border:       rgba(181,201,160,0.1);
-    --green:        #b5c9a0;
-    --green-bright: #c8ddb4;
-    --green-dim:    rgba(181,201,160,0.08);
-    --gold:         #c8a96e;
-    --text:         #d4dece;
-    --text-dim:     #7a8a72;
-    --text-muted:   #4a5444;
-    --white:        #eef2ea;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'Red Hat Display', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  body { overflow-x: hidden; }
 
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
     background:
       radial-gradient(ellipse 60% 40% at 20% 20%, rgba(181,201,160,0.03) 0%, transparent 60%),
       radial-gradient(ellipse 40% 60% at 80% 80%, rgba(200,169,110,0.02) 0%, transparent 60%);
-    pointer-events: none;
-    z-index: 0;
   }
 
   .container {
     max-width: 860px;
-    margin: 0 auto;
     padding: 0 24px;
-    position: relative;
-    z-index: 1;
   }
 
   /* Header */
@@ -60,19 +28,6 @@
     border-bottom: 1px solid var(--border);
     margin-bottom: 64px;
   }
-
-  .logo {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 22px;
-    letter-spacing: 0.02em;
-    line-height: 1;
-    text-decoration: none;
-  }
-
-  .logo .ageless { color: var(--green); font-weight: 700; }
-  .logo .labs    { color: var(--green); font-weight: 300; }
-  .logo .dot     { color: var(--green); font-weight: 300; margin: 0; letter-spacing: 0; }
-  .logo .ai      { color: var(--green); font-weight: 300; }
 
   .badge {
     font-family: 'DM Mono', monospace;
@@ -529,40 +484,7 @@
   }
 
   /* Footer */
-  footer {
-    margin-top: 80px;
-    padding: 32px 0;
-    border-top: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  .footer-logo {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 15px;
-    letter-spacing: 0.02em;
-    line-height: 1;
-  }
-
-  .footer-logo .ageless { color: var(--green); font-weight: 700; }
-  .footer-logo .labs    { color: var(--green); font-weight: 300; }
-  .footer-logo .dot     { color: var(--green); font-weight: 300; margin: 0; letter-spacing: 0; }
-  .footer-logo .ai      { color: var(--green); font-weight: 300; }
-
-  .footer-links { display: flex; gap: 24px; }
-
-  .footer-links a {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    color: var(--text-muted);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    transition: color 0.15s;
-  }
-
-  .footer-links a:hover { color: var(--green); }
+  footer { margin-top: 80px; }
 
   /* Tabs */
   .input-tabs {
@@ -678,15 +600,6 @@
   }
 
   .upload-status.active { display: block; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(14px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; box-shadow: 0 0 6px var(--green); }
-    50% { opacity: 0.4; box-shadow: 0 0 3px var(--green); }
-  }
 
   @keyframes scan {
     from { transform: translateX(-200%); }
@@ -823,9 +736,9 @@ Ferritin: 45 ng/mL"></textarea>
   </div>
 
   <footer>
-    <div class="footer-logo">
+    <a href="/" class="logo">
       <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
-    </div>
+    </a>
     <div class="footer-links">
       <a href="/about">About</a>
       <a href="/privacy">Privacy</a>
