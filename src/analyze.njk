@@ -1,10 +1,10 @@
 ---
 layout: base.njk
+analyzePage: true
 title: "agelesslabs.ai — AI Biomarker Interpreter"
 description: "Upload your lab results and get an AI-powered longevity biomarker analysis. Free, instant, no account required."
 ---
 
-{% block head %}
 <style>
   /* Analyze page overrides & tool-specific styles */
 
@@ -414,19 +414,8 @@ description: "Upload your lab results and get an AI-powered longevity biomarker 
   }
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-{% endblock %}
 
-{% block header %}
-  <header style="padding:32px 0 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);margin-bottom:64px;">
-    <a href="/" class="logo">
-      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
-    </a>
-    <div class="badge">Beta — Free Interpreter</div>
-  </header>
-{% endblock %}
-
-{% block content %}
-  <section class="hero">
+<section class="hero">
     <div class="hero-eyebrow">AI Biomarker Analysis</div>
     <h1>Understand what your<br><em>labs reveal</em> about<br>how long you'll live.</h1>
     <p class="hero-sub">Upload your lab results or paste the text. Our AI interprets each biomarker through a longevity lens — flagging what matters, explaining what it means, and telling you what to do next.</p>
@@ -527,22 +516,7 @@ Ferritin: 45 ng/mL"></textarea>
       </div>
     </div>
   </div>
-{% endblock %}
 
-{% block footer %}
-  <footer>
-    <a href="/" class="logo">
-      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
-    </a>
-    <div class="footer-links">
-      <a href="/about">About</a>
-      <a href="/privacy">Privacy</a>
-      <a href="/disclaimer">Disclaimer</a>
-    </div>
-  </footer>
-{% endblock %}
-
-{% block scripts %}
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
@@ -789,4 +763,3 @@ function getDemoResults() {
   };
 }
 </script>
-{% endblock %}
