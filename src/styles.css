@@ -157,7 +157,7 @@ footer {
 .footer-disclaimer { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-muted); line-height: 1.6; max-width: 460px; opacity: 0.5; }
 
 /* ─── Page header (inner pages) ───────────────────────────────── */
-.page-header { padding: 48px 0 36px; max-width: 640px; }
+.page-header { padding: 28px 0 24px; max-width: 640px; }
 .page-eyebrow {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
@@ -213,7 +213,7 @@ footer {
 .value-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 300; }
 
 /* ─── Homepage: Hero ──────────────────────────────────────────── */
-.hero { padding: 48px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+.hero { padding: 28px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
 .hero-eyebrow {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
