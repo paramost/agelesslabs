@@ -58,11 +58,12 @@ a { color: inherit; text-decoration: none; }
 .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
 /* ─── Logo ────────────────────────────────────────────────────── */
-.logo { font-family: 'Red Hat Display', sans-serif; font-size: 20px; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
+.logo { font-family: 'Red Hat Display', sans-serif; font-size: 26px; letter-spacing: 0.02em; line-height: 1; text-decoration: none; }
 .logo .ageless { color: var(--green); font-weight: 700; }
 .logo .labs    { color: var(--green); font-weight: 300; }
-.logo .dot     { color: var(--green); font-weight: 300; margin: 0; letter-spacing: 0; }
-.logo .ai      { color: var(--green); font-weight: 300; }
+.logo .dot     { color: var(--white); font-weight: 300; margin: 0; letter-spacing: 0; }
+.logo .ai      { color: var(--white); font-weight: 300; }
+footer .logo   { font-size: 20px; }
 
 /* ─── Nav ─────────────────────────────────────────────────────── */
 nav {
