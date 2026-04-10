@@ -1,10 +1,14 @@
+/* ============================================================
+   AGELESSLABS.AI — SHARED STYLESHEET
+   ============================================================ */
+
 @import url('https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@300;400;500;600;700&family=DM+Mono:wght@300;400&display=swap');
 
 :root {
   --bg:           #111210;
   --bg2:          #191a17;
   --bg3:          #1e1f1c;
-  --border:       rgba(181,201,160,0.1);
+  --border:       rgba(181,201,160,0.15);
   --green:        #b5c9a0;
   --green-bright: #c8ddb4;
   --green-dim:    rgba(181,201,160,0.07);
@@ -21,7 +25,7 @@ html { background: #111210; }
 body { background: #111210; color: #d4dece; font-family: 'Red Hat Display', sans-serif; font-weight: 300; min-height: 100vh; }
 a { color: inherit; text-decoration: none; }
 
-body::before { content: ''; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+body::before { content: ""; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%); pointer-events: none; z-index: 0; }
 
 .container { max-width: 1000px; margin: 0 auto; padding: 0 32px; position: relative; z-index: 1; }
 
@@ -62,7 +66,7 @@ footer { border-top: 1px solid var(--border); padding: 36px 0; display: flex; al
 
 .page-header { padding: 72px 0 48px; max-width: 640px; }
 .page-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--green); text-transform: uppercase; margin-bottom: 20px; opacity: 0.7; display: flex; align-items: center; gap: 10px; }
-.page-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--green); opacity: 0.5; }
+.page-eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--green); opacity: 0.5; }
 .updated { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted); text-transform: uppercase; }
 
 @keyframes pulse { 0%,100% { opacity:1; box-shadow:0 0 6px var(--green); } 50% { opacity:0.4; box-shadow:0 0 3px var(--green); } }
