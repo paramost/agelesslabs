@@ -33,8 +33,8 @@ footer .logo { font-size: 20px; }
 
 nav { padding: 28px 0; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(181,201,160,0.15); position: relative; z-index: 10; }
 .nav-right { display: flex; align-items: center; gap: 28px; }
-.nav-link { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #b5c9a0; text-decoration: none; text-transform: uppercase; transition: color 0.15s; }
-.nav-link:hover { color: #eef2ea; }
+.nav-link { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: #8a9e7a; text-decoration: none; text-transform: uppercase; transition: color 0.15s; }
+.nav-link:hover { color: #b5c9a0; }
 .nav-cta { font-family: 'Red Hat Display', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #111210; background: #b5c9a0; padding: 9px 20px; border-radius: 2px; text-decoration: none; transition: background 0.15s; display: inline-block; }
 .nav-cta:hover { background: #c8ddb4; }
 
