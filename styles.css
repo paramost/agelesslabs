@@ -116,6 +116,7 @@ footer { border-top: 1px solid rgba(181,201,160,0.15); padding: 36px 0; display:
   .steps { grid-template-columns: 1fr; }
   .products-grid { grid-template-columns: 1fr 1fr; }
   .score-bar-row { grid-template-columns: 70px 1fr auto; gap: 8px; }
+  #hero-visual { display: none; }
 }
 
 @media (max-width: 480px) {
