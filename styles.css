@@ -69,7 +69,7 @@ footer { border-top: 1px solid rgba(181,201,160,0.15); padding: 36px 0; display:
 .hero-sub { font-size: 16px; color: #7a8a72; line-height: 1.75; font-weight: 300; margin-bottom: 36px; max-width: 440px; }
 .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .hero-left  { animation: fadeUp 0.7s ease both; }
-.hero-visual { animation: fadeUp 0.7s 0.15s ease both; }
+.hero-visual { animation: none; }
 
 .score-card { background: #191a17; border: 1px solid rgba(181,201,160,0.15); border-radius: 6px; padding: 28px; box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
 .score-card-header { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: #4a5444; text-transform: uppercase; margin-bottom: 20px; display: flex; align-items: center; gap: 8px; }
