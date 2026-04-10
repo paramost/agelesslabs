@@ -7,16 +7,38 @@
 <meta name="description" content="{{ description }}">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-{% block head %}{% endblock %}
 </head>
 <body>
-
 <div class="container">
 
-{{ content | safe }}
+  <nav>
+    <a href="/" class="logo">
+      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
+    </a>
+    <div class="nav-right">
+      <a href="/#how-it-works" class="nav-link">How it works</a>
+      <a href="/#lab-tests" class="nav-link">Lab Tests</a>
+      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀</button>
+      <a href="/analyze" class="nav-cta">Try Free →</a>
+    </div>
+  </nav>
+
+  {{ content | safe }}
+
+  <footer>
+    <a href="/" class="logo">
+      <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
+    </a>
+    <div class="footer-links">
+      <a href="/analyze">Analyze</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/disclaimer">Disclaimer</a>
+    </div>
+    <div class="footer-disclaimer">For informational purposes only. Not medical advice. Always consult a qualified healthcare provider.</div>
+  </footer>
 
 </div>
-
 <script>
   function toggleTheme() {
     const html = document.documentElement;
@@ -26,10 +48,4 @@
       btn.textContent = '☾';
     } else {
       html.setAttribute('data-theme', 'dark');
-      btn.textContent = '☀';
-    }
-  }
-</script>
-{% block scripts %}{% endblock %}
-</body>
-</html>
+      btn.textCo
