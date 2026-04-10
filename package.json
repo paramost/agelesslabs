@@ -1,7 +1,7 @@
 {
   "name": "agelesslabs",
   "version": "1.0.0",
-  "description": "AgelessLabs.ai — AI-powered longevity biomarker interpreter",
+  "description": "AgelessLabs.ai - AI-powered longevity biomarker interpreter",
   "scripts": {
     "build": "eleventy",
     "start": "eleventy --serve",
