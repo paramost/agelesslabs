@@ -827,9 +827,9 @@ Ferritin: 45 ng/mL"></textarea>
       <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
     </div>
     <div class="footer-links">
-      <a href="#">About</a>
-      <a href="#">Privacy</a>
-      <a href="#">Disclaimer</a>
+      <a href="/about">About</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/disclaimer">Disclaimer</a>
     </div>
   </footer>
 </div>
@@ -1035,7 +1035,7 @@ Recommendations should be specific and actionable, max 4 items. Prioritize the h
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-sonnet-4-6",
         max_tokens: 1000,
         system: systemPrompt,
         messages: [{ role: "user", content: messageContent }]

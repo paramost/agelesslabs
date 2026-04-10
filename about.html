@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,12 +13,7 @@
     --green:#b5c9a0; --green-bright:#c8ddb4; --green-dim:rgba(181,201,160,0.07);
     --gold:#c8a96e; --text:#d4dece; --text-dim:#7a8a72; --text-muted:#4a5444; --white:#eef2ea;
   }
-  [data-theme="light"] {
-    --bg:#f5f4f0; --bg2:#ffffff; --bg3:#eceae4;
-    --border:rgba(74,106,56,0.12);
-    --green:#4a6a38; --green-bright:#3a5a28; --green-dim:rgba(74,106,56,0.07);
-    --gold:#9a7a3a; --text:#2a3424; --text-dim:#5a6a52; --text-muted:#8a9a82; --white:#1a2414;
-  }
+
   * { margin:0; padding:0; box-sizing:border-box; }
   body { background:var(--bg); color:var(--text); font-family:'Red Hat Display',sans-serif; font-weight:300; min-height:100vh; transition:background 0.3s,color 0.3s; }
   body::before { content:''; position:fixed; inset:0; background:radial-gradient(ellipse 70% 50% at 50% 0%, rgba(181,201,160,0.04) 0%, transparent 60%); pointer-events:none; z-index:0; }
@@ -34,8 +29,7 @@
   .nav-link:hover { color:var(--green); }
   .nav-cta { font-family:'Red Hat Display',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--bg); background:var(--green); padding:9px 20px; border-radius:2px; text-decoration:none; transition:background 0.15s; }
   .nav-cta:hover { background:var(--green-bright); }
-  .theme-toggle { background:transparent; border:1px solid var(--border); border-radius:2px; padding:6px 10px; cursor:pointer; font-size:13px; color:var(--text-muted); transition:border-color 0.15s; }
-  .theme-toggle:hover { border-color:var(--green); }
+
 
   /* Page content */
   .page-header { padding:72px 0 56px; max-width:640px; animation:fadeUp 0.7s ease both; }
@@ -81,7 +75,6 @@
     <div class="nav-right">
       <a href="/#how-it-works" class="nav-link">How it works</a>
       <a href="/#lab-tests" class="nav-link">Lab Tests</a>
-      <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀</button>
       <a href="/analyze" class="nav-cta">Try Free →</a>
     </div>
   </nav>
@@ -149,13 +142,6 @@
   </footer>
 
 </div>
-<script>
-  function toggleTheme() {
-    const html = document.documentElement;
-    const btn = document.getElementById('themeBtn');
-    if (html.getAttribute('data-theme') === 'dark') { html.setAttribute('data-theme','light'); btn.textContent='☾'; }
-    else { html.setAttribute('data-theme','dark'); btn.textContent='☀'; }
-  }
-</script>
+
 </body>
 </html>
