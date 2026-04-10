@@ -19,7 +19,11 @@
       <a href="/#how-it-works" class="nav-link">How it works</a>
       <a href="/#lab-tests" class="nav-link">Lab Tests</a>
       <button class="theme-toggle" onclick="toggleTheme()" id="themeBtn">☀</button>
-      <a href="/analyze" class="nav-cta">Try Free →</a>
+      {% if analyzePage %}
+        <span class="badge">Beta — Free Interpreter</span>
+      {% else %}
+        <a href="/analyze" class="nav-cta">Try Free →</a>
+      {% endif %}
     </div>
   </nav>
 
@@ -48,4 +52,9 @@
       btn.textContent = '☾';
     } else {
       html.setAttribute('data-theme', 'dark');
-      btn.textCo
+      btn.textContent = '☀';
+    }
+  }
+</script>
+</body>
+</html>
