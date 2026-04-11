@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#111210"/>
+
+  <!-- Top bar -->
+
+<line x1="7" y1="5.5" x2="25" y2="5.5"
+stroke="#b5c9a0" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Bottom bar -->
+
+<line x1="7" y1="26.5" x2="25" y2="26.5"
+stroke="#b5c9a0" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Strand 1: top-left → bottom-right -->
+
+<path d="M7 5.5 C7 15 25 17 25 26.5"
+fill="none" stroke="#b5c9a0" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Strand 2: top-right → bottom-left -->
+
+<path d="M25 5.5 C25 15 7 17 7 26.5"
+fill="none" stroke="#b5c9a0" stroke-width="1.8" stroke-linecap="round"/>
+</svg>
