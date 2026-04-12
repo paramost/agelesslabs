@@ -157,6 +157,54 @@ description: "Upload your lab results and get an AI-powered longevity biomarker 
     text-transform: uppercase;
   }
 
+  /* Error state */
+  .error-state { display: none; padding: 32px 28px; border-top: 1px solid var(--border); }
+  .error-state.active { display: block; }
+  .error-box {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 20px;
+    background: rgba(200, 112, 96, 0.06);
+    border: 1px solid rgba(200, 112, 96, 0.2);
+    border-radius: 3px;
+  }
+  .error-icon {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: #c87060;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .error-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--white);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .error-detail {
+    font-size: 13px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .error-retry {
+    margin-top: 16px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--green);
+    background: transparent;
+    border: 1px solid rgba(181,201,160,0.25);
+    padding: 8px 16px;
+    border-radius: 2px;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .error-retry:hover { border-color: var(--green); background: rgba(181,201,160,0.04); }
+
   /* Results */
   .results { display: none; border-top: 1px solid var(--border); }
   .results.active { display: block; }
@@ -469,6 +517,17 @@ Ferritin: 45 ng/mL"></textarea>
       <div class="loading-text" id="loadingText">Interpreting biomarkers...</div>
     </div>
 
+    <div class="error-state" id="errorState">
+      <div class="error-box">
+        <div class="error-icon">⚠</div>
+        <div>
+          <div class="error-title">Analysis failed</div>
+          <div class="error-detail" id="errorDetail">The AI analysis could not be completed. Your lab results have not been analyzed — no results are being shown. Please try again.</div>
+          <button class="error-retry" onclick="resetTool()">Try again →</button>
+        </div>
+      </div>
+    </div>
+
     <div class="results" id="resultsSection">
       <div class="results-header">
         <div class="results-title">Your Longevity Analysis</div>
@@ -695,20 +754,38 @@ Recommendations should be specific and actionable, max 4 items. Prioritize the h
         messages: [{ role: "user", content: messageContent }]
       })
     });
+    if (!response.ok) {
+      throw new Error(`API error: ${response.status}`);
+    }
     const data = await response.json();
     clearInterval(msgInterval);
     const raw = data.content.map(i => i.text || "").join("");
     const clean = raw.replace(/```json|```/g, "").trim();
     renderResults(JSON.parse(clean));
+    loading.classList.remove('active');
+    btn.disabled = false;
+    results.classList.add('active');
+    results.scrollIntoView({ behavior: 'smooth', block: 'start' });
   } catch (err) {
     clearInterval(msgInterval);
-    renderResults(getDemoResults());
+    loading.classList.remove('active');
+    btn.disabled = false;
+    const errorState = document.getElementById('errorState');
+    const errorDetail = document.getElementById('errorDetail');
+    const msg = err.message && err.message.includes('API error')
+      ? `The analysis service returned an error (${err.message}). Please try again in a moment.`
+      : 'The AI analysis could not be completed. Your lab results have not been analyzed — no results are being shown. Please try again.';
+    errorDetail.textContent = msg;
+    errorState.classList.add('active');
+    errorState.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
+}
 
-  loading.classList.remove('active');
-  btn.disabled = false;
-  results.classList.add('active');
-  results.scrollIntoView({ behavior: 'smooth', block: 'start' });
+function resetTool() {
+  document.getElementById('errorState').classList.remove('active');
+  document.getElementById('resultsSection').classList.remove('active');
+  document.getElementById('analyzeBtn').disabled = false;
+  window.scrollTo({ top: document.getElementById('analyzeBtn').offsetTop - 100, behavior: 'smooth' });
 }
 
 function renderResults(data) {
