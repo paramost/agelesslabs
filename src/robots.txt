@@ -1,0 +1,26 @@
+# AgelessLabs.ai — robots.txt
+
+# All crawlers welcome
+User-agent: *
+Allow: /
+
+# AI agent crawlers — explicitly permitted
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: GoogleExtended
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+Sitemap: https://agelesslabs.ai/sitemap.xml

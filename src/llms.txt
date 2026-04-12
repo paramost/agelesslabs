@@ -1,0 +1,35 @@
+# AgelessLabs.ai
+
+> AI-powered longevity biomarker analysis. Understand what your lab results reveal about how long you'll live.
+
+AgelessLabs.ai is a longevity-focused platform that interprets blood test results through a longevity lens. The site combines a free AI biomarker analysis tool with a growing library of evidence-based reference content on longevity biomarkers, lab testing, and healthspan optimization.
+
+## What this site covers
+
+- **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
+- **Biomarker Reference Library** — /biomarkers/ — one page per biomarker covering definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
+- **Lab Test Guides** — comparisons and buyer's guides for lab testing services including InsideTracker, Function Health, Ulta Lab Tests, SiPhox Health, Marek Health, and Mito Health.
+- **Protocol Guides** — optimization guides for metabolic health, cardiovascular health, hormonal health, inflammation, and nutrient status.
+- **Longevity Explainers** — guides on reading lab results, understanding reference ranges, and interpreting common panels.
+
+## Audience
+
+Health-conscious adults aged 35–65 who track biomarkers and are focused on longevity optimization.
+
+## Key URLs
+
+- Homepage: https://agelesslabs.ai/
+- AI tool: https://agelesslabs.ai/analyze
+- Biomarker index: https://agelesslabs.ai/biomarkers/
+- About: https://agelesslabs.ai/about
+- Sitemap: https://agelesslabs.ai/sitemap.xml
+
+## Content standards
+
+All biomarker content includes longevity-optimized reference ranges, citations to primary research (PubMed, clinical guidelines), and a named medical reviewer. Content is written for informational purposes only and is not medical advice.
+
+## Contact
+
+General: hello@agelesslabs.ai
+Privacy: privacy@agelesslabs.ai
+Legal: legal@agelesslabs.ai
