@@ -1,9 +1,9 @@
------
-
-## layout: base.njk
+---
+layout: base.njk
 analyzePage: true
-title: “agelesslabs.ai — AI Biomarker Interpreter”
-description: “Upload your lab results and get an AI-powered longevity biomarker analysis. Free, instant, no account required.”
+title: "agelesslabs.ai — AI Biomarker Interpreter"
+description: "Upload your lab results and get an AI-powered longevity biomarker analysis. Free, instant, no account required."
+---
 
 <style>
   /* Analyze page overrides & tool-specific styles */
@@ -418,32 +418,29 @@ description: “Upload your lab results and get an AI-powered longevity biomarke
       <span class="tool-title" style="font-size:10px;">Free · No account required</span>
     </div>
 
-```
-<div class="tool-body">
-  <div class="input-tabs">
-    <button class="tab-btn active" onclick="switchTab('upload')">Upload File</button>
-    <button class="tab-btn" onclick="switchTab('paste')">Paste Text</button>
-  </div>
-
-  <div class="tab-panel active" id="tab-upload">
-    <div class="upload-zone" id="uploadZone">
-      <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event)">
-      <div class="upload-icon">
-        <svg viewBox="0 0 24 24">
-          <path d="M12 15V3m0 0L8 7m4-4 4 4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
-        </svg>
+    <div class="tool-body">
+      <div class="input-tabs">
+        <button class="tab-btn active" onclick="switchTab('upload')">Upload File</button>
+        <button class="tab-btn" onclick="switchTab('paste')">Paste Text</button>
       </div>
-      <div class="upload-title">Upload your lab results</div>
-      <div class="upload-sub">PDF, JPG, or PNG — drag and drop or click to browse</div>
-    </div>
-    <div class="upload-status" id="uploadStatus"></div>
-  </div>
 
-  <div class="tab-panel" id="tab-paste">
-    <label class="input-label" for="labInput">Paste your lab results</label>
-    <textarea id="labInput" placeholder="Example:
-```
+      <div class="tab-panel active" id="tab-upload">
+        <div class="upload-zone" id="uploadZone">
+          <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event)">
+          <div class="upload-icon">
+            <svg viewBox="0 0 24 24">
+              <path d="M12 15V3m0 0L8 7m4-4 4 4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
+            </svg>
+          </div>
+          <div class="upload-title">Upload your lab results</div>
+          <div class="upload-sub">PDF, JPG, or PNG — drag and drop or click to browse</div>
+        </div>
+        <div class="upload-status" id="uploadStatus"></div>
+      </div>
 
+      <div class="tab-panel" id="tab-paste">
+        <label class="input-label" for="labInput">Paste your lab results</label>
+        <textarea id="labInput" placeholder="Example:
 Glucose: 94 mg/dL
 HbA1c: 5.2%
 Total Cholesterol: 188 mg/dL
@@ -453,62 +450,59 @@ Triglycerides: 89 mg/dL
 hsCRP: 0.8 mg/L
 Vitamin D: 38 ng/mL
 TSH: 1.8 mIU/L
-Ferritin: 45 ng/mL”></textarea>
-<div class="example-tags">
-<span class="input-label" style="margin:0;line-height:2;">Try an example:</span>
-<button class="example-tag" onclick="loadExample('metabolic')">Metabolic Panel</button>
-<button class="example-tag" onclick="loadExample('lipid')">Lipid Panel</button>
-<button class="example-tag" onclick="loadExample('longevity')">Full Longevity Panel</button>
-</div>
-</div>
-
-```
-  <button class="analyze-btn" id="analyzeBtn" onclick="analyzeLabResults()" style="margin-top:24px;">
-    Analyze My Biomarkers
-  </button>
-</div>
-
-<div class="loading" id="loadingState">
-  <div class="loading-bar"><div class="loading-bar-inner"></div></div>
-  <div class="loading-text" id="loadingText">Interpreting biomarkers...</div>
-</div>
-
-<div class="results" id="resultsSection">
-  <div class="results-header">
-    <div class="results-title">Your Longevity Analysis</div>
-    <div class="longevity-score">
-      <span class="score-label">Longevity Score</span>
-      <span class="score-value" id="scoreValue">—</span>
-      <span class="score-max">/100</span>
-    </div>
-  </div>
-  <div class="results-body">
-    <div class="result-section">
-      <div class="result-section-title">Overall Assessment</div>
-      <div class="narrative" id="narrativeText"></div>
-    </div>
-    <div class="result-section">
-      <div class="result-section-title">Biomarker Breakdown</div>
-      <div class="biomarker-grid" id="biomarkerGrid"></div>
-    </div>
-    <div class="result-section">
-      <div class="result-section-title">Priority Recommendations</div>
-      <div class="recommendations" id="recommendationsList"></div>
-    </div>
-    <div class="upgrade-cta">
-      <div class="cta-text">
-        <h3>Get your full Longevity Report</h3>
-        <p>Detailed trend tracking, optimal ranges for your age & sex, lab test recommendations, and a personalized longevity protocol.</p>
+Ferritin: 45 ng/mL"></textarea>
+        <div class="example-tags">
+          <span class="input-label" style="margin:0;line-height:2;">Try an example:</span>
+          <button class="example-tag" onclick="loadExample('metabolic')">Metabolic Panel</button>
+          <button class="example-tag" onclick="loadExample('lipid')">Lipid Panel</button>
+          <button class="example-tag" onclick="loadExample('longevity')">Full Longevity Panel</button>
+        </div>
       </div>
-      <button class="cta-btn">Unlock Full Report — $19</button>
-    </div>
-    <div class="disclaimer">
-      ⚠ For informational purposes only. Not medical advice. Always consult a qualified healthcare provider before making changes to your health regimen.
-    </div>
-  </div>
-</div>
-```
 
+      <button class="analyze-btn" id="analyzeBtn" onclick="analyzeLabResults()" style="margin-top:24px;">
+        Analyze My Biomarkers
+      </button>
+    </div>
+
+    <div class="loading" id="loadingState">
+      <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+      <div class="loading-text" id="loadingText">Interpreting biomarkers...</div>
+    </div>
+
+    <div class="results" id="resultsSection">
+      <div class="results-header">
+        <div class="results-title">Your Longevity Analysis</div>
+        <div class="longevity-score">
+          <span class="score-label">Longevity Score</span>
+          <span class="score-value" id="scoreValue">—</span>
+          <span class="score-max">/100</span>
+        </div>
+      </div>
+      <div class="results-body">
+        <div class="result-section">
+          <div class="result-section-title">Overall Assessment</div>
+          <div class="narrative" id="narrativeText"></div>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Biomarker Breakdown</div>
+          <div class="biomarker-grid" id="biomarkerGrid"></div>
+        </div>
+        <div class="result-section">
+          <div class="result-section-title">Priority Recommendations</div>
+          <div class="recommendations" id="recommendationsList"></div>
+        </div>
+        <div class="upgrade-cta">
+          <div class="cta-text">
+            <h3>Get your full Longevity Report</h3>
+            <p>Detailed trend tracking, optimal ranges for your age & sex, lab test recommendations, and a personalized longevity protocol.</p>
+          </div>
+          <button class="cta-btn">Unlock Full Report — $19</button>
+        </div>
+        <div class="disclaimer">
+          ⚠ For informational purposes only. Not medical advice. Always consult a qualified healthcare provider before making changes to your health regimen.
+        </div>
+      </div>
+    </div>
   </div>
 
 <script>
