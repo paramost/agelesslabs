@@ -15,6 +15,9 @@ module.exports = function(eleventyConfig) {
       .sort((a, b) => b.date - a.date);
   });
 
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy("src/llms.txt");
+
   return {
     dir: {
       input: "src",
