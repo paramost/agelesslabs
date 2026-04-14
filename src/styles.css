@@ -217,6 +217,8 @@ footer {
 .content-block h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 16px; }
 .content-block p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
 .content-block p:last-child { margin-bottom: 0; }
+.content-block a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.15s; }
+.content-block a:hover { border-bottom-color: var(--green); }
 .divider { height: 1px; background: var(--border); margin: 48px 0; }
 .values { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 24px; }
 .value-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 24px; }
