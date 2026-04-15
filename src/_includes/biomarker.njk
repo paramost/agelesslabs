@@ -1,0 +1,925 @@
+---
+layout: base.njk
+---
+
+{#
+================================================================================
+  BIOMARKER PAGE TEMPLATE — agelesslabs.ai
+  Layout: src/_includes/biomarker.njk
+  Usage: Individual biomarker pages use `layout: biomarker.njk` in frontmatter
+
+  REQUIRED FRONTMATTER
+  ─────────────────────
+  layout:           biomarker.njk
+  title:            "ApoB — Optimal Levels, Longevity Range & How to Lower It | agelesslabs.ai"
+  description:      "Meta description — 150-160 chars, optimised for CTR and AI extraction."
+  biomarker:        "ApoB"                         ← display name used in headings
+  also_known_as:    "Apolipoprotein B"              ← shown in definition box; omit if none
+  category:         "Cardiovascular"               ← Cardiovascular | Metabolic | Inflammation | Hormonal | Nutrients
+  url_path:         "/biomarkers/apob"             ← canonical path, no trailing slash
+
+  date_published:   "2026-04-15"                   ← ISO 8601
+  date_modified:    "2026-04-15"
+  date_reviewed:    "2026-04-15"
+
+  author_name:      "Dan Carey"
+  author_title:     "Founder, AgelessLabs"
+  reviewer_name:    ""                             ← leave blank until reviewer is secured
+  reviewer_credentials: ""                         ← e.g. "MD, Preventive Medicine"
+
+  definition:       "One or two sentences defining the biomarker."
+  why_it_matters:   "One or two sentences on why this marker matters for longevity."
+
+  standard_range:   "< 130 mg/dL"                 ← clinical standard range as a string
+  longevity_optimal: "< 80 mg/dL"                 ← longevity-optimised target
+  longevity_notes:  "Optional note on longevity range, e.g. expert targets."
+  standard_unit:    "mg/dL"
+
+  takeaways:                                       ← 3–5 bullets; shown near top and in schema
+    - "First key takeaway."
+    - "Second key takeaway."
+    - "Third key takeaway."
+
+  affiliate_tests:                                 ← omit array items that don't carry this marker
+    - name:   "Ulta Lab Tests"
+      url:    "https://www.ultalabtests.com/partners/agelesslabs/..."
+      note:   "Order à la carte — no doctor's visit. Results in 24–48 hours."
+      badge:  "À la Carte"
+    - name:   "Function Health"
+      url:    "https://www.functionhealth.com"
+      note:   "Included in their comprehensive 100+ marker annual panel."
+      badge:  "Comprehensive"
+
+  faqs:                                            ← minimum 3; match FAQPage schema below
+    - question: "What is a good [biomarker] level for longevity?"
+      answer:   "Self-contained answer, 40–60 words."
+    - question: "Second question?"
+      answer:   "Self-contained answer."
+    - question: "Third question?"
+      answer:   "Self-contained answer."
+
+  PAGE BODY (between frontmatter and end of file)
+  ────────────────────────────────────────────────
+  Write the article prose as HTML. Suggested sections:
+
+    <section class="bm-section">
+      <h2>Why {{ biomarker }} matters for longevity</h2>
+      <p>...</p>
+    </section>
+
+    <section class="bm-section">
+      <h2>What moves {{ biomarker }}?</h2>
+      <p>...</p>
+    </section>
+
+    <section class="bm-section">
+      <h2>How often should you test {{ biomarker }}?</h2>
+      <p>...</p>
+    </section>
+
+  The template renders the definition box, key takeaways, ranges table,
+  inline tool CTA, affiliate cards, FAQ, and author block automatically.
+  You only write the prose.
+================================================================================
+#}
+
+{# ── JSON-LD Schema ───────────────────────────────────────────────────────── #}
+{# NOTE: Ideally injected into <head>. Until base.njk has a headContent hook,  #}
+{# Google supports JSON-LD anywhere in the document — this is fully valid.     #}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "MedicalWebPage",
+      "@id": "https://agelesslabs.ai{{ url_path }}",
+      "url": "https://agelesslabs.ai{{ url_path }}",
+      "name": {{ title | dump }},
+      "description": {{ description | dump }},
+      "datePublished": "{{ date_published }}",
+      "dateModified": "{{ date_modified }}",
+      "lastReviewed": "{{ date_reviewed }}",
+      "medicalAudience": {
+        "@type": "MedicalAudience",
+        "audienceType": "Patient"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "{{ author_name }}",
+        "jobTitle": "{{ author_title }}",
+        "url": "https://agelesslabs.ai/about"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AgelessLabs",
+        "url": "https://agelesslabs.ai",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://agelesslabs.ai/og-image.png"
+        }
+      },
+      "mainEntityOfPage": "https://agelesslabs.ai{{ url_path }}"
+    },
+    {
+      "@type": "Article",
+      "headline": {{ title | dump }},
+      "description": {{ description | dump }},
+      "datePublished": "{{ date_published }}",
+      "dateModified": "{{ date_modified }}",
+      "author": {
+        "@type": "Person",
+        "name": "{{ author_name }}"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "AgelessLabs",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://agelesslabs.ai/og-image.png"
+        }
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agelesslabs.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Biomarkers",
+          "item": "https://agelesslabs.ai/biomarkers"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "{{ biomarker }}",
+          "item": "https://agelesslabs.ai{{ url_path }}"
+        }
+      ]
+    }{% if faqs and faqs.length %},
+    {
+      "@type": "FAQPage",
+      "mainEntity": [{% for faq in faqs %}
+        {
+          "@type": "Question",
+          "name": {{ faq.question | dump }},
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": {{ faq.answer | dump }}
+          }
+        }{% if not loop.last %},{% endif %}{% endfor %}
+      ]
+    }{% endif %}
+  ]
+}
+</script>
+
+<style>
+  /* ── Biomarker page layout ─────────────────────────────────────────────── */
+
+  .bm-wrap {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 56px;
+    align-items: start;
+    padding-bottom: 96px;
+  }
+
+  .bm-main { min-width: 0; }
+  .bm-sidebar { position: sticky; top: 32px; }
+
+  /* Breadcrumb */
+  .bm-breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+    padding-top: 28px;
+  }
+  .bm-breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.15s; }
+  .bm-breadcrumb a:hover { color: var(--green); }
+  .bm-breadcrumb-sep { opacity: 0.4; }
+  .bm-breadcrumb-current { color: var(--text-dim); }
+
+  /* Page heading */
+  .bm-heading { margin-bottom: 8px; }
+  .bm-category-pill {
+    display: inline-block;
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.15);
+    padding: 3px 10px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+  }
+  h1.bm-title {
+    font-size: clamp(30px, 3.5vw, 46px);
+    font-weight: 700;
+    line-height: 1.08;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .bm-aka {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 24px;
+  }
+
+  /* Meta bar */
+  .bm-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+    padding: 12px 16px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 32px;
+  }
+  .bm-meta-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .bm-meta-item strong { color: var(--text-dim); font-weight: 400; }
+  .bm-meta-dot { width: 3px; height: 3px; border-radius: 50%; background: var(--border); }
+
+  /* Inline disclaimer */
+  .bm-disclaimer-inline {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 10px 14px;
+    border-left: 2px solid var(--border);
+    margin-bottom: 32px;
+    opacity: 0.7;
+  }
+  .bm-disclaimer-inline a { color: var(--text-muted); text-decoration: underline; }
+
+  /* Definition box */
+  .bm-definition {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--green);
+    border-radius: 0 3px 3px 0;
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+  .bm-definition-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 10px;
+  }
+  .bm-definition dl { margin: 0; }
+  .bm-definition dt {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 4px;
+  }
+  .bm-definition dd {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-weight: 400;
+    margin: 0 0 12px 0;
+  }
+  .bm-definition dd:last-child { margin-bottom: 0; }
+
+  /* Key takeaways */
+  .bm-takeaways {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 20px 24px;
+    margin-bottom: 32px;
+  }
+  .bm-takeaways-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 14px;
+  }
+  .bm-takeaways ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .bm-takeaways li {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    font-weight: 400;
+    padding-left: 18px;
+    position: relative;
+  }
+  .bm-takeaways li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    font-size: 11px;
+    opacity: 0.7;
+    top: 2px;
+  }
+
+  /* Article prose sections */
+  .bm-section { margin-bottom: 36px; }
+  .bm-section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 14px;
+    line-height: 1.2;
+  }
+  .bm-section h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  .bm-section p {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.8;
+    font-weight: 400;
+    margin-bottom: 14px;
+  }
+  .bm-section p:last-child { margin-bottom: 0; }
+  .bm-section a { color: var(--green); text-decoration: underline; text-underline-offset: 2px; }
+  .bm-section ol, .bm-section ul {
+    margin: 12px 0 14px 20px;
+  }
+  .bm-section li {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-weight: 400;
+    margin-bottom: 6px;
+  }
+  .bm-section sup { font-size: 10px; color: var(--green); }
+  .bm-section sup a { text-decoration: none; color: var(--green); }
+
+  /* Ranges table */
+  .bm-ranges { margin-bottom: 36px; }
+  .bm-ranges-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 12px;
+  }
+  .bm-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  .bm-table thead th {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    font-weight: 400;
+    padding: 10px 14px;
+    text-align: left;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+  }
+  .bm-table tbody td {
+    padding: 12px 14px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    font-weight: 400;
+    line-height: 1.5;
+    vertical-align: top;
+  }
+  .bm-table tbody td:first-child { color: var(--text); font-weight: 500; }
+  .bm-table .td-optimal { color: var(--green); font-family: 'DM Mono', monospace; font-size: 13px; }
+  .bm-table .td-note { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  /* Inline tool CTA */
+  .bm-tool-cta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 20px 24px;
+    background: rgba(181,201,160,0.03);
+    border: 1px solid rgba(181,201,160,0.2);
+    border-radius: 3px;
+    margin: 32px 0;
+  }
+  .bm-tool-cta p {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    font-weight: 400;
+    margin: 0;
+  }
+  .bm-tool-cta p em { color: var(--green); font-style: normal; }
+  .bm-tool-cta a {
+    flex-shrink: 0;
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bg);
+    background: var(--green);
+    padding: 10px 20px;
+    border-radius: 2px;
+    text-decoration: none;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .bm-tool-cta a:hover { background: var(--green-bright); transform: translateY(-1px); }
+
+  /* Affiliate test cards */
+  .bm-tests { margin-bottom: 36px; }
+  .bm-tests-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 12px;
+  }
+  .bm-tests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; }
+  .bm-test-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 18px 20px;
+    text-decoration: none;
+    transition: border-color 0.15s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .bm-test-card:hover { border-color: rgba(181,201,160,0.3); transform: translateY(-1px); }
+  .bm-test-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--gold);
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.15);
+    padding: 2px 8px;
+    border-radius: 2px;
+    width: fit-content;
+  }
+  .bm-test-name { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+  .bm-test-note { font-size: 12px; color: var(--text-dim); line-height: 1.5; font-weight: 400; }
+  .bm-test-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; color: var(--green); text-transform: uppercase; margin-top: 2px; }
+  .bm-affiliate-disclosure {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.04em;
+    color: var(--text-muted);
+    margin-top: 10px;
+    opacity: 0.6;
+  }
+
+  /* FAQ */
+  .bm-faq { margin-bottom: 36px; }
+  .bm-faq-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 16px;
+  }
+  .bm-faq-item {
+    border-bottom: 1px solid var(--border);
+    padding: 18px 0;
+  }
+  .bm-faq-item:first-of-type { border-top: 1px solid var(--border); }
+  .bm-faq-item h3 {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+  .bm-faq-item p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  /* Sidebar */
+  .bm-sidebar-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .bm-sidebar-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 14px;
+  }
+  .bm-sidebar-score {
+    text-align: center;
+    padding: 16px 0;
+  }
+  .bm-sidebar-score-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .bm-range-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 12px;
+  }
+  .bm-range-item:last-child { border-bottom: none; }
+  .bm-range-key {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+  .bm-range-val {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--text);
+    text-align: right;
+  }
+  .bm-range-val.optimal { color: var(--green); }
+  .bm-related-links { display: flex; flex-direction: column; gap: 8px; }
+  .bm-related-link {
+    font-size: 13px;
+    color: var(--text-dim);
+    text-decoration: none;
+    padding: 8px 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    transition: all 0.15s;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .bm-related-link:hover { color: var(--green); border-color: rgba(181,201,160,0.25); }
+  .bm-related-link-arrow { color: var(--green); opacity: 0.5; font-size: 11px; }
+
+  /* Author block */
+  .bm-author {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    margin-bottom: 24px;
+  }
+  .bm-author-avatar {
+    width: 44px;
+    height: 44px;
+    border-radius: 2px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--green);
+    letter-spacing: -0.02em;
+  }
+  .bm-author-meta { flex: 1; }
+  .bm-author-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+  .bm-author-name { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+  .bm-author-title { font-size: 12px; color: var(--text-muted); }
+
+  /* Page-level animations */
+  .bm-main > * { animation: fadeUp 0.5s ease both; }
+  .bm-main > *:nth-child(2) { animation-delay: 0.05s; }
+  .bm-main > *:nth-child(3) { animation-delay: 0.1s; }
+  .bm-main > *:nth-child(4) { animation-delay: 0.15s; }
+  .bm-main > *:nth-child(5) { animation-delay: 0.2s; }
+
+  /* Responsive */
+  @media (max-width: 860px) {
+    .bm-wrap { grid-template-columns: 1fr; gap: 0; }
+    .bm-sidebar { display: none; }
+  }
+  @media (max-width: 600px) {
+    .bm-tests-grid { grid-template-columns: 1fr; }
+    .bm-tool-cta { flex-direction: column; align-items: flex-start; }
+    .bm-meta { gap: 12px; }
+  }
+</style>
+
+{# ── Page ─────────────────────────────────────────────────────────────────── #}
+
+<div class="bm-wrap">
+
+  {# ── Main column ──────────────────────────────────────────────────────── #}
+  <main class="bm-main">
+
+    {# Breadcrumb #}
+    <nav class="bm-breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="bm-breadcrumb-sep">›</span>
+      <a href="/biomarkers">Biomarkers</a>
+      <span class="bm-breadcrumb-sep">›</span>
+      <span class="bm-breadcrumb-current">{{ biomarker }}</span>
+    </nav>
+
+    {# Category + heading #}
+    <div class="bm-heading">
+      {% if category %}<span class="bm-category-pill">{{ category }}</span>{% endif %}
+      <h1 class="bm-title">{{ biomarker }}</h1>
+      {% if also_known_as %}<div class="bm-aka">Also known as: {{ also_known_as }}</div>{% endif %}
+    </div>
+
+    {# Meta bar — published / reviewed / author / reviewer #}
+    <div class="bm-meta" role="complementary" aria-label="Article metadata">
+      <div class="bm-meta-item">
+        Published <strong>{{ date_published }}</strong>
+      </div>
+      <span class="bm-meta-dot"></span>
+      <div class="bm-meta-item">
+        Reviewed <strong>{{ date_reviewed }}</strong>
+      </div>
+      <span class="bm-meta-dot"></span>
+      <div class="bm-meta-item">
+        By <strong>{{ author_name }}</strong>
+      </div>
+      {% if reviewer_name %}
+      <span class="bm-meta-dot"></span>
+      <div class="bm-meta-item">
+        Reviewed by <strong>{{ reviewer_name }}{% if reviewer_credentials %}, {{ reviewer_credentials }}{% endif %}</strong>
+      </div>
+      {% endif %}
+    </div>
+
+    {# Inline disclaimer #}
+    <p class="bm-disclaimer-inline">
+      For informational purposes only — not medical advice.
+      Always consult a qualified healthcare provider before making changes to your health regimen.
+      <a href="/disclaimer">Full disclaimer →</a>
+    </p>
+
+    {# Definition box #}
+    {% if definition %}
+    <aside class="bm-definition" aria-label="Definition">
+      <div class="bm-definition-label">What is {{ biomarker }}?</div>
+      <dl>
+        <dt>{{ biomarker }}{% if also_known_as %} ({{ also_known_as }}){% endif %}</dt>
+        <dd>{{ definition }}</dd>
+        {% if why_it_matters %}
+        <dt>Why it matters for longevity</dt>
+        <dd>{{ why_it_matters }}</dd>
+        {% endif %}
+      </dl>
+    </aside>
+    {% endif %}
+
+    {# Key Takeaways #}
+    {% if takeaways and takeaways.length %}
+    <div class="bm-takeaways">
+      <div class="bm-takeaways-label">Key Takeaways</div>
+      <ul>
+        {% for item in takeaways %}
+        <li>{{ item }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    {# ── Article prose — written per page ─────────────────────────────── #}
+    {{ content | safe }}
+
+    {# Ranges table #}
+    {% if standard_range or longevity_optimal %}
+    <div class="bm-ranges">
+      <div class="bm-ranges-label">{{ biomarker }} Reference Ranges</div>
+      <table class="bm-table" role="table" aria-label="{{ biomarker }} reference ranges">
+        <thead>
+          <tr>
+            <th scope="col">Range Type</th>
+            <th scope="col">Value{% if standard_unit %} ({{ standard_unit }}){% endif %}</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if standard_range %}
+          <tr>
+            <td>Standard Clinical Range</td>
+            <td>{{ standard_range }}</td>
+            <td>Designed to identify disease risk — not longevity optimisation.</td>
+          </tr>
+          {% endif %}
+          {% if longevity_optimal %}
+          <tr>
+            <td>Longevity-Optimal Target</td>
+            <td class="td-optimal">{{ longevity_optimal }}</td>
+            <td>
+              Associated with reduced all-cause mortality and extended healthspan.
+              {% if longevity_notes %}<div class="td-note">{{ longevity_notes }}</div>{% endif %}
+            </td>
+          </tr>
+          {% endif %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
+
+    {# Inline tool CTA #}
+    <div class="bm-tool-cta">
+      <p>Already have your results? See what your <em>{{ biomarker }}</em> and other markers reveal about your longevity in 60 seconds.</p>
+      <a href="/analyze">Analyze My Labs →</a>
+    </div>
+
+    {# Recommended tests — affiliate #}
+    {% if affiliate_tests and affiliate_tests.length %}
+    <div class="bm-tests">
+      <div class="bm-tests-label">Where to Test {{ biomarker }}</div>
+      <div class="bm-tests-grid">
+        {% for test in affiliate_tests %}
+        <a href="{{ test.url }}" target="_blank" rel="noopener sponsored" class="bm-test-card">
+          {% if test.badge %}<span class="bm-test-badge">{{ test.badge }}</span>{% endif %}
+          <div class="bm-test-name">{{ test.name }}</div>
+          <div class="bm-test-note">{{ test.note }}</div>
+          <div class="bm-test-link">Learn more →</div>
+        </a>
+        {% endfor %}
+      </div>
+      <p class="bm-affiliate-disclosure">Affiliate disclosure: we may earn a commission if you purchase through these links at no extra cost to you.</p>
+    </div>
+    {% endif %}
+
+    {# FAQ #}
+    {% if faqs and faqs.length %}
+    <div class="bm-faq">
+      <div class="bm-faq-label">Frequently Asked Questions</div>
+      {% for faq in faqs %}
+      <div class="bm-faq-item">
+        <h3>{{ faq.question }}</h3>
+        <p>{{ faq.answer }}</p>
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %}
+
+    {# Author block #}
+    <div class="bm-author">
+      <div class="bm-author-avatar" aria-hidden="true">
+        {{ author_name | truncate(2, true, '') | upper }}
+      </div>
+      <div class="bm-author-meta">
+        <div class="bm-author-role">Written by</div>
+        <div class="bm-author-name">{{ author_name }}</div>
+        <div class="bm-author-title">{{ author_title }} · <a href="/about" style="color:var(--text-muted);text-decoration:underline;font-size:11px;">About AgelessLabs</a></div>
+      </div>
+    </div>
+    {% if reviewer_name %}
+    <div class="bm-author">
+      <div class="bm-author-avatar" aria-hidden="true">
+        {{ reviewer_name | truncate(2, true, '') | upper }}
+      </div>
+      <div class="bm-author-meta">
+        <div class="bm-author-role">Medically reviewed by</div>
+        <div class="bm-author-name">{{ reviewer_name }}</div>
+        {% if reviewer_credentials %}<div class="bm-author-title">{{ reviewer_credentials }}</div>{% endif %}
+      </div>
+    </div>
+    {% endif %}
+
+  </main>
+
+  {# ── Sidebar ───────────────────────────────────────────────────────────── #}
+  <aside class="bm-sidebar" aria-label="Quick reference">
+
+    {# At-a-glance range card #}
+    <div class="bm-sidebar-card">
+      <div class="bm-sidebar-label">{{ biomarker }} at a Glance</div>
+      <div>
+        {% if standard_range %}
+        <div class="bm-range-item">
+          <span class="bm-range-key">Standard</span>
+          <span class="bm-range-val">{{ standard_range }}</span>
+        </div>
+        {% endif %}
+        {% if longevity_optimal %}
+        <div class="bm-range-item">
+          <span class="bm-range-key">Longevity target</span>
+          <span class="bm-range-val optimal">{{ longevity_optimal }}</span>
+        </div>
+        {% endif %}
+        {% if standard_unit %}
+        <div class="bm-range-item">
+          <span class="bm-range-key">Unit</span>
+          <span class="bm-range-val">{{ standard_unit }}</span>
+        </div>
+        {% endif %}
+        {% if category %}
+        <div class="bm-range-item">
+          <span class="bm-range-key">Category</span>
+          <span class="bm-range-val">{{ category }}</span>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {# Analyze CTA — sidebar #}
+    <div class="bm-sidebar-card" style="background:rgba(181,201,160,0.03);border-color:rgba(181,201,160,0.2);">
+      <div class="bm-sidebar-label">Have your labs?</div>
+      <p style="font-size:13px;color:var(--text-dim);line-height:1.6;margin-bottom:14px;">See how your {{ biomarker }} compares — get a full longevity analysis in 60 seconds.</p>
+      <a href="/analyze" class="btn-primary" style="font-size:11px;padding:10px 16px;display:block;text-align:center;">Analyze My Labs →</a>
+    </div>
+
+    {# Related biomarkers — populated per page via frontmatter #}
+    {% if related_biomarkers and related_biomarkers.length %}
+    <div class="bm-sidebar-card">
+      <div class="bm-sidebar-label">Related Biomarkers</div>
+      <div class="bm-related-links">
+        {% for rel in related_biomarkers %}
+        <a href="{{ rel.url }}" class="bm-related-link">
+          {{ rel.name }}
+          <span class="bm-related-link-arrow">→</span>
+        </a>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+
+  </aside>
+
+</div>
