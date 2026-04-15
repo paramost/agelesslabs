@@ -20,6 +20,12 @@ module.exports = function(eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy("src/og-image.png");
 
+  // Date filter — used by sitemap.njk
+  eleventyConfig.addFilter("htmlDateString", (dateObj) => {
+    if (!dateObj) return new Date().toISOString().split("T")[0];
+    return new Date(dateObj).toISOString().split("T")[0];
+  });
+
   return {
     dir: {
       input: "src",
