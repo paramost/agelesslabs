@@ -1,0 +1,334 @@
+---
+layout: base.njk
+title: "Longevity Blog — Guides, Protocols & Lab Test Reviews | agelesslabs.ai"
+description: "In-depth guides on longevity biomarkers, lab testing, optimization protocols, and the science of extending healthspan. New content publishing soon."
+permalink: /blog/index.html
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Blog",
+      "@id": "https://agelesslabs.ai/blog/",
+      "url": "https://agelesslabs.ai/blog/",
+      "name": "AgelessLabs — Longevity Blog",
+      "description": "In-depth guides on longevity biomarkers, lab testing, optimization protocols, and the science of extending healthspan.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "AgelessLabs",
+        "url": "https://agelesslabs.ai"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://agelesslabs.ai"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Blog",
+          "item": "https://agelesslabs.ai/blog/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  .blog-hero {
+    padding: 40px 0 48px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 48px;
+    animation: fadeUp 0.7s ease both;
+  }
+  .blog-hero h1 { margin-bottom: 16px; }
+  .blog-hero-sub {
+    font-size: 16px;
+    color: var(--text-dim);
+    line-height: 1.75;
+    font-weight: 400;
+    max-width: 540px;
+    margin-bottom: 0;
+  }
+
+  /* Coming soon banner */
+  .blog-coming-soon {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 20px;
+    background: rgba(200,169,110,0.04);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 3px;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.05s ease both;
+  }
+  .blog-cs-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--gold);
+    flex-shrink: 0;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 6px var(--gold);
+  }
+  .blog-cs-text {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.8;
+  }
+
+  /* Category grid */
+  .blog-categories { margin-bottom: 56px; }
+  .blog-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+    margin-bottom: 20px;
+  }
+  .blog-cat-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+  .blog-cat-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .blog-cat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.7;
+  }
+  .blog-cat-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+  }
+  .blog-cat-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    line-height: 1.6;
+    font-weight: 400;
+    flex: 1;
+  }
+  .blog-cat-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    margin-top: 4px;
+  }
+
+  /* Priority posts */
+  .blog-priority { margin-bottom: 56px; animation: fadeUp 0.5s 0.15s ease both; }
+  .blog-post-list { display: flex; flex-direction: column; gap: 3px; }
+  .blog-post-item {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 20px;
+    padding: 18px 20px;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+  }
+  .blog-post-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--green);
+    opacity: 0.4;
+    width: 20px;
+    flex-shrink: 0;
+  }
+  .blog-post-title {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.01em;
+  }
+  .blog-post-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 3px 9px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Tool CTA */
+  .blog-cta {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 24px;
+    padding: 28px 32px;
+    background: rgba(181,201,160,0.03);
+    border: 1px solid rgba(181,201,160,0.2);
+    border-radius: 3px;
+    margin-bottom: 56px;
+    animation: fadeUp 0.5s 0.2s ease both;
+  }
+  .blog-cta h3 {
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 6px;
+  }
+  .blog-cta p {
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    font-weight: 400;
+    margin: 0;
+  }
+
+  @media (max-width: 860px) {
+    .blog-cat-grid { grid-template-columns: 1fr 1fr; }
+    .blog-cta { grid-template-columns: 1fr; }
+  }
+  @media (max-width: 600px) {
+    .blog-cat-grid { grid-template-columns: 1fr; }
+    .blog-post-item { grid-template-columns: auto 1fr; }
+    .blog-post-cat { display: none; }
+  }
+</style>
+
+{# ── Hero ─────────────────────────────────────────────────────────────────── #}
+
+<section class="blog-hero">
+  <div class="page-eyebrow">Blog</div>
+  <h1>The science of living<br><em>longer</em>, explained.</h1>
+  <p class="blog-hero-sub">Deep guides on longevity biomarkers, lab test comparisons, optimization protocols, and the research behind extending healthspan. No wellness fluff — just the science that moves the needle.</p>
+</section>
+
+{# ── Coming soon ──────────────────────────────────────────────────────────── #}
+
+<div class="blog-coming-soon">
+  <div class="blog-cs-dot"></div>
+  <span class="blog-cs-text">First articles publishing soon — biomarker guides, lab test comparisons, and optimization protocols</span>
+</div>
+
+{# ── Content categories ───────────────────────────────────────────────────── #}
+
+<div class="blog-categories">
+  <div class="blog-section-label">What we cover</div>
+  <div class="blog-cat-grid">
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 01</div>
+      <div class="blog-cat-name">Lab Test Guides</div>
+      <div class="blog-cat-desc">How to read your results, what standard ranges miss, and how to get the tests that actually matter for longevity without a doctor's order.</div>
+      <div class="blog-cat-count">Coming first</div>
+    </div>
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 02</div>
+      <div class="blog-cat-name">Lab Test Reviews</div>
+      <div class="blog-cat-desc">Side-by-side comparisons of InsideTracker, Function Health, Ulta Lab Tests, SiPhox, and others — so you know exactly what you're buying.</div>
+      <div class="blog-cat-count">Coming soon</div>
+    </div>
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 03</div>
+      <div class="blog-cat-name">Optimization Protocols</div>
+      <div class="blog-cat-desc">Evidence-based interventions for metabolic health, cardiovascular risk, hormonal optimization, inflammation, and nutrient sufficiency.</div>
+      <div class="blog-cat-count">Coming soon</div>
+    </div>
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 04</div>
+      <div class="blog-cat-name">Longevity Science</div>
+      <div class="blog-cat-desc">Plain-English breakdowns of the research — what the landmark studies actually show about extending healthspan and reducing all-cause mortality.</div>
+      <div class="blog-cat-count">Coming soon</div>
+    </div>
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 05</div>
+      <div class="blog-cat-name">By the Numbers</div>
+      <div class="blog-cat-desc">Age and demographic-specific testing guides — what to test in your 30s, 40s, 50s, and 60s, and which markers matter most at each stage.</div>
+      <div class="blog-cat-count">Coming soon</div>
+    </div>
+
+    <div class="blog-cat-card">
+      <div class="blog-cat-label">Category 06</div>
+      <div class="blog-cat-name">Expert Stacks</div>
+      <div class="blog-cat-desc">The biomarker panels and testing protocols used by Peter Attia, Andrew Huberman, Bryan Johnson, David Sinclair, and Rhonda Patrick.</div>
+      <div class="blog-cat-count">Coming soon</div>
+    </div>
+
+  </div>
+</div>
+
+{# ── Priority posts ────────────────────────────────────────────────────────── #}
+
+<div class="blog-priority">
+  <div class="blog-section-label">Coming first</div>
+  <div class="blog-post-list">
+    <div class="blog-post-item">
+      <span class="blog-post-num">01</span>
+      <span class="blog-post-title">How to Read a Blood Test: The Complete Longevity Guide</span>
+      <span class="blog-post-cat">Lab Test Guide</span>
+    </div>
+    <div class="blog-post-item">
+      <span class="blog-post-num">02</span>
+      <span class="blog-post-title">InsideTracker vs Function Health vs Ulta Lab Tests: Which Is Right for You?</span>
+      <span class="blog-post-cat">Lab Test Review</span>
+    </div>
+    <div class="blog-post-item">
+      <span class="blog-post-num">03</span>
+      <span class="blog-post-title">What "Normal" Means on a Blood Test — and Why It's Not Enough</span>
+      <span class="blog-post-cat">Lab Test Guide</span>
+    </div>
+    <div class="blog-post-item">
+      <span class="blog-post-num">04</span>
+      <span class="blog-post-title">How to Read a Lipid Panel: LDL, HDL, ApoB, and What Actually Matters</span>
+      <span class="blog-post-cat">Lab Test Guide</span>
+    </div>
+    <div class="blog-post-item">
+      <span class="blog-post-num">05</span>
+      <span class="blog-post-title">The Best Blood Tests for Longevity in 2026</span>
+      <span class="blog-post-cat">Lab Test Review</span>
+    </div>
+  </div>
+</div>
+
+{# ── Tool CTA ─────────────────────────────────────────────────────────────── #}
+
+<div class="blog-cta">
+  <div>
+    <h3>Don't wait for the guides — analyze your labs now.</h3>
+    <p>Upload or paste your current results and get an AI-powered longevity analysis in 60 seconds. Free, no account required.</p>
+  </div>
+  <a href="/analyze" class="btn-primary">Analyze My Labs →</a>
+</div>
