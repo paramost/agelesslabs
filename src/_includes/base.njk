@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{{ title }}</title>
 <meta name="description" content="{{ description }}">
+{% if noindex %}
+<meta name="robots" content="noindex, follow">
+{% else %}
+<meta name="robots" content="index, follow">
+{% endif %}
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 <!-- Google tag (gtag.js) -->
@@ -34,7 +39,6 @@
     <div class="nav-right">
       <a href="/#how-it-works" class="nav-link">How it works</a>
       <a href="/#lab-tests" class="nav-link">Lab Tests</a>
-      <a href="/biomarkers" class="nav-link">Biomarkers</a>
       {% if analyzePage %}
         <span class="badge">Beta — Free Interpreter</span>
       {% else %}
@@ -51,11 +55,9 @@
     </a>
     <div class="footer-links">
       <a href="/analyze">Analyze</a>
-      <a href="/biomarkers">Biomarkers</a>
       <a href="/about">About</a>
       <a href="/privacy">Privacy</a>
       <a href="/disclaimer">Disclaimer</a>
-      <a href="mailto:hello@agelesslabs.ai">Contact</a>
     </div>
     <div class="footer-disclaimer">For informational purposes only. Not medical advice. Always consult a qualified healthcare provider.</div>
   </footer>
