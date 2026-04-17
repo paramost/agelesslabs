@@ -10,17 +10,79 @@
 {% else %}
 <meta name="robots" content="index, follow">
 {% endif %}
+
+<!-- Canonical -->
+<link rel="canonical" href="https://agelesslabs.ai{{ page.url }}">
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AgelessLabs">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="https://agelesslabs.ai{{ page.url }}">
+<meta property="og:image" content="https://agelesslabs.ai/og-image.png">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@agelesslabsai">
+<meta name="twitter:title" content="{{ title }}">
+<meta name="twitter:description" content="{{ description }}">
+<meta name="twitter:image" content="https://agelesslabs.ai/og-image.png">
+
+<!-- Organization + WebSite schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://agelesslabs.ai/#organization",
+      "name": "AgelessLabs",
+      "url": "https://agelesslabs.ai",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://agelesslabs.ai/og-image.png"
+      },
+      "sameAs": [
+        "https://twitter.com/agelesslabsai",
+        "https://www.instagram.com/agelesslabsai"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://agelesslabs.ai/#website",
+      "url": "https://agelesslabs.ai",
+      "name": "AgelessLabs",
+      "description": "AI-powered longevity biomarker interpreter. Understand what your labs reveal about how long you'll live.",
+      "publisher": {
+        "@id": "https://agelesslabs.ai/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://agelesslabs.ai/biomarkers/?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-28CHRFJLKJ"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-28CHRFJLKJ');
 </script>
+
+<!-- Microsoft Clarity -->
 <script type="text/javascript">
     (function(c,l,a,r,i,t,y){
         c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -39,6 +101,7 @@
     <div class="nav-right">
       <a href="/#how-it-works" class="nav-link">How it works</a>
       <a href="/#lab-tests" class="nav-link">Lab Tests</a>
+      <a href="/biomarkers" class="nav-link">Biomarkers</a>
       {% if analyzePage %}
         <span class="badge">Beta — Free Interpreter</span>
       {% else %}
@@ -55,9 +118,11 @@
     </a>
     <div class="footer-links">
       <a href="/analyze">Analyze</a>
+      <a href="/biomarkers">Biomarkers</a>
       <a href="/about">About</a>
       <a href="/privacy">Privacy</a>
       <a href="/disclaimer">Disclaimer</a>
+      <a href="mailto:hello@agelesslabs.ai">Contact</a>
     </div>
     <div class="footer-disclaimer">For informational purposes only. Not medical advice. Always consult a qualified healthcare provider.</div>
   </footer>
