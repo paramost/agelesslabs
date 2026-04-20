@@ -2,15 +2,12 @@
 
 > AI-powered longevity biomarker analysis. Understand what your lab results reveal about how long you'll live.
 
-AgelessLabs.ai is a longevity-focused platform that interprets blood test results through a longevity lens. The site combines a free AI biomarker analysis tool with a growing library of evidence-based reference content on longevity biomarkers, lab testing, and healthspan optimization.
+AgelessLabs.ai is a longevity-focused platform that interprets blood test results through a longevity lens. The site combines a free AI biomarker analysis tool with a library of evidence-based reference content on longevity biomarkers and healthspan optimization.
 
 ## What this site covers
 
 - **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
-- **Biomarker Reference Library** — /biomarkers/ — one page per biomarker covering definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
-- **Lab Test Guides** — comparisons and buyer's guides for lab testing services including InsideTracker, Function Health, Ulta Lab Tests, SiPhox Health, Marek Health, and Mito Health.
-- **Protocol Guides** — optimization guides for metabolic health, cardiovascular health, hormonal health, inflammation, and nutrient status.
-- **Longevity Explainers** — guides on reading lab results, understanding reference ranges, and interpreting common panels.
+- **Biomarker Reference Library** — /biomarkers/ — 18 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, and Lipoprotein(a). Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
 
 ## Audience
 
@@ -24,9 +21,30 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - About: https://agelesslabs.ai/about
 - Sitemap: https://agelesslabs.ai/sitemap.xml
 
+## Biomarker pages
+
+- ApoB: https://agelesslabs.ai/biomarkers/apob/
+- HbA1c: https://agelesslabs.ai/biomarkers/hba1c/
+- hsCRP: https://agelesslabs.ai/biomarkers/hscrp/
+- Vitamin D: https://agelesslabs.ai/biomarkers/vitamin-d/
+- Testosterone: https://agelesslabs.ai/biomarkers/testosterone/
+- Homocysteine: https://agelesslabs.ai/biomarkers/homocysteine/
+- Ferritin: https://agelesslabs.ai/biomarkers/ferritin/
+- TSH: https://agelesslabs.ai/biomarkers/tsh/
+- IGF-1: https://agelesslabs.ai/biomarkers/igf-1/
+- Fasting Insulin: https://agelesslabs.ai/biomarkers/fasting-insulin/
+- Triglycerides: https://agelesslabs.ai/biomarkers/triglycerides/
+- Omega-3 Index: https://agelesslabs.ai/biomarkers/omega-3-index/
+- LDL & HDL Cholesterol: https://agelesslabs.ai/biomarkers/ldl-hdl/
+- Cortisol: https://agelesslabs.ai/biomarkers/cortisol/
+- Uric Acid: https://agelesslabs.ai/biomarkers/uric-acid/
+- Creatinine & eGFR: https://agelesslabs.ai/biomarkers/creatinine-egfr/
+- Albumin: https://agelesslabs.ai/biomarkers/albumin/
+- Lipoprotein(a): https://agelesslabs.ai/biomarkers/lipoprotein-a/
+
 ## Content standards
 
-All biomarker content includes longevity-optimized reference ranges, citations to primary research (PubMed, clinical guidelines), and a named medical reviewer. Content is written for informational purposes only and is not medical advice.
+All biomarker content includes longevity-optimized reference ranges and citations to primary research (PubMed, clinical guidelines). Content is written by Dan Carey, Founder of AgelessLabs. For informational purposes only — not medical advice.
 
 ## Contact
 
