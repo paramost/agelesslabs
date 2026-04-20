@@ -5,22 +5,54 @@ User-agent: *
 Allow: /
 
 # AI agent crawlers — explicitly permitted
+
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# Anthropic
 User-agent: ClaudeBot
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: GoogleExtended
 Allow: /
 
 User-agent: anthropic-ai
 Allow: /
 
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Google
+User-agent: GoogleExtended
+Allow: /
+
+# Meta AI
+User-agent: meta-externalagent
+Allow: /
+
+# Apple
+User-agent: Applebot-Extended
+Allow: /
+
+# Cohere
 User-agent: cohere-ai
+Allow: /
+
+# Mistral
+User-agent: MistralBot
+Allow: /
+
+# Common Crawl (used by AI training datasets)
+User-agent: CCBot
+Allow: /
+
+# Bytespider (ByteDance)
+User-agent: Bytespider
 Allow: /
 
 Sitemap: https://agelesslabs.ai/sitemap.xml
