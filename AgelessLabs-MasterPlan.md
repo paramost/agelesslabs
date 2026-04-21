@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 21, 2026 · 4:30 PM CST
+> Last updated: April 21, 2026 · 6:00 PM CST
 
 ---
 
@@ -374,6 +374,48 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 2. Say: "Where are we?" — Claude will read the project files and resume from current status above.
 
 **Keep this file current.** When something gets built or decided, update the status table and next steps here. This is the source of truth across all chats.
+
+---
+
+## Working Session Rules
+
+These rules exist to prevent mid-task failures, wasted tool calls, and broken intermediate states. Claude must follow them in every session.
+
+### Rule 1 — Plan before touching files
+
+Before starting any task that involves more than one file, Claude must:
+1. State the full plan: every file to be touched, what changes will be made, in what order
+2. Get explicit approval from Dan before proceeding
+3. Execute one file at a time, confirming completion before moving to the next
+
+**No exceptions.** Starting a multi-file task without approval is prohibited.
+
+### Rule 2 — Batch multi-file tasks at 6 files maximum per session
+
+Any task spanning more than 6 files must be split across sessions. Claude proposes the batches upfront, completes the first batch, confirms success, then stops. Dan opens a new session for the next batch.
+
+Rationale: context limits cause silent mid-task failures on large batches. Smaller confirmed batches are faster in practice than one large failed attempt.
+
+### Rule 3 — File delivery method by task type
+
+| Task type | Method | Reason |
+|---|---|---|
+| Small targeted edit (<20 lines, 1–2 files) | GitHub direct edit via browser automation | Fastest, no intermediary |
+| New file or heavily rewritten file | Downloadable artifact in chat | Skips Drive, no truncation risk |
+| Master plan updates | Downloadable artifact, Dan uploads to Drive manually | Drive MCP truncates large files |
+| Never | Drive MCP for .njk or .js files | Silent truncation above ~3KB |
+
+### Rule 4 — Flag resource-intensive paths before starting
+
+If a task will require more than 8 tool calls (fetches, edits, uploads), Claude must stop and say so before beginning. State: what the task requires, how many tool calls are estimated, and propose a batching plan. Get approval before proceeding.
+
+### Rule 5 — Confirm completed work before updating the master plan
+
+The master plan is updated last — after files are produced and confirmed correct, not speculatively. Status entries are not marked Complete until the file is verified.
+
+### Rule 6 — When in doubt, ask
+
+If a task scope is ambiguous, Claude asks one clarifying question before starting. A 10-second clarification is cheaper than a half-completed task.
 
 ---
 
