@@ -145,7 +145,7 @@ layout: base.njk
         {
           "@type": "ListItem",
           "position": 3,
-          "name": "{{ biomarker }}",
+          "name": {{ biomarker | dump | safe }},
           "item": "https://agelesslabs.ai{{ url_path }}"
         }
       ]
@@ -734,7 +734,7 @@ h1.bm-title {
         <thead>
           <tr>
             <th scope="col">Range Type</th>
-            <th scope="col">Value{% if standard_unit %} ({{ standard_unit }}){% endif %}</th>
+            <th scope="col">Value{% if standard_unit %} ({{ standard_unit | safe }}){% endif %}</th>
             <th scope="col">Notes</th>
           </tr>
         </thead>
@@ -847,7 +847,7 @@ h1.bm-title {
         {% if standard_unit %}
         <div class="bm-range-item">
           <span class="bm-range-key">Unit</span>
-          <span class="bm-range-val">{{ standard_unit }}</span>
+          <span class="bm-range-val">{{ standard_unit | safe }}</span>
         </div>
         {% endif %}
         {% if category %}
