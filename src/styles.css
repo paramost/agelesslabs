@@ -24,6 +24,7 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: 'Red Hat Display', sans-serif;
+  font-size: 16px;
   font-weight: 400;
   min-height: 100vh;
 }
@@ -150,7 +151,7 @@ h2 em { font-style: normal; font-weight: 300; color: var(--green); }
 /* ─── Sections ────────────────────────────────────────────────── */
 .section { padding: 48px 0; border-top: 1px solid var(--border); }
 .section-eyebrow { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.25em; color: var(--green); text-transform: uppercase; margin-bottom: 16px; opacity: 0.7; }
-.section-sub { font-size: 15px; color: var(--text-dim); font-weight: 400; line-height: 1.7; max-width: 520px; margin-bottom: 48px; }
+.section-sub { font-size: 16px; color: var(--text-dim); font-weight: 400; line-height: 1.7; max-width: 520px; margin-bottom: 48px; }
 
 /* ─── Footer ──────────────────────────────────────────────────── */
 footer {
@@ -187,16 +188,16 @@ footer {
 /* ─── Shared content area ─────────────────────────────────────── */
 .content { max-width: 640px; padding-bottom: 96px; }
 .highlight { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px; margin-bottom: 40px; }
-.highlight p { font-size: 15px; color: var(--text); font-weight: 400; line-height: 1.7; margin: 0; }
+.highlight p { font-size: 16px; color: var(--text); font-weight: 400; line-height: 1.7; margin: 0; }
 
 /* ─── Policy pages ────────────────────────────────────────────── */
 .policy-section { margin-bottom: 40px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
 .policy-section:last-child { border-bottom: none; }
 .policy-section h2 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 16px; }
-.policy-section p { font-size: 14px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 12px; }
+.policy-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 12px; }
 .policy-section p:last-child { margin-bottom: 0; }
 .policy-section ul { margin: 12px 0 12px 20px; }
-.policy-section ul li { font-size: 14px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 6px; }
+.policy-section ul li { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 6px; }
 
 /* ─── About page ──────────────────────────────────────────────── */
 .lead {
@@ -215,7 +216,7 @@ footer {
 .content-block:nth-child(3) { animation-delay: 0.2s; }
 .content-block:nth-child(4) { animation-delay: 0.3s; }
 .content-block h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 16px; }
-.content-block p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-block p { font-size: 16px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
 .content-block p:last-child { margin-bottom: 0; }
 .content-block a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.15s; }
 .content-block a:hover { border-bottom-color: var(--green); }
@@ -223,7 +224,7 @@ footer {
 .values { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-top: 24px; }
 .value-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 24px; }
 .value-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--green); text-transform: uppercase; margin-bottom: 10px; opacity: 0.7; }
-.value-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+.value-text { font-size: 15px; color: var(--text); line-height: 1.65; font-weight: 400; }
 
 /* ─── Homepage: Hero ──────────────────────────────────────────── */
 .hero { padding: 28px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
@@ -240,7 +241,7 @@ footer {
   gap: 10px;
 }
 .hero-eyebrow::before { content: ''; width: 24px; height: 1px; background: var(--green); opacity: 0.5; }
-.hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin-bottom: 36px; max-width: 440px; }
+.hero-sub { font-size: 17px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin-bottom: 36px; max-width: 440px; }
 .hero-actions { display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
 .hero-left  { animation: fadeUp 0.7s ease both; }
 .hero-visual { animation: fadeUp 0.7s 0.15s ease both; }
@@ -267,8 +268,8 @@ footer {
 /* ─── Homepage: Steps ─────────────────────────────────────────── */
 .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 3px; }
 .step { background: var(--bg2); padding: 32px 28px; border: 1px solid var(--border); border-radius: 3px; }
-.step-title { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 10px; letter-spacing: -0.01em; }
-.step-desc { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+.step-title { font-size: 17px; font-weight: 600; color: var(--white); margin-bottom: 10px; letter-spacing: -0.01em; }
+.step-desc { font-size: 15px; color: var(--text-dim); line-height: 1.65; font-weight: 400; }
 .step:nth-child(1) { animation: fadeUp 0.5s 0.1s ease both; }
 .step:nth-child(2) { animation: fadeUp 0.5s 0.2s ease both; }
 .step:nth-child(3) { animation: fadeUp 0.5s 0.3s ease both; }
@@ -278,8 +279,8 @@ footer {
 .product-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 28px; display: flex; flex-direction: column; gap: 14px; transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s; text-decoration: none; }
 .product-card:hover { border-color: rgba(181,201,160,0.3); transform: translateY(-2px); box-shadow: var(--shadow); }
 .product-badge { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); padding: 3px 8px; border-radius: 2px; width: fit-content; }
-.product-name { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
-.product-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; font-weight: 400; flex: 1; }
+.product-name { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+.product-desc { font-size: 15px; color: var(--text); line-height: 1.65; font-weight: 400; flex: 1; }
 .product-link { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--green); text-transform: uppercase; margin-top: 4px; }
 
 /* ─── Animations ──────────────────────────────────────────────── */
@@ -297,6 +298,7 @@ footer {
   .score-bar-row { grid-template-columns: 70px 1fr auto; gap: 8px; }
 }
 @media (max-width: 600px) {
+  .container { padding: 0 20px; }
   .values { grid-template-columns: 1fr; }
   .products-grid { grid-template-columns: 1fr; }
   .score-bar-row { grid-template-columns: 60px 1fr auto; gap: 6px; }
