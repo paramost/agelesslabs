@@ -558,7 +558,6 @@ async function processFile(file) {
       }
       if (text.trim().length > 20) {
         document.getElementById('labInput').value = text.trim();
-        switchTab('paste');
         status.textContent = `✓ PDF extracted — ${pdf.numPages} page${pdf.numPages > 1 ? 's' : ''} · ready to analyze`;
         status.classList.add('active');
       } else {
