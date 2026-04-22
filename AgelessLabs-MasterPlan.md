@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 21, 2026 · 6:00 PM CST
+> Last updated: April 21, 2026 · 9:00 PM CST
 
 ---
 
@@ -76,6 +76,8 @@ The centerpiece of AgelessLabs.ai. A free tool that analyzes lab results through
 
 ```
 agelesslabs/
+├── api/
+│   └── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
 ├── .eleventy.js              # 11ty config — filters, collections, passthrough, dirs
 ├── package.json              # npm scripts: build, start, dev
 ├── vercel.json               # buildCommand, outputDirectory: _site
@@ -188,7 +190,7 @@ For small targeted edits, Claude can edit directly in the GitHub web editor via 
 | Domain — AgelessLabs.com | Acquire when expires October 2026 |
 | Social handles — Twitter/X + Instagram | Secured |
 | Trademark check at USPTO.gov | Not done |
-| Google Search Console | Not verified — next admin task |
+| Google Search Console | Verified + sitemap submitted — April 21 2026 |
 | GitHub repo | Set up (public) |
 | Vercel hosting | Live |
 | 11ty migration | Complete |
@@ -232,10 +234,12 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 ### Tool
 | Item | Status |
 |---|---|
-| AI tool — free tier | Complete |
+| AI tool — free tier | Complete — all 3 upload types tested April 21 2026 |
 | Model string | claude-sonnet-4-6 |
-| PDF upload + extraction | Complete |
+| PDF upload + extraction | Complete — extracts text silently, no tab switch |
 | Image upload | Complete |
+| Serverless proxy (api/analyze.js) | Complete — April 21 2026 |
+| Anthropic API key + credits | Complete — $20 loaded April 21 2026 |
 | Paid tier ($19 report) | Not started |
 | Stripe integration | Not started |
 | Email capture | Not started |
@@ -270,8 +274,8 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | OG image — 1200x630 (og-image.png) | Complete |
 | Sitemap — generated at /sitemap.xml (23 URLs) | Complete |
 | Full SEO/LLM front-end audit — all 25 pages clean | Complete — April 21 2026 |
-| Google Search Console — domain verified | Not done — next admin task |
-| Sitemap submitted to GSC | Pending GSC verification |
+| Google Search Console — domain verified | Complete — April 21 2026 |
+| Sitemap submitted to GSC | Complete — April 21 2026 |
 
 ### Analytics & Tracking
 | Item | Status |
@@ -289,17 +293,17 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 ### Phase 4 — Public Launch — Complete
 ### Phase 4.5 — SEO/LLM Hardening — Complete (April 21 2026)
 
-Full audit completed. All 18 biomarker pages and 7 supporting pages pass clean: no visible entities, no broken URLs, valid JSON-LD schema on all pages, all `index, follow`.
+Full audit completed. All 18 biomarker pages and 7 supporting pages pass clean: no visible entities, no broken URLs, valid JSON-LD schema on all pages, all `index, follow`. Google Search Console verified and sitemap submitted April 21 2026.
 
-**Remaining admin task (you, not Claude):**
+### Phase 4.6 — AI Tool QA — Complete (April 21 2026)
 
-1. **Google Search Console** — verify domain via DNS TXT record at your registrar, then submit `https://agelesslabs.ai/sitemap.xml` in GSC > Sitemaps
+Root cause of "Something went wrong" error identified: direct browser-to-API calls blocked by CORS. Fixed by adding Vercel serverless proxy (`api/analyze.js`). Anthropic API key created and $20 credits loaded. `max_tokens` bumped 1000 → 2000 to prevent JSON truncation on large panels. PDF tab-switch jarring UX removed — PDF text now extracted silently. All three upload paths tested and confirmed working: ✅ Paste text · ✅ Image (JPG/PNG) · ✅ PDF
 
 ### Phase 5 — Monetization — YOU ARE HERE
 
-2. **Drive early traffic** — post AI tool to r/longevity, r/PeterAttia, r/biohacking; Twitter/X longevity community; share a real biomarker interpretation as a demo post
-3. **Email capture** — free "Longevity Lab Guide" lead magnet
-4. **Paid tier ($19 report)** — Stripe integration
+1. **Drive early traffic** — post AI tool to r/longevity, r/PeterAttia, r/biohacking; Twitter/X longevity community; share a real biomarker interpretation as a demo post
+2. **Email capture** — free "Longevity Lab Guide" lead magnet
+3. **Paid tier ($19 report)** — Stripe integration
 
 ### Phase 6 — Medical Review (deferred — resume when site is generating revenue)
 
@@ -343,7 +347,10 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **YAML source files should use plain Unicode characters, not HTML entities** — `—` not `&#8212;`, `–` not `&#8211;`, `·` not `&#183;`, `À` not `&#192;`. HTML entities belong in HTML body sections, not YAML frontmatter strings.
 - **base.njk must use `---\n---` (two delimiter lines) for its frontmatter** — a single opening `---` with no closing delimiter causes gray-matter to treat the entire HTML file as YAML. It parses silently until hitting JSON-LD (`"@context": "https://schema.org"`), which is valid YAML syntax and triggers a fatal parse error at build time. Layout files with no frontmatter variables must still use a closing `---`.
 - **`<title>{{ title | safe }}</title>` in base.njk** — the title tag requires `| safe` to prevent double-escaping of HTML entities in page titles. OG/Twitter meta `content=""` attributes do NOT need `| safe` (HTML attribute context handles entities correctly).
-- **Medical review is a Year 1 scale play, not a launch requirement** — index pages and drive traffic first; recruit reviewer once site is generating consistent revenue.
+- **The Claude API cannot be called directly from browser JS** — `api.anthropic.com` blocks cross-origin requests. Always route API calls through a Vercel serverless function (`api/analyze.js`) which adds the `x-api-key` header server-side. The `ANTHROPIC_API_KEY` env variable must be set in Vercel dashboard and requires a redeploy to take effect.
+- **Anthropic API billing is separate from Claude.ai subscriptions** — a Claude.ai Pro/Max plan does not grant API credits. Credits must be purchased separately at `platform.claude.com/settings/billing`. New API keys created before credits are purchased may need to be regenerated after funding.
+- **`max_tokens: 1000` is too low for a full longevity panel** — 13+ biomarkers with descriptions generates ~3,500 tokens, truncating the JSON mid-response. Use `max_tokens: 2000` minimum for the analyzer.
+- **PDF upload should not force a tab switch** — extracting PDF text into the textarea and calling `switchTab('paste')` is jarring UX. Instead, populate `labInput` silently and keep the user on the Upload tab. The analysis function reads `labInput` regardless of active tab.
 
 ---
 
