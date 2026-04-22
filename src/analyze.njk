@@ -692,7 +692,7 @@ Recommendations should be specific and actionable, max 4 items. Prioritize the h
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         model: "claude-sonnet-4-6",
-        max_tokens: 1000,
+        max_tokens: 2000,
         system: systemPrompt,
         messages: [{ role: "user", content: messageContent }]
       })
