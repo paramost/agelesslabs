@@ -1,0 +1,507 @@
+---
+layout: base.njk
+title: Community Digest — AgelessLabs
+noindex: true
+permalink: /digest/
+---
+
+<style>
+  .digest-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+
+  /* ── Gate ── */
+  .digest-gate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 80px 24px;
+    text-align: center;
+  }
+  .digest-gate h1 {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 1.6rem;
+    color: var(--text-bright);
+    margin: 0;
+  }
+  .digest-gate p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin: 0;
+  }
+  .gate-row {
+    display: flex;
+    gap: 10px;
+    width: 100%;
+    max-width: 380px;
+  }
+  .gate-row input {
+    flex: 1;
+    padding: 10px 14px;
+    background: var(--surface-2, #1e201c);
+    border: 1px solid var(--border, #2e3028);
+    border-radius: 8px;
+    color: var(--text-bright);
+    font-size: 0.95rem;
+    outline: none;
+  }
+  .gate-row input:focus { border-color: var(--green); }
+  .gate-row button {
+    padding: 10px 20px;
+    background: var(--green);
+    color: #111210;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.95rem;
+    white-space: nowrap;
+  }
+  .gate-row button:hover { opacity: 0.88; }
+  .gate-error {
+    color: #e07070;
+    font-size: 0.85rem;
+  }
+
+  /* ── Header ── */
+  .digest-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 32px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .digest-header h1 {
+    font-family: 'Red Hat Display', sans-serif;
+    font-size: 1.5rem;
+    color: var(--text-bright);
+    margin: 0;
+  }
+  .digest-meta {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── Loading ── */
+  .digest-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    padding: 80px 24px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+  .spinner {
+    width: 28px;
+    height: 28px;
+    border: 3px solid var(--border, #2e3028);
+    border-top-color: var(--green);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Controls ── */
+  .digest-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .ctrl-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    cursor: pointer;
+    border: 1px solid var(--border, #2e3028);
+    background: transparent;
+    color: var(--text-dim, #a0a89a);
+    font-family: 'DM Mono', monospace;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .ctrl-btn:hover, .ctrl-btn.active {
+    border-color: var(--green);
+    color: var(--green);
+  }
+  .refresh-btn {
+    margin-left: auto;
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: var(--green);
+    color: #111210;
+    font-weight: 600;
+    font-size: 0.82rem;
+    border: none;
+    cursor: pointer;
+  }
+  .refresh-btn:hover { opacity: 0.85; }
+
+  /* ── Post card ── */
+  .post-card {
+    background: var(--surface-1, #171916);
+    border: 1px solid var(--border, #2e3028);
+    border-radius: 12px;
+    padding: 22px 24px;
+    margin-bottom: 18px;
+    transition: border-color 0.15s;
+  }
+  .post-card:hover { border-color: #3d4237; }
+
+  .post-top {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 10px;
+  }
+  .source-badge {
+    flex-shrink: 0;
+    padding: 3px 9px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-family: 'DM Mono', monospace;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    background: #1e2a1a;
+    color: var(--green);
+    border: 1px solid #2d3d28;
+    white-space: nowrap;
+    margin-top: 2px;
+  }
+  .source-badge.rap { background: #1a1e2a; color: #7090d0; border-color: #283040; }
+
+  .post-title {
+    font-size: 1.0rem;
+    font-weight: 600;
+    color: var(--text-bright);
+    line-height: 1.4;
+    flex: 1;
+  }
+  .post-title a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .post-title a:hover { color: var(--green); }
+
+  .post-stats {
+    display: flex;
+    gap: 14px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+    margin-bottom: 10px;
+    align-items: center;
+  }
+  .score-pill {
+    margin-left: auto;
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 0.72rem;
+    background: #1e2a1a;
+    color: var(--green);
+    border: 1px solid #2d3d28;
+  }
+
+  .post-excerpt {
+    font-size: 0.88rem;
+    color: var(--text-dim, #a0a89a);
+    line-height: 1.55;
+    margin-bottom: 16px;
+    max-height: 3.2em;
+    overflow: hidden;
+    position: relative;
+  }
+  .post-excerpt.expanded { max-height: none; }
+  .expand-link {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    text-decoration: underline;
+    display: inline-block;
+    margin-bottom: 12px;
+  }
+
+  /* ── Draft ── */
+  .draft-section {
+    border-top: 1px solid var(--border, #2e3028);
+    padding-top: 16px;
+  }
+  .draft-label {
+    font-size: 0.75rem;
+    font-family: 'DM Mono', monospace;
+    color: var(--text-muted);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .draft-text {
+    font-size: 0.87rem;
+    color: var(--text-dim, #a0a89a);
+    line-height: 1.6;
+    white-space: pre-wrap;
+    background: #111210;
+    border: 1px solid var(--border, #2e3028);
+    border-radius: 8px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+  }
+  .draft-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .copy-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    background: var(--green);
+    color: #111210;
+    font-weight: 600;
+    font-size: 0.8rem;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .copy-btn:hover { opacity: 0.85; }
+  .copy-btn.copied { background: #5a8050; color: #eef2ea; }
+  .open-btn {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    background: transparent;
+    border: 1px solid var(--border, #2e3028);
+    color: var(--text-dim, #a0a89a);
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .open-btn:hover { border-color: var(--green); color: var(--green); }
+
+  .no-draft {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    font-style: italic;
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 24px;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+  }
+</style>
+
+<div class="digest-wrap" id="digest-app">
+
+  <!-- Gate (shown until key is entered) -->
+  <div class="digest-gate" id="gate-view">
+    <h1>Community Digest</h1>
+    <p>Enter your digest key to load today's posts and draft replies.</p>
+    <div class="gate-row">
+      <input type="password" id="key-input" placeholder="Digest key" autocomplete="off" />
+      <button onclick="loadDigest()">Load</button>
+    </div>
+    <span class="gate-error" id="gate-error" style="display:none">Incorrect key.</span>
+  </div>
+
+  <!-- Loading -->
+  <div class="digest-loading" id="loading-view" style="display:none">
+    <div class="spinner"></div>
+    <span id="loading-msg">Scanning forums…</span>
+  </div>
+
+  <!-- Results -->
+  <div id="results-view" style="display:none">
+    <div class="digest-header">
+      <h1>Community Digest</h1>
+      <span class="digest-meta" id="digest-meta"></span>
+    </div>
+
+    <div class="digest-controls">
+      <button class="ctrl-btn active" id="filter-all"       onclick="setFilter('all')">All</button>
+      <button class="ctrl-btn"        id="filter-reddit"    onclick="setFilter('reddit')">Reddit</button>
+      <button class="ctrl-btn"        id="filter-rapamycin" onclick="setFilter('rapamycin')">rapamycin.news</button>
+      <button class="refresh-btn"     onclick="loadDigest()">↻ Refresh</button>
+    </div>
+
+    <div id="posts-container"></div>
+  </div>
+
+</div>
+
+<script>
+  let digestData = null;
+  let activeFilter = 'all';
+  let digestKey = '';
+
+  // Auto-load if key is in URL hash (e.g. /digest/#mykey)
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      digestKey = hash;
+      document.getElementById('key-input').value = hash;
+      loadDigest();
+    }
+
+    document.getElementById('key-input').addEventListener('keydown', e => {
+      if (e.key === 'Enter') loadDigest();
+    });
+  });
+
+  async function loadDigest() {
+    const keyEl = document.getElementById('key-input');
+    digestKey = keyEl.value.trim();
+    if (!digestKey) return;
+
+    setView('loading');
+    const loadingMsgs = [
+      'Scanning forums…',
+      'Scoring posts by relevance…',
+      'Generating draft replies…',
+      'Almost ready…',
+    ];
+    let msgIdx = 0;
+    const msgInterval = setInterval(() => {
+      msgIdx = (msgIdx + 1) % loadingMsgs.length;
+      document.getElementById('loading-msg').textContent = loadingMsgs[msgIdx];
+    }, 3500);
+
+    try {
+      const res = await fetch(`/api/digest?key=${encodeURIComponent(digestKey)}`);
+      clearInterval(msgInterval);
+
+      if (res.status === 401) {
+        document.getElementById('gate-error').style.display = 'block';
+        setView('gate');
+        return;
+      }
+      if (!res.ok) throw new Error(`Server error ${res.status}`);
+
+      digestData = await res.json();
+      document.getElementById('gate-error').style.display = 'none';
+      renderDigest();
+      setView('results');
+    } catch (err) {
+      clearInterval(msgInterval);
+      alert('Failed to load digest: ' + err.message);
+      setView('gate');
+    }
+  }
+
+  function setView(view) {
+    document.getElementById('gate-view').style.display    = view === 'gate'    ? 'flex'  : 'none';
+    document.getElementById('loading-view').style.display = view === 'loading' ? 'flex'  : 'none';
+    document.getElementById('results-view').style.display = view === 'results' ? 'block' : 'none';
+  }
+
+  function setFilter(f) {
+    activeFilter = f;
+    ['all', 'reddit', 'rapamycin'].forEach(id => {
+      document.getElementById('filter-' + id).classList.toggle('active', id === f);
+    });
+    renderPosts();
+  }
+
+  function renderDigest() {
+    const d = digestData;
+    const date = new Date(d.generated_at);
+    const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+    const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    document.getElementById('digest-meta').textContent =
+      `${dateStr} · ${timeStr} · ${d.total_posts_scanned} posts scanned`;
+    renderPosts();
+  }
+
+  function renderPosts() {
+    const container = document.getElementById('posts-container');
+    const posts = digestData.posts.filter(p => {
+      if (activeFilter === 'reddit')    return p.source.startsWith('r/');
+      if (activeFilter === 'rapamycin') return p.source === 'rapamycin.news';
+      return true;
+    });
+
+    if (posts.length === 0) {
+      container.innerHTML = '<div class="empty-state">No posts found for this filter.</div>';
+      return;
+    }
+
+    container.innerHTML = posts.map((p, i) => buildCard(p, i)).join('');
+  }
+
+  function buildCard(p, idx) {
+    const isRap = p.source === 'rapamycin.news';
+    const badgeClass = isRap ? 'rap' : '';
+    const ageLabel = p.age_hours < 1    ? 'just now'
+                   : p.age_hours < 24   ? `${p.age_hours}h ago`
+                   : `${Math.round(p.age_hours / 24)}d ago`;
+    const excerpt = p.excerpt
+      ? `<div class="post-excerpt" id="excerpt-${idx}">${escHtml(p.excerpt)}</div>
+         <span class="expand-link" onclick="toggleExcerpt(${idx})">show more</span>`
+      : '';
+
+    const draftSection = p.draft
+      ? `<div class="draft-section">
+           <div class="draft-label">Draft reply</div>
+           <div class="draft-text" id="draft-${idx}">${escHtml(p.draft)}</div>
+           <div class="draft-actions">
+             <button class="copy-btn" id="copy-${idx}" onclick="copyDraft(${idx})">Copy</button>
+             <a class="open-btn" href="${escHtml(p.url)}" target="_blank" rel="noopener">Open thread ↗</a>
+           </div>
+         </div>`
+      : `<div class="draft-section">
+           <div class="no-draft">No draft generated.</div>
+           <div class="draft-actions" style="margin-top:8px">
+             <a class="open-btn" href="${escHtml(p.url)}" target="_blank" rel="noopener">Open thread ↗</a>
+           </div>
+         </div>`;
+
+    return `<div class="post-card">
+      <div class="post-top">
+        <span class="source-badge ${badgeClass}">${escHtml(p.source)}</span>
+        <div class="post-title"><a href="${escHtml(p.url)}" target="_blank" rel="noopener">${escHtml(p.title)}</a></div>
+      </div>
+      <div class="post-stats">
+        <span>↑ ${p.upvotes}</span>
+        <span>💬 ${p.comments}</span>
+        <span>🕐 ${ageLabel}</span>
+        <span class="score-pill">score ${p.score}</span>
+      </div>
+      ${excerpt}
+      ${draftSection}
+    </div>`;
+  }
+
+  function toggleExcerpt(idx) {
+    const el = document.getElementById(`excerpt-${idx}`);
+    const link = el.nextElementSibling;
+    el.classList.toggle('expanded');
+    link.textContent = el.classList.contains('expanded') ? 'show less' : 'show more';
+  }
+
+  function copyDraft(idx) {
+    const text = document.getElementById(`draft-${idx}`).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.getElementById(`copy-${idx}`);
+      btn.textContent = 'Copied!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = 'Copy';
+        btn.classList.remove('copied');
+      }, 2000);
+    });
+  }
+
+  function escHtml(str) {
+    if (!str) return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+</script>
