@@ -10,7 +10,7 @@ export default async function handler(req, res) {
   }
 
   try {
-    const response = await fetch('https://api.convertkit.com/v3/forms/e21f8a09ef/subscribe', {
+    const response = await fetch('https://api.convertkit.com/v3/forms/9359651/subscribe', {
       method:  'POST',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({
