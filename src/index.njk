@@ -4,13 +4,81 @@ title: "agelesslabs.ai — longevity intelligence"
 description: "Upload your lab results and get an AI-powered longevity analysis in seconds. Understand what your biomarkers reveal about how long you'll live."
 ---
 
+<style>
+  .email-capture-wrap {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+  .email-guide-bullets {
+    list-style: none;
+    margin-top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .email-guide-bullets li {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.5;
+    padding-left: 22px;
+    position: relative;
+  }
+  .email-guide-bullets li::before {
+    content: '\2192';
+    position: absolute;
+    left: 0;
+    color: var(--green);
+    opacity: 0.6;
+  }
+  .email-capture-card {
+    background: var(--bg2);
+    border: 1px solid rgba(181,201,160,0.2);
+    border-radius: 3px;
+    padding: 32px;
+  }
+  .email-capture-card-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--green);
+    opacity: 0.8;
+    margin-bottom: 10px;
+  }
+  .email-capture-card-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .email-capture-card-desc {
+    font-size: 15px;
+    color: var(--text-dim);
+    line-height: 1.6;
+    margin-bottom: 4px;
+  }
+  .email-capture-disclaimer {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    margin-top: 14px;
+  }
+  @media (max-width: 860px) {
+    .email-capture-wrap { grid-template-columns: 1fr; gap: 32px; }
+  }
+</style>
+
   <section class="hero">
     <div class="hero-left">
       <div class="hero-eyebrow">AI Biomarker Analysis</div>
       <h1>Know exactly<br>what your labs<br><em>reveal about</em><br>your lifespan.</h1>
-      <p class="hero-sub">Upload your blood test results. Our AI interprets every biomarker through a longevity lens — scoring your healthspan, flagging concerns, and telling you exactly what to do next.</p>
+      <p class="hero-sub">Upload your blood test results. Our AI interprets every biomarker through a longevity lens &#8212; scoring your healthspan, flagging concerns, and telling you exactly what to do next.</p>
       <div class="hero-actions">
-        <a href="/analyze" class="btn-primary">Analyze My Biomarkers →</a>
+        <a href="/analyze" class="btn-primary">Analyze My Biomarkers &#8594;</a>
         <a href="#how-it-works" class="btn-ghost">See how it works</a>
       </div>
     </div>
@@ -19,7 +87,7 @@ description: "Upload your lab results and get an AI-powered longevity analysis i
       <div class="score-card">
         <div class="score-card-header">Longevity Analysis</div>
         <div class="score-number">74</div>
-        <div class="score-sublabel">Longevity Score · /100</div>
+        <div class="score-sublabel">Longevity Score &middot; /100</div>
         <div class="score-bars">
           <div class="score-bar-row">
             <span class="score-bar-label">Metabolic</span>
@@ -62,7 +130,7 @@ description: "Upload your lab results and get an AI-powered longevity analysis i
       </div>
       <div class="step">
         <div class="step-title">AI analyzes every marker</div>
-        <div class="step-desc">Our AI interprets each biomarker against longevity-optimized ranges — not just standard reference ranges designed to detect disease.</div>
+        <div class="step-desc">Our AI interprets each biomarker against longevity-optimized ranges &#8212; not just standard reference ranges designed to detect disease.</div>
       </div>
       <div class="step">
         <div class="step-title">Get your longevity score</div>
@@ -70,50 +138,80 @@ description: "Upload your lab results and get an AI-powered longevity analysis i
       </div>
     </div>
     <div style="margin-top:36px;">
-      <a href="/analyze" class="btn-outline">Analyze My Biomarkers →</a>
+      <a href="/analyze" class="btn-outline">Analyze My Biomarkers &#8594;</a>
+    </div>
+  </section>
+
+  <section class="section" id="longevity-guide">
+    <div class="email-capture-wrap">
+      <div class="email-capture-left">
+        <div class="section-eyebrow">Free Guide</div>
+        <h2>The <em>Longevity Lab Guide</em> &#8212;<br>yours free.</h2>
+        <ul class="email-guide-bullets">
+          <li>The 5 biomarkers with the biggest impact on lifespan</li>
+          <li>Longevity-optimal ranges &#8212; not just &#8220;normal&#8221;</li>
+          <li>The fastest levers to move each marker</li>
+          <li>What to order if you haven&#8217;t tested yet</li>
+        </ul>
+      </div>
+      <div class="email-capture-right">
+        <div class="email-capture-card">
+          <div class="email-capture-card-eyebrow">Instant access</div>
+          <div class="email-capture-card-title">The Longevity Lab Guide</div>
+          <p class="email-capture-card-desc">Free &#8212; delivered to your inbox immediately.</p>
+          <form class="email-form" onsubmit="submitKitForm(event, this)">
+            <div class="email-form-row">
+              <input type="email" placeholder="your@email.com" required autocomplete="email">
+              <button type="submit">Get Free Guide</button>
+            </div>
+            <div class="email-form-error"></div>
+          </form>
+          <div class="email-capture-disclaimer">No spam. Unsubscribe anytime.</div>
+        </div>
+      </div>
     </div>
   </section>
 
   <section class="section" id="lab-tests">
     <div class="section-eyebrow">Recommended Lab Tests</div>
     <h2>Get the tests that <em>actually matter</em><br>for longevity.</h2>
-    <p class="section-sub">Standard annual bloodwork misses most of what drives aging. These panels go deeper — giving you the data to optimize your healthspan.</p>
+    <p class="section-sub">Standard annual bloodwork misses most of what drives aging. These panels go deeper &#8212; giving you the data to optimize your healthspan.</p>
     <div class="products-grid">
       <a href="https://www.insidetracker.com" target="_blank" rel="noopener" class="product-card">
         <div class="product-badge">Most Comprehensive</div>
         <div class="product-name">InsideTracker</div>
         <div class="product-desc">Deep biomarker analysis with personalized recommendations based on your biology and goals. Tracks 40+ longevity markers.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
       <a href="https://www.functionhealth.com" target="_blank" rel="noopener" class="product-card">
         <div class="product-badge">Best Value</div>
         <div class="product-name">Function Health</div>
         <div class="product-desc">100+ lab tests per year. Covers everything from standard metabolic panels to advanced longevity markers like ApoB, hsCRP, and IGF-1.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
       <a href="https://www.ultalabtests.com/partners/agelesslabs/testing/weekly-promotions/8043" target="_blank" rel="noopener" class="product-card">
-        <div class="product-badge">À la Carte</div>
+        <div class="product-badge">&#192; la Carte</div>
         <div class="product-name">Ulta Lab Tests</div>
-        <div class="product-desc">Order individual tests without a doctor's visit. Ideal for tracking specific markers. Results in 24–48 hours.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-desc">Order individual tests without a doctor&#8217;s visit. Ideal for tracking specific markers. Results in 24&#8211;48 hours.</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
       <a href="https://siphoxhealth.com" target="_blank" rel="noopener" class="product-card">
         <div class="product-badge">Best At-Home</div>
         <div class="product-name">SiPhox Health</div>
-        <div class="product-desc">Up to 60 biomarkers via at-home finger-prick test — no lab visit needed. 4 tests per year for $124. Ideal for regular tracking.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-desc">Up to 60 biomarkers via at-home finger-prick test &#8212; no lab visit needed. 4 tests per year for $124. Ideal for regular tracking.</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
       <a href="https://marekdiagnostics.com" target="_blank" rel="noopener" class="product-card">
         <div class="product-badge">Clinical Grade</div>
         <div class="product-name">Marek Health</div>
         <div class="product-desc">Comprehensive longevity panels via 2,000+ US lab locations. Covers advanced markers including hormones, metabolic, and cardiovascular health.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
       <a href="https://mitohealth.com" target="_blank" rel="noopener" class="product-card">
         <div class="product-badge">Biological Age</div>
         <div class="product-name">Mito Health</div>
         <div class="product-desc">100+ biomarkers plus a biological age score derived from your blood data. Includes 1:1 clinician consultation and AI advisor access.</div>
-        <div class="product-link">Learn more →</div>
+        <div class="product-link">Learn more &#8594;</div>
       </a>
     </div>
   </section>
