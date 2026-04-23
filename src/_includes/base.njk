@@ -455,10 +455,10 @@
       if (errorEl) { errorEl.style.display = 'none'; errorEl.textContent = ''; }
 
       try {
-        var res = await fetch('https://app.convertkit.com/forms/e21f8a09ef/subscriptions', {
+        var res = await fetch('/api/subscribe', {
           method:  'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body:    'email_address=' + encodeURIComponent(email)
+          headers: { 'Content-Type': 'application/json' },
+          body:    JSON.stringify({ email: email })
         });
 
         if (res.ok) {
