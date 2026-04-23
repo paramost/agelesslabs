@@ -77,6 +77,194 @@
   <link rel="stylesheet" href="/styles.css">
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
 
+  <style>
+    /* ─── Hamburger button ──────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      padding: 0;
+      flex-shrink: 0;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: var(--green);
+      border-radius: 1px;
+    }
+    @media (max-width: 1024px) {
+      .nav-hamburger { display: flex; }
+    }
+
+    /* ─── Mobile menu overlay ───────────────────────────────────── */
+    .mobile-menu {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: var(--bg);
+      transform: translateX(100%);
+      transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-menu.open {
+      transform: translateX(0);
+    }
+    .mobile-menu-inner {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      padding: 28px 28px 48px;
+    }
+
+    /* Header row: logo + close */
+    .mobile-menu-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 32px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+    }
+    .mobile-menu-close {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      cursor: pointer;
+      color: var(--text-dim);
+      transition: color 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+    .mobile-menu-close:hover {
+      color: var(--green);
+      border-color: rgba(181,201,160,0.35);
+    }
+
+    /* Nav links */
+    .mobile-menu-nav {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 40px;
+    }
+    .mobile-menu-nav a {
+      font-family: 'Red Hat Display', sans-serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--white);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: color 0.15s;
+      line-height: 1;
+    }
+    .mobile-menu-nav a:hover { color: var(--green); }
+    .mobile-menu-nav a:last-child { border-bottom: none; }
+    .mobile-menu-nav-arrow {
+      font-size: 16px;
+      color: var(--green);
+      opacity: 0.4;
+      transition: opacity 0.15s, transform 0.15s;
+    }
+    .mobile-menu-nav a:hover .mobile-menu-nav-arrow {
+      opacity: 1;
+      transform: translateX(3px);
+    }
+    .mobile-menu-cta-link {
+      color: var(--green) !important;
+      margin-top: 8px;
+    }
+
+    /* Email capture slot */
+    .mobile-menu-email-slot {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--green);
+      border-radius: 0 3px 3px 0;
+      padding: 20px 24px;
+      margin-bottom: 40px;
+    }
+    .mobile-menu-email-eyebrow {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--green);
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    .mobile-menu-email-title {
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--white);
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+    .mobile-menu-email-desc {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      margin: 0;
+    }
+    /* email form will be inserted here */
+
+    /* Social icons */
+    .mobile-menu-social {
+      margin-top: auto;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .mobile-menu-social-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 4px;
+    }
+    .mobile-menu-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      color: var(--text-dim);
+      text-decoration: none;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .mobile-menu-social a:hover {
+      color: var(--green);
+      border-color: rgba(181,201,160,0.35);
+    }
+    .mobile-menu-social svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+  </style>
+
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-28CHRFJLKJ"></script>
   <script>
@@ -111,6 +299,11 @@
           <a href="/analyze" class="nav-cta">Try Free →</a>
         {% endif %}
       </div>
+      <button class="nav-hamburger" id="navToggle" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </nav>
 
     {{ content | safe }}
@@ -130,5 +323,87 @@
       <div class="footer-disclaimer">For informational purposes only. Not medical advice. Always consult a qualified healthcare provider.</div>
     </footer>
   </div>
+
+  <!-- ─── Mobile menu ─────────────────────────────────────────── -->
+  <div class="mobile-menu" id="mobileMenu" aria-hidden="true" aria-label="Site navigation">
+    <div class="mobile-menu-inner">
+
+      <div class="mobile-menu-header">
+        <a href="/" class="logo" id="menuLogoLink">
+          <span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>
+        </a>
+        <button class="mobile-menu-close" id="navClose" aria-label="Close menu">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L13 13M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <nav class="mobile-menu-nav">
+        <a href="/">Home <span class="mobile-menu-nav-arrow">→</span></a>
+        <a href="/analyze">Analyze My Labs <span class="mobile-menu-nav-arrow">→</span></a>
+        <a href="/biomarkers">Biomarkers <span class="mobile-menu-nav-arrow">→</span></a>
+        <a href="/blog">Blog <span class="mobile-menu-nav-arrow">→</span></a>
+        <a href="/about">About <span class="mobile-menu-nav-arrow">→</span></a>
+      </nav>
+
+      <!-- Email capture slot — form drops in here -->
+      <div class="mobile-menu-email-slot">
+        <div class="mobile-menu-email-eyebrow">Free Guide</div>
+        <div class="mobile-menu-email-title">The Longevity Lab Guide</div>
+        <p class="mobile-menu-email-desc">The 5 most important biomarkers — what they mean, what&#8217;s optimal, and how to move them.</p>
+        {# email capture form goes here #}
+      </div>
+
+      <div class="mobile-menu-social">
+        <span class="mobile-menu-social-label">Follow</span>
+        <a href="https://twitter.com/agelesslabsai" target="_blank" rel="noopener noreferrer" aria-label="Twitter / X">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          </svg>
+        </a>
+        <a href="https://www.instagram.com/agelesslabsai" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var toggle = document.getElementById('navToggle');
+      var close  = document.getElementById('navClose');
+      var menu   = document.getElementById('mobileMenu');
+
+      function openMenu() {
+        menu.classList.add('open');
+        menu.setAttribute('aria-hidden', 'false');
+        toggle.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeMenu() {
+        menu.classList.remove('open');
+        menu.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      }
+
+      toggle.addEventListener('click', openMenu);
+      close.addEventListener('click', closeMenu);
+
+      menu.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', closeMenu);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeMenu();
+      });
+    })();
+  </script>
+
 </body>
 </html>
