@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 21, 2026 · 9:00 PM CST
+> Last updated: April 22, 2026 · 10:30 PM CST
 
 ---
 
@@ -83,7 +83,7 @@ agelesslabs/
 ├── vercel.json               # buildCommand, outputDirectory: _site
 └── src/
     ├── _includes/
-    │   ├── base.njk          # Single shared layout: head, nav, footer, scripts
+    │   ├── base.njk          # Single shared layout: head, nav, mobile menu, footer, scripts
     │   └── biomarker.njk     # Biomarker page template — all 18 pages use this
     ├── biomarkers/
     │   ├── index.njk         # Biomarker library index — all 18 markers, 5 categories
@@ -122,6 +122,8 @@ agelesslabs/
 
 ### Key Conventions
 - **Nav and footer** defined once in `src/_includes/base.njk` — edit there, propagates to all pages
+- **Mobile menu** lives in `base.njk` — full-screen overlay, slides in from right, styles inline in `<style>` block in head, JS inline before `</body>`
+- **Mobile menu email slot** — placeholder already structured in base.njk; email form drops into the `{# email capture form goes here #}` comment inside `.mobile-menu-email-slot`
 - **Biomarker pages** use `layout: biomarker.njk` in frontmatter (NOT base.njk directly)
 - **All other pages** use `layout: base.njk` in frontmatter
 - **analyze.njk** uses `analyzePage: true` in frontmatter — swaps "Try Free" nav CTA for "Beta" badge
@@ -242,12 +244,12 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Anthropic API key + credits | Complete — $20 loaded April 21 2026 |
 | Paid tier ($19 report) | Not started |
 | Stripe integration | Not started |
-| Email capture | Not started |
+| Email capture | Next — in progress |
 
 ### Design / CSS
 | Item | Status |
 |---|---|
-| Dark theme (persistent, no toggle) | Complete |
+| Dark theme (persistent, no toggle) | Complete — revisit if mobile bounce rate is high |
 | Light theme removed | Complete |
 | Logo consistent across all pages | Complete |
 | CSS consolidated into styles.css | Complete |
@@ -257,6 +259,10 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Body copy font weight 300 to 400 | Complete |
 | Biomarkers link added to nav | Complete |
 | Contact link added to footer | Complete |
+| Font sizes bumped sitewide for 35–65 mobile audience | Complete — April 22 2026 (styles.css) |
+| Biomarker card font sizes + color contrast improved | Complete — April 22 2026 (biomarkers/index.njk) |
+| Mobile hamburger menu | Complete — April 22 2026 (base.njk) |
+| Mobile container padding tightened (32px → 20px at 600px) | Complete — April 22 2026 (styles.css) |
 
 ### Technical SEO
 | Item | Status |
@@ -299,10 +305,18 @@ Full audit completed. All 18 biomarker pages and 7 supporting pages pass clean: 
 
 Root cause of "Something went wrong" error identified: direct browser-to-API calls blocked by CORS. Fixed by adding Vercel serverless proxy (`api/analyze.js`). Anthropic API key created and $20 credits loaded. `max_tokens` bumped 1000 → 2000 to prevent JSON truncation on large panels. PDF tab-switch jarring UX removed — PDF text now extracted silently. All three upload paths tested and confirmed working: ✅ Paste text · ✅ Image (JPG/PNG) · ✅ PDF
 
+### Phase 4.7 — Mobile Readability — Complete (April 22 2026)
+
+Font sizes bumped sitewide for 35–65 mobile audience. Biomarker card text (.bmi-card-desc 12px → 16px) and color contrast (.bmi-card-desc --text-muted → --text-dim) significantly improved. Mobile container padding tightened. Mobile hamburger menu built into base.njk — full-screen slide-in overlay with large tap targets, social icons, and pre-structured email capture slot ready for form insertion.
+
 ### Phase 5 — Monetization — YOU ARE HERE
 
-1. **Drive early traffic** — post AI tool to r/longevity, r/PeterAttia, r/biohacking; Twitter/X longevity community; share a real biomarker interpretation as a demo post
-2. **Email capture** — free "Longevity Lab Guide" lead magnet
+1. **Email capture** ← next build task
+   - Lead magnet: "The Longevity Lab Guide" (5 most important biomarkers, optimal ranges, how to move them)
+   - Email capture slot already structured in mobile menu — form drops straight in
+   - Also needs placement: homepage section, analyze page post-results prompt, biomarker page inline CTA
+   - Provider decision needed: ConvertKit / Kit, Mailchimp, or Beehiiv
+2. **Drive early traffic** — warm up Reddit (r/longevity, r/PeterAttia, r/biohacking) with genuine comments before posting links; Twitter/X longevity community is link-friendly from day one
 3. **Paid tier ($19 report)** — Stripe integration
 
 ### Phase 6 — Medical Review (deferred — resume when site is generating revenue)
@@ -326,6 +340,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 ## Known Issues / Tech Debt
 
+- **Dark theme re-evaluation** — may want to test a light theme variant if mobile bounce rates are high once traffic is established. The dark aesthetic is a brand differentiator but older mobile users may convert better on light. Defer until traffic data is available.
 - **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
 - **Drive MCP large file uploads** — files >~3KB may fail or upload truncated. Workaround: produce master plan as a downloadable file and upload to Drive manually.
 - **Drive hba1c.njk and apob.njk** — stale stub files (652 bytes and 2,344 bytes) in Drive src/biomarkers/. Do not use. GitHub versions are correct.
@@ -351,6 +366,8 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Anthropic API billing is separate from Claude.ai subscriptions** — a Claude.ai Pro/Max plan does not grant API credits. Credits must be purchased separately at `platform.claude.com/settings/billing`. New API keys created before credits are purchased may need to be regenerated after funding.
 - **`max_tokens: 1000` is too low for a full longevity panel** — 13+ biomarkers with descriptions generates ~3,500 tokens, truncating the JSON mid-response. Use `max_tokens: 2000` minimum for the analyzer.
 - **PDF upload should not force a tab switch** — extracting PDF text into the textarea and calling `switchTab('paste')` is jarring UX. Instead, populate `labInput` silently and keep the user on the Upload tab. The analysis function reads `labInput` regardless of active tab.
+- **Mobile menu styles live inline in base.njk** — in a `<style>` block in `<head>`, not in styles.css. This keeps the menu self-contained in one file. JS lives inline just before `</body>`. If styles.css grows unwieldy, migrate mobile menu CSS there.
+- **Mobile menu email slot pre-structured** — `.mobile-menu-email-slot` in base.njk contains a Nunjucks comment `{# email capture form goes here #}`. Drop the form HTML there when email capture is built. No restructuring needed.
 
 ---
 
@@ -370,7 +387,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Voice:** Authoritative, clinical, aspirational — not wellness-fluffy
 - **Aesthetic:** Deep green on near-black, DM Mono for labels/data, Red Hat Display for headings
 - **Color palette:** #111210 bg · #b5c9a0 green · #eef2ea near-white · #c8a96e gold
-- **Theme:** Dark only (no light theme)
+- **Theme:** Dark only (no light theme) — re-evaluate if mobile bounce data warrants it
 - **Domain:** AgelessLabs.ai — .ai signals AI-powered tool, resonates with tech-forward longevity audience
 
 ---
