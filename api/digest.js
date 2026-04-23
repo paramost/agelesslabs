@@ -62,24 +62,46 @@ function scorePost(post) {
 
 // ─── Reddit ───────────────────────────────────────────────────────────────────
 
-async function fetchReddit(subreddit) {
-  const url = `https://www.reddit.com/r/${subreddit}/new.json?limit=30`;
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'AgelessLabs-Digest/1.0 (community monitoring tool)' },
-  });
-  if (!res.ok) throw new Error(`Reddit ${subreddit} returned ${res.status}`);
-  const data = await res.json();
+// Search terms — broad enough to surface relevant threads
+const REDDIT_SEARCH_TERMS = [
+  'ApoB OR hsCRP OR biomarker',
+  'lab results OR bloodwork OR "blood test"',
+  'fasting insulin OR "vitamin D" OR homocysteine',
+  'longevity labs OR "longevity panel"',
+];
 
-  return (data.data?.children || []).map(({ data: p }) => ({
-    id:       `reddit_${p.id}`,
-    source:   `r/${subreddit}`,
-    title:    p.title,
-    excerpt:  (p.selftext || '').slice(0, 400),
-    url:      `https://reddit.com${p.permalink}`,
-    upvotes:  p.ups || 0,
-    comments: p.num_comments || 0,
-    age_hours: Math.round((Date.now() / 1000 - p.created_utc) / 3600),
-  }));
+async function fetchReddit(subreddit) {
+  const seen = new Set();
+  const posts = [];
+
+  for (const q of REDDIT_SEARCH_TERMS) {
+    try {
+      const url = `https://www.reddit.com/r/${subreddit}/search.json?q=${encodeURIComponent(q)}&sort=new&t=week&limit=15&restrict_sr=1`;
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'AgelessLabs-Digest/1.0 (community monitoring tool)' },
+      });
+      if (!res.ok) continue;
+      const data = await res.json();
+
+      for (const { data: p } of (data.data?.children || [])) {
+        if (seen.has(p.id)) continue;
+        seen.add(p.id);
+        posts.push({
+          id:        `reddit_${p.id}`,
+          source:    `r/${subreddit}`,
+          title:     p.title,
+          excerpt:   (p.selftext || '').slice(0, 400),
+          url:       `https://reddit.com${p.permalink}`,
+          upvotes:   p.ups || 0,
+          comments:  p.num_comments || 0,
+          age_hours: Math.round((Date.now() / 1000 - p.created_utc) / 3600),
+        });
+      }
+    } catch (e) {
+      // silently skip failed search terms
+    }
+  }
+  return posts;
 }
 
 async function fetchAllReddit() {
@@ -212,11 +234,10 @@ export default async function handler(req, res) {
       fetchRapamycinNews(),
     ]);
 
-    // Score, sort, dedupe by title similarity, take top N
+    // Score and sort — no minimum threshold, just rank by relevance
     const allPosts = [...redditPosts, ...rapPosts];
     const scored = allPosts
       .map(p => ({ ...p, score: scorePost(p) * (p.weight || 1) }))
-      .filter(p => p.score > 2)                          // minimum relevance threshold
       .sort((a, b) => b.score - a.score)
       .slice(0, postLimit);
 
@@ -229,6 +250,8 @@ export default async function handler(req, res) {
       generated_at: new Date().toISOString(),
       sources_checked: ['r/longevity', 'r/biohacking', 'r/PeterAttia', 'rapamycin.news'],
       total_posts_scanned: allPosts.length,
+      reddit_count: redditPosts.length,
+      rapamycin_count: rapPosts.length,
       posts: withDrafts.map(p => ({
         id:        p.id,
         source:    p.source,
