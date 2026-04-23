@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 22, 2026 · 10:30 PM CST
+> Last updated: April 22, 2026 · 11:15 PM CST
 
 ---
 
@@ -244,7 +244,7 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Anthropic API key + credits | Complete — $20 loaded April 21 2026 |
 | Paid tier ($19 report) | Not started |
 | Stripe integration | Not started |
-| Email capture | Next — in progress |
+| Email capture | Complete — April 22 2026. Kit form ID 9359651, proxy api/subscribe.js, double opt-in disabled |
 
 ### Design / CSS
 | Item | Status |
@@ -309,13 +309,13 @@ Root cause of "Something went wrong" error identified: direct browser-to-API cal
 
 Font sizes bumped sitewide for 35–65 mobile audience. Biomarker card text (.bmi-card-desc 12px → 16px) and color contrast (.bmi-card-desc --text-muted → --text-dim) significantly improved. Mobile container padding tightened. Mobile hamburger menu built into base.njk — full-screen slide-in overlay with large tap targets, social icons, and pre-structured email capture slot ready for form insertion.
 
+### Phase 4.8 — Email Capture — Complete (April 22 2026)
+
+Kit (ConvertKit) selected as email provider. Custom form built into homepage and mobile menu. Vercel serverless proxy (`api/subscribe.js`) handles submission to Kit's authenticated v3 API — avoids CORS entirely. Kit form ID: 9359651. Double opt-in disabled. Inline success state on submit, no redirect. Confirmed working: subscriber appears in Kit immediately.
+
 ### Phase 5 — Monetization — YOU ARE HERE
 
-1. **Email capture** ← next build task
-   - Lead magnet: "The Longevity Lab Guide" (5 most important biomarkers, optimal ranges, how to move them)
-   - Email capture slot already structured in mobile menu — form drops straight in
-   - Also needs placement: homepage section, analyze page post-results prompt, biomarker page inline CTA
-   - Provider decision needed: ConvertKit / Kit, Mailchimp, or Beehiiv
+1. **Thank-you page** (`/thank-you`) ← next build task — a dedicated post-subscription landing page that confirms the guide is coming, sets expectations, and cross-sells the AI tool. Currently the success state is inline only.
 2. **Drive early traffic** — warm up Reddit (r/longevity, r/PeterAttia, r/biohacking) with genuine comments before posting links; Twitter/X longevity community is link-friendly from day one
 3. **Paid tier ($19 report)** — Stripe integration
 
@@ -340,6 +340,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 ## Known Issues / Tech Debt
 
+- **Thank-you page not yet built** — post-subscription redirect currently shows inline success state only. `/thank-you` page needed: confirms guide delivery, cross-sells the AI tool, sets expectations for future emails.
 - **Dark theme re-evaluation** — may want to test a light theme variant if mobile bounce rates are high once traffic is established. The dark aesthetic is a brand differentiator but older mobile users may convert better on light. Defer until traffic data is available.
 - **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
 - **Drive MCP large file uploads** — files >~3KB may fail or upload truncated. Workaround: produce master plan as a downloadable file and upload to Drive manually.
@@ -366,6 +367,8 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Anthropic API billing is separate from Claude.ai subscriptions** — a Claude.ai Pro/Max plan does not grant API credits. Credits must be purchased separately at `platform.claude.com/settings/billing`. New API keys created before credits are purchased may need to be regenerated after funding.
 - **`max_tokens: 1000` is too low for a full longevity panel** — 13+ biomarkers with descriptions generates ~3,500 tokens, truncating the JSON mid-response. Use `max_tokens: 2000` minimum for the analyzer.
 - **PDF upload should not force a tab switch** — extracting PDF text into the textarea and calling `switchTab('paste')` is jarring UX. Instead, populate `labInput` silently and keep the user on the Upload tab. The analysis function reads `labInput` regardless of active tab.
+- **Kit email form embed script does not support direct browser fetch** — Kit's public form endpoints block cross-origin requests regardless of content type. Always use a Vercel serverless proxy (`api/subscribe.js`) that calls Kit's authenticated v3 API server-side. Kit's v3 API endpoint is `https://api.convertkit.com/v3/forms/{numeric_form_id}/subscribe` with `api_key` and `email` in the JSON body. The numeric form ID (e.g. 9359651) is found in the Kit form editor URL — it is different from the embed UID (e.g. 338b64858f).
+- **Kit double opt-in is enabled by default** — disable per-form under Form Settings → Incentive. With double opt-in on, subscribers land in "Unconfirmed" state and confirmation emails go to spam. Turn off for lead magnet flows.
 - **Mobile menu styles live inline in base.njk** — in a `<style>` block in `<head>`, not in styles.css. This keeps the menu self-contained in one file. JS lives inline just before `</body>`. If styles.css grows unwieldy, migrate mobile menu CSS there.
 - **Mobile menu email slot pre-structured** — `.mobile-menu-email-slot` in base.njk contains a Nunjucks comment `{# email capture form goes here #}`. Drop the form HTML there when email capture is built. No restructuring needed.
 
