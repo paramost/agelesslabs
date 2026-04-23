@@ -412,8 +412,12 @@ permalink: /digest/
     const date = new Date(d.generated_at);
     const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
     const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    const sourceSummary = [
+      d.reddit_count  ? `${d.reddit_count} Reddit`        : '0 Reddit',
+      d.rapamycin_count ? `${d.rapamycin_count} rapamycin.news` : '0 rapamycin.news',
+    ].join(' · ');
     document.getElementById('digest-meta').textContent =
-      `${dateStr} · ${timeStr} · ${d.total_posts_scanned} posts scanned`;
+      `${dateStr} · ${timeStr} · ${sourceSummary}`;
     renderPosts();
   }
 
