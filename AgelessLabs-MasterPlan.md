@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 22, 2026 · 11:15 PM CST
+> Last updated: April 23, 2026 · 4:45 PM CST
 
 ---
 
@@ -77,7 +77,9 @@ The centerpiece of AgelessLabs.ai. A free tool that analyzes lab results through
 ```
 agelesslabs/
 ├── api/
-│   └── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
+│   ├── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
+│   ├── subscribe.js          # Vercel serverless proxy — forwards email signups to Kit v3 API
+│   └── digest.js             # Vercel Edge function — community digest (Reddit + rapamycin.news)
 ├── .eleventy.js              # 11ty config — filters, collections, passthrough, dirs
 ├── package.json              # npm scripts: build, start, dev
 ├── vercel.json               # buildCommand, outputDirectory: _site
@@ -110,6 +112,7 @@ agelesslabs/
     ├── index.njk             # Homepage
     ├── about.njk             # About page
     ├── analyze.njk           # AI tool page
+    ├── digest.njk            # Community digest dashboard — key-protected, noindexed
     ├── privacy.njk           # Privacy policy
     ├── disclaimer.njk        # Disclaimer + affiliate disclosure
     ├── sitemap.njk           # Auto-generates /sitemap.xml
@@ -137,6 +140,13 @@ agelesslabs/
 ### .eleventy.js Filters
 - `htmlDateString` — formats dates for sitemap.njk (ISO 8601)
 - `initials` — generates avatar initials from a name (e.g. "Dan Carey" to "DC")
+
+### Vercel Environment Variables
+| Variable | Used by | Notes |
+|---|---|---|
+| `ANTHROPIC_API_KEY` | api/analyze.js, api/digest.js | Claude API — set in Vercel dashboard |
+| `KIT_API_KEY` | api/subscribe.js | ConvertKit v3 API key |
+| `DIGEST_KEY` | api/digest.js | Secret string protecting the /digest endpoint |
 
 ---
 
@@ -208,6 +218,7 @@ For small targeted edits, Claude can edit directly in the GitHub web editor via 
 | biomarkers/index.njk | Complete | Pillar page — all 18 markers, 5 categories, schema; all 18 cards active |
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list, tool CTA |
+| digest.njk | Complete | Key-protected community digest dashboard — April 23 2026 |
 
 ### Biomarker Pages (First Wave — 18 pages)
 All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit completed April 21, 2026 — all pages clean.
@@ -245,6 +256,18 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Paid tier ($19 report) | Not started |
 | Stripe integration | Not started |
 | Email capture | Complete — April 22 2026. Kit form ID 9359651, proxy api/subscribe.js, double opt-in disabled |
+
+### Community Digest Tool
+| Item | Status |
+|---|---|
+| api/digest.js — Edge function | Complete — April 23 2026 |
+| src/digest.njk — dashboard UI | Complete — April 23 2026 |
+| Reddit fetching (r/longevity, r/biohacking, r/PeterAttia) | Complete — RSS/Atom via Edge runtime (Cloudflare IPs) |
+| rapamycin.news fetching | Complete — Discourse search JSON API |
+| Relevance scoring | Complete — keyword match + recency + engagement |
+| Claude draft generation | Complete — claude-sonnet-4-6, 8 drafts per run |
+| Key-protected endpoint | Complete — DIGEST_KEY env var |
+| Digest caching | Not built — currently generates live on every load (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it |
 
 ### Design / CSS
 | Item | Status |
@@ -313,10 +336,14 @@ Font sizes bumped sitewide for 35–65 mobile audience. Biomarker card text (.bm
 
 Kit (ConvertKit) selected as email provider. Custom form built into homepage and mobile menu. Vercel serverless proxy (`api/subscribe.js`) handles submission to Kit's authenticated v3 API — avoids CORS entirely. Kit form ID: 9359651. Double opt-in disabled. Inline success state on submit, no redirect. Confirmed working: subscriber appears in Kit immediately.
 
+### Phase 4.9 — Community Digest Tool — Complete (April 23 2026)
+
+Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge function) fetches Reddit (r/longevity, r/biohacking, r/PeterAttia) via RSS/Atom + rapamycin.news via Discourse JSON API, scores posts by keyword relevance + recency + engagement, and generates Claude draft replies for the top 8 posts. Dashboard at `/digest` is key-protected (`DIGEST_KEY` env var), renders post cards with stats and copy buttons. Runs on-demand (~20s load time). Reddit required Edge runtime (Cloudflare IPs) to bypass IP blocks on standard Vercel Node servers.
+
 ### Phase 5 — Monetization — YOU ARE HERE
 
 1. **Thank-you page** (`/thank-you`) ← next build task — a dedicated post-subscription landing page that confirms the guide is coming, sets expectations, and cross-sells the AI tool. Currently the success state is inline only.
-2. **Drive early traffic** — warm up Reddit (r/longevity, r/PeterAttia, r/biohacking) with genuine comments before posting links; Twitter/X longevity community is link-friendly from day one
+2. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one.
 3. **Paid tier ($19 report)** — Stripe integration
 
 ### Phase 6 — Medical Review (deferred — resume when site is generating revenue)
@@ -341,6 +368,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 ## Known Issues / Tech Debt
 
 - **Thank-you page not yet built** — post-subscription redirect currently shows inline success state only. `/thank-you` page needed: confirms guide delivery, cross-sells the AI tool, sets expectations for future emails.
+- **Digest caching not built** — `/digest` generates fresh on every load: fetches all sources + runs 8 Claude API calls (~20s, ~$0.08/run). Fine for occasional use. When daily usage warrants it, add Vercel KV caching + GitHub Actions cron (runs at 7 AM daily, stores result, page loads instantly from cache).
 - **Dark theme re-evaluation** — may want to test a light theme variant if mobile bounce rates are high once traffic is established. The dark aesthetic is a brand differentiator but older mobile users may convert better on light. Defer until traffic data is available.
 - **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
 - **Drive MCP large file uploads** — files >~3KB may fail or upload truncated. Workaround: produce master plan as a downloadable file and upload to Drive manually.
@@ -371,6 +399,9 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Kit double opt-in is enabled by default** — disable per-form under Form Settings → Incentive. With double opt-in on, subscribers land in "Unconfirmed" state and confirmation emails go to spam. Turn off for lead magnet flows.
 - **Mobile menu styles live inline in base.njk** — in a `<style>` block in `<head>`, not in styles.css. This keeps the menu self-contained in one file. JS lives inline just before `</body>`. If styles.css grows unwieldy, migrate mobile menu CSS there.
 - **Mobile menu email slot pre-structured** — `.mobile-menu-email-slot` in base.njk contains a Nunjucks comment `{# email capture form goes here #}`. Drop the form HTML there when email capture is built. No restructuring needed.
+- **Reddit's public JSON API blocks Vercel Node.js server IPs** — standard `fetch()` from a Vercel serverless function to `reddit.com` returns a 403 or times out. Two working approaches: (1) Vercel Edge runtime (`export const config = { runtime: 'edge' }`) runs on Cloudflare's network which Reddit does not block; (2) Reddit OAuth API (`oauth.reddit.com`) works from any server with valid credentials but requires app registration at reddit.com/prefs/apps. Edge + RSS is the simpler approach when credentials aren't needed.
+- **Reddit RSS/Atom feeds work without credentials** — `https://www.reddit.com/r/{subreddit}/search.rss?q=...` returns Atom XML with title, link, content, and upvote count. No app registration required. Parse with regex — no XML library needed for the predictable Atom structure Reddit uses.
+- **Vercel Edge runtime uses the Web API response format** — Edge functions return `new Response(body, { status, headers })` rather than the Node.js `res.status().json()` pattern. `process.env` still works. No `Buffer` — use `btoa()` for base64.
 
 ---
 
