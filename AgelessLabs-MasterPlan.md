@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 23, 2026 · 4:45 PM CST
+> Last updated: April 24, 2026 · 1:00 PM CST
 
 ---
 
@@ -219,6 +219,7 @@ For small targeted edits, Claude can edit directly in the GitHub web editor via 
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list, tool CTA |
 | digest.njk | Complete | Key-protected community digest dashboard — April 23 2026 |
+| email-thank-you.njk | Complete | Post-subscription landing page — noindexed, redirected from Kit form success — April 24 2026 |
 
 ### Biomarker Pages (First Wave — 18 pages)
 All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit completed April 21, 2026 — all pages clean.
@@ -342,9 +343,10 @@ Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge
 
 ### Phase 5 — Monetization — YOU ARE HERE
 
-1. **Thank-you page** (`/thank-you`) ← next build task — a dedicated post-subscription landing page that confirms the guide is coming, sets expectations, and cross-sells the AI tool. Currently the success state is inline only.
-2. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one.
-3. **Paid tier ($19 report)** — Stripe integration
+1. **Thank-you page** (`/email-thank-you`) ✅ Complete — April 24 2026. Post-subscription redirect confirmed. Page confirms guide delivery, cross-sells the AI tool, soft social follow.
+2. **Welcome email series** ✅ Complete — April 24 2026. 5-email sequence built in Kit (ID 2734357, "Welcome Series"). Emails: immediate guide delivery, Day 2 ApoB deep-dive, Day 4 tool CTA, Day 7 affiliate lab recs, Day 14 biomarker library re-engagement. Automation rule connects form 9359651 → sequence. Confirmation redirect updated to `/email-thank-you/`.
+3. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one.
+4. **Paid tier ($19 report)** — Stripe integration
 
 ### Phase 6 — Medical Review (deferred — resume when site is generating revenue)
 
@@ -367,7 +369,8 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 ## Known Issues / Tech Debt
 
-- **Thank-you page not yet built** — post-subscription redirect currently shows inline success state only. `/thank-you` page needed: confirms guide delivery, cross-sells the AI tool, sets expectations for future emails.
+- **Kit free trial expires in ~12 days** (as of April 24 2026) — Sequences and Visual Automations are paid features. Upgrade before trial ends to keep the Welcome Series running uninterrupted.
+- **Kit domain authentication not set up** — emails currently send from `dwcarey@gmail.com`. Set up DKIM/SPF for `agelesslabs.ai` in Kit (Settings → Email) so emails send from `hello@agelesslabs.ai`. Improves deliverability and brand consistency.
 - **Digest caching not built** — `/digest` generates fresh on every load: fetches all sources + runs 8 Claude API calls (~20s, ~$0.08/run). Fine for occasional use. When daily usage warrants it, add Vercel KV caching + GitHub Actions cron (runs at 7 AM daily, stores result, page loads instantly from cache).
 - **Dark theme re-evaluation** — may want to test a light theme variant if mobile bounce rates are high once traffic is established. The dark aesthetic is a brand differentiator but older mobile users may convert better on light. Defer until traffic data is available.
 - **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
