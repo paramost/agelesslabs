@@ -462,10 +462,7 @@
         });
 
         if (res.ok) {
-          var successEl       = document.createElement('div');
-          successEl.className = 'email-form-success';
-          successEl.textContent = '\u2713 Check your inbox \u2014 the guide is on its way.';
-          formEl.replaceWith(successEl);
+          window.location.href = '/email-thank-you/';
         } else {
           throw new Error('non-ok');
         }
