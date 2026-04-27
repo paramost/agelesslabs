@@ -6,441 +6,247 @@ description: "Upload your lab results and get an AI-powered longevity biomarker 
 ---
 
 <style>
-  /* Analyze page overrides & tool-specific styles */
+/* Analyze page overrides & tool-specific styles */
+body { overflow-x: hidden; }
+body::before {
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 20%, rgba(181,201,160,0.03) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 60% at 80% 80%, rgba(200,169,110,0.02) 0%, transparent 60%);
+}
+.hero { display: block; padding: 28px 0 0; margin-bottom: 56px; animation: fadeUp 0.8s ease both; }
+.hero-eyebrow { margin-bottom: 20px; }
+h1 em { color: var(--green); }
+.hero-sub { max-width: 600px; margin-bottom: 0; }
 
-  body { overflow-x: hidden; }
+/* Tool card */
+.tool-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; margin-bottom: 48px; animation: fadeUp 0.8s 0.1s ease both; }
+.tool-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg3); }
+.tool-header-left { display: flex; align-items: center; gap: 10px; }
+.tool-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); animation: pulse 2s infinite; }
+.tool-title { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
+.tool-body { padding: 28px; }
+.input-label { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 12px; }
+textarea { width: 100%; height: 180px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; padding: 16px; color: var(--text); font-family: 'DM Mono', monospace; font-size: 12px; font-weight: 300; line-height: 1.7; resize: vertical; outline: none; transition: border-color 0.15s; }
+textarea:focus { border-color: rgba(181,201,160,0.3); }
+textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
+.example-tags { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.example-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); background: transparent; border: 1px solid var(--border); padding: 5px 10px; border-radius: 2px; cursor: pointer; transition: all 0.15s; }
+.example-tag:hover { color: var(--green); border-color: rgba(181,201,160,0.3); }
+.analyze-btn { width: 100%; padding: 16px; background: var(--green); color: var(--bg); border: none; border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+.analyze-btn:hover { background: var(--green-bright); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(181,201,160,0.2); }
+.analyze-btn:active { transform: translateY(0); }
+.analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-  body::before {
-    background:
-      radial-gradient(ellipse 60% 40% at 20% 20%, rgba(181,201,160,0.03) 0%, transparent 60%),
-      radial-gradient(ellipse 40% 60% at 80% 80%, rgba(200,169,110,0.02) 0%, transparent 60%);
-  }
+/* Loading state */
+.loading { display: none; padding: 40px 28px; text-align: center; }
+.loading.active { display: block; }
+.loading-bar { height: 2px; background: var(--bg3); border-radius: 1px; overflow: hidden; margin-bottom: 20px; position: relative; }
+.loading-bar-inner { height: 100%; width: 40%; background: var(--green); border-radius: 1px; animation: scan 1.4s ease-in-out infinite; }
+.loading-text { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; }
 
-  .hero { display: block; padding: 28px 0 0; margin-bottom: 56px; animation: fadeUp 0.8s ease both; }
-  .hero-eyebrow { margin-bottom: 20px; }
-  h1 em { color: var(--green); }
-  .hero-sub { max-width: 600px; margin-bottom: 0; }
+/* Free results */
+.results { display: none; border-top: 1px solid var(--border); }
+.results.active { display: block; }
+.results-header { padding: 20px 28px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+.results-title { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.2em; color: var(--text-muted); text-transform: uppercase; }
+.longevity-score { display: flex; align-items: baseline; gap: 4px; }
+.score-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-right: 8px; }
+.score-value { font-size: 36px; font-weight: 700; color: var(--green); line-height: 1; }
+.score-max { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text-muted); }
+.results-body { padding: 28px; }
+.result-section { margin-bottom: 32px; animation: fadeUp 0.5s ease both; }
+.result-section:nth-child(2) { animation-delay: 0.1s; }
+.result-section:nth-child(3) { animation-delay: 0.2s; }
+.result-section:nth-child(4) { animation-delay: 0.3s; }
+.result-section-title { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; color: var(--green); text-transform: uppercase; margin-bottom: 16px; opacity: 0.7; }
+.biomarker-grid { display: grid; gap: 8px; }
+.biomarker-row { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center; padding: 14px 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.biomarker-name { font-size: 14px; font-weight: 500; color: var(--white); margin-bottom: 4px; letter-spacing: -0.01em; }
+.biomarker-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; font-weight: 400; }
+.biomarker-value { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); white-space: nowrap; }
+.status-pill { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; white-space: nowrap; }
+.status-optimal { color: var(--green); background: var(--green-dim); border: 1px solid var(--border); }
+.status-monitor { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
+.status-concern { color: #c87060; background: rgba(200,112,96,0.08); border: 1px solid rgba(200,112,96,0.15); }
+.narrative { font-size: 15px; color: var(--text); line-height: 1.8; font-weight: 400; padding: 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.recommendations { display: grid; gap: 8px; }
+.rec-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.rec-number { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--green); opacity: 0.5; flex-shrink: 0; margin-top: 2px; }
+.rec-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+.rec-text strong { color: var(--white); font-weight: 500; }
 
-  /* Tool card */
-  .tool-card {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 4px;
-    overflow: hidden;
-    margin-bottom: 48px;
-    animation: fadeUp 0.8s 0.1s ease both;
-  }
+/* Upgrade CTA */
+.upgrade-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px; padding: 24px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.15); border-radius: 3px; margin-top: 24px; }
+.cta-text h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+.cta-text p { font-size: 13px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+.cta-btn { flex-shrink: 0; padding: 12px 24px; background: var(--gold); color: var(--bg); border: none; border-radius: 2px; font-family: 'Red Hat Display', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; white-space: nowrap; transition: all 0.2s; }
+.cta-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
+.cta-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+.disclaimer { margin-top: 24px; padding: 14px 16px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.04em; color: var(--text-muted); line-height: 1.6; border-top: 1px solid var(--border); opacity: 0.6; }
 
-  .tool-header {
-    padding: 16px 20px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: var(--bg3);
-  }
+/* Tabs */
+.input-tabs { display: flex; border-bottom: 1px solid var(--border); margin-bottom: 24px; }
+.tab-btn { font-family: 'Red Hat Display', sans-serif; font-size: 13px; font-weight: 500; color: var(--text-muted); background: transparent; border: none; padding: 12px 20px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; transition: all 0.15s; }
+.tab-btn:hover { color: var(--text-dim); }
+.tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-  .tool-header-left { display: flex; align-items: center; gap: 10px; }
+/* Upload zone */
+.upload-zone { border: 1px solid var(--border); border-radius: 3px; padding: 48px 24px; text-align: center; cursor: pointer; transition: all 0.2s; background: var(--bg3); position: relative; }
+.upload-zone:hover, .upload-zone.dragover { border-color: rgba(181,201,160,0.3); background: rgba(181,201,160,0.03); }
+.upload-zone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-icon { width: 40px; height: 40px; margin: 0 auto 16px; border: 1px solid var(--border); border-radius: 2px; display: flex; align-items: center; justify-content: center; opacity: 0.6; }
+.upload-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.upload-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; letter-spacing: -0.01em; }
+.upload-sub { font-size: 13px; font-weight: 400; color: var(--text-dim); }
+.upload-status { margin-top: 16px; padding: 12px 16px; background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.12); border-radius: 3px; font-size: 13px; font-weight: 400; color: var(--green); display: none; text-align: left; }
+.upload-status.active { display: block; }
 
-  .tool-dot {
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 6px var(--green);
-    animation: pulse 2s infinite;
-  }
+/* ── PAID REPORT ─────────────────────────────────────────── */
+.paid-report { display: none; border-top: 1px solid var(--border); }
+.paid-report.active { display: block; }
 
-  .tool-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
+.paid-header { padding: 20px 28px; background: linear-gradient(135deg, rgba(181,201,160,0.06) 0%, rgba(200,169,110,0.04) 100%); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.paid-header-left { display: flex; flex-direction: column; gap: 4px; }
+.paid-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 4px; }
+.paid-title { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; }
+.paid-header-score { display: flex; align-items: baseline; gap: 4px; }
 
-  .tool-body { padding: 28px; }
+.paid-body { padding: 28px; display: flex; flex-direction: column; gap: 36px; }
 
-  .input-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    display: block;
-    margin-bottom: 12px;
-  }
+/* Paid biomarker rows — richer than free */
+.paid-biomarker-row { padding: 18px 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.paid-bm-top { display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: start; margin-bottom: 10px; }
+.paid-bm-name { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+.paid-bm-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin-bottom: 8px; }
+.paid-bm-mechanism { font-size: 12px; color: var(--text-muted); line-height: 1.5; font-style: italic; }
+.paid-ranges { display: flex; gap: 16px; margin-top: 10px; flex-wrap: wrap; }
+.paid-range-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.04em; color: var(--text-muted); }
+.paid-range-item span { color: var(--text-dim); }
 
-  textarea {
-    width: 100%;
-    height: 180px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 16px;
-    color: var(--text);
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    font-weight: 300;
-    line-height: 1.7;
-    resize: vertical;
-    outline: none;
-    transition: border-color 0.15s;
-  }
-  textarea:focus { border-color: rgba(181,201,160,0.3); }
-  textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
+/* Marker interactions */
+.interaction-card { padding: 18px 20px; background: var(--bg3); border-radius: 3px; }
+.interaction-card.severity-concern { border: 1px solid rgba(200,112,96,0.25); }
+.interaction-card.severity-monitor { border: 1px solid rgba(200,169,110,0.2); }
+.interaction-card.severity-note { border: 1px solid var(--border); }
+.interaction-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+.interaction-markers { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.interaction-marker-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; background: rgba(181,201,160,0.07); border: 1px solid rgba(181,201,160,0.15); color: var(--green); }
+.interaction-insight { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
 
-  .example-tags {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
-  }
+/* Action plan */
+.action-item { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; padding: 18px 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.action-rank { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 700; color: var(--green); opacity: 0.3; line-height: 1; padding-top: 2px; min-width: 28px; }
+.action-body {}
+.action-title { font-size: 15px; font-weight: 600; color: var(--white); margin-bottom: 4px; letter-spacing: -0.01em; }
+.action-meta { display: flex; gap: 12px; margin-bottom: 8px; }
+.action-impact { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; }
+.action-impact.high { color: var(--green); background: rgba(181,201,160,0.08); border: 1px solid rgba(181,201,160,0.2); }
+.action-impact.medium { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
+.action-impact.low { color: var(--text-muted); background: transparent; border: 1px solid var(--border); }
+.action-timeline { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; color: var(--text-muted); padding-top: 3px; }
+.action-detail { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
 
-  .example-tag {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text-muted);
-    background: transparent;
-    border: 1px solid var(--border);
-    padding: 5px 10px;
-    border-radius: 2px;
-    cursor: pointer;
-    transition: all 0.15s;
-  }
-  .example-tag:hover { color: var(--green); border-color: rgba(181,201,160,0.3); }
+/* Missing tests / affiliate */
+.missing-test-item { padding: 16px 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.missing-test-left {}
+.missing-test-name { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; letter-spacing: -0.01em; }
+.missing-test-reason { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+.missing-test-priority { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; display: inline-block; margin-bottom: 6px; }
+.missing-test-priority.high { color: #c87060; background: rgba(200,112,96,0.08); border: 1px solid rgba(200,112,96,0.15); }
+.missing-test-priority.medium { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
+.missing-test-links { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
+.affiliate-link { font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 7px 14px; border-radius: 2px; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
+.affiliate-link.ulta { color: var(--green); border: 1px solid rgba(181,201,160,0.3); background: rgba(181,201,160,0.04); }
+.affiliate-link.ulta:hover { background: rgba(181,201,160,0.1); }
+.affiliate-link.function { color: var(--gold); border: 1px solid rgba(200,169,110,0.3); background: rgba(200,169,110,0.04); }
+.affiliate-link.function:hover { background: rgba(200,169,110,0.1); }
+.affiliate-link.omegaquant { color: var(--text-dim); border: 1px solid var(--border); background: transparent; }
+.affiliate-link.omegaquant:hover { color: var(--white); }
+.affiliate-link.pending { display: none; }
 
-  .analyze-btn {
-    width: 100%;
-    padding: 16px;
-    background: var(--green);
-    color: var(--bg);
-    border: none;
-    border-radius: 3px;
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 14px;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: all 0.2s;
-  }
-  .analyze-btn:hover { background: var(--green-bright); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(181,201,160,0.2); }
-  .analyze-btn:active { transform: translateY(0); }
-  .analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* Comprehensive panel CTA */
+.panel-cta { padding: 24px; background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+.panel-cta-text h4 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
+.panel-cta-text p { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+.panel-cta-btn { flex-shrink: 0; padding: 12px 24px; background: var(--gold); color: var(--bg); border: none; border-radius: 2px; font-family: 'Red Hat Display', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.04em; cursor: pointer; text-decoration: none; white-space: nowrap; transition: all 0.2s; display: inline-block; }
+.panel-cta-btn:hover { filter: brightness(1.1); }
 
-  /* Loading state */
-  .loading { display: none; padding: 40px 28px; text-align: center; }
-  .loading.active { display: block; }
+/* PDF download */
+.pdf-bar { display: flex; align-items: center; justify-content: space-between; padding: 16px 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; gap: 16px; flex-wrap: wrap; }
+.pdf-bar-text { font-size: 13px; color: var(--text-dim); }
+.pdf-btn { padding: 9px 20px; background: transparent; border: 1px solid rgba(181,201,160,0.3); border-radius: 2px; font-family: 'Red Hat Display', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--green); cursor: pointer; transition: all 0.15s; }
+.pdf-btn:hover { background: rgba(181,201,160,0.06); }
 
-  .loading-bar {
-    height: 2px;
-    background: var(--bg3);
-    border-radius: 1px;
-    overflow: hidden;
-    margin-bottom: 20px;
-    position: relative;
-  }
-  .loading-bar-inner {
-    height: 100%;
-    width: 40%;
-    background: var(--green);
-    border-radius: 1px;
-    animation: scan 1.4s ease-in-out infinite;
-  }
-  .loading-text {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
+/* Payment loading / verify state */
+.payment-verify { display: none; padding: 48px 28px; text-align: center; border-top: 1px solid var(--border); }
+.payment-verify.active { display: block; }
+.payment-verify-text { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--text-muted); text-transform: uppercase; margin-top: 16px; }
 
-  /* Results */
-  .results { display: none; border-top: 1px solid var(--border); }
-  .results.active { display: block; }
+/* Print styles */
+@media print {
+  nav, footer, .tool-body, .loading, .results, .payment-verify, .upgrade-cta, .pdf-bar, .hero { display: none !important; }
+  .paid-report { display: block !important; border: none !important; }
+  .tool-card { border: none !important; box-shadow: none !important; }
+  body { background: white !important; color: black !important; }
+  .paid-header { background: #f8f8f8 !important; }
+  .paid-badge, .paid-title, .action-title, .paid-bm-name, .interaction-title, .missing-test-name { color: black !important; }
+  .paid-bm-desc, .action-detail, .interaction-insight, .missing-test-reason { color: #333 !important; }
+  .score-value { color: #2d6a2d !important; }
+}
 
-  .results-header {
-    padding: 20px 28px;
-    background: var(--bg3);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-  }
-  .results-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.2em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-  }
-  .longevity-score { display: flex; align-items: baseline; gap: 4px; }
-  .score-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.15em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-right: 8px;
-  }
-  .score-value {
-    font-size: 36px;
-    font-weight: 700;
-    color: var(--green);
-    line-height: 1;
-  }
-  .score-max {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--text-muted);
-  }
-
-  .results-body { padding: 28px; }
-
-  .result-section { margin-bottom: 32px; animation: fadeUp 0.5s ease both; }
-  .result-section:nth-child(2) { animation-delay: 0.1s; }
-  .result-section:nth-child(3) { animation-delay: 0.2s; }
-  .result-section:nth-child(4) { animation-delay: 0.3s; }
-
-  .result-section-title {
-    font-family: 'DM Mono', monospace;
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 16px;
-    opacity: 0.7;
-  }
-
-  .biomarker-grid { display: grid; gap: 8px; }
-
-  .biomarker-row {
-    display: grid;
-    grid-template-columns: 1fr auto auto;
-    gap: 16px;
-    align-items: center;
-    padding: 14px 16px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-  }
-  .biomarker-name {
-    font-size: 14px;
-    font-weight: 500;
-    color: var(--white);
-    margin-bottom: 4px;
-    letter-spacing: -0.01em;
-  }
-  .biomarker-desc {
-    font-size: 12px;
-    color: var(--text-dim);
-    line-height: 1.5;
-    font-weight: 400;
-  }
-  .biomarker-value {
-    font-family: 'DM Mono', monospace;
-    font-size: 12px;
-    color: var(--text);
-    white-space: nowrap;
-  }
-
-  .status-pill {
-    font-family: 'DM Mono', monospace;
-    font-size: 8px;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 2px;
-    white-space: nowrap;
-  }
-  .status-optimal { color: var(--green); background: var(--green-dim); border: 1px solid var(--border); }
-  .status-monitor { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
-  .status-concern { color: #c87060; background: rgba(200,112,96,0.08); border: 1px solid rgba(200,112,96,0.15); }
-
-  .narrative {
-    font-size: 15px;
-    color: var(--text);
-    line-height: 1.8;
-    font-weight: 400;
-    padding: 20px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-  }
-
-  .recommendations { display: grid; gap: 8px; }
-  .rec-item {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    padding: 16px;
-    background: var(--bg3);
-    border: 1px solid var(--border);
-    border-radius: 3px;
-  }
-  .rec-number {
-    font-family: 'DM Mono', monospace;
-    font-size: 11px;
-    color: var(--green);
-    opacity: 0.5;
-    flex-shrink: 0;
-    margin-top: 2px;
-  }
-  .rec-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
-  .rec-text strong { color: var(--white); font-weight: 500; }
-
-  /* Upgrade CTA */
-  .upgrade-cta {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-    padding: 24px;
-    background: rgba(181,201,160,0.03);
-    border: 1px solid rgba(181,201,160,0.15);
-    border-radius: 3px;
-    margin-top: 24px;
-  }
-  .cta-text h3 { font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 6px; letter-spacing: -0.01em; }
-  .cta-text p { font-size: 13px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
-  .cta-btn {
-    flex-shrink: 0;
-    padding: 12px 24px;
-    background: var(--gold);
-    color: var(--bg);
-    border: none;
-    border-radius: 2px;
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    cursor: pointer;
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-  .cta-btn:hover { filter: brightness(1.1); transform: translateY(-1px); }
-
-  .disclaimer {
-    margin-top: 24px;
-    padding: 14px 16px;
-    font-family: 'DM Mono', monospace;
-    font-size: 10px;
-    letter-spacing: 0.04em;
-    color: var(--text-muted);
-    line-height: 1.6;
-    border-top: 1px solid var(--border);
-    opacity: 0.6;
-  }
-
-  /* Tabs */
-  .input-tabs {
-    display: flex;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 24px;
-  }
-  .tab-btn {
-    font-family: 'Red Hat Display', sans-serif;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-muted);
-    background: transparent;
-    border: none;
-    padding: 12px 20px;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
-    transition: all 0.15s;
-  }
-  .tab-btn:hover { color: var(--text-dim); }
-  .tab-btn.active { color: var(--green); border-bottom-color: var(--green); }
-  .tab-panel { display: none; }
-  .tab-panel.active { display: block; }
-
-  /* Upload zone */
-  .upload-zone {
-    border: 1px solid var(--border);
-    border-radius: 3px;
-    padding: 48px 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    background: var(--bg3);
-    position: relative;
-  }
-  .upload-zone:hover, .upload-zone.dragover {
-    border-color: rgba(181,201,160,0.3);
-    background: rgba(181,201,160,0.03);
-  }
-  .upload-zone input[type="file"] {
-    position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%;
-  }
-  .upload-icon {
-    width: 40px; height: 40px; margin: 0 auto 16px;
-    border: 1px solid var(--border); border-radius: 2px;
-    display: flex; align-items: center; justify-content: center; opacity: 0.6;
-  }
-  .upload-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
-  .upload-title { font-size: 15px; font-weight: 500; color: var(--white); margin-bottom: 8px; letter-spacing: -0.01em; }
-  .upload-sub { font-size: 13px; font-weight: 400; color: var(--text-dim); }
-  .upload-status {
-    margin-top: 16px; padding: 12px 16px;
-    background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.12); border-radius: 3px;
-    font-size: 13px; font-weight: 400; color: var(--green);
-    display: none; text-align: left;
-  }
-  .upload-status.active { display: block; }
-
-  @media (max-width: 600px) {
-    .upgrade-cta { flex-direction: column; }
-    .biomarker-row { grid-template-columns: 1fr; }
-    .results-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-  }
-
+@media (max-width: 600px) {
+  .upgrade-cta, .panel-cta { flex-direction: column; }
+  .paid-bm-top, .biomarker-row { grid-template-columns: 1fr; }
+  .results-header, .paid-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .action-item { grid-template-columns: 1fr; }
+  .action-rank { font-size: 14px; }
+}
 </style>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
 <section class="hero">
-    <div class="hero-eyebrow">AI Biomarker Analysis</div>
-    <h1>Understand what your<br><em>labs reveal</em> about<br>how long you'll live.</h1>
-    <p class="hero-sub">Upload your lab results or paste the text. Our AI interprets each biomarker through a longevity lens — flagging what matters, explaining what it means, and telling you what to do next.</p>
-  </section>
+  <div class="hero-eyebrow">AI Biomarker Analysis</div>
+  <h1>Understand what your<br><em>labs reveal</em> about<br>how long you'll live.</h1>
+  <p class="hero-sub">Upload your lab results or paste the text. Our AI interprets each biomarker through a longevity lens — flagging what matters, explaining what it means, and telling you what to do next.</p>
+</section>
 
-  <div class="tool-card">
-    <div class="tool-header">
-      <div class="tool-header-left">
-        <div class="tool-dot"></div>
-        <span class="tool-title">Biomarker Interpreter</span>
-      </div>
-      <span class="tool-title" style="font-size:10px;">Free · No account required</span>
+<div class="tool-card">
+
+  <!-- Input / free tool -->
+  <div class="tool-header">
+    <div class="tool-header-left">
+      <div class="tool-dot"></div>
+      <span class="tool-title">Biomarker Interpreter</span>
+    </div>
+    <span class="tool-title" style="font-size:10px;">Free · No account required</span>
+  </div>
+
+  <div class="tool-body">
+    <div class="input-tabs">
+      <button class="tab-btn active" onclick="switchTab('upload')">Upload File</button>
+      <button class="tab-btn" onclick="switchTab('paste')">Paste Text</button>
     </div>
 
-    <div class="tool-body">
-      <div class="input-tabs">
-        <button class="tab-btn active" onclick="switchTab('upload')">Upload File</button>
-        <button class="tab-btn" onclick="switchTab('paste')">Paste Text</button>
-      </div>
-
-      <div class="tab-panel active" id="tab-upload">
-        <div class="upload-zone" id="uploadZone">
-          <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event)">
-          <div class="upload-icon">
-            <svg viewBox="0 0 24 24">
-              <path d="M12 15V3m0 0L8 7m4-4 4 4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
-            </svg>
-          </div>
-          <div class="upload-title">Upload your lab results</div>
-          <div class="upload-sub">PDF, JPG, or PNG — drag and drop or click to browse</div>
+    <div class="tab-panel active" id="tab-upload">
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" accept=".pdf,.jpg,.jpeg,.png,.webp" onchange="handleFileSelect(event)">
+        <div class="upload-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 15V3m0 0L8 7m4-4 4 4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"/>
+          </svg>
         </div>
-        <div class="upload-status" id="uploadStatus"></div>
+        <div class="upload-title">Upload your lab results</div>
+        <div class="upload-sub">PDF, JPG, or PNG — drag and drop or click to browse</div>
       </div>
+      <div class="upload-status" id="uploadStatus"></div>
+    </div>
 
-      <div class="tab-panel" id="tab-paste">
-        <label class="input-label" for="labInput">Paste your lab results</label>
-        <textarea id="labInput" placeholder="Example:
+    <div class="tab-panel" id="tab-paste">
+      <label class="input-label" for="labInput">Paste your lab results</label>
+      <textarea id="labInput" placeholder="Example:
 Glucose: 94 mg/dL
 HbA1c: 5.2%
 Total Cholesterol: 188 mg/dL
@@ -451,100 +257,190 @@ hsCRP: 0.8 mg/L
 Vitamin D: 38 ng/mL
 TSH: 1.8 mIU/L
 Ferritin: 45 ng/mL"></textarea>
-        <div class="example-tags">
-          <span class="input-label" style="margin:0;line-height:2;">Try an example:</span>
-          <button class="example-tag" onclick="loadExample('metabolic')">Metabolic Panel</button>
-          <button class="example-tag" onclick="loadExample('lipid')">Lipid Panel</button>
-          <button class="example-tag" onclick="loadExample('longevity')">Full Longevity Panel</button>
-        </div>
+      <div class="example-tags">
+        <span class="input-label" style="margin:0;line-height:2;">Try an example:</span>
+        <button class="example-tag" onclick="loadExample('metabolic')">Metabolic Panel</button>
+        <button class="example-tag" onclick="loadExample('lipid')">Lipid Panel</button>
+        <button class="example-tag" onclick="loadExample('longevity')">Full Longevity Panel</button>
       </div>
-
-      <button class="analyze-btn" id="analyzeBtn" onclick="analyzeLabResults()" style="margin-top:24px;">
-        Analyze My Biomarkers
-      </button>
-      <div id="analyzeError" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(200,112,96,0.08);border:1px solid rgba(200,112,96,0.2);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#c87060;"></div>
     </div>
 
-    <div class="loading" id="loadingState">
-      <div class="loading-bar"><div class="loading-bar-inner"></div></div>
-      <div class="loading-text" id="loadingText">Interpreting biomarkers...</div>
-    </div>
+    <button class="analyze-btn" id="analyzeBtn" onclick="analyzeLabResults()" style="margin-top:24px;">
+      Analyze My Biomarkers
+    </button>
+    <div id="analyzeError" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(200,112,96,0.08);border:1px solid rgba(200,112,96,0.2);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#c87060;"></div>
+  </div>
 
-    <div class="results" id="resultsSection">
-      <div class="results-header">
-        <div class="results-title">Your Longevity Analysis</div>
-        <div class="longevity-score">
-          <span class="score-label">Longevity Score</span>
-          <span class="score-value" id="scoreValue">—</span>
-          <span class="score-max">/100</span>
-        </div>
+  <!-- Loading -->
+  <div class="loading" id="loadingState">
+    <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+    <div class="loading-text" id="loadingText">Interpreting biomarkers...</div>
+  </div>
+
+  <!-- Free results -->
+  <div class="results" id="resultsSection">
+    <div class="results-header">
+      <div class="results-title">Your Longevity Analysis</div>
+      <div class="longevity-score">
+        <span class="score-label">Longevity Score</span>
+        <span class="score-value" id="scoreValue">—</span>
+        <span class="score-max">/100</span>
       </div>
-      <div class="results-body">
-        <div class="result-section">
-          <div class="result-section-title">Overall Assessment</div>
-          <div class="narrative" id="narrativeText"></div>
+    </div>
+    <div class="results-body">
+      <div class="result-section">
+        <div class="result-section-title">Overall Assessment</div>
+        <div class="narrative" id="narrativeText"></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Biomarker Breakdown</div>
+        <div class="biomarker-grid" id="biomarkerGrid"></div>
+      </div>
+      <div class="result-section">
+        <div class="result-section-title">Priority Recommendations</div>
+        <div class="recommendations" id="recommendationsList"></div>
+      </div>
+      <div class="upgrade-cta">
+        <div class="cta-text">
+          <h3>Get your Full Longevity Report</h3>
+          <p>Clinical-depth marker analysis, interaction patterns, age & sex-adjusted ranges, a prioritized action plan, and specific tests to order — with a downloadable PDF.</p>
         </div>
-        <div class="result-section">
-          <div class="result-section-title">Biomarker Breakdown</div>
-          <div class="biomarker-grid" id="biomarkerGrid"></div>
-        </div>
-        <div class="result-section">
-          <div class="result-section-title">Priority Recommendations</div>
-          <div class="recommendations" id="recommendationsList"></div>
-        </div>
-        <div class="upgrade-cta">
-          <div class="cta-text">
-            <h3>Get your full Longevity Report</h3>
-            <p>Detailed trend tracking, optimal ranges for your age & sex, lab test recommendations, and a personalized longevity protocol.</p>
-          </div>
-          <button class="cta-btn">Unlock Full Report — $19</button>
-        </div>
-        <div class="disclaimer">
-          ⚠ For informational purposes only. Not medical advice. Always consult a qualified healthcare provider before making changes to your health regimen.
-        </div>
+        <button class="cta-btn" id="upgradeBtn" onclick="startCheckout()">Unlock Full Report — $19</button>
+      </div>
+      <div class="disclaimer">
+        ⚠ For informational purposes only. Not medical advice. Always consult a qualified healthcare provider before making changes to your health regimen.
       </div>
     </div>
   </div>
 
+  <!-- Payment verification loading -->
+  <div class="payment-verify" id="paymentVerify">
+    <div class="loading-bar"><div class="loading-bar-inner"></div></div>
+    <div class="payment-verify-text" id="verifyText">Confirming payment...</div>
+  </div>
+
+  <!-- Paid report -->
+  <div class="paid-report" id="paidReport">
+    <div class="paid-header">
+      <div class="paid-header-left">
+        <div class="paid-badge">Full Longevity Report</div>
+        <div class="paid-title">Your Complete Analysis</div>
+      </div>
+      <div class="longevity-score">
+        <span class="score-label">Longevity Score</span>
+        <span class="score-value" id="paidScoreValue">—</span>
+        <span class="score-max">/100</span>
+      </div>
+    </div>
+
+    <div class="paid-body">
+
+      <!-- Assessment -->
+      <div>
+        <div class="result-section-title">Overall Assessment</div>
+        <div class="narrative" id="paidNarrative"></div>
+      </div>
+
+      <!-- Biomarker breakdown -->
+      <div>
+        <div class="result-section-title">Biomarker Breakdown — Longevity Analysis</div>
+        <div class="biomarker-grid" id="paidBiomarkerGrid"></div>
+      </div>
+
+      <!-- Marker interactions -->
+      <div id="paidInteractionsSection">
+        <div class="result-section-title">Marker Interactions & Patterns</div>
+        <div style="display:grid;gap:8px;" id="paidInteractionsList"></div>
+      </div>
+
+      <!-- Action plan -->
+      <div>
+        <div class="result-section-title">Prioritized Action Plan</div>
+        <div style="display:grid;gap:8px;" id="paidActionPlan"></div>
+      </div>
+
+      <!-- Missing tests -->
+      <div id="paidMissingSection">
+        <div class="result-section-title">Tests to Add to Your Next Panel</div>
+        <div style="display:grid;gap:8px;" id="paidMissingTests"></div>
+        <div class="panel-cta" id="paidPanelCta" style="margin-top:16px;">
+          <div class="panel-cta-text">
+            <h4>Want the full picture in one draw?</h4>
+            <p>Function Health runs 100+ longevity markers twice a year — the most comprehensive panel available.</p>
+          </div>
+          <a href="https://www.functionhealth.com" target="_blank" rel="noopener noreferrer" class="panel-cta-btn">View Function Health →</a>
+        </div>
+      </div>
+
+      <!-- PDF bar -->
+      <div class="pdf-bar">
+        <div class="pdf-bar-text">Save or share your report with your doctor.</div>
+        <button class="pdf-btn" onclick="downloadReport()">Download PDF</button>
+      </div>
+
+      <div class="disclaimer">
+        ⚠ For informational purposes only. Not medical advice. Always consult a qualified healthcare provider before making changes to your health regimen.
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- end .tool-card -->
+
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-let uploadedImageBase64 = null;
-let uploadedImageType = null;
-let activeTab = 'upload';
+// ── Affiliate link config — fill in URLs when available ──────────────────────
+// Set each URL to the affiliate URL or leave as empty string to hide the button.
+const AFFILIATE = {
+  'ApoB':           { ulta: '', function: '', label: 'ApoB' },
+  'Lp(a)':          { ulta: '', function: '', label: 'Lp(a)' },
+  'Lipoprotein(a)': { ulta: '', function: '', label: 'Lp(a)' },
+  'hsCRP':          { ulta: '', function: '', label: 'hsCRP' },
+  'Homocysteine':   { ulta: '', function: '', label: 'Homocysteine' },
+  'Fasting Insulin':{ ulta: '', function: '', label: 'Fasting Insulin' },
+  'IGF-1':          { ulta: '', function: '', label: 'IGF-1' },
+  'Omega-3 Index':  { ulta: '', omegaquant: '', label: 'Omega-3 Index' },
+  'Vitamin D':      { ulta: '', function: '', label: 'Vitamin D' },
+  'Ferritin':       { ulta: '', label: 'Ferritin' },
+  'TSH':            { ulta: '', label: 'TSH + Free T3/T4' },
+  'Free T3':        { ulta: '', label: 'Free T3/T4' },
+  'Free T4':        { ulta: '', label: 'Free T3/T4' },
+};
 
+// ── State ────────────────────────────────────────────────────────────────────
+let uploadedImageBase64 = null;
+let uploadedImageType   = null;
+let activeTab           = 'upload';
+
+// ── Tab switching ────────────────────────────────────────────────────────────
 function switchTab(tab) {
   activeTab = tab;
   document.querySelectorAll('.tab-btn').forEach((b, i) => {
     b.classList.toggle('active', (i === 0 && tab === 'upload') || (i === 1 && tab === 'paste'));
   });
   document.getElementById('tab-upload').classList.toggle('active', tab === 'upload');
-  document.getElementById('tab-paste').classList.toggle('active', tab === 'paste');
+  document.getElementById('tab-paste').classList.toggle('active',  tab === 'paste');
   if (tab === 'paste') { uploadedImageBase64 = null; uploadedImageType = null; }
 }
 
+// ── Drag & drop ──────────────────────────────────────────────────────────────
 const zone = document.getElementById('uploadZone');
-zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+zone.addEventListener('dragover',  e => { e.preventDefault(); zone.classList.add('dragover'); });
 zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
 zone.addEventListener('drop', e => {
-  e.preventDefault();
-  zone.classList.remove('dragover');
+  e.preventDefault(); zone.classList.remove('dragover');
   const file = e.dataTransfer.files[0];
   if (file) processFile(file);
 });
+function handleFileSelect(e) { const file = e.target.files[0]; if (file) processFile(file); }
 
-function handleFileSelect(e) {
-  const file = e.target.files[0];
-  if (file) processFile(file);
-}
-
+// ── File processing ──────────────────────────────────────────────────────────
 async function processFile(file) {
   const status = document.getElementById('uploadStatus');
   status.classList.add('active');
-  uploadedImageBase64 = null;
-  uploadedImageType = null;
+  uploadedImageBase64 = null; uploadedImageType = null;
   const ext = file.name.split('.').pop().toLowerCase();
-
   if (ext === 'pdf') {
     status.textContent = 'Reading PDF...';
     try {
@@ -559,7 +455,6 @@ async function processFile(file) {
       if (text.trim().length > 20) {
         document.getElementById('labInput').value = text.trim();
         status.textContent = `✓ PDF extracted — ${pdf.numPages} page${pdf.numPages > 1 ? 's' : ''} · ready to analyze`;
-        status.classList.add('active');
       } else {
         await pdfPageToImage(file, status);
       }
@@ -569,10 +464,9 @@ async function processFile(file) {
   } else if (['jpg','jpeg','png','webp'].includes(ext)) {
     status.textContent = 'Loading image...';
     try {
-      const base64 = await fileToBase64(file);
-      uploadedImageBase64 = base64;
-      uploadedImageType = file.type;
-      status.textContent = `✓ ${file.name} ready to analyze`;
+      uploadedImageBase64 = await fileToBase64(file);
+      uploadedImageType   = file.type;
+      status.textContent  = `✓ ${file.name} ready to analyze`;
     } catch (err) {
       status.textContent = 'Could not load image. Please try again.';
     }
@@ -588,46 +482,100 @@ async function pdfPageToImage(file, status) {
   const page = await pdf.getPage(1);
   const viewport = page.getViewport({ scale: 2 });
   const canvas = document.createElement('canvas');
-  canvas.width = viewport.width;
-  canvas.height = viewport.height;
+  canvas.width = viewport.width; canvas.height = viewport.height;
   await page.render({ canvasContext: canvas.getContext('2d'), viewport }).promise;
   uploadedImageBase64 = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
-  uploadedImageType = 'image/jpeg';
-  status.textContent = '✓ PDF converted to image · ready to analyze';
+  uploadedImageType   = 'image/jpeg';
+  status.textContent  = '✓ PDF converted to image · ready to analyze';
 }
 
 function fileToBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
 }
 
+// ── Example preloads ─────────────────────────────────────────────────────────
 const examples = {
   metabolic: `Glucose: 94 mg/dL\nHbA1c: 5.2%\nInsulin (fasting): 6.2 uIU/mL\nALT: 22 U/L\nAST: 19 U/L\nCreatinine: 0.9 mg/dL\neGFR: 92 mL/min`,
-  lipid: `Total Cholesterol: 212 mg/dL\nLDL: 138 mg/dL\nHDL: 52 mg/dL\nTriglycerides: 142 mg/dL\nApoB: 98 mg/dL\nhsCRP: 1.4 mg/L`,
-  longevity: `Glucose: 88 mg/dL\nHbA1c: 5.1%\nTotal Cholesterol: 195 mg/dL\nLDL: 118 mg/dL\nHDL: 64 mg/dL\nApoB: 82 mg/dL\nTriglycerides: 76 mg/dL\nhsCRP: 0.4 mg/L\nHomocysteine: 7.2 umol/L\nVitamin D: 52 ng/mL\nIGF-1: 148 ng/mL\nTSH: 1.6 mIU/L\nTestosterone: 620 ng/dL\nFerritin: 68 ng/mL`
+  lipid:     `Total Cholesterol: 212 mg/dL\nLDL: 138 mg/dL\nHDL: 52 mg/dL\nTriglycerides: 142 mg/dL\nApoB: 98 mg/dL\nhsCRP: 1.4 mg/L`,
+  longevity: `Glucose: 88 mg/dL\nHbA1c: 5.1%\nTotal Cholesterol: 195 mg/dL\nLDL: 118 mg/dL\nHDL: 64 mg/dL\nApoB: 82 mg/dL\nTriglycerides: 76 mg/dL\nhsCRP: 0.4 mg/L\nHomocysteine: 7.2 umol/L\nVitamin D: 52 ng/mL\nIGF-1: 148 ng/mL\nTSH: 1.6 mIU/L\nTestosterone: 620 ng/dL\nFerritin: 68 ng/mL`,
 };
+function loadExample(type) { document.getElementById('labInput').value = examples[type]; }
 
-function loadExample(type) {
-  document.getElementById('labInput').value = examples[type];
+// ── System prompts ───────────────────────────────────────────────────────────
+const FREE_PROMPT = `You are a longevity-focused biomarker analyst. Analyze lab results through a longevity and healthspan lens. Return ONLY valid JSON, no markdown, no preamble. Return this exact structure:
+{
+  "score": <integer 1-100>,
+  "narrative": "<2-3 sentence summary of overall longevity picture, written in an authoritative tone>",
+  "biomarkers": [
+    { "name": "<marker name>", "value": "<value with unit>", "status": "optimal|monitor|concern", "description": "<1 sentence longevity interpretation>" }
+  ],
+  "recommendations": [
+    { "title": "<short action title>", "detail": "<specific, actionable recommendation with longevity rationale>" }
+  ]
 }
+Score 85-100 = excellent longevity profile. 65-84 = good with room to optimize. 45-64 = moderate concerns worth addressing. Below 45 = significant areas needing attention. Recommendations should be specific and actionable, max 4 items. Prioritize the highest-impact interventions.`;
 
-const loadingMessages = [
-  "Interpreting biomarkers...",
-  "Analyzing longevity markers...",
-  "Calculating your score...",
-  "Generating recommendations..."
-];
+const PAID_PROMPT = `You are an expert longevity physician and biomarker specialist providing a comprehensive paid Full Longevity Report. Analyze the lab results with deep clinical insight.
+
+Return ONLY valid JSON, no markdown, no preamble. Use this exact structure:
+{
+  "score": <integer 1-100>,
+  "narrative": "<4-5 sentence comprehensive clinical summary covering overall longevity trajectory, key strengths, key risks, and most important next step>",
+  "biomarkers": [
+    {
+      "name": "<marker name>",
+      "value": "<value with unit>",
+      "status": "optimal|monitor|concern",
+      "longevity_range": "<longevity-optimal range, e.g. '<60 mg/dL'>",
+      "standard_range": "<standard lab reference range>",
+      "description": "<2-3 sentence clinical interpretation with specific longevity context>",
+      "mechanism": "<1 sentence on why this marker matters for longevity at the cellular or systemic level>"
+    }
+  ],
+  "marker_interactions": [
+    {
+      "title": "<pattern name, e.g. 'Early Metabolic Syndrome Pattern'>",
+      "markers": ["<marker1>", "<marker2>", "<marker3>"],
+      "insight": "<2-3 sentences on what these markers collectively signal and why the combination matters more than any individual result>",
+      "severity": "concern|monitor|note"
+    }
+  ],
+  "action_plan": [
+    {
+      "rank": <1-5>,
+      "title": "<short action title>",
+      "impact": "high|medium|low",
+      "timeline": "<expected timeline, e.g. '8-12 weeks'>",
+      "detail": "<specific, evidence-based recommendation with mechanism and expected outcome>"
+    }
+  ],
+  "missing_tests": [
+    {
+      "name": "<exact test name>",
+      "reason": "<1-2 sentences on why this test is important given what we see in this panel>",
+      "priority": "high|medium"
+    }
+  ]
+}
+Score 85-100 = excellent. 65-84 = good with optimization room. 45-64 = moderate concerns. Below 45 = significant attention needed.
+For marker_interactions: only include if 2+ markers suggest a meaningful pattern. Max 3 interactions.
+For action_plan: rank by expected impact on longevity score. Max 5 items. Be specific — name dosages, frequencies, durations where evidence supports it.
+For missing_tests: only include tests genuinely missing from the panel that would add meaningful information. Use exact standard test names. Max 6 items.`;
+
+// ── Free analysis ────────────────────────────────────────────────────────────
+const loadingMessages = ["Interpreting biomarkers...","Analyzing longevity markers...","Calculating your score...","Generating recommendations..."];
 
 async function analyzeLabResults() {
-  const btn = document.getElementById('analyzeBtn');
-  const loading = document.getElementById('loadingState');
-  const results = document.getElementById('resultsSection');
+  const btn        = document.getElementById('analyzeBtn');
+  const loading    = document.getElementById('loadingState');
+  const results    = document.getElementById('resultsSection');
   const pastedText = document.getElementById('labInput').value.trim();
-  const hasImage = uploadedImageBase64 !== null;
+  const hasImage   = uploadedImageBase64 !== null;
 
   if (!hasImage && !pastedText) {
     if (activeTab === 'upload') {
@@ -638,6 +586,12 @@ async function analyzeLabResults() {
     }
     return;
   }
+
+  // Save lab data for potential paid upgrade
+  const labData = hasImage
+    ? { type: 'image', base64: uploadedImageBase64, mimeType: uploadedImageType }
+    : { type: 'text', text: pastedText };
+  sessionStorage.setItem('al_lab_data', JSON.stringify(labData));
 
   btn.disabled = true;
   loading.classList.add('active');
@@ -650,57 +604,24 @@ async function analyzeLabResults() {
     document.getElementById('loadingText').textContent = loadingMessages[msgIdx];
   }, 1200);
 
-  const systemPrompt = `You are a longevity-focused biomarker analyst. Analyze lab results through a longevity and healthspan lens. Return ONLY valid JSON, no markdown, no preamble.
-
-Return this exact structure:
-{
-  "score": <integer 1-100>,
-  "narrative": "<2-3 sentence summary of overall longevity picture, written in an authoritative tone>",
-  "biomarkers": [
-    {
-      "name": "<marker name>",
-      "value": "<value with unit>",
-      "status": "optimal|monitor|concern",
-      "description": "<1 sentence longevity interpretation>"
-    }
-  ],
-  "recommendations": [
-    {
-      "title": "<short action title>",
-      "detail": "<specific, actionable recommendation with longevity rationale>"
-    }
-  ]
-}
-
-Score 85-100 = excellent longevity profile. 65-84 = good with room to optimize. 45-64 = moderate concerns worth addressing. Below 45 = significant areas needing attention.
-Recommendations should be specific and actionable, max 4 items. Prioritize the highest-impact interventions.`;
-
-  let messageContent;
-  if (hasImage) {
-    messageContent = [
-      { type: "image", source: { type: "base64", media_type: uploadedImageType, data: uploadedImageBase64 } },
-      { type: "text", text: "Please analyze the lab results in this image." }
-    ];
-  } else {
-    messageContent = [{ type: "text", text: `Analyze these lab results:\n\n${pastedText}` }];
-  }
+  const messageContent = buildMessageContent(hasImage, pastedText);
 
   try {
-    const response = await fetch("/api/analyze", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
+    const response = await fetch('/api/analyze', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        model: "claude-sonnet-4-6",
+        model: 'claude-sonnet-4-6',
         max_tokens: 2000,
-        system: systemPrompt,
-        messages: [{ role: "user", content: messageContent }]
-      })
+        system: FREE_PROMPT,
+        messages: [{ role: 'user', content: messageContent }],
+      }),
     });
     const data = await response.json();
     clearInterval(msgInterval);
-    const raw = data.content.map(i => i.text || "").join("");
-    const clean = raw.replace(/```json|```/g, "").trim();
-    renderResults(JSON.parse(clean));
+    const raw   = data.content.map(i => i.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    renderFreeResults(JSON.parse(clean));
   } catch (err) {
     clearInterval(msgInterval);
     loading.classList.remove('active');
@@ -708,7 +629,7 @@ Recommendations should be specific and actionable, max 4 items. Prioritize the h
     document.getElementById('loadingText').textContent = 'Interpreting biomarkers...';
     const errorDiv = document.getElementById('analyzeError');
     errorDiv.style.display = 'block';
-    errorDiv.textContent = 'Something went wrong. Please check your connection and try again.';
+    errorDiv.textContent   = 'Something went wrong. Please check your connection and try again.';
     return;
   }
 
@@ -718,10 +639,20 @@ Recommendations should be specific and actionable, max 4 items. Prioritize the h
   results.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function renderResults(data) {
-  document.getElementById('scoreValue').textContent = data.score;
+function buildMessageContent(hasImage, pastedText) {
+  if (hasImage) {
+    return [
+      { type: 'image', source: { type: 'base64', media_type: uploadedImageType, data: uploadedImageBase64 } },
+      { type: 'text',  text: 'Please analyze the lab results in this image.' },
+    ];
+  }
+  return [{ type: 'text', text: `Analyze these lab results:\n\n${pastedText}` }];
+}
+
+function renderFreeResults(data) {
+  document.getElementById('scoreValue').textContent   = data.score;
   document.getElementById('narrativeText').textContent = data.narrative;
-  document.getElementById('biomarkerGrid').innerHTML = data.biomarkers.map(b => `
+  document.getElementById('biomarkerGrid').innerHTML  = data.biomarkers.map(b => `
     <div class="biomarker-row">
       <div>
         <div class="biomarker-name">${b.name}</div>
@@ -729,32 +660,225 @@ function renderResults(data) {
       </div>
       <div class="biomarker-value">${b.value}</div>
       <div class="status-pill status-${b.status}">${b.status}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
   document.getElementById('recommendationsList').innerHTML = data.recommendations.map((r, i) => `
     <div class="rec-item">
-      <div class="rec-number">0${i+1}</div>
+      <div class="rec-number">0${i + 1}</div>
       <div class="rec-text"><strong>${r.title}</strong> — ${r.detail}</div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function getDemoResults() {
-  return {
-    score: 74,
-    narrative: "Your biomarker profile suggests a reasonably healthy metabolic baseline with select areas warranting attention. Lipid markers indicate moderate cardiovascular risk that responds well to targeted intervention, while inflammatory markers are within an acceptable range for your longevity trajectory.",
-    biomarkers: [
-      { name: "LDL Cholesterol", value: "138 mg/dL", status: "monitor", description: "Elevated above longevity-optimal range of <100 mg/dL; ApoB tracking recommended for precision." },
-      { name: "HDL Cholesterol", value: "52 mg/dL", status: "monitor", description: "Adequate but suboptimal — longevity benefit increases significantly above 60 mg/dL." },
-      { name: "Triglycerides", value: "142 mg/dL", status: "monitor", description: "Mildly elevated; reflects carbohydrate metabolism and visceral fat load." },
-      { name: "hsCRP", value: "1.4 mg/L", status: "monitor", description: "Low-grade inflammation present; optimal longevity range is below 0.5 mg/L." }
-    ],
-    recommendations: [
-      { title: "Test ApoB", detail: "Order an ApoB test for a more accurate assessment of cardiovascular risk than LDL alone — the gold standard for longevity-focused lipid management." },
-      { title: "Zone 2 Cardio", detail: "150+ minutes weekly of low-intensity aerobic exercise directly lowers triglycerides and raises HDL within 8–12 weeks." },
-      { title: "Reduce refined carbohydrates", detail: "Triglycerides above 100 mg/dL are strongly modulated by dietary carbohydrate intake — reducing refined carbs and fructose often yields rapid improvement." },
-      { title: "Retest in 90 days", detail: "Establish a baseline trend with a full longevity panel in 3 months to track the impact of interventions." }
-    ]
-  };
+// ── Checkout flow ────────────────────────────────────────────────────────────
+async function startCheckout() {
+  const btn = document.getElementById('upgradeBtn');
+  btn.disabled    = true;
+  btn.textContent = 'Redirecting to checkout...';
+
+  try {
+    const res  = await fetch('/api/stripe-checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+    const data = await res.json();
+    if (data.url) {
+      window.location.href = data.url;
+    } else {
+      btn.disabled    = false;
+      btn.textContent = 'Unlock Full Report — $19';
+      alert('Could not start checkout. Please try again.');
+    }
+  } catch (err) {
+    btn.disabled    = false;
+    btn.textContent = 'Unlock Full Report — $19';
+    alert('Could not start checkout. Please try again.');
+  }
 }
+
+// ── Post-payment: verify + run paid analysis ─────────────────────────────────
+async function handlePostPayment(sessionId) {
+  const tool        = document.querySelector('.tool-body');
+  const verifyState = document.getElementById('paymentVerify');
+  const verifyText  = document.getElementById('verifyText');
+
+  tool.style.display = 'none';
+  verifyState.classList.add('active');
+
+  // 1. Verify payment
+  try {
+    const res  = await fetch('/api/stripe-verify', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify({ sessionId }),
+    });
+    const data = await res.json();
+    if (!data.success) {
+      verifyText.textContent = 'Payment could not be verified. Please contact support.';
+      return;
+    }
+  } catch (err) {
+    verifyText.textContent = 'Verification error. Please contact support.';
+    return;
+  }
+
+  // 2. Retrieve lab data from session storage
+  const stored = sessionStorage.getItem('al_lab_data');
+  if (!stored) {
+    verifyText.textContent = 'Lab data not found. Please re-upload your results and try again.';
+    verifyState.innerHTML += `<br><a href="/analyze" style="color:var(--green);font-size:13px;">Start over →</a>`;
+    return;
+  }
+  const labData = JSON.parse(stored);
+
+  // 3. Run paid analysis
+  verifyText.textContent = 'Generating your Full Longevity Report...';
+  let msgIdx = 0;
+  const paidMessages = ['Generating your Full Longevity Report...','Analyzing marker interactions...','Building your action plan...','Identifying missing tests...'];
+  const msgInterval = setInterval(() => {
+    msgIdx = (msgIdx + 1) % paidMessages.length;
+    verifyText.textContent = paidMessages[msgIdx];
+  }, 1800);
+
+  const messageContent = labData.type === 'image'
+    ? [
+        { type: 'image', source: { type: 'base64', media_type: labData.mimeType, data: labData.base64 } },
+        { type: 'text',  text: 'Please analyze the lab results in this image.' },
+      ]
+    : [{ type: 'text', text: `Analyze these lab results:\n\n${labData.text}` }];
+
+  try {
+    const response = await fetch('/api/analyze', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model:      'claude-sonnet-4-6',
+        max_tokens: 4000,
+        system:     PAID_PROMPT,
+        messages:   [{ role: 'user', content: messageContent }],
+      }),
+    });
+    const data  = await response.json();
+    clearInterval(msgInterval);
+    const raw   = data.content.map(i => i.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    renderPaidReport(JSON.parse(clean));
+  } catch (err) {
+    clearInterval(msgInterval);
+    verifyText.textContent = 'Error generating report. Please contact support.';
+    return;
+  }
+
+  verifyState.classList.remove('active');
+  document.getElementById('paidReport').classList.add('active');
+  document.getElementById('paidReport').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  sessionStorage.removeItem('al_lab_data');
+}
+
+// ── Paid report rendering ────────────────────────────────────────────────────
+function renderPaidReport(data) {
+  document.getElementById('paidScoreValue').textContent = data.score;
+  document.getElementById('paidNarrative').textContent  = data.narrative;
+
+  // Biomarkers
+  document.getElementById('paidBiomarkerGrid').innerHTML = data.biomarkers.map(b => `
+    <div class="paid-biomarker-row">
+      <div class="paid-bm-top">
+        <div>
+          <div class="paid-bm-name">${b.name}</div>
+        </div>
+        <div class="biomarker-value">${b.value}</div>
+        <div class="status-pill status-${b.status}">${b.status}</div>
+      </div>
+      <div class="paid-bm-desc">${b.description}</div>
+      ${b.mechanism ? `<div class="paid-bm-mechanism">${b.mechanism}</div>` : ''}
+      <div class="paid-ranges">
+        ${b.longevity_range ? `<div class="paid-range-item">Longevity optimal: <span>${b.longevity_range}</span></div>` : ''}
+        ${b.standard_range  ? `<div class="paid-range-item">Standard range: <span>${b.standard_range}</span></div>`   : ''}
+      </div>
+    </div>`).join('');
+
+  // Marker interactions
+  const interactions = data.marker_interactions || [];
+  if (interactions.length) {
+    document.getElementById('paidInteractionsList').innerHTML = interactions.map(i => `
+      <div class="interaction-card severity-${i.severity}">
+        <div class="interaction-title">${i.title}</div>
+        <div class="interaction-markers">${i.markers.map(m => `<span class="interaction-marker-tag">${m}</span>`).join('')}</div>
+        <div class="interaction-insight">${i.insight}</div>
+      </div>`).join('');
+  } else {
+    document.getElementById('paidInteractionsSection').style.display = 'none';
+  }
+
+  // Action plan
+  document.getElementById('paidActionPlan').innerHTML = (data.action_plan || []).map(a => `
+    <div class="action-item">
+      <div class="action-rank">${a.rank}</div>
+      <div class="action-body">
+        <div class="action-title">${a.title}</div>
+        <div class="action-meta">
+          <span class="action-impact ${a.impact}">${a.impact} impact</span>
+          <span class="action-timeline">${a.timeline}</span>
+        </div>
+        <div class="action-detail">${a.detail}</div>
+      </div>
+    </div>`).join('');
+
+  // Missing tests + affiliate links
+  const missing = data.missing_tests || [];
+  if (missing.length) {
+    document.getElementById('paidMissingTests').innerHTML = missing.map(t => {
+      const aff   = AFFILIATE[t.name] || {};
+      const links = [
+        aff.ulta        ? `<a href="${aff.ulta}"        class="affiliate-link ulta"       target="_blank" rel="noopener noreferrer">Order — Ulta Lab Tests →</a>`  : '',
+        aff.function    ? `<a href="${aff.function}"    class="affiliate-link function"   target="_blank" rel="noopener noreferrer">Order — Function Health →</a>` : '',
+        aff.omegaquant  ? `<a href="${aff.omegaquant}"  class="affiliate-link omegaquant" target="_blank" rel="noopener noreferrer">Order — OmegaQuant →</a>`      : '',
+      ].filter(Boolean).join('');
+      return `
+        <div class="missing-test-item">
+          <div class="missing-test-left">
+            <div class="missing-test-priority ${t.priority}">${t.priority} priority</div>
+            <div class="missing-test-name">${t.name}</div>
+            <div class="missing-test-reason">${t.reason}</div>
+          </div>
+          ${links ? `<div class="missing-test-links">${links}</div>` : ''}
+        </div>`;
+    }).join('');
+  } else {
+    document.getElementById('paidMissingSection').style.display = 'none';
+  }
+
+  // Hide panel CTA if no significant missing tests
+  const highPriority = missing.filter(t => t.priority === 'high');
+  if (highPriority.length < 2) {
+    document.getElementById('paidPanelCta').style.display = 'none';
+  }
+}
+
+// ── PDF download ─────────────────────────────────────────────────────────────
+function downloadReport() {
+  window.print();
+}
+
+// ── On page load: check for Stripe redirect or cancellation ─────────────────
+(function() {
+  const params     = new URLSearchParams(window.location.search);
+  const sessionId  = params.get('session_id');
+  const cancelled  = params.get('cancelled');
+
+  if (sessionId) {
+    // Clean URL without reloading
+    history.replaceState(null, '', '/analyze');
+    handlePostPayment(sessionId);
+  } else if (cancelled) {
+    history.replaceState(null, '', '/analyze');
+    // Show a subtle notice — user cancelled at Stripe
+    const notice = document.createElement('div');
+    notice.style.cssText = 'padding:12px 16px;background:rgba(200,169,110,0.08);border:1px solid rgba(200,169,110,0.15);border-radius:3px;font-family:DM Mono,monospace;font-size:11px;letter-spacing:0.04em;color:var(--gold);margin-bottom:16px;';
+    notice.textContent   = 'Checkout cancelled — your analysis is still available below.';
+    document.querySelector('.tool-body').prepend(notice);
+
+    // Restore free results if we have them in sessionStorage
+    const stored = sessionStorage.getItem('al_lab_data');
+    if (stored) {
+      // Don't re-run — just restore the upgrade state if results were showing
+    }
+  }
+})();
 </script>
