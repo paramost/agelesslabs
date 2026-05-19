@@ -390,22 +390,69 @@ Ferritin: 45 ng/mL"></textarea>
 <script>
 pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
 
-// ── Affiliate link config — fill in URLs when available ──────────────────────
-// Set each URL to the affiliate URL or leave as empty string to hide the button.
+// ── Affiliate link config ─────────────────────────────────────────────────────
+// Keys match test names the AI returns. Aliases cover common name variations.
+// Empty string = button hidden. Function Health links pending.
 const AFFILIATE = {
-  'ApoB':           { ulta: '', function: '', label: 'ApoB' },
-  'Lp(a)':          { ulta: '', function: '', label: 'Lp(a)' },
-  'Lipoprotein(a)': { ulta: '', function: '', label: 'Lp(a)' },
-  'hsCRP':          { ulta: '', function: '', label: 'hsCRP' },
-  'Homocysteine':   { ulta: '', function: '', label: 'Homocysteine' },
-  'Fasting Insulin':{ ulta: '', function: '', label: 'Fasting Insulin' },
-  'IGF-1':          { ulta: '', function: '', label: 'IGF-1' },
-  'Omega-3 Index':  { ulta: '', omegaquant: '', label: 'Omega-3 Index' },
-  'Vitamin D':      { ulta: '', function: '', label: 'Vitamin D' },
-  'Ferritin':       { ulta: '', label: 'Ferritin' },
-  'TSH':            { ulta: '', label: 'TSH + Free T3/T4' },
-  'Free T3':        { ulta: '', label: 'Free T3/T4' },
-  'Free T4':        { ulta: '', label: 'Free T3/T4' },
+  // ApoB
+  'ApoB':                         { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/apolipoprotein-b', function: '', label: 'ApoB' },
+  'Apolipoprotein B':             { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/apolipoprotein-b', function: '', label: 'ApoB' },
+  // HbA1c
+  'HbA1c':                        { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hemoglobin-a1c-hgba1c', function: '', label: 'HbA1c' },
+  'Hemoglobin A1c':               { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hemoglobin-a1c-hgba1c', function: '', label: 'HbA1c' },
+  'A1c':                          { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hemoglobin-a1c-hgba1c', function: '', label: 'HbA1c' },
+  // hsCRP
+  'hsCRP':                        { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hs-crp', function: '', label: 'hsCRP' },
+  'hs-CRP':                       { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hs-crp', function: '', label: 'hsCRP' },
+  'High-Sensitivity CRP':         { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/hs-crp', function: '', label: 'hsCRP' },
+  // Vitamin D
+  'Vitamin D':                    { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/vitamin-d-25-hydroxy-total-immunoassay', function: '', label: 'Vitamin D' },
+  '25-Hydroxyvitamin D':          { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/vitamin-d-25-hydroxy-total-immunoassay', function: '', label: 'Vitamin D' },
+  'Vitamin D (25-OH)':            { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/vitamin-d-25-hydroxy-total-immunoassay', function: '', label: 'Vitamin D' },
+  // Testosterone
+  'Testosterone':                 { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/testosterone-total-male-test-adult-only', label: 'Testosterone' },
+  'Total Testosterone':           { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/testosterone-total-male-test-adult-only', label: 'Testosterone' },
+  // Homocysteine
+  'Homocysteine':                 { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/homocysteine', function: '', label: 'Homocysteine' },
+  // Ferritin
+  'Ferritin':                     { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/ferritin', label: 'Ferritin' },
+  // TSH / Thyroid
+  'TSH':                          { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/thyroid-health-test-package-tsh-ft4-and-ft3', label: 'TSH + Free T3/T4' },
+  'Free T3':                      { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/thyroid-health-test-package-tsh-ft4-and-ft3', label: 'TSH + Free T3/T4' },
+  'Free T4':                      { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/thyroid-health-test-package-tsh-ft4-and-ft3', label: 'TSH + Free T3/T4' },
+  'Thyroid Panel':                { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/thyroid-health-test-package-tsh-ft4-and-ft3', label: 'TSH + Free T3/T4' },
+  // IGF-1
+  'IGF-1':                        { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/igf-1-test', function: '', label: 'IGF-1' },
+  'Insulin-like Growth Factor 1': { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/igf-1-test', function: '', label: 'IGF-1' },
+  // Fasting Insulin
+  'Fasting Insulin':              { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/insulin', function: '', label: 'Fasting Insulin' },
+  'Insulin':                      { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/insulin', function: '', label: 'Fasting Insulin' },
+  // Triglycerides
+  'Triglycerides':                { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/triglycerides', label: 'Triglycerides' },
+  // Omega-3 Index
+  'Omega-3 Index':                { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/omegacheck-test', omegaquant: '', label: 'Omega-3 Index' },
+  'Omega-3':                      { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/omegacheck-test', omegaquant: '', label: 'Omega-3 Index' },
+  // LDL / HDL / Lipid Panel
+  'LDL':                          { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel', label: 'Lipid Panel' },
+  'HDL':                          { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel', label: 'Lipid Panel' },
+  'Lipid Panel':                  { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel', label: 'Lipid Panel' },
+  'LDL Cholesterol':              { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel', label: 'Lipid Panel' },
+  'HDL Cholesterol':              { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel', label: 'Lipid Panel' },
+  // Cortisol
+  'Cortisol':                     { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/cortisol-am-test', label: 'Cortisol (AM)' },
+  'Cortisol (AM)':                { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/cortisol-am-test', label: 'Cortisol (AM)' },
+  // Uric Acid
+  'Uric Acid':                    { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/uric-acid', label: 'Uric Acid' },
+  // Creatinine / eGFR
+  'Creatinine':                   { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/creatinine', label: 'Creatinine/eGFR' },
+  'eGFR':                         { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/creatinine', label: 'Creatinine/eGFR' },
+  'Creatinine/eGFR':              { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/creatinine', label: 'Creatinine/eGFR' },
+  // Albumin
+  'Albumin':                      { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/albumin-test', label: 'Albumin' },
+  // Lp(a)
+  'Lp(a)':                        { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipoprotein-a', function: '', label: 'Lp(a)' },
+  'Lipoprotein(a)':               { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipoprotein-a', function: '', label: 'Lp(a)' },
+  'Lipoprotein (a)':              { ulta: 'https://www.ultalabtests.com/partners/agelesslabs/test/lipoprotein-a', function: '', label: 'Lp(a)' },
 };
 
 // ── State ────────────────────────────────────────────────────────────────────
