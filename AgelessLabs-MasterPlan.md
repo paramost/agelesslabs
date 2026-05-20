@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 19, 2026 · 10:00 PM CST
+> Last updated: May 19, 2026 · 11:59 PM CST
 
 ---
 
@@ -78,7 +78,7 @@ The centerpiece of AgelessLabs.ai. A free tool that analyzes lab results through
 agelesslabs/
 ├── api/
 │   ├── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
-│   ├── subscribe.js          # Vercel serverless proxy — forwards email signups to Kit v3 API
+│   ├── subscribe.js          # Vercel serverless proxy — forwards email signups to MailerLite API
 │   └── digest.js             # Vercel Edge function — community digest (Reddit + rapamycin.news)
 ├── .eleventy.js              # 11ty config — filters, collections, passthrough, dirs
 ├── package.json              # npm scripts: build, start, dev
@@ -145,7 +145,7 @@ agelesslabs/
 | Variable | Used by | Notes |
 |---|---|---|
 | `ANTHROPIC_API_KEY` | api/analyze.js, api/digest.js | Claude API — set in Vercel dashboard |
-| `KIT_API_KEY` | api/subscribe.js | ConvertKit v3 API key |
+| `ML_API_KEY` | api/subscribe.js | MailerLite API token |
 | `DIGEST_KEY` | api/digest.js | Secret string protecting the /digest endpoint |
 
 ---
@@ -170,12 +170,14 @@ All development work happens inside the AgelessLabs Claude Project. Start every 
 ### GitHub Repository
 **Repo:** `github.com/paramost/agelesslabs` (public)
 
-GitHub is the source of truth. Claude fetches files via raw URLs:
+GitHub is the source of truth. Claude accesses files via two methods:
+
+**1. Claude in Chrome (preferred):** Extension is connected — Claude can navigate GitHub directly, read raw files, and edit via the web editor without URL pasting. Connect at start of session via `list_connected_browsers` → `select_browser`. Browser 1 (Windows) is the connected instance.
+
+**2. Raw URL fetch fallback:** If browser isn't connected, paste raw URLs directly:
 `https://raw.githubusercontent.com/paramost/agelesslabs/main/src/[path/to/file]`
 
-**GitHub fetch gotcha:** Navigate to `https://github.com/paramost/agelesslabs` first to establish domain context — cold raw URL fetches fail.
-
-**GitHub editing via browser:** Claude can edit files directly in the GitHub web editor using CodeMirror 6 automation. Access via `document.querySelector('.cm-content').cmTile.view`. Use `view.dispatch({ changes: { from, to, insert } })` to make programmatic edits.
+**GitHub editing via browser:** Claude edits files directly in the GitHub web editor using CodeMirror 6 automation. Access via `document.querySelector('.cm-content').cmTile.view`. Use `view.dispatch({ changes: { from, to, insert } })` to make programmatic edits. Navigate directly to edit URL: `github.com/paramost/agelesslabs/edit/main/[path]`.
 
 ### Google Drive — Working Files
 **Folder:** AgelessLabs > Source Files
@@ -256,7 +258,7 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Anthropic API key + credits | Complete — $20 loaded April 21 2026 |
 | Paid tier ($19 report) | Complete — May 19 2026 |
 | Stripe integration | Complete — live mode active May 19 2026 |
-| Email capture | Complete — April 22 2026. Kit form ID 9359651, proxy api/subscribe.js, double opt-in disabled |
+| Email capture | Complete — migrated to MailerLite May 19 2026. Group: AgelessLabs Subscribers (ID 187945335219291618). ML_API_KEY in Vercel. Confirmed working. Welcome sequence pending build. |
 
 ### Community Digest Tool
 | Item | Status |
@@ -335,7 +337,7 @@ Font sizes bumped sitewide for 35–65 mobile audience. Biomarker card text (.bm
 
 ### Phase 4.8 — Email Capture — Complete (April 22 2026)
 
-Kit (ConvertKit) selected as email provider. Custom form built into homepage and mobile menu. Vercel serverless proxy (`api/subscribe.js`) handles submission to Kit's authenticated v3 API — avoids CORS entirely. Kit form ID: 9359651. Double opt-in disabled. Inline success state on submit, no redirect. Confirmed working: subscriber appears in Kit immediately.
+Kit (ConvertKit) was original email provider but trial expired May 8 2026. Migrated to MailerLite May 19 2026. MailerLite free plan (up to 1,000 subscribers, full automations). Group: "AgelessLabs Subscribers" (ID: 187945335219291618). Vercel env var: `ML_API_KEY`. Custom form in homepage and mobile menu submits via `api/subscribe.js` → MailerLite API. Confirmed working. Welcome sequence to be rebuilt in MailerLite automation builder.
 
 ### Phase 4.9 — Community Digest Tool — Complete (April 23 2026)
 
@@ -344,9 +346,24 @@ Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge
 ### Phase 5 — Monetization — IN PROGRESS
 
 1. **Thank-you page** (`/email-thank-you`) ✅ Complete — April 24 2026.
-2. **Welcome email series** ✅ Complete — April 24 2026.
+2. **Welcome email series** ✅ Complete — April 24 2026. ⚠️ **Kit trial expired ~May 8 — upgrade immediately to restore automation.**
 3. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one. Reddit playbook doc produced April 25 2026.
 4. **Paid tier ($19 report)** ✅ Complete — May 19 2026. Stripe live mode active. All 18 Ulta affiliate links wired into AFFILIATE config in analyze.njk. Function Health affiliate links still pending.
+
+### Phase 5.5 — Full Site Audit — Complete (May 19 2026)
+
+All live files audited and verified. Fixes applied directly to GitHub via Claude in Chrome browser automation:
+- All 18 biomarker pages: Ulta affiliate URLs updated to `/partners/agelesslabs/test/[slug]` format
+- biomarkers/index.njk: All 18 cards flipped from `coming-soon` → `available`, badges removed, arrows added, LDL schema URL fixed
+- apob.njk: `noindex: true` removed, Ulta URL corrected
+- lipoprotein-a.njk: Ulta URL corrected
+- Live site confirmed rendering correctly on agelesslabs.ai
+- Claude in Chrome extension connected — direct GitHub repo access established for all future sessions
+
+**Remaining items from audit (resume here):**
+1. **Build welcome sequence in MailerLite** — 5-email automation in MailerLite visual builder (replaces Kit sequence). Claude will write the copy.
+2. **Kit domain authentication** — Set up DKIM/SPF for `agelesslabs.ai` in MailerLite (Settings → Domains) so emails send from `hello@agelesslabs.ai` instead of `dwcarey@gmail.com`.
+3. **Function Health affiliate links** — gather and wire into AFFILIATE config in analyze.njk and affiliate_tests frontmatter in relevant biomarker pages.
 
 #### Paid Report Spec — $19 one-time
 
@@ -455,14 +472,12 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 ## Known Issues / Tech Debt
 
-- **Kit free trial expires in ~12 days** (as of April 24 2026) — Sequences and Visual Automations are paid features. Upgrade before trial ends to keep the Welcome Series running uninterrupted.
-- **Kit domain authentication not set up** — emails currently send from `dwcarey@gmail.com`. Set up DKIM/SPF for `agelesslabs.ai` in Kit (Settings → Email) so emails send from `hello@agelesslabs.ai`. Improves deliverability and brand consistency.
+- **Welcome sequence not yet rebuilt** — migrated from Kit to MailerLite May 19 2026. Need to build the 5-email automation in MailerLite's visual editor. Claude will write the copy next session.
+- **MailerLite domain authentication not set up** — emails currently send from `dwcarey@gmail.com`. Set up custom domain in MailerLite (Settings → Domains → Add domain) so emails send from `hello@agelesslabs.ai`. Improves deliverability and brand consistency.
+- **Function Health affiliate links** — still pending. Gather and add to AFFILIATE config in analyze.njk and affiliate_tests frontmatter in relevant biomarker pages.
 - **Digest caching not built** — `/digest` generates fresh on every load: fetches all sources + runs 8 Claude API calls (~20s, ~$0.08/run). Fine for occasional use. When daily usage warrants it, add Vercel KV caching + GitHub Actions cron (runs at 7 AM daily, stores result, page loads instantly from cache).
-- **Dark theme re-evaluation** — may want to test a light theme variant if mobile bounce rates are high once traffic is established. The dark aesthetic is a brand differentiator but older mobile users may convert better on light. Defer until traffic data is available.
 - **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
-- **Drive MCP large file uploads** — files >~3KB may fail or upload truncated. Workaround: produce master plan as a downloadable file and upload to Drive manually.
-- **Drive hba1c.njk and apob.njk** — stale stub files (652 bytes and 2,344 bytes) in Drive src/biomarkers/. Do not use. GitHub versions are correct.
-- **HTML entities in JSON-LD title strings** — pages whose `title` frontmatter contains `&#8212;` will have that literal string in their JSON-LD structured data. Not a validity issue (valid JSON string), but ideally those titles would use plain Unicode `—`. Low priority — does not affect rendered output or schema parsing.
+- **HTML entities in JSON-LD title strings** — pages whose `title` frontmatter contains `&#8212;` will have that literal string in their JSON-LD structured data. Not a validity issue, but ideally those titles would use plain Unicode `—`. Low priority.
 
 ---
 
@@ -484,8 +499,9 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Anthropic API billing is separate from Claude.ai subscriptions** — a Claude.ai Pro/Max plan does not grant API credits. Credits must be purchased separately at `platform.claude.com/settings/billing`. New API keys created before credits are purchased may need to be regenerated after funding.
 - **`max_tokens: 1000` is too low for a full longevity panel** — 13+ biomarkers with descriptions generates ~3,500 tokens, truncating the JSON mid-response. Use `max_tokens: 2000` minimum for the analyzer.
 - **PDF upload should not force a tab switch** — extracting PDF text into the textarea and calling `switchTab('paste')` is jarring UX. Instead, populate `labInput` silently and keep the user on the Upload tab. The analysis function reads `labInput` regardless of active tab.
-- **Kit email form embed script does not support direct browser fetch** — Kit's public form endpoints block cross-origin requests regardless of content type. Always use a Vercel serverless proxy (`api/subscribe.js`) that calls Kit's authenticated v3 API server-side. Kit's v3 API endpoint is `https://api.convertkit.com/v3/forms/{numeric_form_id}/subscribe` with `api_key` and `email` in the JSON body. The numeric form ID (e.g. 9359651) is found in the Kit form editor URL — it is different from the embed UID (e.g. 338b64858f).
-- **Kit double opt-in is enabled by default** — disable per-form under Form Settings → Incentive. With double opt-in on, subscribers land in "Unconfirmed" state and confirmation emails go to spam. Turn off for lead magnet flows.
+- **MailerLite API for subscriber capture** — Use the v2 classic API: `POST https://api.mailerlite.com/api/v2/subscribers` with `X-MailerLite-ApiKey` header. Body: `{ email, groups: [groupId], resubscribe: true }`. Successful response includes `data.id`. Always route through Vercel serverless proxy (`api/subscribe.js`) — never call from browser directly. Env var: `ML_API_KEY`.
+- **MailerLite group ID** — AgelessLabs Subscribers group ID: `187945335219291618`. Found in the URL when viewing the group in the MailerLite dashboard.
+- **Kit → MailerLite migration** — Kit doubled pricing in Sept 2025 to $33/mo. MailerLite free plan covers 1,000 subscribers with full automations. Switching cost was ~30 min: rewrite `api/subscribe.js`, add Vercel env var, create group. No frontend changes needed.
 - **Mobile menu styles live inline in base.njk** — in a `<style>` block in `<head>`, not in styles.css. This keeps the menu self-contained in one file. JS lives inline just before `</body>`. If styles.css grows unwieldy, migrate mobile menu CSS there.
 - **Mobile menu email slot pre-structured** — `.mobile-menu-email-slot` in base.njk contains a Nunjucks comment `{# email capture form goes here #}`. Drop the form HTML there when email capture is built. No restructuring needed.
 - **Reddit's public JSON API blocks Vercel Node.js server IPs** — standard `fetch()` from a Vercel serverless function to `reddit.com` returns a 403 or times out. Two working approaches: (1) Vercel Edge runtime (`export const config = { runtime: 'edge' }`) runs on Cloudflare's network which Reddit does not block; (2) Reddit OAuth API (`oauth.reddit.com`) works from any server with valid credentials but requires app registration at reddit.com/prefs/apps. Edge + RSS is the simpler approach when credentials aren't needed.
