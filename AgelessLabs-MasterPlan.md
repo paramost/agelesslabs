@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: April 24, 2026 · 1:00 PM CST
+> Last updated: May 19, 2026 · 10:00 PM CST
 
 ---
 
@@ -22,7 +22,7 @@ AgelessLabs.ai is a longevity-focused content site with an integrated AI biomark
 | Stream | Status | Notes |
 |---|---|---|
 | Affiliate commissions from lab testing partners | Live (links in place) | Primary revenue driver |
-| AI report upgrade — $19 one-time | Not yet built | Stripe integration needed |
+| AI report upgrade — $19 one-time | Live — May 19 2026 | Stripe live mode active |
 | Display advertising | Deferred | Later stage, once traffic scales |
 
 ---
@@ -66,7 +66,7 @@ The centerpiece of AgelessLabs.ai. A free tool that analyzes lab results through
 | Frontend | HTML / CSS / Nunjucks | Via 11ty static site generator |
 | Site generator | Eleventy (11ty) v2 | Chosen over Next.js — right complexity for content-first site |
 | AI | Claude API (claude-sonnet-4-6) | Model string updated in analyze.njk — April 15 2026 |
-| Payments | Stripe | Not yet integrated |
+| Payments | Stripe | Live — May 19 2026 |
 | Hosting | Vercel | Auto-deploys from GitHub on push to main |
 | Template language | Nunjucks (.njk) | Single base layout, pages extend it |
 
@@ -254,8 +254,8 @@ All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit c
 | Image upload | Complete |
 | Serverless proxy (api/analyze.js) | Complete — April 21 2026 |
 | Anthropic API key + credits | Complete — $20 loaded April 21 2026 |
-| Paid tier ($19 report) | Not started |
-| Stripe integration | Not started |
+| Paid tier ($19 report) | Complete — May 19 2026 |
+| Stripe integration | Complete — live mode active May 19 2026 |
 | Email capture | Complete — April 22 2026. Kit form ID 9359651, proxy api/subscribe.js, double opt-in disabled |
 
 ### Community Digest Tool
@@ -341,12 +341,98 @@ Kit (ConvertKit) selected as email provider. Custom form built into homepage and
 
 Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge function) fetches Reddit (r/longevity, r/biohacking, r/PeterAttia) via RSS/Atom + rapamycin.news via Discourse JSON API, scores posts by keyword relevance + recency + engagement, and generates Claude draft replies for the top 8 posts. Dashboard at `/digest` is key-protected (`DIGEST_KEY` env var), renders post cards with stats and copy buttons. Runs on-demand (~20s load time). Reddit required Edge runtime (Cloudflare IPs) to bypass IP blocks on standard Vercel Node servers.
 
-### Phase 5 — Monetization — YOU ARE HERE
+### Phase 5 — Monetization — IN PROGRESS
 
-1. **Thank-you page** (`/email-thank-you`) ✅ Complete — April 24 2026. Post-subscription redirect confirmed. Page confirms guide delivery, cross-sells the AI tool, soft social follow.
-2. **Welcome email series** ✅ Complete — April 24 2026. 5-email sequence built in Kit (ID 2734357, "Welcome Series"). Emails: immediate guide delivery, Day 2 ApoB deep-dive, Day 4 tool CTA, Day 7 affiliate lab recs, Day 14 biomarker library re-engagement. Automation rule connects form 9359651 → sequence. Confirmation redirect updated to `/email-thank-you/`.
-3. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one.
-4. **Paid tier ($19 report)** — Stripe integration
+1. **Thank-you page** (`/email-thank-you`) ✅ Complete — April 24 2026.
+2. **Welcome email series** ✅ Complete — April 24 2026.
+3. **Drive early traffic** — community digest tool is live at `/digest`; use it daily to find reply opportunities on Reddit + rapamycin.news. Twitter/X longevity community is link-friendly from day one. Reddit playbook doc produced April 25 2026.
+4. **Paid tier ($19 report)** ✅ Complete — May 19 2026. Stripe live mode active. All 18 Ulta affiliate links wired into AFFILIATE config in analyze.njk. Function Health affiliate links still pending.
+
+#### Paid Report Spec — $19 one-time
+
+**What the paid report includes (vs. free tier):**
+- Full clinical context per marker — research-backed interpretation at the user's specific level, not just status flags
+- Marker interactions — cross-panel pattern recognition (e.g. fasting insulin + triglycerides + HDL flagged together as metabolic syndrome signal)
+- Age and sex-adjusted ranges — optimal targets that shift based on user's age and sex
+- Prioritized action plan — ranked 3–5 highest-leverage interventions with expected impact and timeline
+- "What to test next" — specific missing tests identified from panel gaps, with affiliate links to order them
+- Downloadable PDF — via browser print, print CSS included
+- Affiliate links in two places only: "what to test next" section (specific tests tied to actual gaps) and one comprehensive panel CTA at end if significant gaps exist
+
+**Files built — April 26 2026:**
+- `api/stripe-checkout.js` ✅ — creates Stripe Checkout session, redirects to Stripe
+- `api/stripe-verify.js` ✅ — validates completed Stripe session before unlocking report
+- `src/analyze.njk` ✅ — updated with full payment flow, paid report rendering, affiliate link config, PDF download
+- `package.json` ✅ — `"stripe": "^14.0.0"` added (missing comma bug fixed April 26 2026)
+
+**Payment flow:**
+Free results → "Unlock Full Report — $19" → Stripe Checkout → payment → redirect to `/analyze?session_id=xxx` → verify → paid analysis runs → full report renders + PDF download
+
+**Stripe config — LIVE MODE (May 19 2026):**
+- Live Price ID: set in Vercel `STRIPE_PRICE_ID`
+- Vercel env vars: `STRIPE_SECRET_KEY` ✅ live, `STRIPE_PRICE_ID` ✅ live
+- Test card (sandbox only): `4242 4242 4242 4242`, any future expiry, any CVC
+
+**Ulta affiliate links — all 18 confirmed (May 19 2026):** Format is `ultalabtests.com/partners/agelesslabs/test/[slug]`. Drop into AFFILIATE config object in analyze.njk.
+
+| Biomarker | Ulta Affiliate URL |
+|---|---|
+| ApoB | https://www.ultalabtests.com/partners/agelesslabs/test/apolipoprotein-b |
+| HbA1c | https://www.ultalabtests.com/partners/agelesslabs/test/hemoglobin-a1c-hgba1c |
+| hsCRP | https://www.ultalabtests.com/partners/agelesslabs/test/hs-crp |
+| Vitamin D | https://www.ultalabtests.com/partners/agelesslabs/test/vitamin-d-25-hydroxy-total-immunoassay |
+| Testosterone | https://www.ultalabtests.com/partners/agelesslabs/test/testosterone-total-male-test-adult-only |
+| Homocysteine | https://www.ultalabtests.com/partners/agelesslabs/test/homocysteine |
+| Ferritin | https://www.ultalabtests.com/partners/agelesslabs/test/ferritin |
+| TSH + Free T3/T4 | https://www.ultalabtests.com/partners/agelesslabs/test/thyroid-health-test-package-tsh-ft4-and-ft3 |
+| IGF-1 | https://www.ultalabtests.com/partners/agelesslabs/test/igf-1-test |
+| Fasting Insulin | https://www.ultalabtests.com/partners/agelesslabs/test/insulin |
+| Triglycerides | https://www.ultalabtests.com/partners/agelesslabs/test/triglycerides |
+| Omega-3 Index | https://www.ultalabtests.com/partners/agelesslabs/test/omegacheck-test |
+| LDL/HDL | https://www.ultalabtests.com/partners/agelesslabs/test/lipid-panel |
+| Cortisol | https://www.ultalabtests.com/partners/agelesslabs/test/cortisol-am-test |
+| Uric Acid | https://www.ultalabtests.com/partners/agelesslabs/test/uric-acid |
+| Creatinine/eGFR | https://www.ultalabtests.com/partners/agelesslabs/test/creatinine |
+| Albumin | https://www.ultalabtests.com/partners/agelesslabs/test/albumin-test |
+| Lp(a) | https://www.ultalabtests.com/partners/agelesslabs/test/lipoprotein-a |
+
+**Function Health affiliate links:** Still pending — gather separately.
+
+### Phase 7 — Course Product (deferred — resume when AgelessLabs is generating consistent revenue)
+
+Build and sell a course teaching the AgelessLabs system as a replicable model. Working title: "How to Build a Money-Making Website with Claude."
+
+**The system being taught:**
+Content site + free AI tool + email capture + paid report + affiliate links
+
+**The niche is the fill-in-the-blank part.** The course teaches the model — student brings their own niche and applies the system. Much larger addressable market than a longevity-specific course.
+
+**What makes it differentiated:** most "build with AI" content teaches using AI to write blog posts. This teaches building an AI tool that IS the product — a fundamentally different and more valuable concept.
+
+**Course components:**
+- Niche selection framework (the criteria that made longevity work: data-rich domain, affluent audience, high-value affiliates, questions people need help answering)
+- Site architecture — 11ty + Vercel + Claude API
+- Content strategy — pillar pages, SEO structure, schema markup
+- AI tool integration — the serverless proxy pattern, prompt engineering
+- Email capture and welcome sequence
+- Community traffic — Reddit playbook
+- Monetization — affiliate structure + Stripe paid reports
+
+**Format:** course + template bundle. Codebase stripped of AgelessLabs branding, biomarker page templates replaced with generic content page templates, email sequences, master plan format.
+
+**Price point:** $197–$497 depending on depth and community component.
+
+**Timing note:** include real revenue numbers from AgelessLabs — credibility is the product. Don't launch the course until there's a "here's what I made in month 3" story to tell.
+
+---
+
+### Phase 8 — Next Site (deferred — resume when AgelessLabs is generating consistent revenue)
+
+Apply the AgelessLabs system to a new niche. Brainstorm niche candidates when ready — evaluate each against the criteria: data-rich domain, affluent audience, high-value affiliate partners, questions people genuinely need help answering.
+
+The master plan format, codebase, and workflow developed for AgelessLabs become the starting template for the next site.
+
+---
 
 ### Phase 6 — Medical Review (deferred — resume when site is generating revenue)
 
