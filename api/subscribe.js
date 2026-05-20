@@ -9,22 +9,33 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Valid email required' });
   }
 
+  const apiKey   = process.env.ML_API_KEY;
+  const groupId  = '187945335219291618';
+
+  if (!apiKey) {
+    return res.status(500).json({ error: 'Email API key not configured.' });
+  }
+
   try {
-    const response = await fetch('https://api.convertkit.com/v3/forms/9359651/subscribe', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body:    JSON.stringify({
-        api_key: process.env.KIT_API_KEY,
-        email:   email.trim()
-      })
+    const response = await fetch('https://api.mailerlite.com/api/v2/subscribers', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-MailerLite-ApiKey': apiKey,
+      },
+      body: JSON.stringify({
+        email: email.trim(),
+        groups: [groupId],
+        resubscribe: true,
+      }),
     });
 
     const data = await response.json();
 
-    if (response.ok && data.subscription) {
+    if (response.ok && data.id) {
       return res.status(200).json({ success: true });
     } else {
-      console.error('Kit API error:', data);
+      console.error('MailerLite API error:', data);
       return res.status(400).json({ error: 'Subscription failed' });
     }
   } catch (err) {
