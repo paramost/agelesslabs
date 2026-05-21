@@ -1,0 +1,223 @@
+---
+layout: base.njk
+title: "Get Your Longevity Baseline — No Doctor Required | AgelessLabs"
+permalink: /get-tested/index.html
+---
+
+<style>
+.panel-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.panel-hero .page-eyebrow { margin-bottom: 20px; }
+.panel-hero h1 { margin-bottom: 16px; }
+.panel-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 600px; margin-bottom: 0; }
+.how-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 48px; }
+.how-step { padding: 24px; background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; }
+.how-step-number { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.15em; color: var(--green); opacity: 0.6; margin-bottom: 12px; }
+.how-step-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.how-step-desc { font-size: 13px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+.panel-cards { display: grid; gap: 16px; margin-bottom: 48px; }
+.panel-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; animation: fadeUp 0.5s ease both; }
+.panel-card.featured { border-color: rgba(181,201,160,0.3); }
+.panel-card-header { padding: 20px 24px; background: var(--bg3); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.panel-card.featured .panel-card-header { background: rgba(181,201,160,0.04); }
+.panel-card-title { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+.panel-card-badge { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; padding: 4px 10px; border-radius: 2px; }
+.badge-recommended { color: var(--green); background: rgba(181,201,160,0.08); border: 1px solid rgba(181,201,160,0.2); }
+.badge-alacarte { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
+.panel-card-body { padding: 24px; }
+.panel-card-price { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+.panel-card-price-sub { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 20px; }
+.panel-card-desc { font-size: 14px; color: var(--text-dim); line-height: 1.7; margin-bottom: 20px; font-weight: 400; }
+.panel-markers { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+.panel-marker-tag { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-dim); background: var(--bg3); border: 1px solid var(--border); padding: 3px 8px; border-radius: 2px; }
+.panel-marker-tag.highlight { color: var(--green); border-color: rgba(181,201,160,0.2); background: rgba(181,201,160,0.04); }
+.panel-cta-link { display: inline-block; padding: 13px 28px; background: var(--green); color: var(--bg); border: none; border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; transition: all 0.2s; }
+.panel-cta-link:hover { background: var(--green-bright); transform: translateY(-1px); }
+.panel-cta-link.secondary { background: transparent; color: var(--gold); border: 1px solid rgba(200,169,110,0.3); }
+.panel-cta-link.secondary:hover { background: rgba(200,169,110,0.06); transform: translateY(-1px); }
+.markers-table { width: 100%; border-collapse: collapse; margin-bottom: 48px; font-size: 14px; }
+.markers-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.markers-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.5; }
+.markers-table td:first-child { color: var(--white); font-weight: 500; white-space: nowrap; }
+.markers-table tr:last-child td { border-bottom: none; }
+.markers-table tr:hover td { background: rgba(181,201,160,0.02); }
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\u2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+@media (max-width: 860px) { .how-steps { grid-template-columns: 1fr; } .page-tool-cta { grid-template-columns: 1fr; } }
+</style>
+
+<section class="panel-hero">
+  <div class="page-eyebrow">Get Started</div>
+  <h1>Start here if you<br>don't have a GP or<br><em>recent bloodwork.</em></h1>
+  <p class="panel-hero-sub">Most people think you need a doctor's visit to get blood tests. You don't. Direct-to-consumer lab testing lets you order online, get drawn at a local lab, and have results in 24&#8211;48 hours &#8212; no referral, no insurance, no waiting room.</p>
+</section>
+
+<section style="margin-bottom:48px;">
+  <div class="page-eyebrow" style="margin-bottom:24px;">How it works</div>
+  <div class="how-steps">
+    <div class="how-step">
+      <div class="how-step-number">01</div>
+      <div class="how-step-title">Order online</div>
+      <div class="how-step-desc">Choose your panel and pay online. No doctor&#8217;s visit or prescription required. Takes 5 minutes.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-number">02</div>
+      <div class="how-step-title">Visit a local lab</div>
+      <div class="how-step-desc">Take your order to any Quest or Labcorp location &#8212; over 3,000 across the US. A standard blood draw takes about 10 minutes.</div>
+    </div>
+    <div class="how-step">
+      <div class="how-step-number">03</div>
+      <div class="how-step-title">Get your results</div>
+      <div class="how-step-desc">Results arrive in 24&#8211;48 hours. Then upload them here and get a full longevity analysis in 60 seconds.</div>
+    </div>
+  </div>
+</section>
+
+<section style="margin-bottom:16px;">
+  <div class="page-eyebrow" style="margin-bottom:24px;">Recommended Panels</div>
+</section>
+
+<div class="panel-cards">
+  <div class="panel-card featured">
+    <div class="panel-card-header">
+      <div class="panel-card-title">Longevity &amp; Healthy Aging Essential Panel</div>
+      <span class="panel-card-badge badge-recommended">Recommended</span>
+    </div>
+    <div class="panel-card-body">
+      <div class="panel-card-price">$158.95</div>
+      <div class="panel-card-price-sub">One-time &middot; No doctor required &middot; Results in 24&#8211;48 hrs</div>
+      <div class="panel-card-desc">The best single starting point for longevity optimization. This panel covers 66 biomarkers across the categories that matter most for healthspan &#8212; metabolic function, cardiovascular risk, thyroid, inflammation, and nutrient status. Everything you need to establish a meaningful baseline.</div>
+      <div class="panel-markers">
+        <span class="panel-marker-tag highlight">HbA1c</span>
+        <span class="panel-marker-tag highlight">hsCRP</span>
+        <span class="panel-marker-tag highlight">Vitamin D</span>
+        <span class="panel-marker-tag highlight">TSH + T3 + T4</span>
+        <span class="panel-marker-tag highlight">Full Lipid Panel</span>
+        <span class="panel-marker-tag">CBC (33 markers)</span>
+        <span class="panel-marker-tag">Comprehensive Metabolic Panel</span>
+        <span class="panel-marker-tag">66 markers total</span>
+      </div>
+      <a href="https://www.ultalabtests.com/partners/agelesslabs/test/longevity-healthy-aging-essential-lab-panel" target="_blank" rel="noopener sponsored" class="panel-cta-link">Order &#8212; Ulta Lab Tests &#8594;</a>
+    </div>
+  </div>
+  <div class="panel-card">
+    <div class="panel-card-header">
+      <div class="panel-card-title">Basic Health Profile &#8212; Men&#8217;s</div>
+      <span class="panel-card-badge badge-alacarte">Lower Cost</span>
+    </div>
+    <div class="panel-card-body">
+      <div class="panel-card-price">$112.95</div>
+      <div class="panel-card-price-sub">One-time &middot; No doctor required &middot; Results in 24&#8211;48 hrs</div>
+      <div class="panel-card-desc">A solid starting point for men who want a broad baseline at a lower price. Covers CBC, CMP, lipid panel, PSA, and urinalysis. Note: this panel doesn&#8217;t include HbA1c, hsCRP, Vitamin D, or TSH &#8212; the most important longevity markers missing from standard care.</div>
+      <div class="panel-markers">
+        <span class="panel-marker-tag">CBC (33 markers)</span>
+        <span class="panel-marker-tag">Comprehensive Metabolic Panel</span>
+        <span class="panel-marker-tag">Lipid Panel</span>
+        <span class="panel-marker-tag">PSA</span>
+        <span class="panel-marker-tag">Urinalysis</span>
+      </div>
+      <a href="https://www.ultalabtests.com/partners/agelesslabs/test/basic-health-profile-men-s" target="_blank" rel="noopener sponsored" class="panel-cta-link secondary">Order &#8212; Ulta Lab Tests &#8594;</a>
+    </div>
+  </div>
+  <div class="panel-card">
+    <div class="panel-card-header">
+      <div class="panel-card-title">Basic Health Profile &#8212; Women&#8217;s</div>
+      <span class="panel-card-badge badge-alacarte">Lower Cost</span>
+    </div>
+    <div class="panel-card-body">
+      <div class="panel-card-price">$112.95</div>
+      <div class="panel-card-price-sub">One-time &middot; No doctor required &middot; Results in 24&#8211;48 hrs</div>
+      <div class="panel-card-desc">A broad baseline panel for women. Covers CBC, CMP, lipid panel, and urinalysis. Same caveat as the men&#8217;s panel &#8212; missing the key longevity markers. Good if budget is the primary constraint; consider the Longevity Panel when you&#8217;re ready to go deeper.</div>
+      <div class="panel-markers">
+        <span class="panel-marker-tag">CBC (33 markers)</span>
+        <span class="panel-marker-tag">Comprehensive Metabolic Panel</span>
+        <span class="panel-marker-tag">Lipid Panel</span>
+        <span class="panel-marker-tag">Urinalysis</span>
+      </div>
+      <a href="https://www.ultalabtests.com/partners/agelesslabs/test/basic-health-profile-women-s" target="_blank" rel="noopener sponsored" class="panel-cta-link secondary">Order &#8212; Ulta Lab Tests &#8594;</a>
+    </div>
+  </div>
+</div>
+
+<section style="margin-bottom:48px;">
+  <div class="page-eyebrow" style="margin-bottom:16px;">What the Longevity Panel measures &#8212; and why it matters</div>
+  <table class="markers-table">
+    <thead>
+      <tr><th>Test</th><th>What it reveals</th><th>Why standard care misses it</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><a href="/biomarkers/hba1c">HbA1c</a></td><td>90-day average blood sugar &#8212; the earliest metabolic warning signal</td><td>Often only ordered for diabetics. Most people with creeping insulin resistance aren&#8217;t tested.</td></tr>
+      <tr><td><a href="/biomarkers/hscrp">hsCRP</a></td><td>Systemic inflammation &#8212; a silent driver of cardiovascular disease, cancer, and accelerated aging</td><td>Standard CRP isn&#8217;t sensitive enough. hsCRP requires a different assay rarely ordered in routine care.</td></tr>
+      <tr><td><a href="/biomarkers/vitamin-d">Vitamin D</a></td><td>Deficiency linked to cardiovascular disease, cancer, dementia, and all-cause mortality</td><td>Rarely checked unless symptoms appear. An estimated 40% of adults are deficient.</td></tr>
+      <tr><td><a href="/biomarkers/tsh">TSH + Free T3/T4</a></td><td>Thyroid function &#8212; governs metabolic rate, energy, body composition, and cognitive function</td><td>Subclinical hypothyroidism is extremely common and chronically underdiagnosed.</td></tr>
+      <tr><td>Full Lipid Panel</td><td>LDL, HDL, triglycerides &#8212; foundational cardiovascular risk markers</td><td>Usually ordered, but interpreted against disease-detection thresholds, not longevity-optimal targets.</td></tr>
+      <tr><td>CBC + CMP</td><td>Complete blood count and comprehensive metabolic panel &#8212; liver, kidney, blood cell health</td><td>Most standard care panels include these. The Longevity Panel includes them as part of a complete baseline.</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section style="margin-bottom:48px;">
+  <div class="page-eyebrow" style="margin-bottom:16px;">What the Longevity Panel doesn&#8217;t include</div>
+  <div class="content">
+    <p>The Longevity Panel is an excellent baseline but doesn&#8217;t cover everything. The most important markers missing from any standard panel &#8212; worth ordering &#224; la carte once you have your baseline:</p>
+    <div class="panel-markers" style="margin-top:16px;">
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/apob" style="color:inherit;text-decoration:none;">ApoB</a></span>
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/lipoprotein-a" style="color:inherit;text-decoration:none;">Lp(a)</a></span>
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/fasting-insulin" style="color:inherit;text-decoration:none;">Fasting Insulin</a></span>
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/homocysteine" style="color:inherit;text-decoration:none;">Homocysteine</a></span>
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/omega-3-index" style="color:inherit;text-decoration:none;">Omega-3 Index</a></span>
+      <span class="panel-marker-tag highlight"><a href="/biomarkers/igf-1" style="color:inherit;text-decoration:none;">IGF-1</a></span>
+    </div>
+    <p style="margin-top:16px;">Each can be ordered individually through <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored">Ulta Lab Tests</a> for $20&#8211;50. See the <a href="/biomarkers">biomarker library</a> for details on each one.</p>
+  </div>
+</section>
+
+<div class="page-tool-cta">
+  <div>
+    <h3>Got your results? Analyze them here.</h3>
+    <p>Upload or paste your results and get a full longevity analysis in 60 seconds &#8212; every marker scored, explained, and prioritized for action.</p>
+  </div>
+  <a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<section style="margin-bottom:48px;">
+  <div class="page-eyebrow" style="margin-bottom:16px;">Common questions</div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Do I really not need a doctor to order these tests?</div>
+      <div class="faq-answer">Correct &#8212; direct-to-consumer lab testing allows any adult to order blood tests without a physician&#8217;s referral. You pay online, receive a lab requisition, visit any Quest or Labcorp draw site, and get your results directly. No insurance required. Legal in most US states; a small number of states have restrictions on certain test types.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How do I find a lab draw site near me?</div>
+      <div class="faq-answer">After ordering through Ulta Lab Tests, you&#8217;ll receive a requisition form. You can find a Quest or Labcorp location near you using their respective location finders. Most major cities have dozens of locations, many with same-day appointments. The draw itself takes about 10 minutes.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Do I need to fast before the blood draw?</div>
+      <div class="faq-answer">For the Longevity Panel, fasting for 8&#8211;12 hours before your draw is recommended. This ensures accurate lipid panel results (especially triglycerides) and a valid fasting glucose reading. Water is fine. If you&#8217;re also ordering fasting insulin separately, fasting is required for that test specifically.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How often should I get tested?</div>
+      <div class="faq-answer">For a first-time baseline, order the Longevity Panel once. After reviewing your results and making any interventions, retest in 3&#8211;6 months. Once your markers are stable and in optimal ranges, annual testing is sufficient &#8212; with more frequent retesting of specific markers if you&#8217;re actively managing a concern.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What do I do with my results once I have them?</div>
+      <div class="faq-answer">Upload them here. The AgelessLabs AI interpreter scores every marker on a longevity scale, explains what each result means for your healthspan, identifies patterns across markers, and tells you exactly what to prioritize. It&#8217;s designed specifically for the markers in these panels.</div>
+    </div>
+  </div>
+</section>
+
+<script>
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(a => { a.classList.remove('open'); a.previousElementSibling.classList.remove('open'); });
+  if (!isOpen) { answer.classList.add('open'); el.classList.add('open'); }
+}
+</script>
