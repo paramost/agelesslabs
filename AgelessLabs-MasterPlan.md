@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 19, 2026 · 11:59 PM CST
+> Last updated: May 21, 2026 · 1:00 PM CST
 
 ---
 
@@ -32,7 +32,6 @@ AgelessLabs.ai is a longevity-focused content site with an integrated AI biomark
 | Company | Product | Est. Commission |
 |---|---|---|
 | InsideTracker | Blood testing + analysis platform | $30–60 per sale |
-| Function Health | Comprehensive lab panel | $50–100 per sale |
 | Ulta Lab Tests | À la carte blood tests | 5–8% per order |
 | Life Extension | Supplements + lab tests | 8–12% |
 | Marek Health | Longevity-focused lab panels | TBD |
@@ -221,7 +220,7 @@ For small targeted edits, Claude can edit directly in the GitHub web editor via 
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list, tool CTA |
 | digest.njk | Complete | Key-protected community digest dashboard — April 23 2026 |
-| email-thank-you.njk | Complete | Post-subscription landing page — noindexed, redirected from Kit form success — April 24 2026 |
+| get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Group B visitors (no GP/labs). 3 panel options, marker table, FAQ, tool CTA. Live at /get-tested |
 
 ### Biomarker Pages (First Wave — 18 pages)
 All 18 pages are **live and indexed** as of April 20, 2026. Full SEO/LLM audit completed April 21, 2026 — all pages clean.
@@ -361,9 +360,9 @@ All live files audited and verified. Fixes applied directly to GitHub via Claude
 - Claude in Chrome extension connected — direct GitHub repo access established for all future sessions
 
 **Remaining items from audit (resume here):**
-1. **Build welcome sequence in MailerLite** — 5-email automation in MailerLite visual builder (replaces Kit sequence). Claude will write the copy.
-2. **Kit domain authentication** — Set up DKIM/SPF for `agelesslabs.ai` in MailerLite (Settings → Domains) so emails send from `hello@agelesslabs.ai` instead of `dwcarey@gmail.com`.
-3. **Function Health affiliate links** — gather and wire into AFFILIATE config in analyze.njk and affiliate_tests frontmatter in relevant biomarker pages.
+1. **MailerLite welcome sequence** ✅ Complete — May 21 2026. 5-email automation built, header/footer designed, sequence activated. Trigger: joins AgelessLabs Subscribers group. Sender: `news@agelesslabs.ai` / Reply-to: `hello@agelesslabs.ai`. Header: `AgelessLabs.ai` text. Footer: company name, address, unsubscribe link.
+2. **MailerLite domain authentication** ✅ Complete — May 20 2026. DKIM, SPF, and domain verification all confirmed working. Spacemail mailboxes active at `hello@agelesslabs.ai` and `news@agelesslabs.ai`.
+3. **Panel affiliate links** — add Longevity & Healthy Aging Essential Panel and Basic Health Profile (Men's/Women's) to AFFILIATE config and homepage. These are high-value CTAs for Group B visitors (no GP, no labs).
 
 #### Paid Report Spec — $19 one-time
 
@@ -374,7 +373,7 @@ All live files audited and verified. Fixes applied directly to GitHub via Claude
 - Prioritized action plan — ranked 3–5 highest-leverage interventions with expected impact and timeline
 - "What to test next" — specific missing tests identified from panel gaps, with affiliate links to order them
 - Downloadable PDF — via browser print, print CSS included
-- Affiliate links in two places only: "what to test next" section (specific tests tied to actual gaps) and one comprehensive panel CTA at end if significant gaps exist
+- Affiliate links in two places only: "what to test next" section (specific tests tied to actual gaps) and one comprehensive panel CTA at end if significant gaps exist (Ulta Longevity & Healthy Aging Essential Panel)
 
 **Files built — April 26 2026:**
 - `api/stripe-checkout.js` ✅ — creates Stripe Checkout session, redirects to Stripe
@@ -472,12 +471,12 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 ## Known Issues / Tech Debt
 
-- **Welcome sequence not yet rebuilt** — migrated from Kit to MailerLite May 19 2026. Need to build the 5-email automation in MailerLite's visual editor. Claude will write the copy next session.
-- **MailerLite domain authentication not set up** — emails currently send from `dwcarey@gmail.com`. Set up custom domain in MailerLite (Settings → Domains → Add domain) so emails send from `hello@agelesslabs.ai`. Improves deliverability and brand consistency.
-- **Function Health affiliate links** — still pending. Gather and add to AFFILIATE config in analyze.njk and affiliate_tests frontmatter in relevant biomarker pages.
-- **Digest caching not built** — `/digest` generates fresh on every load: fetches all sources + runs 8 Claude API calls (~20s, ~$0.08/run). Fine for occasional use. When daily usage warrants it, add Vercel KV caching + GitHub Actions cron (runs at 7 AM daily, stores result, page loads instantly from cache).
-- **Drive old flat files** — root of Source Files folder contains stale old flat copies of biomarker files. Can be deleted manually. GitHub is clean.
-- **HTML entities in JSON-LD title strings** — pages whose `title` frontmatter contains `&#8212;` will have that literal string in their JSON-LD structured data. Not a validity issue, but ideally those titles would use plain Unicode `—`. Low priority.
+- **Function Health** — unresponsive to affiliate program outreach. Removed from all code and plan. May revisit if they respond.
+- **Panel affiliate links** ✅ Complete — May 21 2026. Ulta Longevity & Healthy Aging Essential Panel ($158.95) featured as "Start Here" on all 18 biomarker pages and homepage. Ulta à la carte card on homepage updated to correct affiliate URL.
+- **"Get Your Baseline" content page** ✅ Complete — May 21 2026. Live at `/get-tested`. Longevity panel, men's/women's basic panels, marker table, FAQ, tool CTA. "Get Tested" added to desktop nav. ⚠️ Mobile menu link not yet added — needs a targeted edit to base.njk mobile menu section.
+- **Digest caching not built** — `/digest` generates fresh on every load (~20s, ~$0.08/run). Fine for occasional use. Add Vercel KV + GitHub Actions cron when daily usage warrants it.
+- **Drive old flat files** — stale flat copies in Drive root. Can be deleted manually. GitHub is clean.
+- **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have that literal string in JSON-LD. Not a validity issue.
 
 ---
 
@@ -502,6 +501,8 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **MailerLite API for subscriber capture** — Use the v2 classic API: `POST https://api.mailerlite.com/api/v2/subscribers` with `X-MailerLite-ApiKey` header. Body: `{ email, groups: [groupId], resubscribe: true }`. Successful response includes `data.id`. Always route through Vercel serverless proxy (`api/subscribe.js`) — never call from browser directly. Env var: `ML_API_KEY`.
 - **MailerLite group ID** — AgelessLabs Subscribers group ID: `187945335219291618`. Found in the URL when viewing the group in the MailerLite dashboard.
 - **Kit → MailerLite migration** — Kit doubled pricing in Sept 2025 to $33/mo. MailerLite free plan covers 1,000 subscribers with full automations. Switching cost was ~30 min: rewrite `api/subscribe.js`, add Vercel env var, create group. No frontend changes needed.
+- **Spacemail + Vercel DNS** — domain registered at Spaceship, nameservers pointing to Vercel. MX records must use `mx1.spacemail.com` / `mx2.spacemail.com` (not `mx1.efwd.spaceship.net`). SPF must include `include:spf.spacemail.com` for outbound Spacemail sending. Spaceship shows "NEEDS DNS SETUP" when nameservers are external — click Verify DNS changes after adding records to Vercel.
+- **MailerLite sender email** — use `news@agelesslabs.ai` for bulk sends, `hello@agelesslabs.ai` as reply-to. Both mailboxes active in Spacemail. Domain authenticated in MailerLite (DKIM + SPF + verification TXT all in Vercel DNS).
 - **Mobile menu styles live inline in base.njk** — in a `<style>` block in `<head>`, not in styles.css. This keeps the menu self-contained in one file. JS lives inline just before `</body>`. If styles.css grows unwieldy, migrate mobile menu CSS there.
 - **Mobile menu email slot pre-structured** — `.mobile-menu-email-slot` in base.njk contains a Nunjucks comment `{# email capture form goes here #}`. Drop the form HTML there when email capture is built. No restructuring needed.
 - **Reddit's public JSON API blocks Vercel Node.js server IPs** — standard `fetch()` from a Vercel serverless function to `reddit.com` returns a 403 or times out. Two working approaches: (1) Vercel Edge runtime (`export const config = { runtime: 'edge' }`) runs on Cloudflare's network which Reddit does not block; (2) Reddit OAuth API (`oauth.reddit.com`) works from any server with valid credentials but requires app registration at reddit.com/prefs/apps. Edge + RSS is the simpler approach when credentials aren't needed.
