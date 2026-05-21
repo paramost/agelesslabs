@@ -473,7 +473,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 
 - **Function Health** — unresponsive to affiliate program outreach. Removed from all code and plan. May revisit if they respond.
 - **Panel affiliate links** ✅ Complete — May 21 2026. Ulta Longevity & Healthy Aging Essential Panel ($158.95) featured as "Start Here" on all 18 biomarker pages and homepage. Ulta à la carte card on homepage updated to correct affiliate URL.
-- **"Get Your Baseline" content page** ✅ Complete — May 21 2026. Live at `/get-tested`. Longevity panel, men's/women's basic panels, marker table, FAQ, tool CTA. "Get Tested" added to desktop nav. ⚠️ Mobile menu link not yet added — needs a targeted edit to base.njk mobile menu section.
+- **"Get Your Baseline" content page** ✅ Complete — May 21 2026. Live at `/get-tested`. Longevity panel, men's/women's basic panels, marker table, FAQ, tool CTA. "Get Tested" added to desktop nav and mobile menu.
 - **Digest caching not built** — `/digest` generates fresh on every load (~20s, ~$0.08/run). Fine for occasional use. Add Vercel KV + GitHub Actions cron when daily usage warrants it.
 - **Drive old flat files** — stale flat copies in Drive root. Can be deleted manually. GitHub is clean.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have that literal string in JSON-LD. Not a validity issue.
