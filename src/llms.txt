@@ -7,7 +7,7 @@ AgelessLabs.ai is a longevity-focused platform that interprets blood test result
 ## What this site covers
 
 - **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
-- **Biomarker Reference Library** — /biomarkers/ — 30 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, and Folate. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
+- **Biomarker Reference Library** — /biomarkers/ — 36 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate, Apolipoprotein A1, Zinc, CBC, Selenium, High-Sensitivity Troponin, and TMAO. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
 
 ## Audience
 
@@ -53,6 +53,12 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - Fibrinogen: https://agelesslabs.ai/biomarkers/fibrinogen/
 - Cystatin C: https://agelesslabs.ai/biomarkers/cystatin-c/
 - Folate: https://agelesslabs.ai/biomarkers/folate/
+- Apolipoprotein A1: https://agelesslabs.ai/biomarkers/apolipoprotein-a1/
+- Zinc: https://agelesslabs.ai/biomarkers/zinc/
+- CBC: https://agelesslabs.ai/biomarkers/cbc/
+- Selenium: https://agelesslabs.ai/biomarkers/selenium/
+- High-Sensitivity Troponin: https://agelesslabs.ai/biomarkers/hs-troponin/
+- TMAO: https://agelesslabs.ai/biomarkers/tmao/
 
 ## Content standards
 
