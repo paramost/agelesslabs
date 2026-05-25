@@ -7,7 +7,7 @@ AgelessLabs.ai is a longevity-focused platform that interprets blood test result
 ## What this site covers
 
 - **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
-- **Biomarker Reference Library** — /biomarkers/ — 18 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, and Lipoprotein(a). Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
+- **Biomarker Reference Library** — /biomarkers/ — 30 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, and Folate. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
 
 ## Audience
 
@@ -41,12 +41,18 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - Creatinine & eGFR: https://agelesslabs.ai/biomarkers/creatinine-egfr/
 - Albumin: https://agelesslabs.ai/biomarkers/albumin/
 - Lipoprotein(a): https://agelesslabs.ai/biomarkers/lipoprotein-a/
-https://agelesslabs.ai/biomarkers/alt-ast
-https://agelesslabs.ai/biomarkers/magnesium
-https://agelesslabs.ai/biomarkers/vitamin-b12
-https://agelesslabs.ai/biomarkers/dhea-s
-https://agelesslabs.ai/biomarkers/psa
-https://agelesslabs.ai/biomarkers/free-testosterone
+- ALT & AST: https://agelesslabs.ai/biomarkers/alt-ast/
+- Magnesium: https://agelesslabs.ai/biomarkers/magnesium/
+- Vitamin B12: https://agelesslabs.ai/biomarkers/vitamin-b12/
+- DHEA-S: https://agelesslabs.ai/biomarkers/dhea-s/
+- PSA: https://agelesslabs.ai/biomarkers/psa/
+- Free Testosterone: https://agelesslabs.ai/biomarkers/free-testosterone/
+- SHBG: https://agelesslabs.ai/biomarkers/shbg/
+- Estradiol: https://agelesslabs.ai/biomarkers/estradiol/
+- GGT: https://agelesslabs.ai/biomarkers/ggt/
+- Fibrinogen: https://agelesslabs.ai/biomarkers/fibrinogen/
+- Cystatin C: https://agelesslabs.ai/biomarkers/cystatin-c/
+- Folate: https://agelesslabs.ai/biomarkers/folate/
 
 ## Content standards
 
