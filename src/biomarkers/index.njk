@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 30,
+"numberOfItems": 36,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -74,7 +74,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 27, "name": "GGT", "url": "https://agelesslabs.ai/biomarkers/ggt" },
 { "@type": "ListItem", "position": 28, "name": "Fibrinogen", "url": "https://agelesslabs.ai/biomarkers/fibrinogen" },
 { "@type": "ListItem", "position": 29, "name": "Cystatin C", "url": "https://agelesslabs.ai/biomarkers/cystatin-c" },
-{ "@type": "ListItem", "position": 30, "name": "Folate", "url": "https://agelesslabs.ai/biomarkers/folate" }
+{ "@type": "ListItem", "position": 30, "name": "Folate", "url": "https://agelesslabs.ai/biomarkers/folate" },
+{ "@type": "ListItem", "position": 31, "name": "Apolipoprotein A1", "url": "https://agelesslabs.ai/biomarkers/apolipoprotein-a1" },
+{ "@type": "ListItem", "position": 32, "name": "Zinc", "url": "https://agelesslabs.ai/biomarkers/zinc" },
+{ "@type": "ListItem", "position": 33, "name": "CBC", "url": "https://agelesslabs.ai/biomarkers/cbc" },
+{ "@type": "ListItem", "position": 34, "name": "Selenium", "url": "https://agelesslabs.ai/biomarkers/selenium" },
+{ "@type": "ListItem", "position": 35, "name": "High-Sensitivity Troponin", "url": "https://agelesslabs.ai/biomarkers/hs-troponin" },
+{ "@type": "ListItem", "position": 36, "name": "TMAO", "url": "https://agelesslabs.ai/biomarkers/tmao" }
 ]
 }
 ]
@@ -376,7 +382,7 @@ border-radius: 2px;
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">30</span>
+<span class="bmi-stat-num">36</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -401,7 +407,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Cardiovascular</span>
-<span class="bmi-category-count">6 markers</span>
+<span class="bmi-category-count">9 markers</span>
 <span class="bmi-category-desc">The leading cause of death — and the most actionable category.</span>
 </div>
 <div class="bmi-grid">
@@ -466,6 +472,36 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/apolipoprotein-a1" class="bmi-card available">
+<div class="bmi-card-name">Apolipoprotein A1</div>
+<div class="bmi-card-aka">ApoA1, HDL Apolipoprotein</div>
+<div class="bmi-card-desc">The structural protein of HDL and a stronger predictor of cardiovascular protection than HDL-C alone. Pairs with ApoB to give the most predictive lipid ratio available.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): &gt; 140 mg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/hs-troponin" class="bmi-card available">
+<div class="bmi-card-name">High-Sensitivity Troponin</div>
+<div class="bmi-card-aka">hs-cTnI, hs-cTnT</div>
+<div class="bmi-card-desc">The only standard biomarker that directly reflects ongoing cardiac muscle stress — not just risk factors, but what your heart is experiencing right now.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 6 ng/L</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/tmao" class="bmi-card available">
+<div class="bmi-card-name">TMAO</div>
+<div class="bmi-card-aka">Trimethylamine N-oxide</div>
+<div class="bmi-card-desc">The gut microbiome metabolite that directly links diet and gut bacteria to atherosclerosis. Predicts cardiovascular events independently of all conventional risk factors.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 3 µM</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -474,7 +510,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">8 markers</span>
+<span class="bmi-category-count">9 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -555,6 +591,16 @@ border-radius: 2px;
 <div class="bmi-card-desc">A more accurate kidney function marker than creatinine — unaffected by muscle mass. Predicts cardiovascular death better than creatinine-based eGFR.</div>
 <div class="bmi-card-footer">
 <span class="bmi-card-optimal">Optimal: &lt; 0.9 mg/L</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/cbc" class="bmi-card available">
+<div class="bmi-card-name">CBC</div>
+<div class="bmi-card-aka">Complete Blood Count, WBC, RBC, Platelets</div>
+<div class="bmi-card-desc">The most ordered blood test in medicine — and the most under-interpreted. RDW, NLR, and WBC count each independently predict longevity within normal ranges.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal NLR: &lt; 2.0</span>
 <span class="bmi-card-arrow">&#8594;</span>
 </div>
 </a>
@@ -713,7 +759,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Nutrients</span>
-<span class="bmi-category-count">6 markers</span>
+<span class="bmi-category-count">8 markers</span>
 <span class="bmi-category-desc">Deficiencies that most standard panels miss entirely.</span>
 </div>
 <div class="bmi-grid">
@@ -778,25 +824,43 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/zinc" class="bmi-card available">
+<div class="bmi-card-name">Zinc</div>
+<div class="bmi-card-aka">Serum Zinc, Plasma Zinc</div>
+<div class="bmi-card-desc">Essential for immune function, DNA repair, and testosterone production. Deficiency is common in older adults and is directly linked to accelerated immunosenescence.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 85–110 µg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/selenium" class="bmi-card available">
+<div class="bmi-card-name">Selenium</div>
+<div class="bmi-card-aka">Serum Selenium, Se</div>
+<div class="bmi-card-desc">Critical for glutathione production, thyroid hormone activation, and cancer protection — with a narrow optimal window where both deficiency and excess cause harm.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 90–120 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 4 — Coming Soon</div>
+<div class="bmi-second-wave-label">Wave 5 — Coming Soon</div>
 <h2>More markers on the way.</h2>
-<p>The library will expand to 60+ biomarkers over the coming months. The next wave covers advanced markers across clotting, immune function, cognitive health, and more.</p>
+<p>The library will expand to 60+ biomarkers over the coming months. The next wave covers advanced markers across lipid subfractions, immune function, metabolic health, and more.</p>
 <div class="bmi-tag-list">
-<span class="bmi-tag">CBC markers</span>
-<span class="bmi-tag">Zinc</span>
-<span class="bmi-tag">TMAO</span>
 <span class="bmi-tag">HDL Subfractions</span>
 <span class="bmi-tag">NMR Lipoprofile</span>
-<span class="bmi-tag">Apolipoprotein A1</span>
-<span class="bmi-tag">Sex Hormone Binding Globulin</span>
-<span class="bmi-tag">Selenium</span>
 <span class="bmi-tag">Coenzyme Q10</span>
 <span class="bmi-tag">Galectin-3</span>
+<span class="bmi-tag">LP-PLA2</span>
+<span class="bmi-tag">Adiponectin</span>
+<span class="bmi-tag">Leptin</span>
+<span class="bmi-tag">Oxaloacetate</span>
 </div>
 </div>
