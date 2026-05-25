@@ -41,6 +41,12 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - Creatinine & eGFR: https://agelesslabs.ai/biomarkers/creatinine-egfr/
 - Albumin: https://agelesslabs.ai/biomarkers/albumin/
 - Lipoprotein(a): https://agelesslabs.ai/biomarkers/lipoprotein-a/
+https://agelesslabs.ai/biomarkers/alt-ast
+https://agelesslabs.ai/biomarkers/magnesium
+https://agelesslabs.ai/biomarkers/vitamin-b12
+https://agelesslabs.ai/biomarkers/dhea-s
+https://agelesslabs.ai/biomarkers/psa
+https://agelesslabs.ai/biomarkers/free-testosterone
 
 ## Content standards
 
