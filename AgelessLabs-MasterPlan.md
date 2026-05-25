@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 21, 2026 · 1:00 PM CST
+> Last updated: May 25, 2026 · 12:00 PM CST
 
 ---
 
@@ -34,7 +34,7 @@ AgelessLabs.ai is a longevity-focused content site with an integrated AI biomark
 | InsideTracker | Blood testing + analysis platform | $30–60 per sale |
 | Ulta Lab Tests | À la carte blood tests | 5–8% per order |
 | Life Extension | Supplements + lab tests | 8–12% |
-| Marek Health | Longevity-focused lab panels | TBD |
+| Marek Health | Longevity-focused lab panels | TBD — affiliate application pending approval |
 | SiPhox Health | At-home finger-prick testing | TBD |
 | Mito Health | Biomarker + biological age scoring | TBD |
 
@@ -338,7 +338,19 @@ Font sizes bumped sitewide for 35–65 mobile audience. Biomarker card text (.bm
 
 Kit (ConvertKit) was original email provider but trial expired May 8 2026. Migrated to MailerLite May 19 2026. MailerLite free plan (up to 1,000 subscribers, full automations). Group: "AgelessLabs Subscribers" (ID: 187945335219291618). Vercel env var: `ML_API_KEY`. Custom form in homepage and mobile menu submits via `api/subscribe.js` → MailerLite API. Confirmed working. Welcome sequence to be rebuilt in MailerLite automation builder.
 
-### Phase 4.9 — Community Digest Tool — Complete (April 23 2026)
+### Biomarker Pages — Wave 2 (May 25 2026)
+6 new pages written and live:
+- `alt-ast.njk` → `/biomarkers/alt-ast` ✅
+- `magnesium.njk` → `/biomarkers/magnesium` ✅
+- `vitamin-b12.njk` → `/biomarkers/vitamin-b12` ✅
+- `dhea-s.njk` → `/biomarkers/dhea-s` ✅
+- `psa.njk` → `/biomarkers/psa` ✅
+- `free-testosterone.njk` → `/biomarkers/free-testosterone` ✅
+
+`biomarkers/index.njk` updated: 6 new cards added (ALT/AST→Metabolic, Magnesium+B12→Nutrients, DHEA-S+PSA+Free T→Hormonal), schema updated to 24 items, stats bar updated. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
+
+**Wave 3 — next session (resume here):**
+Suggested next 6: SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate
 
 Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge function) fetches Reddit (r/longevity, r/biohacking, r/PeterAttia) via RSS/Atom + rapamycin.news via Discourse JSON API, scores posts by keyword relevance + recency + engagement, and generates Claude draft replies for the top 8 posts. Dashboard at `/digest` is key-protected (`DIGEST_KEY` env var), renders post cards with stats and copy buttons. Runs on-demand (~20s load time). Reddit required Edge runtime (Cloudflare IPs) to bypass IP blocks on standard Vercel Node servers.
 
