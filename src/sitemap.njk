@@ -16,6 +16,12 @@ layout: null
     <lastmod>{{ item.date | htmlDateString }}</lastmod>
     <changefreq>{% if item.url == '/' %}weekly{% elif '/biomarkers/' in item.url %}monthly{% else %}monthly{% endif %}</changefreq>
     <priority>{% if item.url == '/' %}1.0{% elif item.url == '/analyze/' %}0.9{% elif item.url == '/biomarkers/' %}0.9{% elif '/biomarkers/' in item.url %}0.8{% elif item.url == '/blog/' %}0.7{% elif '/blog/' in item.url %}0.7{% else %}0.5{% endif %}</priority>
+  <url><loc>https://agelesslabs.ai/biomarkers/alt-ast/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agelesslabs.ai/biomarkers/magnesium/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agelesslabs.ai/biomarkers/vitamin-b12/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agelesslabs.ai/biomarkers/dhea-s/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agelesslabs.ai/biomarkers/psa/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://agelesslabs.ai/biomarkers/free-testosterone/</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
   </url>
   {%- endif %}
   {%- endfor %}
