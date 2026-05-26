@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 36,
+"numberOfItems": 42,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -80,7 +80,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 33, "name": "CBC", "url": "https://agelesslabs.ai/biomarkers/cbc" },
 { "@type": "ListItem", "position": 34, "name": "Selenium", "url": "https://agelesslabs.ai/biomarkers/selenium" },
 { "@type": "ListItem", "position": 35, "name": "High-Sensitivity Troponin", "url": "https://agelesslabs.ai/biomarkers/hs-troponin" },
-{ "@type": "ListItem", "position": 36, "name": "TMAO", "url": "https://agelesslabs.ai/biomarkers/tmao" }
+{ "@type": "ListItem", "position": 36, "name": "TMAO", "url": "https://agelesslabs.ai/biomarkers/tmao" },
+{ "@type": "ListItem", "position": 37, "name": "Lp-PLA2", "url": "https://agelesslabs.ai/biomarkers/lp-pla2" },
+{ "@type": "ListItem", "position": 38, "name": "Adiponectin", "url": "https://agelesslabs.ai/biomarkers/adiponectin" },
+{ "@type": "ListItem", "position": 39, "name": "Leptin", "url": "https://agelesslabs.ai/biomarkers/leptin" },
+{ "@type": "ListItem", "position": 40, "name": "Coenzyme Q10", "url": "https://agelesslabs.ai/biomarkers/coenzyme-q10" },
+{ "@type": "ListItem", "position": 41, "name": "Galectin-3", "url": "https://agelesslabs.ai/biomarkers/galectin-3" },
+{ "@type": "ListItem", "position": 42, "name": "NMR Lipoprofile", "url": "https://agelesslabs.ai/biomarkers/nmr-lipoprofile" }
 ]
 }
 ]
@@ -382,7 +388,7 @@ border-radius: 2px;
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">36</span>
+<span class="bmi-stat-num">42</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -407,7 +413,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Cardiovascular</span>
-<span class="bmi-category-count">9 markers</span>
+<span class="bmi-category-count">12 markers</span>
 <span class="bmi-category-desc">The leading cause of death — and the most actionable category.</span>
 </div>
 <div class="bmi-grid">
@@ -502,6 +508,36 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/lp-pla2" class="bmi-card available">
+<div class="bmi-card-name">Lp-PLA2</div>
+<div class="bmi-card-aka">Lipoprotein-Associated Phospholipase A2, PLAC Test</div>
+<div class="bmi-card-desc">Produced inside atherosclerotic plaques — a direct marker of vascular inflammation that hsCRP cannot capture. Particularly predictive of stroke risk.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 175 nmol/min/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/galectin-3" class="bmi-card available">
+<div class="bmi-card-name">Galectin-3</div>
+<div class="bmi-card-aka">Gal-3, Mac-2, LGALS3</div>
+<div class="bmi-card-desc">The fibrosis biomarker that predicts heart failure, kidney disease, and organ aging. Reflects cumulative fibrotic burden across the heart, kidneys, and liver.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 12 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/nmr-lipoprofile" class="bmi-card available">
+<div class="bmi-card-name">NMR Lipoprofile</div>
+<div class="bmi-card-aka">LDL-P, LDL Particle Number, LP-IR</div>
+<div class="bmi-card-desc">Counts LDL particles directly — not just their cholesterol cargo. Identifies cardiovascular risk in people with normal LDL-C who have high particle numbers and small dense LDL.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal LDL-P: &lt; 700 nmol/L</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -510,7 +546,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">9 markers</span>
+<span class="bmi-category-count">11 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -601,6 +637,26 @@ border-radius: 2px;
 <div class="bmi-card-desc">The most ordered blood test in medicine — and the most under-interpreted. RDW, NLR, and WBC count each independently predict longevity within normal ranges.</div>
 <div class="bmi-card-footer">
 <span class="bmi-card-optimal">Optimal NLR: &lt; 2.0</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/adiponectin" class="bmi-card available">
+<div class="bmi-card-name">Adiponectin</div>
+<div class="bmi-card-aka">ACRP30, AdipoQ</div>
+<div class="bmi-card-desc">The anti-inflammatory fat cell hormone that falls with visceral fat accumulation — often before glucose or insulin become abnormal. Low adiponectin is an early signal of metabolic dysfunction.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): &gt; 10 µg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/leptin" class="bmi-card available">
+<div class="bmi-card-name">Leptin</div>
+<div class="bmi-card-aka">Serum Leptin, ob Protein</div>
+<div class="bmi-card-desc">The hunger hormone that reflects fat mass and metabolic health. In excess, it drives leptin resistance, systemic inflammation, and appetite dysregulation. Pairs with adiponectin for the LAR.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): &lt; 8 ng/mL</span>
 <span class="bmi-card-arrow">&#8594;</span>
 </div>
 </a>
@@ -759,7 +815,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Nutrients</span>
-<span class="bmi-category-count">8 markers</span>
+<span class="bmi-category-count">9 markers</span>
 <span class="bmi-category-desc">Deficiencies that most standard panels miss entirely.</span>
 </div>
 <div class="bmi-grid">
@@ -844,23 +900,33 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/coenzyme-q10" class="bmi-card available">
+<div class="bmi-card-name">Coenzyme Q10</div>
+<div class="bmi-card-aka">CoQ10, Ubiquinone, Ubiquinol</div>
+<div class="bmi-card-desc">The mitochondrial electron carrier essential for cellular energy production. Declines 30–50% with age and is further depleted by statin therapy. Critical for cardiac and muscle function.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &gt; 2.0 µg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 5 — Coming Soon</div>
+<div class="bmi-second-wave-label">Wave 6 — Coming Soon</div>
 <h2>More markers on the way.</h2>
-<p>The library will expand to 60+ biomarkers over the coming months. The next wave covers advanced markers across lipid subfractions, immune function, metabolic health, and more.</p>
+<p>The library will expand to 60+ biomarkers over the coming months. The next wave covers advanced markers across metabolic health, immune function, and organ reserve.</p>
 <div class="bmi-tag-list">
 <span class="bmi-tag">HDL Subfractions</span>
-<span class="bmi-tag">NMR Lipoprofile</span>
-<span class="bmi-tag">Coenzyme Q10</span>
-<span class="bmi-tag">Galectin-3</span>
-<span class="bmi-tag">LP-PLA2</span>
-<span class="bmi-tag">Adiponectin</span>
-<span class="bmi-tag">Leptin</span>
 <span class="bmi-tag">Oxaloacetate</span>
+<span class="bmi-tag">Hepcidin</span>
+<span class="bmi-tag">NT-proBNP</span>
+<span class="bmi-tag">Alpha-2-Macroglobulin</span>
+<span class="bmi-tag">Cystine</span>
+<span class="bmi-tag">Urine Microalbumin</span>
+<span class="bmi-tag">HbA1c + Fructosamine</span>
 </div>
 </div>
