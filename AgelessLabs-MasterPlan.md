@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 25, 2026 · 12:00 PM CST
+> Last updated: May 25, 2026 · 5:00 PM CST
 
 ---
 
@@ -349,8 +349,38 @@ Kit (ConvertKit) was original email provider but trial expired May 8 2026. Migra
 
 `biomarkers/index.njk` updated: 6 new cards added (ALT/AST→Metabolic, Magnesium+B12→Nutrients, DHEA-S+PSA+Free T→Hormonal), schema updated to 24 items, stats bar updated. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
 
-**Wave 3 — next session (resume here):**
-Suggested next 6: SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate
+**Wave 3 — Complete (May 25, 2026):**
+- `shbg.njk` → `/biomarkers/shbg` ✅
+- `estradiol.njk` → `/biomarkers/estradiol` ✅
+- `ggt.njk` → `/biomarkers/ggt` ✅
+- `fibrinogen.njk` → `/biomarkers/fibrinogen` ✅
+- `cystatin-c.njk` → `/biomarkers/cystatin-c` ✅
+- `folate.njk` → `/biomarkers/folate` ✅
+
+`biomarkers/index.njk` updated: 6 new cards added (SHBG+Estradiol→Hormonal, GGT+Cystatin C→Metabolic, Fibrinogen→Cardiovascular, Folate→Nutrients), duplicate card bugs from Wave 2 fixed, schema updated to 30 items, stats bar updated. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
+
+**Wave 4 — Complete (May 25, 2026):**
+- `apolipoprotein-a1.njk` → `/biomarkers/apolipoprotein-a1` ✅
+- `zinc.njk` → `/biomarkers/zinc` ✅
+- `cbc.njk` → `/biomarkers/cbc` ✅
+- `selenium.njk` → `/biomarkers/selenium` ✅
+- `hs-troponin.njk` → `/biomarkers/hs-troponin` ✅
+- `tmao.njk` → `/biomarkers/tmao` ✅
+
+`biomarkers/index.njk` updated: 6 new cards added (ApoA1+hs-Troponin+TMAO→Cardiovascular, CBC→Metabolic, Zinc+Selenium→Nutrients), schema updated to 36 items, stats bar updated to 36, "Wave 5" coming soon section. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
+
+**Wave 5 — Complete (May 25, 2026):**
+- `lp-pla2.njk` → `/biomarkers/lp-pla2` ✅
+- `adiponectin.njk` → `/biomarkers/adiponectin` ✅
+- `leptin.njk` → `/biomarkers/leptin` ✅
+- `coenzyme-q10.njk` → `/biomarkers/coenzyme-q10` ✅
+- `galectin-3.njk` → `/biomarkers/galectin-3` ✅
+- `nmr-lipoprofile.njk` → `/biomarkers/nmr-lipoprofile` ✅
+
+`biomarkers/index.njk` updated: 6 new cards added (Lp-PLA2+Galectin-3+NMR Lipoprofile→Cardiovascular, Adiponectin+Leptin→Metabolic, CoQ10→Nutrients), schema updated to 42 items, stats bar updated to 42, "Wave 6" coming soon section. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
+
+**Wave 6 — next session (resume here):**
+Suggested next 6: NT-proBNP, Urine Microalbumin, Hepcidin, HDL Subfractions, Oxaloacetate, Alpha-2-Macroglobulin
 
 Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge function) fetches Reddit (r/longevity, r/biohacking, r/PeterAttia) via RSS/Atom + rapamycin.news via Discourse JSON API, scores posts by keyword relevance + recency + engagement, and generates Claude draft replies for the top 8 posts. Dashboard at `/digest` is key-protected (`DIGEST_KEY` env var), renders post cards with stats and copy buttons. Runs on-demand (~20s load time). Reddit required Edge runtime (Cloudflare IPs) to bypass IP blocks on standard Vercel Node servers.
 
