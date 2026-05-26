@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 42,
+"numberOfItems": 48,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -86,7 +86,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 39, "name": "Leptin", "url": "https://agelesslabs.ai/biomarkers/leptin" },
 { "@type": "ListItem", "position": 40, "name": "Coenzyme Q10", "url": "https://agelesslabs.ai/biomarkers/coenzyme-q10" },
 { "@type": "ListItem", "position": 41, "name": "Galectin-3", "url": "https://agelesslabs.ai/biomarkers/galectin-3" },
-{ "@type": "ListItem", "position": 42, "name": "NMR Lipoprofile", "url": "https://agelesslabs.ai/biomarkers/nmr-lipoprofile" }
+{ "@type": "ListItem", "position": 42, "name": "NMR Lipoprofile", "url": "https://agelesslabs.ai/biomarkers/nmr-lipoprofile" },
+{ "@type": "ListItem", "position": 43, "name": "IL-6", "url": "https://agelesslabs.ai/biomarkers/il-6" },
+{ "@type": "ListItem", "position": 44, "name": "C-Peptide", "url": "https://agelesslabs.ai/biomarkers/c-peptide" },
+{ "@type": "ListItem", "position": 45, "name": "Progesterone", "url": "https://agelesslabs.ai/biomarkers/progesterone" },
+{ "@type": "ListItem", "position": 46, "name": "Prolactin", "url": "https://agelesslabs.ai/biomarkers/prolactin" },
+{ "@type": "ListItem", "position": 47, "name": "Iron & TIBC", "url": "https://agelesslabs.ai/biomarkers/iron-tibc" },
+{ "@type": "ListItem", "position": 48, "name": "Vitamin A", "url": "https://agelesslabs.ai/biomarkers/vitamin-a" }
 ]
 }
 ]
@@ -388,7 +394,7 @@ border-radius: 2px;
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">42</span>
+<span class="bmi-stat-num">48</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -413,7 +419,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Cardiovascular</span>
-<span class="bmi-category-count">12 markers</span>
+<span class="bmi-category-count">13 markers</span>
 <span class="bmi-category-desc">The leading cause of death — and the most actionable category.</span>
 </div>
 <div class="bmi-grid">
@@ -538,6 +544,16 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/il-6" class="bmi-card available">
+<div class="bmi-card-name">IL-6</div>
+<div class="bmi-card-aka">Interleukin-6, Inflammaging Cytokine</div>
+<div class="bmi-card-desc">The upstream driver of CRP production and a primary mediator of inflammaging. More mechanistically direct than hsCRP — directly impairs insulin signaling and drives endothelial dysfunction.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 1.5 pg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -546,7 +562,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">11 markers</span>
+<span class="bmi-category-count">12 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -661,6 +677,16 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/c-peptide" class="bmi-card available">
+<div class="bmi-card-name">C-Peptide</div>
+<div class="bmi-card-aka">Connecting Peptide, Proinsulin C-Peptide</div>
+<div class="bmi-card-desc">Measures pancreatic insulin output directly — without hepatic interference. Distinguishes insulin resistance from beta cell exhaustion. Earlier and more specific than fasting insulin alone.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 0.8–2.0 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -712,7 +738,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Hormonal</span>
-<span class="bmi-category-count">9 markers</span>
+<span class="bmi-category-count">11 markers</span>
 <span class="bmi-category-desc">Hormonal decline drives the physical changes we associate with aging.</span>
 </div>
 <div class="bmi-grid">
@@ -807,6 +833,26 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/progesterone" class="bmi-card available">
+<div class="bmi-card-name">Progesterone</div>
+<div class="bmi-card-aka">P4, Serum Progesterone</div>
+<div class="bmi-card-desc">The first reproductive hormone to decline in perimenopause — often years before estrogen falls. Low levels drive sleep disruption, anxiety, and cycle changes. Anti-inflammatory and neuroprotective beyond its reproductive role.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (luteal): &gt; 7–10 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/prolactin" class="bmi-card available">
+<div class="bmi-card-name">Prolactin</div>
+<div class="bmi-card-aka">PRL, Luteotropic Hormone</div>
+<div class="bmi-card-desc">The most overlooked hormone in longevity panels. Elevated prolactin silently suppresses testosterone in men and disrupts cycles in women — caused by pituitary microadenomas, medications, or hypothyroidism.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): 3–12 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -815,7 +861,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Nutrients</span>
-<span class="bmi-category-count">9 markers</span>
+<span class="bmi-category-count">11 markers</span>
 <span class="bmi-category-desc">Deficiencies that most standard panels miss entirely.</span>
 </div>
 <div class="bmi-grid">
@@ -910,23 +956,41 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/iron-tibc" class="bmi-card available">
+<div class="bmi-card-name">Iron &amp; TIBC</div>
+<div class="bmi-card-aka">Serum Iron, Transferrin Saturation, TIBC</div>
+<div class="bmi-card-desc">The only nutrient where both deficiency and excess accelerate aging. Transferrin saturation identifies pre-anemic iron depletion years before anemia — and screens for hemochromatosis, the most common serious genetic disorder in Northern Europeans.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal transferrin sat: 25–40%</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/vitamin-a" class="bmi-card available">
+<div class="bmi-card-name">Vitamin A</div>
+<div class="bmi-card-aka">Retinol, Serum Retinol</div>
+<div class="bmi-card-desc">A nuclear receptor ligand that directly regulates gene expression in immune cells and epithelial barriers. The most toxic fat-soluble vitamin in excess — making testing important for anyone taking preformed retinol supplements long-term.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 40–80 µg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 6 — Coming Soon</div>
+<div class="bmi-second-wave-label">Wave 7 — Coming Soon</div>
 <h2>More markers on the way.</h2>
-<p>The library will expand to 60+ biomarkers over the coming months. The next wave covers advanced markers across metabolic health, immune function, and organ reserve.</p>
+<p>The library is expanding toward 60 biomarkers. The next wave covers key hormonal and metabolic markers with high search demand and strong affiliate availability.</p>
 <div class="bmi-tag-list">
-<span class="bmi-tag">HDL Subfractions</span>
-<span class="bmi-tag">Oxaloacetate</span>
-<span class="bmi-tag">Hepcidin</span>
-<span class="bmi-tag">NT-proBNP</span>
-<span class="bmi-tag">Alpha-2-Macroglobulin</span>
-<span class="bmi-tag">Cystine</span>
-<span class="bmi-tag">Urine Microalbumin</span>
-<span class="bmi-tag">HbA1c + Fructosamine</span>
+<span class="bmi-tag">FSH</span>
+<span class="bmi-tag">Fasting Glucose</span>
+<span class="bmi-tag">Free T3 / Free T4</span>
+<span class="bmi-tag">DHT</span>
+<span class="bmi-tag">ALP</span>
+<span class="bmi-tag">Calcium</span>
 </div>
 </div>
