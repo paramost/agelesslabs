@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 48,
+"numberOfItems": 54,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -92,7 +92,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 45, "name": "Progesterone", "url": "https://agelesslabs.ai/biomarkers/progesterone" },
 { "@type": "ListItem", "position": 46, "name": "Prolactin", "url": "https://agelesslabs.ai/biomarkers/prolactin" },
 { "@type": "ListItem", "position": 47, "name": "Iron & TIBC", "url": "https://agelesslabs.ai/biomarkers/iron-tibc" },
-{ "@type": "ListItem", "position": 48, "name": "Vitamin A", "url": "https://agelesslabs.ai/biomarkers/vitamin-a" }
+{ "@type": "ListItem", "position": 48, "name": "Vitamin A", "url": "https://agelesslabs.ai/biomarkers/vitamin-a" },
+{ "@type": "ListItem", "position": 49, "name": "Fasting Glucose", "url": "https://agelesslabs.ai/biomarkers/fasting-glucose" },
+{ "@type": "ListItem", "position": 50, "name": "ALP", "url": "https://agelesslabs.ai/biomarkers/alp" },
+{ "@type": "ListItem", "position": 51, "name": "Calcium", "url": "https://agelesslabs.ai/biomarkers/calcium" },
+{ "@type": "ListItem", "position": 52, "name": "FSH", "url": "https://agelesslabs.ai/biomarkers/fsh" },
+{ "@type": "ListItem", "position": 53, "name": "Free T3 & Free T4", "url": "https://agelesslabs.ai/biomarkers/free-t3-t4" },
+{ "@type": "ListItem", "position": 54, "name": "DHT", "url": "https://agelesslabs.ai/biomarkers/dht" }
 ]
 }
 ]
@@ -394,7 +400,7 @@ border-radius: 2px;
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">48</span>
+<span class="bmi-stat-num">54</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -562,7 +568,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">12 markers</span>
+<span class="bmi-category-count">15 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -687,6 +693,36 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/fasting-glucose" class="bmi-card available">
+<div class="bmi-card-name">Fasting Glucose</div>
+<div class="bmi-card-aka">FBS, Fasting Blood Sugar</div>
+<div class="bmi-card-desc">The most ordered metabolic test — yet its standard reference range is calibrated for disease detection, not longevity. Optimal is 70–85 mg/dL, well below the 'normal' cutoff of 100 mg/dL.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 70–85 mg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/alp" class="bmi-card available">
+<div class="bmi-card-name">ALP</div>
+<div class="bmi-card-aka">Alkaline Phosphatase, Alk Phos</div>
+<div class="bmi-card-desc">The liver and bone enzyme present in every CMP but rarely explained. Elevated ALP + GGT signals biliary disease; elevated ALP with normal GGT points to bone. Low ALP is increasingly recognized as a longevity concern.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 70–120 IU/L</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/calcium" class="bmi-card available">
+<div class="bmi-card-name">Calcium</div>
+<div class="bmi-card-aka">Serum Calcium, Ca</div>
+<div class="bmi-card-desc">The most tightly regulated mineral — persistent deviation from the midpoint signals parathyroid disease, vitamin D dysfunction, or bone pathology. Calcium above 10.2 mg/dL warrants PTH testing to rule out primary hyperparathyroidism.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 9.0–9.8 mg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -738,7 +774,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Hormonal</span>
-<span class="bmi-category-count">11 markers</span>
+<span class="bmi-category-count">14 markers</span>
 <span class="bmi-category-desc">Hormonal decline drives the physical changes we associate with aging.</span>
 </div>
 <div class="bmi-grid">
@@ -849,6 +885,36 @@ border-radius: 2px;
 <div class="bmi-card-desc">The most overlooked hormone in longevity panels. Elevated prolactin silently suppresses testosterone in men and disrupts cycles in women — caused by pituitary microadenomas, medications, or hypothyroidism.</div>
 <div class="bmi-card-footer">
 <span class="bmi-card-optimal">Optimal (men): 3–12 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/fsh" class="bmi-card available">
+<div class="bmi-card-name">FSH</div>
+<div class="bmi-card-aka">Follicle-Stimulating Hormone, Follitropin</div>
+<div class="bmi-card-desc">The earliest and most reliable laboratory signal of ovarian aging — often detectable years before cycle changes or estrogen decline. In men, elevated FSH distinguishes primary testicular failure from secondary hypogonadism.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (women day 3): 3–8 mIU/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/free-t3-t4" class="bmi-card available">
+<div class="bmi-card-name">Free T3 &amp; Free T4</div>
+<div class="bmi-card-aka">fT3, fT4, Free Thyroid Hormones</div>
+<div class="bmi-card-desc">The biologically active thyroid hormones that TSH alone misses. Many people with normal TSH have suboptimal Free T3 due to impaired T4-to-T3 conversion — driven by selenium deficiency, inflammation, or elevated cortisol.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal Free T3: 3.2–4.0 pg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/dht" class="bmi-card available">
+<div class="bmi-card-name">DHT</div>
+<div class="bmi-card-aka">Dihydrotestosterone, 5α-DHT</div>
+<div class="bmi-card-desc">The most potent androgen — 3–10× more powerful than testosterone at the receptor. Primary driver of male pattern hair loss and prostate growth. Essential monitoring marker for men on testosterone therapy, especially topical formulations.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): 30–60 ng/dL</span>
 <span class="bmi-card-arrow">&#8594;</span>
 </div>
 </a>
@@ -982,15 +1048,15 @@ border-radius: 2px;
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 7 — Coming Soon</div>
+<div class="bmi-second-wave-label">Wave 8 — Coming Soon</div>
 <h2>More markers on the way.</h2>
-<p>The library is expanding toward 60 biomarkers. The next wave covers key hormonal and metabolic markers with high search demand and strong affiliate availability.</p>
+<p>The library is expanding toward 60+ biomarkers. The next wave covers kidney filtration, mineral metabolism, reproductive axis, and thyroid depth.</p>
 <div class="bmi-tag-list">
-<span class="bmi-tag">FSH</span>
-<span class="bmi-tag">Fasting Glucose</span>
-<span class="bmi-tag">Free T3 / Free T4</span>
-<span class="bmi-tag">DHT</span>
-<span class="bmi-tag">ALP</span>
-<span class="bmi-tag">Calcium</span>
+<span class="bmi-tag">LH</span>
+<span class="bmi-tag">Reverse T3</span>
+<span class="bmi-tag">Vitamin K2</span>
+<span class="bmi-tag">Urine Microalbumin</span>
+<span class="bmi-tag">PTH</span>
+<span class="bmi-tag">BUN</span>
 </div>
 </div>
