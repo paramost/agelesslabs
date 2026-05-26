@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 54,
+"numberOfItems": 60,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -98,7 +98,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 51, "name": "Calcium", "url": "https://agelesslabs.ai/biomarkers/calcium" },
 { "@type": "ListItem", "position": 52, "name": "FSH", "url": "https://agelesslabs.ai/biomarkers/fsh" },
 { "@type": "ListItem", "position": 53, "name": "Free T3 & Free T4", "url": "https://agelesslabs.ai/biomarkers/free-t3-t4" },
-{ "@type": "ListItem", "position": 54, "name": "DHT", "url": "https://agelesslabs.ai/biomarkers/dht" }
+{ "@type": "ListItem", "position": 54, "name": "DHT", "url": "https://agelesslabs.ai/biomarkers/dht" },
+{ "@type": "ListItem", "position": 55, "name": "LH", "url": "https://agelesslabs.ai/biomarkers/lh" },
+{ "@type": "ListItem", "position": 56, "name": "Reverse T3", "url": "https://agelesslabs.ai/biomarkers/reverse-t3" },
+{ "@type": "ListItem", "position": 57, "name": "Vitamin K2", "url": "https://agelesslabs.ai/biomarkers/vitamin-k2" },
+{ "@type": "ListItem", "position": 58, "name": "Urine Microalbumin", "url": "https://agelesslabs.ai/biomarkers/urine-microalbumin" },
+{ "@type": "ListItem", "position": 59, "name": "PTH", "url": "https://agelesslabs.ai/biomarkers/pth" },
+{ "@type": "ListItem", "position": 60, "name": "BUN", "url": "https://agelesslabs.ai/biomarkers/bun" }
 ]
 }
 ]
@@ -400,7 +406,7 @@ border-radius: 2px;
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">54</span>
+<span class="bmi-stat-num">60</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -568,7 +574,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">15 markers</span>
+<span class="bmi-category-count">18 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -723,6 +729,36 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/urine-microalbumin" class="bmi-card available">
+<div class="bmi-card-name">Urine Microalbumin</div>
+<div class="bmi-card-aka">ACR, Albumin-to-Creatinine Ratio, UACR</div>
+<div class="bmi-card-desc">Detects kidney glomerular damage years before eGFR declines — and is an independent cardiovascular risk marker even in people without diabetes. The earliest actionable signal in the kidney disease timeline.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 10 mg/g</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/pth" class="bmi-card available">
+<div class="bmi-card-name">PTH</div>
+<div class="bmi-card-aka">Parathyroid Hormone, Intact PTH</div>
+<div class="bmi-card-desc">The primary calcium and bone metabolism regulator. Chronically elevated PTH silently dissolves bone to maintain normal serum calcium — so calcium can look normal while bone loss is ongoing. Essential context for interpreting calcium and vitamin D.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 20–45 pg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/bun" class="bmi-card available">
+<div class="bmi-card-name">BUN</div>
+<div class="bmi-card-aka">Blood Urea Nitrogen, Urea Nitrogen</div>
+<div class="bmi-card-desc">Present in every metabolic panel yet rarely explained. BUN reflects protein catabolism and kidney clearance simultaneously. The BUN:creatinine ratio separates kidney disease from dehydration, high protein intake, and muscle breakdown.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 10–18 mg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -774,7 +810,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Hormonal</span>
-<span class="bmi-category-count">14 markers</span>
+<span class="bmi-category-count">16 markers</span>
 <span class="bmi-category-desc">Hormonal decline drives the physical changes we associate with aging.</span>
 </div>
 <div class="bmi-grid">
@@ -919,6 +955,26 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/lh" class="bmi-card available">
+<div class="bmi-card-name">LH</div>
+<div class="bmi-card-aka">Luteinizing Hormone, Lutropin</div>
+<div class="bmi-card-desc">The pituitary's command signal for testosterone production in men and ovulation in women. Combined with FSH, LH instantly localizes whether low testosterone originates in the testes (high LH) or the pituitary (low LH) — a distinction that changes the entire treatment approach.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (men): 3–7 mIU/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/reverse-t3" class="bmi-card available">
+<div class="bmi-card-name">Reverse T3</div>
+<div class="bmi-card-aka">rT3, RT3, Reverse Triiodothyronine</div>
+<div class="bmi-card-desc">The metabolic brake — an inactive thyroid hormone that rises under chronic stress, illness, and caloric restriction. The FT3:rT3 ratio captures thyroid conversion efficiency that TSH and FT4 alone miss entirely.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: &lt; 15 ng/dL · FT3:rT3 &gt; 0.20</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -927,7 +983,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Nutrients</span>
-<span class="bmi-category-count">11 markers</span>
+<span class="bmi-category-count">12 markers</span>
 <span class="bmi-category-desc">Deficiencies that most standard panels miss entirely.</span>
 </div>
 <div class="bmi-grid">
@@ -1042,21 +1098,31 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/vitamin-k2" class="bmi-card available">
+<div class="bmi-card-name">Vitamin K2</div>
+<div class="bmi-card-aka">Menaquinone, MK-7, MK-4</div>
+<div class="bmi-card-desc">The calcium traffic director — sends calcium into bones and keeps it out of arteries. The Rotterdam Heart Study found the highest K2 intake was associated with 57% lower aortic calcification. Chronically underconsumed in Western diets.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Functional: ucOC &lt; 4.5 µg/L</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 8 — Coming Soon</div>
+<div class="bmi-second-wave-label">Wave 9 — Coming Soon</div>
 <h2>More markers on the way.</h2>
-<p>The library is expanding toward 60+ biomarkers. The next wave covers kidney filtration, mineral metabolism, reproductive axis, and thyroid depth.</p>
+<p>Approaching 66 biomarkers. The final wave covers cardiovascular, liver, and micronutrient markers rounding out the most complete longevity panel on the web.</p>
 <div class="bmi-tag-list">
-<span class="bmi-tag">LH</span>
-<span class="bmi-tag">Reverse T3</span>
-<span class="bmi-tag">Vitamin K2</span>
-<span class="bmi-tag">Urine Microalbumin</span>
-<span class="bmi-tag">PTH</span>
-<span class="bmi-tag">BUN</span>
+<span class="bmi-tag">Vitamin B6</span>
+<span class="bmi-tag">Copper</span>
+<span class="bmi-tag">Bilirubin</span>
+<span class="bmi-tag">Phosphorus</span>
+<span class="bmi-tag">NT-proBNP</span>
+<span class="bmi-tag">Vitamin C</span>
 </div>
 </div>
