@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 25, 2026 · 5:00 PM CST
+> Last updated: May 26, 2026 · 12:00 PM CST
 
 ---
 
@@ -380,7 +380,29 @@ Kit (ConvertKit) was original email provider but trial expired May 8 2026. Migra
 `biomarkers/index.njk` updated: 6 new cards added (Lp-PLA2+Galectin-3+NMR Lipoprofile→Cardiovascular, Adiponectin+Leptin→Metabolic, CoQ10→Nutrients), schema updated to 42 items, stats bar updated to 42, "Wave 6" coming soon section. `llms.txt` and `sitemap.njk` updated with 6 new URLs.
 
 **Wave 6 — next session (resume here):**
-Suggested next 6: NT-proBNP, Urine Microalbumin, Hepcidin, HDL Subfractions, Oxaloacetate, Alpha-2-Macroglobulin
+
+Original suggested Wave 6 (NT-proBNP, Urine Microalbumin, Hepcidin, HDL Subfractions, Oxaloacetate, Alpha-2-Macroglobulin) was audited against three criteria — doctor test, affiliate test, search test — and rejected. Most failed on affiliate availability and/or are research territory.
+
+**Revised Wave 6 list (all pass all three criteria):**
+- `iron-tibc.njk` → `/biomarkers/iron-tibc` — Iron/TIBC, serum iron, transferrin saturation; highest-searched nutrient topic; Ulta carries it
+- `progesterone.njk` → `/biomarkers/progesterone` — Biggest gap in hormonal category; every women's panel; high perimenopause search volume
+- `c-peptide.njk` → `/biomarkers/c-peptide` — Best companion to fasting insulin page; pancreatic output; metabolic health circles
+- `vitamin-a.njk` → `/biomarkers/vitamin-a` — Standard nutritional panel; Ulta carries it; immune/longevity depth
+- `il-6.njk` → `/biomarkers/il-6` — Attia's most-cited inflammatory marker beyond hsCRP; Function Health includes it; growing search volume. **Verify Ulta availability before building** — may not be offered à la carte.
+- `prolactin.njk` → `/biomarkers/prolactin` — Ordered on hormonal optimization panels for men and women; Ulta carries it; connects to testosterone/SHBG pages
+
+**Waves 7–8 (planned, pending Wave 6 completion):**
+
+Wave 7 candidates: FSH (biggest single gap — perimenopause audience), Fasting Glucose (highest search volume of anything missing), Free T3/Free T4 (standalone; captures thyroid search traffic TSH page misses), DHT (men's hormone optimization; connects to testosterone cluster), ALP (completes liver panel alongside ALT/AST and GGT), Calcium (completes basic metabolic panel)
+
+Wave 8 candidates: Reverse T3, Vitamin K2, LH (or FSH/LH combined)
+
+**Stopping rule:** Waves 1–8 total ~57 pages — at the floor of the 60–80 target. After Wave 8, pivot to Tier 2 content (lab test comparison pages) and Tier 3 (protocol guides), which have higher conversion value per page.
+
+**Biomarker criteria for any future pages:**
+1. Doctor test — would a functional medicine/longevity doctor order this?
+2. Affiliate test — available to order from Ulta, InsideTracker, or Function Health?
+3. Search test — consumer-level search interest (not research territory)?
 
 Community monitoring and reply-drafting tool built. `api/digest.js` (Vercel Edge function) fetches Reddit (r/longevity, r/biohacking, r/PeterAttia) via RSS/Atom + rapamycin.news via Discourse JSON API, scores posts by keyword relevance + recency + engagement, and generates Claude draft replies for the top 8 posts. Dashboard at `/digest` is key-protected (`DIGEST_KEY` env var), renders post cards with stats and copy buttons. Runs on-demand (~20s load time). Reddit required Edge runtime (Cloudflare IPs) to bypass IP blocks on standard Vercel Node servers.
 
@@ -405,6 +427,34 @@ All live files audited and verified. Fixes applied directly to GitHub via Claude
 1. **MailerLite welcome sequence** ✅ Complete — May 21 2026. 5-email automation built, header/footer designed, sequence activated. Trigger: joins AgelessLabs Subscribers group. Sender: `news@agelesslabs.ai` / Reply-to: `hello@agelesslabs.ai`. Header: `AgelessLabs.ai` text. Footer: company name, address, unsubscribe link.
 2. **MailerLite domain authentication** ✅ Complete — May 20 2026. DKIM, SPF, and domain verification all confirmed working. Spacemail mailboxes active at `hello@agelesslabs.ai` and `news@agelesslabs.ai`.
 3. **Panel affiliate links** — add Longevity & Healthy Aging Essential Panel and Basic Health Profile (Men's/Women's) to AFFILIATE config and homepage. These are high-value CTAs for Group B visitors (no GP, no labs).
+
+### Phase 5.6 — Ulta Affiliate URL Audit — IN PROGRESS (May 26 2026)
+
+All 24 Wave 2–5 Ulta à la carte URLs were extracted directly from live GitHub files and verified by clicking. 11 of 24 were broken (guessed slugs that didn't match Ulta's actual URL structure). Correct slugs found via web search against Ulta's live site — no assumptions.
+
+**Batch 1 — Complete (May 26 2026) — 6 files committed to main:**
+
+| File | Old slug (broken) | New slug (confirmed) |
+|---|---|---|
+| vitamin-b12.njk | `vitamin-b12` | `vitamin-b12-test` |
+| dhea-s.njk | `dhea-sulfate` | `dhea-s-test` |
+| shbg.njk | `sex-hormone-binding-globulin` | `sex-hormone-binding-globulin-shbg` |
+| ggt.njk | `gamma-glutamyltransferase-ggt` | `gamma-glutamyl-transferase-ggt` |
+| fibrinogen.njk | `fibrinogen-activity` | `fibrinogen-activity-clauss` |
+| cystatin-c.njk | `cystatin-c` | `cystatin-c-with-egfr` |
+
+**Batch 2 — Pending (next session) — 5 files:**
+
+| File | Old slug (broken) | New slug (confirmed) |
+|---|---|---|
+| cbc.njk | `complete-blood-count-with-differential` | `complete-blood-count-with-differential-and-platelets-cbc-test` |
+| hs-troponin.njk | `troponin-i-high-sensitivity` | `troponin-t-high-sensitivity-hs-tnt` |
+| tmao.njk | `tmao` | `tmao-trimethylamine-n-oxide` |
+| lp-pla2.njk | `lp-pla2` | `lp-pla2-activity` |
+| nmr-lipoprofile.njk | `nmr-lipoprofile` | `lipoprotein-fractionation-test-nmr` |
+
+**13 Wave 2–5 URLs confirmed correct (no changes needed):**
+ALT/AST (`hepatic-function-panel`), Magnesium (`magnesium`), PSA (`psa-total-test`), Free Testosterone (`testosterone-free-and-total-test`), Estradiol (`estradiol`), ApoA1 (`apolipoprotein-a1`), Zinc (`zinc`), Selenium (`selenium`), Lp-PLA2 mass (`lp-pla2-activity`), Adiponectin (`adiponectin`), Leptin (`leptin`), CoQ10 (`coenzyme-q10`), Galectin-3 (`galectin-3`)
 
 #### Paid Report Spec — $19 one-time
 
@@ -519,6 +569,7 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Digest caching not built** — `/digest` generates fresh on every load (~20s, ~$0.08/run). Fine for occasional use. Add Vercel KV + GitHub Actions cron when daily usage warrants it.
 - **Drive old flat files** — stale flat copies in Drive root. Can be deleted manually. GitHub is clean.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have that literal string in JSON-LD. Not a validity issue.
+- **Ulta affiliate URL audit — Batch 2 pending** — 5 Wave 4–5 files still have broken Ulta à la carte slugs. Fix in next session. Correct slugs documented in Phase 5.6 above.
 
 ---
 
@@ -550,6 +601,8 @@ Fallback: Post on Upwork for NP/DNP with functional medicine background.
 - **Reddit's public JSON API blocks Vercel Node.js server IPs** — standard `fetch()` from a Vercel serverless function to `reddit.com` returns a 403 or times out. Two working approaches: (1) Vercel Edge runtime (`export const config = { runtime: 'edge' }`) runs on Cloudflare's network which Reddit does not block; (2) Reddit OAuth API (`oauth.reddit.com`) works from any server with valid credentials but requires app registration at reddit.com/prefs/apps. Edge + RSS is the simpler approach when credentials aren't needed.
 - **Reddit RSS/Atom feeds work without credentials** — `https://www.reddit.com/r/{subreddit}/search.rss?q=...` returns Atom XML with title, link, content, and upvote count. No app registration required. Parse with regex — no XML library needed for the predictable Atom structure Reddit uses.
 - **Vercel Edge runtime uses the Web API response format** — Edge functions return `new Response(body, { status, headers })` rather than the Node.js `res.status().json()` pattern. `process.env` still works. No `Buffer` — use `btoa()` for base64.
+- **Ulta Lab Tests URL slugs are not predictable from test names** — never guess Ulta slugs. Always verify by searching `site:ultalabtests.com [test name]` and reading the actual URL from search results before writing it into any file. The affiliate path format is `ultalabtests.com/partners/agelesslabs/test/[slug]` where `[slug]` must match Ulta's exact slug. Common mismatches: `dhea-sulfate` → `dhea-s-test`; `cystatin-c` → `cystatin-c-with-egfr`; `complete-blood-count-with-differential` → `complete-blood-count-with-differential-and-platelets-cbc-test`; `nmr-lipoprofile` → `lipoprotein-fractionation-test-nmr`.
+- **Biomarker page criteria for deciding what to build** — three tests before writing any new biomarker page: (1) Doctor test: would a functional medicine/longevity doctor order this? (2) Affiliate test: can someone actually order it from Ulta, InsideTracker, or Function Health? (3) Search test: consumer-level search interest (not research territory)? All three must pass. Beyond ~57 pages (Waves 1–8), pivot to Tier 2/3 content.
 
 ---
 
@@ -638,7 +691,7 @@ Every piece of content must satisfy all three simultaneously:
 ### Content Architecture
 
 #### Tier 1 — Biomarker Reference Library
-One page per biomarker. The backbone of organic and AI traffic. Target: 60-80 pages.
+One page per biomarker. The backbone of organic and AI traffic. Target: ~57 pages across Waves 1–8 (then stop and pivot).
 
 First wave (18 markers) — complete:
 ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH/T3/T4, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a)
@@ -658,4 +711,4 @@ Categories: Metabolic Health, Cardiovascular, Hormonal Health, Inflammation & Im
 - Affiliate link where contextually appropriate (never forced)
 - Meta description optimized for click-through and AI extraction
 
-*AgelessLabs.ai — Master Project Plan · April 2026*
+*AgelessLabs.ai — Master Project Plan · May 2026*
