@@ -7,7 +7,7 @@ AgelessLabs.ai is a longevity-focused platform that interprets blood test result
 ## What this site covers
 
 - **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
-- **Biomarker Reference Library** — /biomarkers/ — 54 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate, Apolipoprotein A1, Zinc, CBC, Selenium, High-Sensitivity Troponin, TMAO, Lp-PLA2, Adiponectin, Leptin, Coenzyme Q10, Galectin-3, NMR Lipoprofile, IL-6, C-Peptide, Progesterone, Prolactin, Iron & TIBC, Vitamin A, Fasting Glucose, ALP, Calcium, FSH, Free T3 & Free T4, and DHT. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
+- **Biomarker Reference Library** — /biomarkers/ — 60 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate, Apolipoprotein A1, Zinc, CBC, Selenium, High-Sensitivity Troponin, TMAO, Lp-PLA2, Adiponectin, Leptin, Coenzyme Q10, Galectin-3, NMR Lipoprofile, IL-6, C-Peptide, Progesterone, Prolactin, Iron & TIBC, Vitamin A, Fasting Glucose, ALP, Calcium, FSH, Free T3 & Free T4, DHT, LH, Reverse T3, Vitamin K2, Urine Microalbumin (ACR), PTH, and BUN. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
 
 ## Audience
 
@@ -77,6 +77,12 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - FSH: https://agelesslabs.ai/biomarkers/fsh/
 - Free T3 & Free T4: https://agelesslabs.ai/biomarkers/free-t3-t4/
 - DHT: https://agelesslabs.ai/biomarkers/dht/
+- LH: https://agelesslabs.ai/biomarkers/lh/
+- Reverse T3: https://agelesslabs.ai/biomarkers/reverse-t3/
+- Vitamin K2: https://agelesslabs.ai/biomarkers/vitamin-k2/
+- Urine Microalbumin: https://agelesslabs.ai/biomarkers/urine-microalbumin/
+- PTH: https://agelesslabs.ai/biomarkers/pth/
+- BUN: https://agelesslabs.ai/biomarkers/bun/
 
 ## Content standards
 
