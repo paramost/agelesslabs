@@ -43,7 +43,7 @@ eleventyExcludeFromCollections: true
 "name": "Longevity Biomarkers",
 "description": "A comprehensive index of blood biomarkers relevant to longevity and healthspan optimization.",
 "url": "https://agelesslabs.ai/biomarkers/",
-"numberOfItems": 60,
+"numberOfItems": 66,
 "itemListElement": [
 { "@type": "ListItem", "position": 1, "name": "ApoB", "url": "https://agelesslabs.ai/biomarkers/apob" },
 { "@type": "ListItem", "position": 2, "name": "HbA1c", "url": "https://agelesslabs.ai/biomarkers/hba1c" },
@@ -104,7 +104,13 @@ eleventyExcludeFromCollections: true
 { "@type": "ListItem", "position": 57, "name": "Vitamin K2", "url": "https://agelesslabs.ai/biomarkers/vitamin-k2" },
 { "@type": "ListItem", "position": 58, "name": "Urine Microalbumin", "url": "https://agelesslabs.ai/biomarkers/urine-microalbumin" },
 { "@type": "ListItem", "position": 59, "name": "PTH", "url": "https://agelesslabs.ai/biomarkers/pth" },
-{ "@type": "ListItem", "position": 60, "name": "BUN", "url": "https://agelesslabs.ai/biomarkers/bun" }
+{ "@type": "ListItem", "position": 60, "name": "BUN", "url": "https://agelesslabs.ai/biomarkers/bun" },
+{ "@type": "ListItem", "position": 61, "name": "Vitamin B6", "url": "https://agelesslabs.ai/biomarkers/vitamin-b6" },
+{ "@type": "ListItem", "position": 62, "name": "Copper", "url": "https://agelesslabs.ai/biomarkers/copper" },
+{ "@type": "ListItem", "position": 63, "name": "Bilirubin", "url": "https://agelesslabs.ai/biomarkers/bilirubin" },
+{ "@type": "ListItem", "position": 64, "name": "Phosphorus", "url": "https://agelesslabs.ai/biomarkers/phosphorus" },
+{ "@type": "ListItem", "position": 65, "name": "NT-proBNP", "url": "https://agelesslabs.ai/biomarkers/nt-probnp" },
+{ "@type": "ListItem", "position": 66, "name": "Vitamin C", "url": "https://agelesslabs.ai/biomarkers/vitamin-c" }
 ]
 }
 ]
@@ -402,11 +408,11 @@ border-radius: 2px;
 <p class="bmi-hero-sub">Standard blood tests tell you if you're sick. These markers tell you how fast you're aging — and what to do about it. One page per biomarker: what it means, what's optimal, and how to move it.</p>
 <div class="bmi-stats">
 <div class="bmi-stat">
-<span class="bmi-stat-num">60+</span>
+<span class="bmi-stat-num">66+</span>
 <span class="bmi-stat-label">Biomarkers planned</span>
 </div>
 <div class="bmi-stat">
-<span class="bmi-stat-num">60</span>
+<span class="bmi-stat-num">66</span>
 <span class="bmi-stat-label">Live biomarker pages</span>
 </div>
 <div class="bmi-stat">
@@ -431,7 +437,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Cardiovascular</span>
-<span class="bmi-category-count">13 markers</span>
+<span class="bmi-category-count">14 markers</span>
 <span class="bmi-category-desc">The leading cause of death — and the most actionable category.</span>
 </div>
 <div class="bmi-grid">
@@ -566,6 +572,16 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/nt-probnp" class="bmi-card available">
+<div class="bmi-card-name">NT-proBNP</div>
+<div class="bmi-card-aka">N-Terminal pro-B-type Natriuretic Peptide</div>
+<div class="bmi-card-desc">The gold-standard heart stress biomarker. Elevated NT-proBNP identifies subclinical cardiac dysfunction before symptoms develop — and predicts cardiovascular mortality independently in people with no known heart disease.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal (&lt; 55): &lt; 75 pg/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
@@ -574,7 +590,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Metabolic</span>
-<span class="bmi-category-count">18 markers</span>
+<span class="bmi-category-count">20 markers</span>
 <span class="bmi-category-desc">Insulin resistance is the root of most chronic disease — catch it early here.</span>
 </div>
 <div class="bmi-grid">
@@ -983,7 +999,7 @@ border-radius: 2px;
 <section class="bmi-category">
 <div class="bmi-category-header">
 <span class="bmi-category-name">Nutrients</span>
-<span class="bmi-category-count">12 markers</span>
+<span class="bmi-category-count">15 markers</span>
 <span class="bmi-category-desc">Deficiencies that most standard panels miss entirely.</span>
 </div>
 <div class="bmi-grid">
@@ -1108,21 +1124,43 @@ border-radius: 2px;
 </div>
 </a>
 
+<a href="/biomarkers/vitamin-b6" class="bmi-card available">
+<div class="bmi-card-name">Vitamin B6</div>
+<div class="bmi-card-aka">PLP, Pyridoxal-5-Phosphate, Pyridoxal Phosphate</div>
+<div class="bmi-card-desc">Required for over 100 enzymatic reactions including serotonin, dopamine, and GABA synthesis. Deficiency is common in women on OCPs and people with chronic inflammation — and directly elevates homocysteine cardiovascular risk.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 30–100 ng/mL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/copper" class="bmi-card available">
+<div class="bmi-card-name">Copper</div>
+<div class="bmi-card-aka">Serum Copper, Cu, Cuprum</div>
+<div class="bmi-card-desc">Essential for iron transport, SOD antioxidant enzyme, and collagen cross-linking. The copper:zinc ratio is an independent predictor of cardiovascular mortality — and high-dose zinc supplementation is the leading cause of copper deficiency in adults.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 80–120 µg/dL · Cu:Zn &lt; 1.2</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
+<a href="/biomarkers/vitamin-c" class="bmi-card available">
+<div class="bmi-card-name">Vitamin C</div>
+<div class="bmi-card-aka">Ascorbic Acid, Ascorbate</div>
+<div class="bmi-card-desc">Required for collagen synthesis, immune function, and antioxidant defense. Subclinical insufficiency is common in smokers and older adults and measurably impairs arterial wall integrity and wound healing.</div>
+<div class="bmi-card-footer">
+<span class="bmi-card-optimal">Optimal: 0.8–1.6 mg/dL</span>
+<span class="bmi-card-arrow">&#8594;</span>
+</div>
+</a>
+
 </div>
 </section>
 
 {# ── Coming later ─────────────────────────────────────────────────────────── #}
 
 <div class="bmi-second-wave">
-<div class="bmi-second-wave-label">Wave 9 — Coming Soon</div>
-<h2>More markers on the way.</h2>
-<p>Approaching 66 biomarkers. The final wave covers cardiovascular, liver, and micronutrient markers rounding out the most complete longevity panel on the web.</p>
-<div class="bmi-tag-list">
-<span class="bmi-tag">Vitamin B6</span>
-<span class="bmi-tag">Copper</span>
-<span class="bmi-tag">Bilirubin</span>
-<span class="bmi-tag">Phosphorus</span>
-<span class="bmi-tag">NT-proBNP</span>
-<span class="bmi-tag">Vitamin C</span>
-</div>
+<div class="bmi-second-wave-label">Library Complete</div>
+<h2>66 biomarkers. No doctor required.</h2>
+<p>The AgelessLabs biomarker library now covers the most important longevity markers — from advanced cardiovascular risk to mineral metabolism, hormonal function, and micronutrient status. Use the AI analyzer at <a href="/analyze">/analyze</a> to interpret your results.</p>
 </div>
