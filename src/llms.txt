@@ -7,7 +7,7 @@ AgelessLabs.ai is a longevity-focused platform that interprets blood test result
 ## What this site covers
 
 - **AI Biomarker Interpreter** — free tool at /analyze. Users upload or paste lab results; the AI returns a longevity score (0–100), per-marker status (optimal / monitor / concern), narrative summary, and prioritized recommendations.
-- **Biomarker Reference Library** — /biomarkers/ — 42 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate, Apolipoprotein A1, Zinc, CBC, Selenium, High-Sensitivity Troponin, TMAO, Lp-PLA2, Adiponectin, Leptin, Coenzyme Q10, Galectin-3, and NMR Lipoprofile. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
+- **Biomarker Reference Library** — /biomarkers/ — 48 pages covering ApoB, HbA1c, hsCRP, Vitamin D, Testosterone, Homocysteine, Ferritin, TSH, IGF-1, Fasting Insulin, Triglycerides, Omega-3 Index, LDL/HDL Cholesterol, Cortisol, Uric Acid, Creatinine/eGFR, Albumin, Lipoprotein(a), ALT/AST, Magnesium, Vitamin B12, DHEA-S, PSA, Free Testosterone, SHBG, Estradiol, GGT, Fibrinogen, Cystatin C, Folate, Apolipoprotein A1, Zinc, CBC, Selenium, High-Sensitivity Troponin, TMAO, Lp-PLA2, Adiponectin, Leptin, Coenzyme Q10, Galectin-3, NMR Lipoprofile, IL-6, C-Peptide, Progesterone, Prolactin, Iron & TIBC, and Vitamin A. Each page covers definition, why it matters for longevity, standard vs. longevity-optimal ranges, interventions, and testing options.
 
 ## Audience
 
@@ -65,6 +65,12 @@ Health-conscious adults aged 35–65 who track biomarkers and are focused on lon
 - Coenzyme Q10: https://agelesslabs.ai/biomarkers/coenzyme-q10/
 - Galectin-3: https://agelesslabs.ai/biomarkers/galectin-3/
 - NMR Lipoprofile: https://agelesslabs.ai/biomarkers/nmr-lipoprofile/
+- IL-6: https://agelesslabs.ai/biomarkers/il-6/
+- C-Peptide: https://agelesslabs.ai/biomarkers/c-peptide/
+- Progesterone: https://agelesslabs.ai/biomarkers/progesterone/
+- Prolactin: https://agelesslabs.ai/biomarkers/prolactin/
+- Iron & TIBC: https://agelesslabs.ai/biomarkers/iron-tibc/
+- Vitamin A: https://agelesslabs.ai/biomarkers/vitamin-a/
 
 ## Content standards
 
