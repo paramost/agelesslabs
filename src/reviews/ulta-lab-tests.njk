@@ -1,0 +1,411 @@
+---
+layout: base.njk
+title: "Ulta Lab Tests Review: Is It Legit? (2026) | AgelessLabs"
+permalink: /reviews/ulta-lab-tests/index.html
+description: "An honest review of Ulta Lab Tests — pricing, draw locations, test catalog, the Hawaii DOH violation, and who should (and shouldn't) use it."
+---
+
+<style>
+.review-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.review-hero .page-eyebrow { margin-bottom: 20px; }
+.review-hero h1 { margin-bottom: 16px; }
+.review-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+
+.review-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 32px; flex-wrap: wrap; }
+.review-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.review-meta-item span { color: var(--text-dim); }
+
+.verdict-card { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.25); border-radius: 4px; padding: 28px 32px; margin-bottom: 48px; display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: start; }
+.verdict-score-block { text-align: center; min-width: 100px; }
+.verdict-score { font-family: 'DM Mono', monospace; font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
+.verdict-score-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+.verdict-text h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 10px; }
+.verdict-text p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 20px; font-weight: 600; color: var(--white); letter-spacing: -0.015em; margin-bottom: 16px; }
+.content-section h3 { font-size: 16px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 28px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.pros-cons-col { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px 24px; }
+.pros-cons-col h4 { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 16px; }
+.pros-col h4 { color: var(--green); }
+.cons-col h4 { color: #e07070; }
+.pros-cons-list { list-style: none; padding: 0; margin: 0; }
+.pros-cons-list li { font-size: 13px; color: var(--text-dim); line-height: 1.6; padding: 6px 0; border-bottom: 1px solid var(--border); display: flex; gap: 10px; align-items: flex-start; }
+.pros-cons-list li:last-child { border-bottom: none; padding-bottom: 0; }
+.pros-cons-list li::before { flex-shrink: 0; font-family: 'DM Mono', monospace; font-size: 11px; margin-top: 2px; }
+.pros-col li::before { content: '+'; color: var(--green); }
+.cons-col li::before { content: '&#8722;'; color: #e07070; }
+
+.pricing-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 14px; }
+.pricing-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 16px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.pricing-table td { padding: 12px 16px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.5; }
+.pricing-table td:first-child { color: var(--white); font-weight: 500; }
+.pricing-table tr:last-child td { border-bottom: none; }
+.pricing-table tr:hover td { background: rgba(181,201,160,0.02); }
+
+.warning-card { background: rgba(224,112,112,0.04); border: 1px solid rgba(224,112,112,0.25); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-card-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: #e07070; margin-bottom: 10px; }
+.warning-card p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.info-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.info-card-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.info-card p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; font-size: 13px; }
+.compare-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.compare-table td { padding: 12px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: middle; }
+.compare-table td:first-child { color: var(--white); font-weight: 500; font-size: 12px; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table .winner { color: var(--green); }
+
+.affiliate-cta { padding: 28px 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.affiliate-cta h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 6px; }
+.affiliate-cta p { font-size: 13px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+.btn-affiliate { display: inline-block; padding: 13px 24px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 12px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; white-space: nowrap; transition: all 0.2s; }
+.btn-affiliate:hover { background: var(--green-bright); transform: translateY(-1px); }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+@media (max-width: 700px) {
+  .verdict-card { grid-template-columns: 1fr; }
+  .verdict-score-block { text-align: left; }
+  .pros-cons { grid-template-columns: 1fr; }
+  .affiliate-cta { grid-template-columns: 1fr; }
+  .page-tool-cta { grid-template-columns: 1fr; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Review",
+  "name": "Ulta Lab Tests Review",
+  "reviewBody": "An honest review of Ulta Lab Tests covering pricing, test catalog, draw locations, state availability, and the January 2026 Hawaii DOH violation.",
+  "reviewRating": {
+    "@type": "Rating",
+    "ratingValue": "4.2",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "itemReviewed": {
+    "@type": "LocalBusiness",
+    "name": "Ulta Lab Tests",
+    "url": "https://www.ultalabtests.com",
+    "foundingDate": "2013",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Scottsdale",
+      "addressRegion": "AZ",
+      "addressCountry": "US"
+    }
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "AgelessLabs",
+    "url": "https://agelesslabs.ai"
+  },
+  "datePublished": "2026-05-28",
+  "publisher": {
+    "@type": "Organization",
+    "name": "AgelessLabs",
+    "url": "https://agelesslabs.ai"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is Ulta Lab Tests legitimate and safe to use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Ulta Lab Tests is a legitimate direct-to-consumer lab testing service founded in 2013. Specimen processing occurs at national CLIA-certified laboratories — the same federal standard applied to hospital labs. Blood draws happen at Quest Diagnostics partner service centers. The company has a strong Trustpilot record. The January 2026 Hawaii DOH violation relates specifically to Hawaii state law banning all direct-to-consumer lab testing — it is not a federal compliance issue and does not affect service quality in the 46 other states where Ulta operates."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What states is Ulta Lab Tests not available in?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "As of 2026, Ulta Lab Tests does not serve residents of New York, New Jersey, Rhode Island, or Hawaii. New York, New Jersey, and Rhode Island prohibit direct-to-consumer lab testing by state law. Hawaii issued a Notice of Violation and Order in January 2026 requiring Ulta to cease operations in the state."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Ulta Lab Tests accept insurance?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Ulta Lab Tests does not accept insurance of any kind — private, Medicare, or Medicaid. Results from Ulta cannot be submitted for insurance reimbursement. However, HSA and FSA funds are accepted as payment, which makes these tests a legitimate healthcare spending option for anyone with a qualified savings account."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long does it take to get results from Ulta Lab Tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Most standard panels return results within 24 to 48 hours of the blood draw. Some specialty tests (hormones, micronutrients) may take 3 to 5 business days. You'll receive an email notification when results are ready in your secure online portal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the draw fee at Ulta Lab Tests?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The standard phlebotomy draw fee is $8.95 at most Quest Diagnostics partner locations. Some locations charge a premium draw fee of $45 to $100, particularly for mobile or at-home phlebotomy services. The draw fee is displayed and paid during the checkout process — there are no surprise fees after ordering."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does Ulta Lab Tests require a doctor's order?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Ulta Lab Tests operates as a direct-access testing service, meaning you can order any test directly without a physician's referral or prescription. You purchase online, receive a lab requisition, and visit a Quest Diagnostics draw site. This is legal in 46 US states; the exceptions are New York, New Jersey, Rhode Island, and Hawaii, where direct-to-consumer lab testing is restricted or prohibited."
+      }
+    }
+  ]
+}
+</script>
+
+<section class="review-hero">
+  <div class="page-eyebrow">Review</div>
+  <h1>Ulta Lab Tests &#8212;<br><em>is it legit?</em></h1>
+  <p class="review-hero-sub">The most affordable direct-to-consumer lab testing service in the US. 1,000+ tests, no doctor required, results in 24&#8211;48 hours. Here&#8217;s what the other review sites don&#8217;t tell you.</p>
+</section>
+
+<div class="review-meta">
+  <div class="review-meta-item">Updated <span>May 2026</span></div>
+  <div class="review-meta-item">Affiliate <span>Disclosed</span></div>
+  <div class="review-meta-item">Our rating <span>4.2 / 5</span></div>
+</div>
+
+<div class="verdict-card">
+  <div class="verdict-score-block">
+    <div class="verdict-score">4.2</div>
+    <div class="verdict-score-label">/ 5.0</div>
+  </div>
+  <div class="verdict-text">
+    <h3>Bottom line: the best value in direct-to-consumer lab testing &#8212; with one significant caveat</h3>
+    <p>Ulta Lab Tests offers the most comprehensive catalog of direct-access blood tests at the lowest prices in the market. For longevity-focused individuals who want ApoB, Lp(a), fasting insulin, homocysteine, or any of the markers your doctor won&#8217;t order &#8212; Ulta is the most practical option available. The January 2026 Hawaii DOH violation is worth understanding, but it&#8217;s a state-law compliance issue, not a question of test quality. If you&#8217;re in one of the 46 states where Ulta operates, it&#8217;s a legitimate and well-regarded service.</p>
+  </div>
+</div>
+
+<div class="affiliate-cta">
+  <div>
+    <h3>Order through our affiliate link</h3>
+    <p>AgelessLabs earns a commission when you order through Ulta Lab Tests. This doesn&#8217;t affect our pricing or our review. We&#8217;d recommend Ulta regardless &#8212; but we&#8217;d rather be transparent about it.</p>
+  </div>
+  <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="btn-affiliate">Order Tests &#8594;</a>
+</div>
+
+<div class="content-section">
+  <h2>What is Ulta Lab Tests?</h2>
+  <p>Ulta Lab Tests is a direct-to-consumer laboratory testing service founded in 2013 and headquartered in Scottsdale, Arizona. The premise is simple: you order blood tests online without a doctor&#8217;s referral, visit a nearby Quest Diagnostics draw site to have your blood drawn, and receive results through a secure online portal within 24&#8211;48 hours. No prescription. No insurance billing. No waiting room.</p>
+  <p>The company partners with Quest Diagnostics &#8212; the largest clinical laboratory network in the US &#8212; for both specimen collection and processing. All testing occurs at CLIA-certified laboratories, the same federal certification standard required of hospital labs. Ulta acts as the ordering interface; Quest does the actual analysis.</p>
+  <p>The core value proposition is price. Ulta negotiates bulk pricing with labs and passes the savings to consumers, with tests priced anywhere from 50% to 90% below what most people pay through traditional care. For the longevity markers that matter most &#8212; ApoB, Lp(a), fasting insulin, homocysteine, hsCRP &#8212; Ulta is often the cheapest way to get them tested without a physician order.</p>
+</div>
+
+<div class="content-section">
+  <h2>How it works</h2>
+  <p>The process is straightforward:</p>
+  <p><strong>1. Order online.</strong> Browse Ulta&#8217;s catalog of 1,000+ tests, add what you want to your cart, and pay online. No account required to browse; you&#8217;ll create a free account to access your results. During checkout, you select a Quest Diagnostics draw site near you.</p>
+  <p><strong>2. Visit a draw site.</strong> Take your lab requisition (printed or on your phone) to the Quest location you selected. A phlebotomist draws your blood &#8212; the visit typically takes 10&#8211;15 minutes. Most major cities have multiple Quest locations; many are open on Saturdays.</p>
+  <p><strong>3. Get your results.</strong> Within 24&#8211;48 hours, you&#8217;ll receive an email notification that your results are ready. Log into your Ulta portal to review them. Results include reference ranges and basic explanations. They can be downloaded as a PDF and shared with a physician.</p>
+
+  <div class="info-card">
+    <div class="info-card-label">Important: In-person blood draw required</div>
+    <p>Ulta Lab Tests does not offer at-home collection kits. All specimens must be collected by a trained phlebotomist at a Quest Diagnostics location. The standard draw fee is $8.95, paid at checkout. This adds a logistical step but ensures sample quality.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Test catalog and pricing</h2>
+  <p>Ulta offers over 1,000 tests across 19 categories. For longevity-focused testing, the relevant catalog is extensive: cardiovascular markers, metabolic panels, hormones, thyroid, micronutrients, inflammation markers, organ function, and more. Nearly every biomarker worth tracking is available.</p>
+
+  <table class="pricing-table">
+    <thead>
+      <tr><th>Test category</th><th>Typical price range</th><th>Longevity relevance</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Single markers (ApoB, Lp(a), homocysteine)</td><td>$20&#8211;$55</td><td>High &#8212; the markers most doctors skip</td></tr>
+      <tr><td>Lipid panels (basic through advanced)</td><td>$15&#8211;$80</td><td>High &#8212; cardiovascular risk foundation</td></tr>
+      <tr><td>Metabolic panels (CMP, insulin, HbA1c)</td><td>$15&#8211;$60</td><td>High &#8212; metabolic health baseline</td></tr>
+      <tr><td>Hormone panels (testosterone, thyroid, DHEA-S)</td><td>$25&#8211;$120</td><td>High &#8212; especially for 40+</td></tr>
+      <tr><td>Micronutrients (Vitamin D, B12, magnesium)</td><td>$15&#8211;$60</td><td>Medium &#8212; deficiency screening</td></tr>
+      <tr><td>Comprehensive longevity bundles</td><td>$99&#8211;$199</td><td>High &#8212; best value for a full baseline</td></tr>
+    </tbody>
+  </table>
+
+  <p>Mid-range panels &#8212; the kind most longevity-focused adults actually want &#8212; typically run $29&#8211;$99. A comprehensive longevity panel covering 60+ markers can be had for under $200. That&#8217;s a fraction of what Superpower ($199/yr), InsideTracker ($489+), or Function Health ($365/yr) charge for comparable testing.</p>
+  <p>HSA and FSA funds are accepted. Insurance is not &#8212; and Ulta&#8217;s terms explicitly prohibit submitting their charges for insurance reimbursement. For people without insurance or with high-deductible plans, this pricing makes comprehensive biomarker testing genuinely accessible for the first time.</p>
+</div>
+
+<div class="content-section">
+  <h2>Pros and cons</h2>
+  <div class="pros-cons">
+    <div class="pros-cons-col pros-col">
+      <h4>Pros</h4>
+      <ul class="pros-cons-list">
+        <li>Best prices in the market &#8212; often 50&#8211;90% below standard care</li>
+        <li>Over 1,000 tests including every longevity marker worth tracking</li>
+        <li>2,100+ Quest Diagnostics draw locations nationwide</li>
+        <li>Results in 24&#8211;48 hours via secure online portal</li>
+        <li>No doctor, no prescription, no insurance required</li>
+        <li>HSA and FSA accepted</li>
+        <li>CLIA-certified laboratory processing &#8212; same standard as hospital labs</li>
+        <li>Founded 2013 &#8212; over 10 years of operating history</li>
+        <li>Strong Trustpilot rating with consistent real-user reviews</li>
+      </ul>
+    </div>
+    <div class="pros-cons-col cons-col">
+      <h4>Cons</h4>
+      <ul class="pros-cons-list">
+        <li>Not available in NY, NJ, RI (DTC testing prohibited by state law)</li>
+        <li>January 2026 Hawaii DOH violation &#8212; ordered to cease Hawaii operations</li>
+        <li>In-person blood draw required &#8212; no home collection option</li>
+        <li>No physician oversight or result interpretation included</li>
+        <li>Draw fee ($8.95+) adds to the listed test price</li>
+        <li>Insurance not accepted &#8212; no reimbursement pathway</li>
+        <li>Results portal is functional but not designed for trend tracking</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>The Hawaii DOH violation &#8212; what actually happened</h2>
+  <p>In January 2026, the Hawaii Department of Health issued a Notice of Violation and Order against Ulta Lab Tests CEO John Roehm for operating direct-to-consumer laboratory testing services in Hawaii since May 2022 without authorization.</p>
+  <p>The specifics: Hawaii law prohibits direct-to-consumer lab testing entirely &#8212; all testing in the state requires an order from an &#8220;authorized person&#8221; (a licensed provider). Ulta, like all DTC lab testing companies, does not use physician-ordered tests. The violation stems from Ulta&#8217;s affiliation with three Hawaii-based collection sites that were operating without state approval. Those sites were each fined $15,000 and ordered to cease operations.</p>
+
+  <div class="warning-card">
+    <div class="warning-card-label">What this means for you</div>
+    <p>If you live in Hawaii, Ulta Lab Tests is not an option. The DOH order requires Ulta to cease operations in the state, and the company is not a federally certified clinical lab, meaning it doesn&#8217;t meet Hawaii&#8217;s requirements regardless of how the situation resolves. Residents of NY, NJ, and RI face the same restriction &#8212; DTC lab testing is prohibited by state law in those states as well.</p>
+  </div>
+
+  <p>If you&#8217;re outside Hawaii, New York, New Jersey, or Rhode Island, this violation does not affect you. It is a state-law compliance issue specific to a state that bans direct-to-consumer testing outright &#8212; not a federal quality or safety concern. Ulta&#8217;s CLIA-certified laboratory processing, Quest partnership, and service quality are unaffected. We mention it because no other review site does, and you deserve to know.</p>
+</div>
+
+<div class="content-section">
+  <h2>How Ulta compares to alternatives</h2>
+  <table class="compare-table">
+    <thead>
+      <tr><th>Service</th><th>Price model</th><th>Test selection</th><th>Physician oversight</th><th>Best for</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Ulta Lab Tests</td>
+        <td class="winner">Pay per test &#8212; $9&#8211;$199</td>
+        <td class="winner">1,000+ tests</td>
+        <td>None included</td>
+        <td class="winner">Price-conscious, self-directed testing</td>
+      </tr>
+      <tr>
+        <td>Superpower</td>
+        <td>$199/yr subscription</td>
+        <td>100+ markers</td>
+        <td class="winner">Included</td>
+        <td>Annual panel with physician review</td>
+      </tr>
+      <tr>
+        <td>InsideTracker</td>
+        <td>$489+ per panel</td>
+        <td>40&#8211;60 markers</td>
+        <td>Partial</td>
+        <td>Data visualization and tracking</td>
+      </tr>
+      <tr>
+        <td>Function Health</td>
+        <td>$365/yr</td>
+        <td>100+ markers</td>
+        <td>Included</td>
+        <td>Comprehensive annual membership</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>The key distinction: Ulta is a testing marketplace. You order what you want, when you want it, at low per-test prices. The trade-off is that there&#8217;s no physician oversight built in &#8212; you interpret results yourself (or with a tool like AgelessLabs). Services like Superpower or Function Health include physician review but charge a subscription premium and test you on their schedule, not yours.</p>
+  <p>For most longevity-focused adults, the right answer is Ulta for targeted individual markers (ApoB, Lp(a), fasting insulin) and potentially a subscription service for an annual comprehensive panel with physician context.</p>
+</div>
+
+<div class="content-section">
+  <h2>Who should use Ulta Lab Tests</h2>
+  <p><strong>Ulta is the right choice if you:</strong> want specific longevity markers your doctor won&#8217;t order, need affordable access to a broad baseline panel, have an HSA or FSA and want to spend it strategically, are uninsured or have a high-deductible plan, or want to retest specific markers every 3&#8211;6 months without a subscription commitment.</p>
+  <p><strong>Consider an alternative if you:</strong> live in New York, New Jersey, Rhode Island, or Hawaii; want physician oversight built into the process; prefer at-home blood collection; or want comprehensive trend tracking and result interpretation included in the service.</p>
+</div>
+
+<div class="page-tool-cta">
+  <div>
+    <h3>Got your Ulta results? Analyze them here.</h3>
+    <p>Upload or paste your results and get a full longevity analysis in 60 seconds &#8212; every marker scored, explained, and prioritized against longevity-optimal ranges.</p>
+  </div>
+  <a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Is Ulta Lab Tests legitimate and safe to use?</div>
+      <div class="faq-answer">Yes. Ulta Lab Tests is a legitimate direct-to-consumer lab testing service with over 10 years of operating history. Specimen processing occurs at national CLIA-certified laboratories &#8212; the same federal standard applied to hospital labs. Blood draws happen at Quest Diagnostics partner service centers. The January 2026 Hawaii DOH violation relates specifically to Hawaii state law banning all direct-to-consumer lab testing &#8212; it is not a federal compliance issue and does not affect service quality in the 46 other states where Ulta operates.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What states is Ulta Lab Tests not available in?</div>
+      <div class="faq-answer">As of 2026, Ulta Lab Tests does not serve residents of New York, New Jersey, Rhode Island, or Hawaii. The first three states prohibit direct-to-consumer lab testing by state law. Hawaii issued a Notice of Violation and Order in January 2026 requiring Ulta to cease operations in the state. If you&#8217;re in any of these states, Superpower or Function Health are the next best options for comprehensive biomarker testing.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Does Ulta Lab Tests accept insurance?</div>
+      <div class="faq-answer">No. Ulta does not accept any form of insurance &#8212; private, Medicare, or Medicaid. Results cannot be submitted for reimbursement. However, HSA and FSA funds are accepted as payment, making these tests a legitimate qualified medical expense for anyone with a health savings account.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How long does it take to get results?</div>
+      <div class="faq-answer">Most standard panels return results within 24&#8211;48 hours of your blood draw. Specialty tests &#8212; certain hormones, advanced lipid markers, micronutrients &#8212; may take 3&#8211;5 business days. You&#8217;ll receive an email notification when results are ready in your secure online portal. Results can be downloaded as a PDF.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What is the draw fee, and is it included in the listed price?</div>
+      <div class="faq-answer">The standard phlebotomy draw fee is $8.95 at most Quest Diagnostics partner locations. Some locations &#8212; particularly for mobile or at-home phlebotomy &#8212; charge a premium draw fee of $45&#8211;$100. The draw fee is selected and paid during checkout, so there are no surprise charges after you order. The total cost displayed at checkout is what you pay.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Does Ulta Lab Tests require a doctor&#8217;s order?</div>
+      <div class="faq-answer">No. Ulta Lab Tests is a direct-access testing service &#8212; any adult can order any test without a physician&#8217;s referral or prescription. You purchase online, receive a lab requisition, and visit a Quest Diagnostics draw site. This is legal in 46 US states. The four exceptions &#8212; New York, New Jersey, Rhode Island, and Hawaii &#8212; prohibit or restrict direct-to-consumer testing under state law.</div>
+    </div>
+  </div>
+</div>
+
+<div class="affiliate-cta">
+  <div>
+    <h3>Order your panel through Ulta Lab Tests</h3>
+    <p>Use our affiliate link to order. Same price, same tests &#8212; we earn a small commission that helps us keep AgelessLabs free.</p>
+  </div>
+  <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="btn-affiliate">Order Tests &#8594;</a>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(a => {
+    a.classList.remove('open');
+    a.previousElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('open');
+  }
+}
+</script>
