@@ -1,0 +1,526 @@
+---
+layout: base.njk
+title: "Best Blood Tests for Men Over 40: The Complete Guide (2026) | AgelessLabs"
+permalink: /guides/blood-tests-men-over-40/index.html
+description: "The blood tests men over 40 actually need — ApoB, fasting insulin, free testosterone, and the markers your doctor consistently skips. With optimal ranges and where to order."
+---
+
+<style>
+.guide-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.guide-hero .page-eyebrow { margin-bottom: 20px; }
+.guide-hero h1 { margin-bottom: 16px; }
+.guide-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.guide-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.guide-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.guide-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.marker-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+.marker-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.marker-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.55; }
+.marker-table td:first-child { color: var(--white); font-weight: 600; white-space: nowrap; }
+.marker-table td:first-child a { color: var(--white); border-bottom-color: rgba(255,255,255,0.1); font-weight: 600; }
+.marker-table td:first-child a:hover { color: var(--green); border-bottom-color: var(--green); }
+.marker-table tr:last-child td { border-bottom: none; }
+.marker-table tr:hover td { background: rgba(181,201,160,0.02); }
+.marker-table .optimal { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--green); }
+.marker-table .skipped { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(224,112,112,0.08); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+.marker-table .included { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(181,201,160,0.08); color: var(--green); border: 1px solid rgba(181,201,160,0.2); }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+.callout a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.3); }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 32px; }
+.stat-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px; text-align: center; }
+.stat-number { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 6px; }
+.stat-label { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+.hormone-axis { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 24px; margin-bottom: 24px; }
+.hormone-axis-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 6px; }
+.hormone-axis-sub { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+.hormone-axis p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin: 0; font-weight: 400; }
+
+.order-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.order-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 22px; }
+.order-card.featured { border-color: rgba(181,201,160,0.25); }
+.order-card-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.order-card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; margin-bottom: 18px; font-weight: 400; }
+.order-card-cta { display: inline-block; padding: 11px 20px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; transition: all 0.2s; }
+.order-card-cta:hover { background: var(--green-bright); transform: translateY(-1px); border-bottom: none; }
+.order-card-cta.secondary { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.order-card-cta.secondary:hover { border-color: rgba(181,201,160,0.3); color: var(--white); background: transparent; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+@media (max-width: 700px) {
+  .stat-row { grid-template-columns: 1fr; }
+  .order-cards { grid-template-columns: 1fr; }
+  .page-tool-cta { grid-template-columns: 1fr; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Best Blood Tests for Men Over 40: The Complete Guide (2026)",
+  "description": "The blood tests men over 40 actually need — ApoB, fasting insulin, free testosterone, SHBG, and the markers your doctor consistently skips.",
+  "author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+  "publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+  "datePublished": "2026-05-28",
+  "dateModified": "2026-05-28"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What blood tests should a man get at 40?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "At 40, a man should go beyond the standard lipid panel and order the markers that predict cardiovascular disease and metabolic decline before symptoms appear: ApoB, Lp(a) (once), fasting insulin, hsCRP, homocysteine, and a full testosterone panel including free testosterone and SHBG. HbA1c, Vitamin D, TSH with free T3 and T4, and a PSA baseline also belong on the 40+ list. Most of these are not ordered in standard primary care."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between total testosterone and free testosterone?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Total testosterone measures all testosterone in the blood, including the majority that is bound to proteins (SHBG and albumin) and therefore biologically inactive. Free testosterone measures only the unbound fraction — roughly 1 to 3 percent — that is actually available to cells. As men age, SHBG levels rise, binding more testosterone and reducing the free fraction. A man over 40 can have total testosterone that appears normal while his free testosterone has dropped into a functionally deficient range. Both values must be measured together to get an accurate picture."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "At what testosterone level should a man be concerned?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard labs flag total testosterone below 300 ng/dL as low. But research suggests the functional threshold for symptoms in men over 40 is closer to 400 to 450 ng/dL total testosterone — many men in the 300 to 450 range are symptomatic but told their labs are normal. More important than total testosterone is free testosterone: values below 50 pg/mL in men over 40 are associated with fatigue, muscle loss, and metabolic deterioration regardless of total testosterone level."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is fasting insulin more important than HbA1c for men over 40?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fasting insulin rises years before HbA1c crosses the prediabetes threshold, making it the earliest available marker of insulin resistance. A man can have completely normal HbA1c (below 5.7%) while fasting insulin is already elevated above 10 or 15 uIU/mL — a state that substantially increases cardiovascular risk and accelerates metabolic aging. Standard care orders HbA1c; almost no one orders fasting insulin unless diabetes is already suspected."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should men over 40 get a PSA test?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes — a baseline PSA at 40 is worth having, not for immediate clinical action but to establish a reference point for tracking PSA velocity over time. A single PSA value is less informative than the rate of change. A PSA that doubles within two years is clinically significant even if the absolute value remains within the normal range. Men with a family history of prostate cancer should start PSA monitoring earlier."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do men over 40 need to check estradiol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when testosterone is also being evaluated. As body fat increases with age, aromatase activity converts more testosterone to estradiol. Elevated estradiol in men is associated with reduced libido, water retention, fatigue, and cardiovascular risk. It also suppresses the HPG axis, further reducing testosterone production. Estradiol should always be measured alongside total and free testosterone for a complete hormonal picture."
+      }
+    }
+  ]
+}
+</script>
+
+<section class="guide-hero">
+  <div class="page-eyebrow">Guide</div>
+  <h1>Blood tests for men<br>over 40 &#8212;<br><em>what standard care misses.</em></h1>
+  <p class="guide-hero-sub">After 40, the markers that matter most for cardiovascular risk, metabolic health, and hormonal function are almost never on a standard panel. Here&#8217;s what to order, why it matters, and the optimal ranges that most lab reports won&#8217;t show you.</p>
+</section>
+
+<div class="guide-meta">
+  <div class="guide-meta-item">Updated <span>May 2026</span></div>
+  <div class="guide-meta-item">Reading time <span>~8 min</span></div>
+  <div class="guide-meta-item">Affiliate <span>Disclosed</span></div>
+</div>
+
+<div class="content-section">
+  <h2>Why 40 is the inflection point</h2>
+  <p>Cardiovascular disease, type 2 diabetes, and hormonal decline don&#8217;t announce themselves. They develop along trajectories that begin in the late 30s and early 40s &#8212; often quietly, often asymptomatically, often while standard annual bloodwork returns a clean bill of health.</p>
+  <p>The problem isn&#8217;t that men over 40 aren&#8217;t getting tested. It&#8217;s that the tests being ordered were designed to detect existing disease, not predict it. A standard lipid panel misses <a href="/biomarkers/apob">ApoB</a> &#8212; the most accurate cardiovascular risk marker available. A standard metabolic panel misses <a href="/biomarkers/fasting-insulin">fasting insulin</a> &#8212; the earliest signal of insulin resistance, elevated years before HbA1c moves. And hormone panels, when ordered at all, typically measure only total testosterone &#8212; which can look completely normal while free testosterone has declined to a functionally deficient level.</p>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <div class="stat-number">1%</div>
+      <div class="stat-label">Annual testosterone decline after age 30 in otherwise healthy men</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">20%</div>
+      <div class="stat-label">Of adults have elevated Lp(a) &#8212; a genetic cardiovascular risk most never know about</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-number">40%</div>
+      <div class="stat-label">Of US adults are estimated to have insulin resistance &#8212; most undiagnosed</div>
+    </div>
+  </div>
+
+  <p>The markers below are the ones that change the picture for men over 40 specifically &#8212; organized by the clinical domain where standard care falls shortest.</p>
+</div>
+
+<div class="content-section">
+  <h2>Cardiovascular markers &#8212; what doctors skip</h2>
+  <p>Heart disease is the leading cause of death in men over 40. The standard annual lipid panel &#8212; LDL-C, HDL-C, triglycerides, total cholesterol &#8212; is a starting point, not a complete cardiovascular risk assessment. Two markers in particular are missing from most standard panels that fundamentally change what you can see.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/apob">ApoB</a></td>
+        <td>Total count of atherogenic (plaque-forming) lipoprotein particles. More predictive of cardiovascular events than LDL-C because it counts particles, not cholesterol mass. A man can have &#8220;normal&#8221; LDL and elevated ApoB simultaneously.</td>
+        <td class="optimal">&lt;90 mg/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/lipoprotein-a">Lp(a)</a></td>
+        <td>A genetically inherited lipoprotein that standard panels never measure. Elevated in roughly 1 in 5 people. It doesn&#8217;t respond to statins or diet. You can&#8217;t manage risk you don&#8217;t know about. Order once &#8212; it doesn&#8217;t change.</td>
+        <td class="optimal">&lt;30 mg/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/hscrp">hsCRP</a></td>
+        <td>Predicts cardiovascular events independently of cholesterol. The high-sensitivity version (hsCRP) is required &#8212; standard CRP is too insensitive for cardiovascular risk stratification. Chronically elevated above 1.0 mg/L is a meaningful warning signal.</td>
+        <td class="optimal">&lt;1.0 mg/L</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/homocysteine">Homocysteine</a></td>
+        <td>Elevated homocysteine is an independent cardiovascular and cognitive risk factor, strongly associated with endothelial damage and stroke. Directly modifiable with B vitamins &#8212; but only if you know it&#8217;s elevated.</td>
+        <td class="optimal">&lt;10 &#956;mol/L</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/triglycerides">Lipid panel</a></td>
+        <td>LDL-C, HDL-C, triglycerides, total cholesterol. Standard care does include this &#8212; but interpret it alongside ApoB, not in isolation.</td>
+        <td class="optimal">TG &lt;100 · HDL &gt;60</td>
+        <td><span class="included">Included</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/omega-3-index">Omega-3 Index</a></td>
+        <td>EPA+DHA as a percentage of red blood cell fatty acids. One of the most directly modifiable cardiovascular risk markers &#8212; low omega-3 index is associated with increased risk of sudden cardiac death. Fish oil works; but only if your index is low.</td>
+        <td class="optimal">&gt;8%</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">The ApoB vs LDL problem</div>
+    <p>LDL-C measures the cholesterol mass inside LDL particles. ApoB counts the particles themselves. A man with small, dense LDL particles can have a &#8220;normal&#8221; LDL-C while carrying a large number of atherogenic particles &#8212; a situation that ApoB detects and LDL-C misses entirely. This is one of the most well-documented gaps in standard cardiovascular risk assessment. <a href="/biomarkers/apob">See the full ApoB breakdown &#8594;</a></p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Metabolic markers &#8212; the insulin resistance gap</h2>
+  <p>Insulin resistance is the metabolic substrate underlying type 2 diabetes, visceral fat accumulation, cardiovascular disease, and accelerated aging. It develops gradually over years. And its earliest available signal &#8212; elevated fasting insulin &#8212; is almost never ordered in standard primary care.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a></td>
+        <td>The single most important metabolic marker for men over 40. Rises years before HbA1c or fasting glucose. An insulin above 10 &#956;IU/mL with a normal glucose is insulin resistance in progress &#8212; actionable, reversible, and invisible on a standard panel.</td>
+        <td class="optimal">&lt;6 &#956;IU/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/hba1c">HbA1c</a></td>
+        <td>90-day glucose average. Standard care orders this for diabetics and prediabetics. For men over 40, it belongs on every annual panel &#8212; but use a longevity-optimal threshold (below 5.4%) rather than the standard prediabetes cutoff of 5.7%.</td>
+        <td class="optimal">4.8&#8211;5.4%</td>
+        <td><span class="skipped">Partial</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/uric-acid">Uric Acid</a></td>
+        <td>Elevated uric acid is an early marker of metabolic dysfunction and insulin resistance, and independently associated with hypertension, kidney disease, and cardiovascular risk. Often elevated before formal metabolic syndrome develops.</td>
+        <td class="optimal">&lt;5.5 mg/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/alt-ast">ALT</a></td>
+        <td>Liver health and metabolic function. Elevated ALT in an otherwise &#8220;healthy&#8221; man often signals non-alcoholic fatty liver disease (NAFLD) &#8212; the hepatic manifestation of insulin resistance. Optimal range is tighter than standard lab flags.</td>
+        <td class="optimal">&lt;30 U/L (M)</td>
+        <td><span class="included">Included*</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/ggt">GGT</a></td>
+        <td>A more sensitive liver marker than ALT alone. GGT rises with both metabolic liver stress and alcohol. Independently predicts cardiovascular mortality even at values within the standard &#8220;normal&#8221; range.</td>
+        <td class="optimal">&lt;20 U/L (M)</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="warning-callout">
+    <div class="warning-callout-label">The &#8220;normal glucose&#8221; trap</div>
+    <p>A fasting glucose of 88 mg/dL and an HbA1c of 5.4% look clean on a standard panel. But if fasting insulin is 14 &#956;IU/mL, the pancreas is working overtime to maintain that normal glucose &#8212; a state that reliably progresses to overt insulin resistance over years. Fasting insulin is the only marker that reveals this, and it is almost never ordered.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Hormone markers &#8212; the full picture, not just total T</h2>
+  <p>When men over 40 ask about hormone testing, they usually mean testosterone. But a meaningful male hormone panel requires understanding the full axis &#8212; because total testosterone alone is frequently misleading. What matters is how much testosterone is biologically active, and what the rest of the hormonal system is doing.</p>
+
+  <div class="hormone-axis">
+    <div class="hormone-axis-sub">Why total testosterone isn&#8217;t enough</div>
+    <div class="hormone-axis-title">The free testosterone problem</div>
+    <p>Roughly 40&#8211;45% of total testosterone is tightly bound to SHBG (sex hormone-binding globulin) and biologically unavailable. As SHBG rises with age &#8212; which it does predictably and progressively &#8212; a larger fraction of total testosterone becomes inactive. A man with 500 ng/dL total testosterone and high SHBG may have less bioavailable testosterone than a man with 380 ng/dL and low-normal SHBG. Free testosterone, not total, predicts functional outcomes in men over 40.</p>
+  </div>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range (men)</th><th>Standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/testosterone">Total Testosterone</a></td>
+        <td>The baseline measurement. Necessary but insufficient on its own. Standard care flags below 300 ng/dL; the functional symptom threshold in men over 40 is closer to 400&#8211;450 ng/dL.</td>
+        <td class="optimal">500&#8211;900 ng/dL</td>
+        <td><span class="included">Partial</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/free-testosterone">Free Testosterone</a></td>
+        <td>The bioavailable fraction &#8212; the most clinically relevant number for men over 40. Low free testosterone predicts fatigue, muscle loss, cognitive decline, and metabolic deterioration even when total testosterone appears normal.</td>
+        <td class="optimal">&gt;70 pg/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/shbg">SHBG</a></td>
+        <td>The binding protein that determines how much testosterone is active. Rising SHBG is the primary mechanism of functional testosterone decline in men over 40. Also an independent metabolic marker &#8212; low SHBG correlates with insulin resistance and cardiovascular risk.</td>
+        <td class="optimal">20&#8211;40 nmol/L</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/estradiol">Estradiol (E2)</a></td>
+        <td>Men need estradiol for bone density, cardiovascular health, and libido &#8212; but elevated E2 from aromatase activity (which increases with body fat) suppresses testosterone production and drives symptoms. Always measure alongside testosterone.</td>
+        <td class="optimal">20&#8211;40 pg/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/dhea-s">DHEA-S</a></td>
+        <td>An adrenal precursor hormone that peaks in the mid-20s and declines steadily. Low DHEA-S correlates with accelerated biological aging, reduced immune function, and metabolic decline. Directly supplementable.</td>
+        <td class="optimal">200&#8211;400 &#956;g/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/tsh">TSH + Free T3/T4</a></td>
+        <td>Thyroid function affects testosterone metabolism, energy, cognition, and body composition. Subclinical hypothyroidism &#8212; TSH elevated above 2.0 with normal free T4 &#8212; is common and underdiagnosed. Standard care orders TSH alone; free T3 and T4 require a specific request.</td>
+        <td class="optimal">TSH 1.0&#8211;2.0 mIU/L</td>
+        <td><span class="skipped">Partial</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/igf-1">IGF-1</a></td>
+        <td>Growth hormone axis function. Declines with age. Low IGF-1 is associated with reduced muscle mass, poor recovery, and cognitive decline. The target range is middle-of-normal &#8212; not too low (anabolic deficiency) and not too high (accelerated aging).</td>
+        <td class="optimal">120&#8211;180 ng/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="content-section">
+  <h2>Prostate health &#8212; the PSA baseline</h2>
+  <p>Prostate cancer is the second leading cause of cancer death in American men. The argument about PSA screening has largely focused on overdiagnosis in older men &#8212; but for men starting a baseline at 40, the primary value is establishing a reference point for tracking PSA velocity over time, not immediate diagnosis.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Note</th><th>Standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/psa">PSA</a></td>
+        <td>Prostate-specific antigen &#8212; a marker of prostate cell activity. A single value is less informative than trend. PSA doubling time under 2 years is clinically significant regardless of absolute value. Baseline at 40 enables velocity tracking over subsequent years.</td>
+        <td>Order once at 40 to establish baseline</td>
+        <td><span class="skipped">Skipped (40s)</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <div class="callout-label">PSA and testosterone therapy</div>
+    <p>Per American Urological Association guidelines, PSA should be measured in all men over 40 before starting testosterone replacement therapy. If you&#8217;re considering TRT, establish your PSA baseline first &#8212; both as a prostate cancer screen and to track any PSA changes after therapy begins.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Nutritional and organ function markers</h2>
+  <p>These are not optional additions &#8212; they&#8217;re the markers most often responsible for the fatigue, cognitive fog, and poor recovery that men in their 40s attribute to &#8220;just getting older.&#8221; Deficiencies in Vitamin D and magnesium are among the most prevalent and most correctable problems in this demographic.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/vitamin-d">Vitamin D (25-OH)</a></td>
+        <td>Deficiency is associated with cardiovascular disease, cancer, testosterone suppression, immune dysfunction, and all-cause mortality. Below 30 ng/mL is deficient by any standard. Longevity-optimal is 50&#8211;80 ng/mL. Most men are under 40.</td>
+        <td class="optimal">50&#8211;80 ng/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/magnesium">Magnesium (RBC)</a></td>
+        <td>Magnesium is involved in over 300 enzymatic reactions including testosterone synthesis, insulin signaling, and cardiovascular function. Standard serum magnesium is a poor indicator of intracellular status &#8212; RBC magnesium is the meaningful test. Deficiency is extremely common.</td>
+        <td class="optimal">5.6&#8211;6.8 mg/dL (RBC)</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/vitamin-b12">Vitamin B12</a></td>
+        <td>Critical for neurological function and homocysteine metabolism. Deficiency causes cognitive symptoms that are frequently misattributed to stress or aging. Essential for anyone with elevated homocysteine.</td>
+        <td class="optimal">600&#8211;900 pg/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/creatinine-egfr">Creatinine + eGFR</a></td>
+        <td>Kidney function baseline. Important to establish before starting any new supplement or medication protocol. eGFR trending downward over years is an early warning signal even within the normal range.</td>
+        <td class="optimal">eGFR &gt;90</td>
+        <td><span class="included">Included</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/ferritin">Ferritin</a></td>
+        <td>Iron stores. Both deficiency (fatigue, poor recovery) and excess (oxidative stress, organ damage) are common in men over 40. Unlike women, men have no monthly iron loss mechanism &#8212; ferritin tends to accumulate with age.</td>
+        <td class="optimal">50&#8211;150 ng/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="content-section">
+  <h2>The complete panel &#8212; at a glance</h2>
+  <p>Taken together, the full men&#8217;s longevity panel for age 40+ covers five domains. On a first draw, order all of these:</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Domain</th><th>Order</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Cardiovascular</td>
+        <td><a href="/biomarkers/apob">ApoB</a> · <a href="/biomarkers/lipoprotein-a">Lp(a)</a> · Lipid panel · <a href="/biomarkers/hscrp">hsCRP</a> · <a href="/biomarkers/homocysteine">Homocysteine</a> · <a href="/biomarkers/omega-3-index">Omega-3 Index</a></td>
+      </tr>
+      <tr>
+        <td>Metabolic</td>
+        <td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a> · <a href="/biomarkers/hba1c">HbA1c</a> · <a href="/biomarkers/uric-acid">Uric Acid</a> · <a href="/biomarkers/ggt">GGT</a> · <a href="/biomarkers/alt-ast">ALT/AST</a> · CBC · CMP</td>
+      </tr>
+      <tr>
+        <td>Hormonal</td>
+        <td>Total + <a href="/biomarkers/free-testosterone">Free Testosterone</a> · <a href="/biomarkers/shbg">SHBG</a> · <a href="/biomarkers/estradiol">Estradiol</a> · <a href="/biomarkers/dhea-s">DHEA-S</a> · <a href="/biomarkers/tsh">TSH + Free T3/T4</a> · <a href="/biomarkers/igf-1">IGF-1</a></td>
+      </tr>
+      <tr>
+        <td>Prostate</td>
+        <td><a href="/biomarkers/psa">PSA</a> (baseline)</td>
+      </tr>
+      <tr>
+        <td>Nutrients / Organs</td>
+        <td><a href="/biomarkers/vitamin-d">Vitamin D</a> · <a href="/biomarkers/magnesium">Magnesium (RBC)</a> · <a href="/biomarkers/vitamin-b12">Vitamin B12</a> · <a href="/biomarkers/ferritin">Ferritin</a> · <a href="/biomarkers/creatinine-egfr">Creatinine/eGFR</a></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>This is a comprehensive first-draw panel &#8212; roughly 25&#8211;30 individual markers. After the baseline, annual retesting covers the cardiovascular and metabolic markers. Hormones can be retested every 6&#8211;12 months depending on whether you&#8217;re actively managing them. Lp(a) only needs to be ordered once.</p>
+</div>
+
+<div class="content-section">
+  <h2>Where to order</h2>
+
+  <div class="order-cards">
+    <div class="order-card featured">
+      <div class="order-card-title">Ulta Lab Tests &#8212; Best value, order &#224; la carte</div>
+      <div class="order-card-desc">All of the markers above are available individually or as bundled panels. No doctor required. Results in 24&#8211;48 hours at Quest Diagnostics. From $9 per marker; a comprehensive men&#8217;s longevity panel runs $150&#8211;$250 depending on what you include. HSA/FSA accepted.</div>
+      <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="order-card-cta">Order Tests &#8594;</a>
+    </div>
+    <div class="order-card">
+      <div class="order-card-title">Superpower &#8212; Annual subscription with physician review</div>
+      <div class="order-card-desc">100+ markers, physician review of results, trend tracking, and a personalized protocol. The right choice if you want professional guidance built in. $199/year. Best for ongoing annual management after an initial comprehensive baseline.</div>
+      <a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored" class="order-card-cta secondary">Learn More &#8594;</a>
+    </div>
+  </div>
+
+  <p>Not available in New York, New Jersey, Rhode Island, or Hawaii via Ulta. See the full <a href="/reviews/ulta-lab-tests">Ulta Lab Tests review</a> for details on state restrictions, draw fees, and what the competition offers.</p>
+</div>
+
+<div class="page-tool-cta">
+  <div>
+    <h3>Got your results? Analyze them here.</h3>
+    <p>Upload or paste your labs and get a full longevity analysis in 60 seconds &#8212; every marker scored against optimal ranges, with actionable priorities.</p>
+  </div>
+  <a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What blood tests should a man get at 40?</div>
+      <div class="faq-answer">Go beyond the standard lipid panel. The essential additions for men at 40: <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a> (once), <a href="/biomarkers/fasting-insulin">fasting insulin</a>, <a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, free testosterone + SHBG + estradiol, <a href="/biomarkers/psa">PSA baseline</a>, <a href="/biomarkers/vitamin-d">Vitamin D</a>, <a href="/biomarkers/tsh">TSH + free T3/T4</a>, and <a href="/biomarkers/ferritin">ferritin</a>. Most of these are not ordered in standard primary care.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What&#8217;s the difference between total testosterone and free testosterone?</div>
+      <div class="faq-answer">Total testosterone measures all testosterone in the blood, including the majority bound to proteins (SHBG and albumin) and biologically unavailable. <a href="/biomarkers/free-testosterone">Free testosterone</a> measures only the active fraction &#8212; roughly 1 to 3 percent. As SHBG rises with age, free testosterone falls even when total testosterone looks normal. Both must be measured together to get an accurate picture of androgenic status in men over 40.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Why is fasting insulin more important than HbA1c for men over 40?</div>
+      <div class="faq-answer"><a href="/biomarkers/fasting-insulin">Fasting insulin</a> rises years before HbA1c crosses the prediabetes threshold. A man can have completely normal HbA1c while fasting insulin is already elevated &#8212; a state of early insulin resistance that substantially increases cardiovascular risk. Standard care orders HbA1c; almost no one orders fasting insulin unless diabetes is already suspected.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Should men over 40 check estradiol?</div>
+      <div class="faq-answer">Yes &#8212; always when evaluating testosterone. As body fat increases, aromatase activity converts more testosterone to <a href="/biomarkers/estradiol">estradiol</a>. Elevated E2 in men suppresses the HPG axis, further reducing testosterone production. It should always be measured alongside total and free testosterone for a complete hormonal picture.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Should men over 40 get a PSA test?</div>
+      <div class="faq-answer">Yes &#8212; for baseline purposes. The value of early PSA testing is establishing a reference point for tracking velocity over subsequent years. A <a href="/biomarkers/psa">PSA</a> that doubles within two years is clinically significant regardless of absolute value. Men with family history of prostate cancer should start earlier.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Do I need a doctor to order these tests?</div>
+      <div class="faq-answer">No. Direct-to-consumer services like <a href="/reviews/ulta-lab-tests">Ulta Lab Tests</a> allow any adult to order all of these markers without a physician&#8217;s referral &#8212; you purchase online, visit a Quest Diagnostics draw site, and receive results in 24&#8211;48 hours. Not available in New York, New Jersey, Rhode Island, or Hawaii.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(a => {
+    a.classList.remove('open');
+    a.previousElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('open');
+  }
+}
+</script>
