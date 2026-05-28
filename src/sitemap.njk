@@ -10,7 +10,7 @@ xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
 {%- for item in collections.all | reverse %}
-{%- if item.url and not item.data.eleventyExcludeFromCollections and item.url != '/google84b2549f1010612c/' and item.url != '/digest/' and item.url != '/email-thank-you/' %}
+{%- if item.url and not item.data.eleventyExcludeFromCollections and item.url != '/google84b2549f1010612c/' and item.url != '/digest/' and item.url != '/email-thank-you/' and item.url != '/longevity-lab-guide/' %}
 <url>
 <loc>https://agelesslabs.ai{{ item.url }}</loc>
 <lastmod>{{ item.date | htmlDateString }}</lastmod>
