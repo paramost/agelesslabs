@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 27, 2026 · 12:00 AM CST
+> Last updated: May 27, 2026 · 11:00 PM CST
 
 ---
 
@@ -291,7 +291,7 @@ Findings and fixes:
 | bmi-hero `</section>` mismatched tag causing blank gap | Fixed to `</div>` | ✅ Fixed |
 | "66+ Biomarkers planned" stat contradicted "66 Live" | Removed redundant stat | ✅ Fixed |
 
-**Session 2 — Frontmatter audit across all 66 biomarker pages — COMPLETE (May 27 2026)**
+**Session 2 — Frontmatter audit + title tag shortening — COMPLETE (May 27 2026)**
 
 All 66 pages passed on every critical check:
 - ✅ All have `layout: base.njk` (dark theme rendering)
@@ -300,49 +300,9 @@ All 66 pages passed on every critical check:
 - ✅ All have FAQPage schema
 - ✅ All have title tags, meta descriptions, robots meta, canonical tags
 
-Single issue found: 57/66 title tags over 70 characters.
+57 title tags were over 70 characters — all shortened to under 68 chars (before ` | AgelessLabs`) across 5 batches. Side effect: several files had `&#8212;` HTML entity in YAML — normalized to Unicode `—` per key learnings.
 
-**Session 2 continuation — Title tag shortening — IN PROGRESS**
-
-Target: all titles under 68 characters (before ` | AgelessLabs`). Progress:
-
-✅ Committed (28 files): dht, pth, calcium, prolactin, il-6, vitamin-a, copper, lh, nt-probnp, reverse-t3, urine-microalbumin, phosphorus, vitamin-b6, vitamin-b12, vitamin-c, vitamin-k2, vitamin-d, uric-acid, tmao, testosterone, selenium, shbg, omega-3-index, nmr-lipoprofile, magnesium, lp-pla2, lipoprotein-a, leptin, hs-troponin
-
-⏳ Remaining (29 files): homocysteine, ggt, galectin-3, free-testosterone, fsh, coenzyme-q10, bun, bilirubin, adiponectin, zinc, triglycerides, progesterone, psa, igf-1, hscrp, folate, fibrinogen, estradiol, dhea-s, cystatin-c, cortisol, albumin, alt-ast, alp, cbc, ferritin, fasting-insulin, iron-tibc + final verification pass
-
-**Title map for remaining 29 files:**
-| File | New Title (without ` | AgelessLabs`) |
-|---|---|
-| homocysteine | Homocysteine — Cardiovascular and Cognitive Risk |
-| ggt | GGT — Liver Enzyme That Predicts Cardiovascular Death |
-| galectin-3 | Galectin-3 — Fibrosis Biomarker and Organ Aging |
-| free-testosterone | Free Testosterone — Bioavailable T and Hormonal Health |
-| fsh | FSH — The Perimenopause Signal That Rises Years Early |
-| coenzyme-q10 | Coenzyme Q10 — Mitochondrial Nutrient and Statins |
-| bun | BUN — Urea Nitrogen, Protein, and Kidney Clearance |
-| bilirubin | Bilirubin — Liver Marker and Endogenous Antioxidant |
-| adiponectin | Adiponectin — Fat Hormone That Protects Against Disease |
-| zinc | Zinc — The Immune Mineral Most People Are Deficient In |
-| triglycerides | Triglycerides — Metabolic Health and Cardiovascular Risk |
-| progesterone | Progesterone — Hormone That Declines Before Estrogen |
-| psa | PSA — Prostate Health and Cancer Risk Monitoring |
-| igf-1 | IGF-1 — Growth Hormone Proxy and Longevity Trade-Off |
-| hscrp | hsCRP — Inflammation Marker That Predicts Heart Disease |
-| folate | Folate — The B Vitamin Behind DNA Methylation |
-| fibrinogen | Fibrinogen — Clotting Protein and Cardiovascular Risk |
-| estradiol | Estradiol — Estrogen for Bone, Heart, and Brain Health |
-| dhea-s | DHEA-S — Hormonal Clock Tracking Biological Age |
-| cystatin-c | Cystatin C — Kidney Function Better Than Creatinine |
-| cortisol | Cortisol — Chronic Stress, Aging, and Biological Damage |
-| albumin | Albumin — One of the Strongest Longevity Predictors |
-| alt-ast | ALT & AST — Liver Enzymes and Metabolic Health |
-| alp | ALP — Alkaline Phosphatase, Liver and Bone Health |
-| cbc | CBC — Complete Blood Count and the Markers of Aging |
-| ferritin | Ferritin — Iron Storage and Longevity-Optimal Range |
-| fasting-insulin | Fasting Insulin — Earliest Metabolic Dysfunction Signal |
-| iron-tibc | Iron & TIBC — Iron Status and Hemochromatosis Risk |
-
-**Session 3 — Link audit (affiliate + PubMed + internal) — PENDING**
+**Session 3 — Link audit (affiliate + PubMed + internal) — NEXT**
 - All 66 Ulta affiliate links resolve (200)
 - All 66 PubMed citation links resolve
 - All related-biomarker cross-links (5 per page = 330 internal links) resolve
@@ -402,7 +362,6 @@ Apply AgelessLabs system to a new niche.
 - **Digest caching not built** — generates fresh on every load (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have literal string in JSON-LD. Not a validity issue.
 - **Vitamin K2 page note** — Ulta "vitamin-k" test measures total K (K1+K2 combined). Page accurately notes this and recommends ucOC as the functional K2 marker.
-- **Title tag audit** — 29 biomarker files still need shortened titles (see IN PROGRESS section above).
 - **Audit Sessions 3 & 4** — link audit and schema/analytics validation pending.
 
 ---
@@ -427,6 +386,7 @@ Apply AgelessLabs system to a new niche.
 - **Sitemap URL exclusions** — add unwanted pages to the `{%- if %}` condition as `and item.url != '/slug/'` rather than editing individual files.
 - **Vitamin K2 serum testing limitation** — no consumer lab offers specific serum K2. Standard tests measure total K (predominantly K1). Functional K2 status: ucOC at specialty labs.
 - **Title tag length** — target under 68 chars total including ` | AgelessLabs`. Biomarker page titles were written long for LLM citation richness; shortening is an SEO SERP display improvement only.
+- **CodeMirror title replacement pattern** — read old title line first with `doc.split('\n').find(l => l.includes('title:'))`, then use `doc.indexOf(oldLine)` to locate and replace. Handles both Unicode `—` and `&#8212;` variants correctly. Always wrap async commit steps in `(async () => { ... })()`.
 
 ---
 
