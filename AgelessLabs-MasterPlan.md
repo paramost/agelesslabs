@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 27, 2026 · 11:00 PM CST
+> Last updated: May 28, 2026 · 9:00 PM CST
 
 ---
 
@@ -81,6 +81,8 @@ agelesslabs/
 ├── api/
 │   ├── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
 │   ├── subscribe.js          # Vercel serverless proxy — forwards email signups to MailerLite API
+│   ├── stripe-checkout.js    # Creates Stripe Checkout session
+│   ├── stripe-verify.js      # Verifies Stripe session after redirect
 │   └── digest.js             # Vercel Edge function — community digest (Reddit + rapamycin.news)
 ├── .eleventy.js              # 11ty config — filters, collections, passthrough, dirs
 ├── package.json              # npm scripts: build, start, dev
@@ -98,6 +100,8 @@ agelesslabs/
     ├── about.njk             # About page
     ├── analyze.njk           # AI tool page
     ├── digest.njk            # Community digest dashboard — key-protected, noindexed
+    ├── email-thank-you.njk   # Email capture confirmation — noindexed, live at /email-thank-you/
+    ├── get-tested.njk        # "Get Your Baseline" affiliate page — live at /get-tested/
     ├── privacy.njk           # Privacy policy
     ├── disclaimer.njk        # Disclaimer + affiliate disclosure
     ├── sitemap.njk           # Auto-generates /sitemap.xml — dynamic loop only, no hardcoded URLs
@@ -217,7 +221,8 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list |
 | digest.njk | Complete | Key-protected community digest dashboard |
-| get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — live at /get-tested |
+| get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Ulta + Superpower cards live |
+| email-thank-you.njk | Complete | Confirmation page — noindexed · live at /email-thank-you/ |
 
 ### Biomarker Pages — Complete Library (66 pages across 9 waves)
 
@@ -256,7 +261,8 @@ vitamin-b6, copper, bilirubin, phosphorus, nt-probnp, vitamin-c
 | AI tool — free tier | Complete |
 | Paid tier ($19 report) | Complete — May 19 2026 |
 | Stripe integration | Complete — live mode active May 19 2026 |
-| Email capture | Complete — MailerLite. Group ID: 187945335219291618. Welcome sequence built. |
+| Stripe conversion tracking (GA4) | Not built — NEXT task |
+| Email capture | Complete — MailerLite v2 API. Group ID: 187945335219291618. Welcome sequence built. |
 | Model string | claude-sonnet-4-6 |
 
 ### Community Digest Tool
@@ -269,19 +275,18 @@ All complete. Dark theme only — revisit if mobile bounce data warrants it.
 All complete. GSC verified + sitemap submitted April 21 2026.
 
 ### Analytics
-GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live.
+GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page types. No Stripe purchase conversion event yet.
 
 ---
 
 ## Immediate Next Steps (Resume Here)
 
-### Phase 5.7 — Full Site Audit — IN PROGRESS (May 27 2026)
+### Phase 5.7 — Full Site Audit — COMPLETE (May 28 2026)
 
-Audit locked and underway. 4-session plan:
+All 4 sessions complete. Full findings and fixes:
 
 **Session 1 — Sitemap + URL health + robots meta — COMPLETE (May 27 2026)**
 
-Findings and fixes:
 | Issue | Fix | Status |
 |---|---|---|
 | Sitemap had 3,675 URLs (hardcoded blocks inside loop × 55 pages) | Rewrote sitemap.njk as pure dynamic loop | ✅ Fixed |
@@ -293,30 +298,74 @@ Findings and fixes:
 
 **Session 2 — Frontmatter audit + title tag shortening — COMPLETE (May 27 2026)**
 
-All 66 pages passed on every critical check:
-- ✅ All have `layout: base.njk` (dark theme rendering)
-- ✅ Zero accidentally noindexed
-- ✅ All have MedicalWebPage schema
-- ✅ All have FAQPage schema
-- ✅ All have title tags, meta descriptions, robots meta, canonical tags
+All 66 pages passed on every critical check: layout, noindex, MedicalWebPage schema, FAQPage schema, title tags, meta descriptions, robots meta, canonical tags. 57 title tags shortened to under 68 chars across 5 batches.
 
-57 title tags were over 70 characters — all shortened to under 68 chars (before ` | AgelessLabs`) across 5 batches. Side effect: several files had `&#8212;` HTML entity in YAML — normalized to Unicode `—` per key learnings.
+**Session 3 — Link audit — COMPLETE (May 28 2026)**
 
-**Session 3 — Link audit (affiliate + PubMed + internal) — NEXT**
-- All 66 Ulta affiliate links resolve (200)
-- All 66 PubMed citation links resolve
-- All related-biomarker cross-links (5 per page = 330 internal links) resolve
-- All biomarker index cards link to correct pages
+| Check | Result |
+|---|---|
+| All 66 pages have Ulta affiliate links | ✅ |
+| All 66 pages have PubMed citations | ✅ Fixed c-peptide (was missing all citations) |
+| All 66 pages have 5 related biomarker links | ✅ Fixed 15 pages across 3 batches |
+| All 66 biomarker index cards present, no broken slugs | ✅ |
+| Ulta + PubMed HTTP status | Unverifiable from automated environment (WAF blocks data center IPs) — Ulta manually spot-checked (4 links confirmed) |
 
-**Session 4 — Schema validation + analytics + tool/Stripe end-to-end — PENDING**
-- Google Rich Results Test on sample biomarker pages
-- GA4 and Clarity firing on all page types
-- Free analysis end-to-end functional
-- Paid tier ($19) Stripe flow functional
+**Session 4 — Schema + analytics + tool/Stripe end-to-end — COMPLETE (May 28 2026)**
+
+| Check | Result |
+|---|---|
+| MedicalWebPage + FAQPage schema on biomarker pages | ✅ Confirmed live (ApoB + vitamin-c) |
+| GA4 firing — homepage, biomarker, analyze | ✅ |
+| Clarity firing — homepage, biomarker, analyze | ✅ |
+| Free analysis end-to-end | ✅ Returns score + per-marker breakdown |
+| Paid tier Stripe checkout | ✅ Redirects to checkout.stripe.com with live session |
+
+**Post-audit checks — COMPLETE (May 28 2026)**
+
+| Check | Result |
+|---|---|
+| Related link fixes verified live (omega-3-index, ferritin, c-peptide) | ✅ |
+| Email capture flow (form → MailerLite → /email-thank-you/) | ✅ All working |
+| Ulta affiliate links manual spot-check (4 links) | ✅ All resolve with affiliate attribution |
+| /get-tested page audit | ✅ Rendering, analytics, links all clean |
+| Superpower card added to /get-tested | ✅ Live — May 28 2026 |
 
 ---
 
-### NEXT AFTER AUDIT: Tier 2 Content — Lab Test Comparison Pages
+### Phase 5.8 — Stripe Conversion Tracking — NEXT
+
+**The problem:** Stripe is processing real $19 purchases but GA4 has no purchase event. Can't attribute revenue to traffic source, biomarker page, or campaign.
+
+**The fix:** Fire a GA4 `purchase` event from `analyze.njk` when a verified Stripe session is present.
+
+**Implementation plan (single file edit — `src/analyze.njk`):**
+
+After `api/stripe-verify.js` confirms payment and the paid analysis renders, the client already has the `session_id` URL param. Add this to the existing post-verification JS block:
+
+```javascript
+// Fire GA4 purchase event after successful Stripe verification
+if (typeof gtag !== 'undefined') {
+  gtag('event', 'purchase', {
+    transaction_id: sessionId,
+    value: 19,
+    currency: 'USD',
+    items: [{
+      item_id: 'full_longevity_report',
+      item_name: 'Full Longevity Report',
+      price: 19,
+      quantity: 1
+    }]
+  });
+}
+```
+
+**Then in GA4:** Mark `purchase` as a conversion event in GA4 Admin → Events → Mark as conversion.
+
+**Files to edit:** `src/analyze.njk` only (small targeted edit, browser automation).
+
+---
+
+### NEXT AFTER PHASE 5.8: Tier 2 Content — Lab Test Comparison Pages
 
 **Priority Tier 2 pages:**
 
@@ -331,8 +380,6 @@ All 66 pages passed on every critical check:
 | 7 | Best longevity blood panel guide | `/guides/best-longevity-blood-panel` | Ulta + Superpower | Catch-all guide; heavy Ulta integration |
 
 **Format:** 1,500–2,500 words · Review/comparison format · Intro / what's included / who it's for / pros-cons table / pricing / verdict / FAQ (5–6 Qs) / affiliate CTAs
-
-**FAQ question sets:** Documented in previous session — see master plan archive or Claude conversation history.
 
 **Key research findings:**
 - OneTwenty appearing in every 2026 comparison roundup — include even without affiliate
@@ -362,7 +409,10 @@ Apply AgelessLabs system to a new niche.
 - **Digest caching not built** — generates fresh on every load (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have literal string in JSON-LD. Not a validity issue.
 - **Vitamin K2 page note** — Ulta "vitamin-k" test measures total K (K1+K2 combined). Page accurately notes this and recommends ucOC as the functional K2 marker.
-- **Audit Sessions 3 & 4** — link audit and schema/analytics validation pending.
+- **MailerLite v2 classic API** — `api/subscribe.js` uses `api.mailerlite.com/api/v2`. Classic API still functional but a newer API exists. Low urgency.
+- **No custom 404 page** — broken URLs hit Vercel's default. A branded 404 with links to the biomarker library and tool would recover more traffic.
+- **OG images not page-specific** — all pages share one `og-image.png`. Matters more once traffic and social sharing scale.
+- **InsideTracker, OneTwenty, Marek Health affiliate applications** — follow-up emails needed, not code changes.
 
 ---
 
@@ -377,7 +427,7 @@ Apply AgelessLabs system to a new niche.
 - **YAML source files should use plain Unicode characters** — `—` not `&#8212;`.
 - **base.njk must use `---\n---` (two delimiter lines)** for frontmatter.
 - **The Claude API cannot be called directly from browser JS** — always route through Vercel serverless function.
-- **MailerLite API** — v2 classic API. Group ID: `187945335219291618`. Route through `api/subscribe.js`. Env var: `ML_API_KEY`.
+- **MailerLite API** — v2 classic API. Group ID: `187945335219291618`. Route through `api/subscribe.js`. Env var: `ML_API_KEY`. Not Kit/ConvertKit.
 - **Ulta Lab Tests URL slugs are not predictable** — always verify via `site:ultalabtests.com [test name]`.
 - **Biomarker library stopping point** — 66 pages (Waves 1–9). Pivot to Tier 2/3 content.
 - **GitHub CodeMirror commit technique** — use `breadcrumb.click()` + `setTimeout(800)` to release editor focus before opening commit dialog. Then find and click the dialog's "Commit changes" button via `b.closest('[role="dialog"]') && b.textContent.trim() === 'Commit changes'`. Never type commit messages while CodeMirror has focus.
@@ -387,6 +437,8 @@ Apply AgelessLabs system to a new niche.
 - **Vitamin K2 serum testing limitation** — no consumer lab offers specific serum K2. Standard tests measure total K (predominantly K1). Functional K2 status: ucOC at specialty labs.
 - **Title tag length** — target under 68 chars total including ` | AgelessLabs`. Biomarker page titles were written long for LLM citation richness; shortening is an SEO SERP display improvement only.
 - **CodeMirror title replacement pattern** — read old title line first with `doc.split('\n').find(l => l.includes('title:'))`, then use `doc.indexOf(oldLine)` to locate and replace. Handles both Unicode `—` and `&#8212;` variants correctly. Always wrap async commit steps in `(async () => { ... })()`.
+- **Ulta + PubMed HTTP verification** — both block data center IPs (403). Browser extension also blocks navigation to ultalabtests.com. Manual spot-check from a real browser is the only reliable method.
+- **checkout.stripe.com blocks browser extension navigation** — after Stripe redirect, open a new MCP tab via `tabs_create_mcp` to continue browser automation.
 
 ---
 
