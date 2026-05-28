@@ -764,6 +764,21 @@ async function handlePostPayment(sessionId) {
     return;
   }
 
+  // Fire GA4 purchase event after successful Stripe verification
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'purchase', {
+      transaction_id: sessionId,
+      value: 19,
+      currency: 'USD',
+      items: [{
+        item_id: 'full_longevity_report',
+        item_name: 'Full Longevity Report',
+        price: 19,
+        quantity: 1
+      }]
+    });
+  }
+
   // 2. Retrieve lab data from session storage
   const stored = sessionStorage.getItem('al_lab_data');
   if (!stored) {
