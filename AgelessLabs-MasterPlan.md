@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 28, 2026 · 9:00 PM CST
+> Last updated: May 28, 2026 · 11:30 PM CST
 
 ---
 
@@ -102,6 +102,7 @@ agelesslabs/
     ├── digest.njk            # Community digest dashboard — key-protected, noindexed
     ├── email-thank-you.njk   # Email capture confirmation — noindexed, live at /email-thank-you/
     ├── get-tested.njk        # "Get Your Baseline" affiliate page — live at /get-tested/
+    ├── longevity-lab-guide.njk  # Email lead magnet — noindexed, live at /longevity-lab-guide/
     ├── privacy.njk           # Privacy policy
     ├── disclaimer.njk        # Disclaimer + affiliate disclosure
     ├── sitemap.njk           # Auto-generates /sitemap.xml — dynamic loop only, no hardcoded URLs
@@ -125,7 +126,7 @@ agelesslabs/
 - **Arrow characters** in index cards use `&#8594;` HTML entity — NOT the Unicode arrow, which mojibakes in the GitHub editor
 - **base.njk must have `---\n---` (empty frontmatter with closing delimiter)** — a single opening `---` with no closing causes gray-matter to parse the entire HTML file as YAML, crashing the build
 - **sitemap.njk** uses a single `collections.all` loop — never add hardcoded `<url>` blocks inside or outside the loop; they will be multiplied or duplicated
-- **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`
+- **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`, `/longevity-lab-guide/`
 
 ### .eleventy.js Filters
 - `htmlDateString` — formats dates for sitemap.njk (ISO 8601)
@@ -189,6 +190,8 @@ if (cb) cb.click();
 ```
 Never type commit messages while CodeMirror has focus — they go into the file.
 
+**New file creation:** Use GitHub's upload page (`/upload/main/src`) and drag the file into the drop zone. Do NOT use the "new file" editor (`/new/main/src`) — it becomes unstable with large files.
+
 ### Google Drive — Working Files
 **Folder:** AgelessLabs > Source Files
 Drive is a staging area. Master plan is kept as a project file in the Claude Project — read from there at session start.
@@ -223,6 +226,7 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | digest.njk | Complete | Key-protected community digest dashboard |
 | get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Ulta + Superpower cards live |
 | email-thank-you.njk | Complete | Confirmation page — noindexed · live at /email-thank-you/ |
+| longevity-lab-guide.njk | Complete — May 28 2026 | Email lead magnet — noindexed · live at /longevity-lab-guide/ |
 
 ### Biomarker Pages — Complete Library (66 pages across 9 waves)
 
@@ -261,9 +265,12 @@ vitamin-b6, copper, bilirubin, phosphorus, nt-probnp, vitamin-c
 | AI tool — free tier | Complete |
 | Paid tier ($19 report) | Complete — May 19 2026 |
 | Stripe integration | Complete — live mode active May 19 2026 |
-| Stripe conversion tracking (GA4) | Not built — NEXT task |
-| Email capture | Complete — MailerLite v2 API. Group ID: 187945335219291618. Welcome sequence built. |
+| Stripe conversion tracking (GA4) | Complete — May 28 2026 · purchase event marked as key event in GA4 |
+| Email capture | Complete — MailerLite v2 API. Group ID: 187945335219291618. Welcome sequence delivers /longevity-lab-guide/. |
 | Model string | claude-sonnet-4-6 |
+
+### Email Lead Magnet
+Complete — May 28 2026. Live at `/longevity-lab-guide/`. Noindexed + excluded from sitemap. Delivered via MailerLite welcome sequence. Content: 10-biomarker longevity guide with optimal ranges, 90-day plan, Ulta + Superpower affiliate CTAs, and $19 paid report upsell.
 
 ### Community Digest Tool
 Complete — April 23 2026. Key-protected at `/digest`. Caching not built — generates live (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it.
@@ -275,7 +282,7 @@ All complete. Dark theme only — revisit if mobile bounce data warrants it.
 All complete. GSC verified + sitemap submitted April 21 2026.
 
 ### Analytics
-GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page types. No Stripe purchase conversion event yet.
+GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page types. GA4 `purchase` event live and marked as key event — May 28 2026.
 
 ---
 
@@ -329,43 +336,17 @@ All 66 pages passed on every critical check: layout, noindex, MedicalWebPage sch
 | Ulta affiliate links manual spot-check (4 links) | ✅ All resolve with affiliate attribution |
 | /get-tested page audit | ✅ Rendering, analytics, links all clean |
 | Superpower card added to /get-tested | ✅ Live — May 28 2026 |
+| Biomarker index intro card layout fixed (stray </div> closing container) | ✅ Live — May 28 2026 |
 
 ---
 
-### Phase 5.8 — Stripe Conversion Tracking — NEXT
+### Phase 5.8 — Stripe Conversion Tracking — COMPLETE (May 28 2026)
 
-**The problem:** Stripe is processing real $19 purchases but GA4 has no purchase event. Can't attribute revenue to traffic source, biomarker page, or campaign.
-
-**The fix:** Fire a GA4 `purchase` event from `analyze.njk` when a verified Stripe session is present.
-
-**Implementation plan (single file edit — `src/analyze.njk`):**
-
-After `api/stripe-verify.js` confirms payment and the paid analysis renders, the client already has the `session_id` URL param. Add this to the existing post-verification JS block:
-
-```javascript
-// Fire GA4 purchase event after successful Stripe verification
-if (typeof gtag !== 'undefined') {
-  gtag('event', 'purchase', {
-    transaction_id: sessionId,
-    value: 19,
-    currency: 'USD',
-    items: [{
-      item_id: 'full_longevity_report',
-      item_name: 'Full Longevity Report',
-      price: 19,
-      quantity: 1
-    }]
-  });
-}
-```
-
-**Then in GA4:** Mark `purchase` as a conversion event in GA4 Admin → Events → Mark as conversion.
-
-**Files to edit:** `src/analyze.njk` only (small targeted edit, browser automation).
+GA4 `purchase` event added to `src/analyze.njk` — fires immediately after `stripe-verify` returns `success: true`. Uses `sessionId` as `transaction_id` for deduplication. Event marked as key event in GA4 Admin → Events.
 
 ---
 
-### NEXT AFTER PHASE 5.8: Tier 2 Content — Lab Test Comparison Pages
+### NEXT: Tier 2 Content — Lab Test Comparison Pages
 
 **Priority Tier 2 pages:**
 
@@ -413,6 +394,7 @@ Apply AgelessLabs system to a new niche.
 - **No custom 404 page** — broken URLs hit Vercel's default. A branded 404 with links to the biomarker library and tool would recover more traffic.
 - **OG images not page-specific** — all pages share one `og-image.png`. Matters more once traffic and social sharing scale.
 - **InsideTracker, OneTwenty, Marek Health affiliate applications** — follow-up emails needed, not code changes.
+- **Trademark check at USPTO.gov** — not done.
 
 ---
 
@@ -431,14 +413,16 @@ Apply AgelessLabs system to a new niche.
 - **Ulta Lab Tests URL slugs are not predictable** — always verify via `site:ultalabtests.com [test name]`.
 - **Biomarker library stopping point** — 66 pages (Waves 1–9). Pivot to Tier 2/3 content.
 - **GitHub CodeMirror commit technique** — use `breadcrumb.click()` + `setTimeout(800)` to release editor focus before opening commit dialog. Then find and click the dialog's "Commit changes" button via `b.closest('[role="dialog"]') && b.textContent.trim() === 'Commit changes'`. Never type commit messages while CodeMirror has focus.
+- **New file creation via GitHub** — use the upload page (`/upload/main/src`) and drag-and-drop. Do NOT use the "new file" editor (`/new/main/src`) — it becomes unstable with large files and the feedback dialog blocks the commit dialog.
 - **index.njk `layout: base.njk` critical** — this declaration gets silently dropped during batch edit sessions. Always verify it's present after any batch edit to biomarkers/index.njk.
-- **Sitemap hardcoded `<url>` blocks** — must NEVER be placed inside or around the `collections.all` loop in sitemap.njk. They will be multiplied by the number of pages in the collection. The loop handles all pages automatically — no hardcoding needed.
+- **Sitemap hardcoded `<url>` blocks** — must NEVER be placed inside or around the `collections.all` loop in sitemap.njk.
 - **Sitemap URL exclusions** — add unwanted pages to the `{%- if %}` condition as `and item.url != '/slug/'` rather than editing individual files.
 - **Vitamin K2 serum testing limitation** — no consumer lab offers specific serum K2. Standard tests measure total K (predominantly K1). Functional K2 status: ucOC at specialty labs.
-- **Title tag length** — target under 68 chars total including ` | AgelessLabs`. Biomarker page titles were written long for LLM citation richness; shortening is an SEO SERP display improvement only.
-- **CodeMirror title replacement pattern** — read old title line first with `doc.split('\n').find(l => l.includes('title:'))`, then use `doc.indexOf(oldLine)` to locate and replace. Handles both Unicode `—` and `&#8212;` variants correctly. Always wrap async commit steps in `(async () => { ... })()`.
+- **Title tag length** — target under 68 chars total including ` | AgelessLabs`.
+- **CodeMirror title replacement pattern** — read old title line first with `doc.split('\n').find(l => l.includes('title:'))`, then use `doc.indexOf(oldLine)` to locate and replace.
 - **Ulta + PubMed HTTP verification** — both block data center IPs (403). Browser extension also blocks navigation to ultalabtests.com. Manual spot-check from a real browser is the only reliable method.
 - **checkout.stripe.com blocks browser extension navigation** — after Stripe redirect, open a new MCP tab via `tabs_create_mcp` to continue browser automation.
+- **Biomarker index container bug pattern** — `<section>` tag closed with `</div>` causes the container div to close early, ejecting all subsequent content from the layout. Check rendered DOM parent of `.bmi-intro` if layout breaks.
 
 ---
 
@@ -485,7 +469,7 @@ Split larger tasks across sessions. Propose batches upfront, complete first batc
 | Task type | Method |
 |---|---|
 | Small targeted edit (<20 lines, 1–2 files) | GitHub direct edit via browser automation |
-| New file or heavily rewritten file | Downloadable artifact in chat |
+| New file or heavily rewritten file | GitHub upload page (/upload/main/src) — drag and drop |
 | Master plan updates | Downloadable artifact, Dan uploads to project manually |
 | Never | Drive MCP for .njk or .js files (silent truncation above ~3KB) |
 
@@ -531,7 +515,7 @@ Categories: Metabolic Health, Cardiovascular, Hormonal Health, Inflammation & Im
 
 ## Paid Report Spec — $19 one-time
 
-**Payment flow:** Free results → "Unlock Full Report — $19" → Stripe Checkout → payment → redirect to `/analyze?session_id=xxx` → verify → paid analysis runs → full report renders + PDF download
+**Payment flow:** Free results → "Unlock Full Report — $19" → Stripe Checkout → payment → redirect to `/analyze?session_id=xxx` → verify → GA4 purchase event fires → paid analysis runs → full report renders + PDF download
 
 **Files:** `api/stripe-checkout.js` · `api/stripe-verify.js` · `src/analyze.njk` · `package.json`
 
