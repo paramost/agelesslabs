@@ -1,0 +1,517 @@
+---
+layout: base.njk
+title: "Best Longevity Blood Panel: A Complete Guide (2026) | AgelessLabs"
+permalink: /guides/best-longevity-blood-panel/index.html
+description: "The complete longevity blood panel guide — which markers to order, optimal ranges, what standard care misses, and how to build your panel by tier."
+---
+
+<style>
+.guide-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.guide-hero .page-eyebrow { margin-bottom: 20px; }
+.guide-hero h1 { margin-bottom: 16px; }
+.guide-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.guide-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.guide-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.guide-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 16px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.tier-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; padding: 16px 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
+.tier-number { font-family: 'DM Mono', monospace; font-size: 28px; font-weight: 700; color: var(--green); line-height: 1; }
+.tier-info-title { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 4px; }
+.tier-info-sub { font-size: 12px; color: var(--text-dim); font-weight: 400; }
+
+.marker-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+.marker-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.marker-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.5; }
+.marker-table td:first-child { color: var(--white); font-weight: 600; white-space: nowrap; }
+.marker-table td:first-child a { color: var(--white); border-bottom-color: rgba(255,255,255,0.1); font-weight: 600; }
+.marker-table td:first-child a:hover { color: var(--green); border-bottom-color: var(--green); }
+.marker-table tr:last-child td { border-bottom: none; }
+.marker-table tr:hover td { background: rgba(181,201,160,0.02); }
+.marker-table .optimal { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--green); }
+.marker-table .skipped { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(224,112,112,0.08); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+.marker-table .included { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(181,201,160,0.08); color: var(--green); border: 1px solid rgba(181,201,160,0.2); }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.order-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.order-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 22px; }
+.order-card.featured { border-color: rgba(181,201,160,0.25); }
+.order-card-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.order-card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; margin-bottom: 18px; font-weight: 400; }
+.order-card-cta { display: inline-block; padding: 11px 20px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; transition: all 0.2s; }
+.order-card-cta:hover { background: var(--green-bright); transform: translateY(-1px); border-bottom: none; }
+.order-card-cta.secondary { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.order-card-cta.secondary:hover { border-color: rgba(181,201,160,0.3); color: var(--white); background: transparent; }
+
+.frequency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 32px; }
+.frequency-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 18px 20px; }
+.frequency-cell-timing { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+.frequency-cell-title { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 6px; }
+.frequency-cell-desc { font-size: 12px; color: var(--text-dim); line-height: 1.6; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+@media (max-width: 700px) {
+  .order-cards { grid-template-columns: 1fr; }
+  .frequency-grid { grid-template-columns: 1fr; }
+  .page-tool-cta { grid-template-columns: 1fr; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The Best Longevity Blood Panel: A Complete Guide (2026)",
+  "description": "The complete guide to building a longevity-focused blood panel — which markers to order, optimal ranges, and what standard care consistently misses.",
+  "author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+  "publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+  "datePublished": "2026-05-28",
+  "dateModified": "2026-05-28"
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the difference between a standard blood panel and a longevity blood panel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "A standard blood panel — the kind ordered at an annual physical — is designed to detect existing disease. It flags values outside a reference range built from a general population that includes many sick people. A longevity panel uses tighter, evidence-based optimal ranges and includes markers like ApoB, Lp(a), fasting insulin, and homocysteine that standard care routinely skips. The goal is not diagnosis but trajectory — identifying risk years or decades before a problem becomes symptomatic." }
+    },
+    {
+      "@type": "Question",
+      "name": "How often should you get a longevity blood panel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Annual testing is the baseline cadence for a healthy adult with no active interventions. If you're actively managing a specific marker — adjusting diet for insulin resistance, supplementing for Vitamin D deficiency, on a statin for elevated ApoB — retest that specific marker at 3 to 6 months to assess response. Once markers are stable in optimal ranges, annual retesting is sufficient." }
+    },
+    {
+      "@type": "Question",
+      "name": "What blood tests do doctors routinely skip that matter for longevity?",
+      "acceptedAnswer": { "@type": "Answer", "text": "The most important markers that standard primary care consistently omits: ApoB (superior to LDL for cardiovascular risk), Lp(a) (genetic cardiovascular risk factor, checked once in a lifetime), fasting insulin (the earliest signal of insulin resistance, years before HbA1c rises), homocysteine (cardiovascular and cognitive risk), hsCRP (the sensitive version of CRP that standard panels don't use), and Vitamin D (deficiency affects cardiovascular, immune, and cognitive health but is rarely checked unless symptomatic)." }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between 'normal' and 'optimal' ranges?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Standard reference ranges are statistical constructs — typically the middle 95% of a tested population that includes many people with early-stage metabolic disease. 'Optimal' ranges for longevity are tighter and derived from centenarian studies, cardiovascular outcomes data, and intervention research. For example, a standard lab flags HbA1c as normal up to 5.7%. A longevity-optimal target is below 5.4%, ideally 4.8 to 5.2%. The difference between 'you're not diabetic' and 'your metabolic health is genuinely optimal' lives in that gap." }
+    },
+    {
+      "@type": "Question",
+      "name": "Do I need a doctor to order a longevity blood panel?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. Direct-to-consumer services like Ulta Lab Tests allow you to order any of these tests without a physician's referral — you pay online, visit a Quest Diagnostics draw site, and get results in 24 to 48 hours. Services like Superpower include physician oversight as part of their annual subscription. Both are valid approaches; the choice depends on whether you want professional guidance included or prefer to manage the data yourself." }
+    },
+    {
+      "@type": "Question",
+      "name": "What should I do with my longevity panel results?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Upload them to the AgelessLabs AI tool. It scores every marker against longevity-optimal ranges, identifies patterns across your full panel, and prioritizes what to address first. For markers outside optimal range, the biomarker library has detailed pages on interventions, retesting timelines, and what the research shows." }
+    }
+  ]
+}
+</script>
+
+<section class="guide-hero">
+  <div class="page-eyebrow">Guide</div>
+  <h1>The best longevity<br>blood panel &#8212;<br><em>built by tier.</em></h1>
+  <p class="guide-hero-sub">Standard bloodwork tells you whether you&#8217;re sick. A longevity panel tells you how fast you&#8217;re aging. Here&#8217;s every marker worth ordering, organized by priority &#8212; from the non-negotiable foundation through the advanced add-ons that separate longevity medicine from standard care.</p>
+</section>
+
+<div class="guide-meta">
+  <div class="guide-meta-item">Updated <span>May 2026</span></div>
+  <div class="guide-meta-item">Reading time <span>~10 min</span></div>
+  <div class="guide-meta-item">Affiliate <span>Disclosed</span></div>
+</div>
+
+<div class="content-section">
+  <h2>Why standard bloodwork isn&#8217;t enough</h2>
+  <p>The annual physical blood draw &#8212; CBC, basic metabolic panel, lipid panel &#8212; was designed to catch disease, not prevent it. Its reference ranges are built from population statistics that include millions of people with early-stage metabolic dysfunction. &#8220;Normal&#8221; on a standard panel means you&#8217;re not yet sick. It says nothing about trajectory.</p>
+  <p>The leading causes of death in people over 40 &#8212; cardiovascular disease, type 2 diabetes, cancer, neurodegenerative disease &#8212; share a common feature: they develop silently over decades. <a href="/biomarkers/apob">ApoB</a> particles accumulate in arterial walls for 20 years before a cardiac event. Insulin resistance progresses through increasingly abnormal fasting insulin long before <a href="/biomarkers/hba1c">HbA1c</a> crosses the prediabetes threshold. Subclinical inflammation drives vascular damage at <a href="/biomarkers/hscrp">hsCRP</a> levels that a standard CRP test can&#8217;t even detect.</p>
+  <p>A longevity panel solves this by measuring differently. It uses tighter optimal ranges derived from centenarian studies and cardiovascular outcomes research, not population statistics. And it includes the markers standard care skips &#8212; the ones that predict where you&#8217;re headed, not just where you are.</p>
+
+  <div class="warning-callout">
+    <div class="warning-callout-label">The key distinction</div>
+    <p>Standard reference ranges answer: <em>Are you sick?</em> Longevity-optimal ranges answer: <em>Are you aging faster than you should be?</em> These are different questions, and the gap between &#8220;normal&#8221; and &#8220;optimal&#8221; is where most preventable disease begins.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Tier 1 &#8212; The Foundation Panel</h2>
+
+  <div class="tier-header">
+    <div class="tier-number">01</div>
+    <div>
+      <div class="tier-info-title">Non-negotiable baseline &#8212; start here</div>
+      <div class="tier-info-sub">10 markers · covers cardiovascular, metabolic, inflammation, and nutrient status · order once, then annually</div>
+    </div>
+  </div>
+
+  <p>These are the markers with the strongest evidence base for predicting cardiovascular disease, metabolic dysfunction, and all-cause mortality. If you have never been tested, this is where to start. If you&#8217;ve had standard bloodwork before, most of these were probably not on it.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>In standard care?</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/apob">ApoB</a></td>
+        <td>Total count of atherogenic particles &#8212; a more accurate cardiovascular risk marker than LDL-C</td>
+        <td class="optimal">&lt;90 mg/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/lipoprotein-a">Lp(a)</a></td>
+        <td>Genetically determined cardiovascular risk &#8212; elevated in 20% of adults, largely undetectable without testing</td>
+        <td class="optimal">&lt;30 mg/dL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/hba1c">HbA1c</a></td>
+        <td>90-day average blood glucose &#8212; early metabolic risk signal well before diabetes threshold</td>
+        <td class="optimal">4.8&#8211;5.4%</td>
+        <td><span class="skipped">Skipped*</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a></td>
+        <td>Earliest marker of insulin resistance &#8212; rises years before HbA1c or glucose</td>
+        <td class="optimal">&lt;6 &#956;IU/mL</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/hscrp">hsCRP</a></td>
+        <td>High-sensitivity inflammation marker &#8212; predicts cardiovascular events, cancer risk, and biological age</td>
+        <td class="optimal">&lt;1.0 mg/L</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/homocysteine">Homocysteine</a></td>
+        <td>Cardiovascular and cognitive risk &#8212; modifiable with B vitamins; often dramatically elevated</td>
+        <td class="optimal">&lt;10 &#956;mol/L</td>
+        <td><span class="skipped">Skipped</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/vitamin-d">Vitamin D (25-OH)</a></td>
+        <td>Deficiency linked to cardiovascular disease, cancer, immune dysfunction, and all-cause mortality</td>
+        <td class="optimal">50&#8211;80 ng/mL</td>
+        <td><span class="skipped">Skipped*</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/triglycerides">Lipid Panel</a></td>
+        <td>LDL-C, HDL-C, triglycerides &#8212; cardiovascular baseline; interpret alongside ApoB</td>
+        <td class="optimal">TG &lt;100 mg/dL</td>
+        <td><span class="included">Included</span></td>
+      </tr>
+      <tr>
+        <td>CBC + CMP</td>
+        <td>Blood cell counts, liver enzymes, kidney markers, electrolytes &#8212; organ function baseline</td>
+        <td class="optimal">See individual markers</td>
+        <td><span class="included">Included</span></td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/tsh">TSH + Free T3/T4</a></td>
+        <td>Full thyroid function &#8212; subclinical hypothyroidism is common and chronically underdiagnosed</td>
+        <td class="optimal">TSH 1.0&#8211;2.0 mIU/L</td>
+        <td><span class="skipped">Partial*</span></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p><em>* HbA1c is ordered for diabetics or prediabetics, rarely in healthy adults. Vitamin D is ordered when symptoms appear, rarely proactively. TSH alone is standard; free T3 and T4 are almost never included in routine panels.</em></p>
+
+  <div class="callout">
+    <div class="callout-label">Order Tier 1 through Ulta Lab Tests</div>
+    <p>All 10 Tier 1 markers are available individually or bundled through Ulta Lab Tests &#8212; no doctor&#8217;s order required. The <a href="https://www.ultalabtests.com/partners/agelesslabs/test/longevity-healthy-aging-essential-lab-panel" target="_blank" rel="noopener sponsored">Longevity &amp; Healthy Aging Essential Panel</a> covers most of the foundation for under $200. ApoB, Lp(a), fasting insulin, and homocysteine can be ordered &#224; la carte for $20&#8211;55 each.</p>
+  </div>
+</div>
+
+<div class="content-section">
+  <h2>Tier 2 &#8212; The Advanced Panel</h2>
+
+  <div class="tier-header">
+    <div class="tier-number">02</div>
+    <div>
+      <div class="tier-info-title">Add once Tier 1 is established</div>
+      <div class="tier-info-sub">8 markers · deeper insight into hormones, metabolic function, and cardiovascular risk</div>
+    </div>
+  </div>
+
+  <p>Once you have your Tier 1 baseline, these markers add meaningful depth. They&#8217;re not urgent on a first test &#8212; but they complete the picture and are essential for anyone actively optimizing rather than simply monitoring.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Priority</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/omega-3-index">Omega-3 Index</a></td>
+        <td>EPA+DHA as % of red blood cell fatty acids &#8212; directly modifiable, strongly predictive of cardiac events</td>
+        <td class="optimal">&gt;8%</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/ferritin">Ferritin</a></td>
+        <td>Iron stores &#8212; both deficiency and excess are harmful; elevated ferritin signals inflammation and oxidative stress</td>
+        <td class="optimal">50&#8211;150 ng/mL</td>
+        <td>High</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/testosterone">Testosterone (Total + Free)</a></td>
+        <td>Muscle mass, energy, cognitive function, and metabolic health &#8212; declines predictably with age</td>
+        <td class="optimal">Varies by age/sex</td>
+        <td>High (40+)</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/igf-1">IGF-1</a></td>
+        <td>Growth hormone axis &#8212; too low impairs muscle and cognition; too high may accelerate aging</td>
+        <td class="optimal">120&#8211;180 ng/mL</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/cortisol">Cortisol (AM)</a></td>
+        <td>HPA axis function and chronic stress load &#8212; elevated cortisol disrupts metabolic health across every system</td>
+        <td class="optimal">10&#8211;18 &#956;g/dL (AM)</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/ggt">GGT</a></td>
+        <td>Sensitive liver marker &#8212; elevated with metabolic liver disease and alcohol stress; predicts cardiovascular mortality</td>
+        <td class="optimal">&lt;20 U/L (M) / &lt;15 U/L (F)</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/uric-acid">Uric Acid</a></td>
+        <td>Metabolic health and gout risk &#8212; elevated levels associated with insulin resistance, hypertension, and kidney disease</td>
+        <td class="optimal">&lt;5.5 mg/dL</td>
+        <td>Medium</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/magnesium">Magnesium (RBC)</a></td>
+        <td>The most important micronutrient for enzymatic function &#8212; standard serum magnesium is an unreliable proxy; RBC magnesium is meaningful</td>
+        <td class="optimal">5.6&#8211;6.8 mg/dL (RBC)</td>
+        <td>Medium</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="content-section">
+  <h2>Tier 3 &#8212; Specialist Markers</h2>
+
+  <div class="tier-header">
+    <div class="tier-number">03</div>
+    <div>
+      <div class="tier-info-title">Advanced insight with a specific hypothesis</div>
+      <div class="tier-info-sub">For targeted investigation or comprehensive annual panels</div>
+    </div>
+  </div>
+
+  <p>These markers are valuable &#8212; but only once you have context from Tiers 1 and 2. They answer specific questions about cardiovascular risk architecture, inflammatory pathways, and metabolic function that the foundation markers can&#8217;t resolve on their own.</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>When to add it</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/nmr-lipoprofile">NMR LipoProfile</a></td>
+        <td>ApoB is elevated or you want particle size data &#8212; LDL particle number is a more granular cardiovascular risk assessment than LDL-C</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/fibrinogen">Fibrinogen</a></td>
+        <td>Clotting risk and chronic inflammation &#8212; useful when hsCRP is elevated to characterize the inflammatory picture further</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/cystatin-c">Cystatin-C</a></td>
+        <td>Superior kidney function marker &#8212; less affected by muscle mass than creatinine; use when eGFR sits in the 60&#8211;90 range</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/dhea-s">DHEA-S</a></td>
+        <td>Adrenal function and hormonal aging &#8212; declines steeply after 30; low DHEA-S correlates with accelerated biological aging</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/il-6">IL-6</a></td>
+        <td>Direct inflammatory cytokine &#8212; add when hsCRP is persistently elevated and you want to characterize the inflammatory source</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/lp-pla2">Lp-PLA2</a></td>
+        <td>Vascular-specific inflammation marker &#8212; high cardiovascular risk or family history with normal LDL-C</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/apolipoprotein-a1">ApoA1</a></td>
+        <td>HDL function proxy &#8212; more meaningful than HDL-C alone; useful when ApoB/ApoA1 ratio is needed for risk stratification</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/vitamin-b12">Vitamin B12</a></td>
+        <td>Neurological health and methylation &#8212; essential for anyone on metformin, plant-based diet, or with elevated homocysteine</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="content-section">
+  <h2>Normal vs. optimal &#8212; the ranges that matter</h2>
+  <p>The single most important thing to understand about longevity testing is that standard reference ranges and longevity-optimal ranges are not the same thing. Standard labs flag values that are statistically outlying in the general population. Optimal ranges are built from a different question: what levels are associated with the lowest all-cause mortality and the best healthspan outcomes in long-lived populations?</p>
+  <p>A few examples where the gap is clinically meaningful:</p>
+
+  <table class="marker-table">
+    <thead>
+      <tr><th>Marker</th><th>Standard &#8220;normal&#8221;</th><th>Longevity-optimal</th><th>Why it matters</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="/biomarkers/hba1c">HbA1c</a></td>
+        <td>Below 5.7%</td>
+        <td class="optimal">4.8&#8211;5.4%</td>
+        <td>Metabolic disease is well underway at 5.6%</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a></td>
+        <td>Below 25 &#956;IU/mL</td>
+        <td class="optimal">Below 6 &#956;IU/mL</td>
+        <td>Insulin resistance begins well below the &#8220;normal&#8221; ceiling</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/hscrp">hsCRP</a></td>
+        <td>Below 3.0 mg/L</td>
+        <td class="optimal">Below 1.0 mg/L</td>
+        <td>Cardiovascular risk rises meaningfully above 1.0</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/vitamin-d">Vitamin D</a></td>
+        <td>Above 20 ng/mL</td>
+        <td class="optimal">50&#8211;80 ng/mL</td>
+        <td>Most longevity-associated benefits appear above 50</td>
+      </tr>
+      <tr>
+        <td><a href="/biomarkers/homocysteine">Homocysteine</a></td>
+        <td>Below 15 &#956;mol/L</td>
+        <td class="optimal">Below 10 &#956;mol/L</td>
+        <td>Vascular and cognitive risk begins rising above 10</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>This is why uploading results to a tool that uses longevity-optimal ranges &#8212; rather than lab reference ranges &#8212; materially changes what you see. A standard lipid report might tell you everything is normal. A longevity-optimized analysis of the same data might flag elevated ApoB, borderline insulin resistance, and suboptimal Vitamin D simultaneously.</p>
+</div>
+
+<div class="content-section">
+  <h2>How to order your panel</h2>
+  <p>You have two primary options depending on what level of oversight you want built in.</p>
+
+  <div class="order-cards">
+    <div class="order-card featured">
+      <div class="order-card-title">Ulta Lab Tests &#8212; Best value, most flexibility</div>
+      <div class="order-card-desc">Order any individual marker &#224; la carte or use their bundled longevity panels. No doctor required. Results in 24&#8211;48 hours at Quest Diagnostics. The right choice if you want to control exactly what you test and when. From $9 per marker; comprehensive panels $99&#8211;$199.</div>
+      <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="order-card-cta">Order Tests &#8594;</a>
+    </div>
+    <div class="order-card">
+      <div class="order-card-title">Superpower &#8212; Full service with physician oversight</div>
+      <div class="order-card-desc">Annual subscription that includes 100+ biomarkers, physician review of results, trend tracking, and a personalized protocol. The right choice if you want professional guidance built in. $199/year.</div>
+      <a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored" class="order-card-cta secondary">Learn More &#8594;</a>
+    </div>
+  </div>
+
+  <p>For most people starting out, the practical approach is to order Tier 1 markers through Ulta &#8212; either as a bundle or individually &#8212; get a baseline, and use the AgelessLabs AI tool to interpret the results. If you find markers outside optimal range and want ongoing physician-guided management, Superpower is a natural next step.</p>
+  <p>See the full breakdown of both services (plus InsideTracker and Function Health) in the <a href="/reviews/ulta-lab-tests">Ulta Lab Tests review</a>.</p>
+</div>
+
+<div class="content-section">
+  <h2>How often to test</h2>
+
+  <div class="frequency-grid">
+    <div class="frequency-cell">
+      <div class="frequency-cell-timing">Once in a lifetime</div>
+      <div class="frequency-cell-title">Lp(a)</div>
+      <div class="frequency-cell-desc">Genetically determined &#8212; doesn&#8217;t change with lifestyle. Order once to know your baseline cardiovascular risk architecture.</div>
+    </div>
+    <div class="frequency-cell">
+      <div class="frequency-cell-timing">Annually</div>
+      <div class="frequency-cell-title">Full Tier 1 panel</div>
+      <div class="frequency-cell-desc">ApoB, HbA1c, hsCRP, Vitamin D, lipids, TSH, CBC, CMP. Annual cadence once markers are stable in optimal ranges.</div>
+    </div>
+    <div class="frequency-cell">
+      <div class="frequency-cell-timing">Every 3&#8211;6 months</div>
+      <div class="frequency-cell-title">During active intervention</div>
+      <div class="frequency-cell-desc">If you&#8217;re supplementing for Vitamin D deficiency, adjusting diet for insulin resistance, or on a statin &#8212; retest the specific marker you&#8217;re targeting to assess response.</div>
+    </div>
+  </div>
+
+  <p>The most valuable thing about longitudinal testing isn&#8217;t any single result &#8212; it&#8217;s the trajectory. ApoB trending from 95 to 82 mg/dL over two years tells a completely different story than a single value of 88. Build a record, and the data becomes increasingly useful over time.</p>
+</div>
+
+<div class="page-tool-cta">
+  <div>
+    <h3>Already have results? Analyze them here.</h3>
+    <p>Upload or paste your lab results and get a full longevity analysis in 60 seconds &#8212; every marker scored against optimal ranges, prioritized for action.</p>
+  </div>
+  <a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+  <h2>Frequently asked questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What&#8217;s the difference between a standard blood panel and a longevity panel?</div>
+      <div class="faq-answer">A standard panel detects existing disease against population-based reference ranges. A longevity panel uses tighter optimal ranges and includes markers like <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/fasting-insulin">fasting insulin</a>, and <a href="/biomarkers/homocysteine">homocysteine</a> that standard care routinely skips. The goal is identifying trajectory &#8212; where you&#8217;re headed over years or decades &#8212; not just current disease state.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What blood tests do doctors skip that matter most for longevity?</div>
+      <div class="faq-answer">The most important omissions from standard primary care: <a href="/biomarkers/apob">ApoB</a> (superior to LDL for cardiovascular risk), <a href="/biomarkers/lipoprotein-a">Lp(a)</a> (genetic risk factor present in 1 in 5 adults), <a href="/biomarkers/fasting-insulin">fasting insulin</a> (earliest marker of insulin resistance), <a href="/biomarkers/homocysteine">homocysteine</a> (cardiovascular and cognitive risk), <a href="/biomarkers/hscrp">hsCRP</a> (the sensitive version standard panels don&#8217;t use), and <a href="/biomarkers/vitamin-d">Vitamin D</a> (deficiency is extremely common and rarely tested proactively).</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What&#8217;s the difference between &#8220;normal&#8221; and &#8220;optimal&#8221; ranges?</div>
+      <div class="faq-answer">Standard reference ranges flag statistical outliers in the general population, which includes many people with early metabolic disease. Optimal ranges are derived from centenarian studies and cardiovascular outcomes research. For example: standard HbA1c flags anything above 5.7% as prediabetic. Longevity-optimal HbA1c is below 5.4%. The difference between &#8220;not yet diabetic&#8221; and &#8220;genuinely metabolically healthy&#8221; lives in that gap.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">How often should I get a longevity blood panel?</div>
+      <div class="faq-answer">Annual testing for a healthy adult with no active interventions. If you&#8217;re managing a specific marker &#8212; supplementing for Vitamin D deficiency, adjusting diet for insulin resistance &#8212; retest that specific marker at 3&#8211;6 months to measure response. Lp(a) only needs to be ordered once; it&#8217;s genetically determined and doesn&#8217;t change meaningfully with lifestyle.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">Do I need a doctor to order these tests?</div>
+      <div class="faq-answer">No. Direct-to-consumer services like <a href="/reviews/ulta-lab-tests">Ulta Lab Tests</a> allow any adult to order any of these markers without a physician&#8217;s referral. You pay online, visit a Quest Diagnostics draw site, and get results in 24&#8211;48 hours. Not available in New York, New Jersey, Rhode Island, or Hawaii.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">What should I do with my results once I have them?</div>
+      <div class="faq-answer">Upload them to the <a href="/analyze">AgelessLabs AI tool</a>. It scores every marker against longevity-optimal ranges, identifies patterns across your full panel, and prioritizes what to address first. For any marker outside optimal range, the <a href="/biomarkers">biomarker library</a> has detailed pages on what the research shows, what interventions are evidence-backed, and how long it typically takes to retest.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggleFaq(el) {
+  const answer = el.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  document.querySelectorAll('.faq-answer.open').forEach(a => {
+    a.classList.remove('open');
+    a.previousElementSibling.classList.remove('open');
+  });
+  if (!isOpen) {
+    answer.classList.add('open');
+    el.classList.add('open');
+  }
+}
+</script>
