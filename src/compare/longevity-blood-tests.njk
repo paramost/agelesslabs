@@ -1,0 +1,517 @@
+---
+layout: base.njk
+title: "Best Longevity Blood Tests (2026): Full Comparison | AgelessLabs"
+permalink: /compare/longevity-blood-tests/index.html
+description: "Side-by-side comparison of the best longevity blood testing services in 2026 — Superpower, Function Health, InsideTracker, OneTwenty, Marek Health, and Ulta Lab Tests. Pricing, biomarkers, and who each is right for."
+---
+
+<style>
+.guide-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.guide-hero .page-eyebrow { margin-bottom: 20px; }
+.guide-hero h1 { margin-bottom: 16px; }
+.guide-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.guide-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.guide-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.guide-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.at-a-glance { overflow-x: auto; margin-bottom: 40px; }
+.glance-table { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 680px; }
+.glance-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); white-space: nowrap; }
+.glance-table td { padding: 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.5; }
+.glance-table td:first-child { color: var(--white); font-weight: 600; white-space: nowrap; }
+.glance-table tr:last-child td { border-bottom: none; }
+.glance-table tr:hover td { background: rgba(181,201,160,0.02); }
+.glance-table .price { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--green); white-space: nowrap; }
+.glance-table .best-for { font-size: 12px; }
+.check { color: var(--green); font-family: 'DM Mono', monospace; }
+.cross { color: #e07070; font-family: 'DM Mono', monospace; }
+.partial { color: var(--gold); font-family: 'DM Mono', monospace; }
+
+.provider-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 28px; margin-bottom: 3px; }
+.provider-card.featured { border-color: rgba(181,201,160,0.25); }
+.provider-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 16px; gap: 16px; flex-wrap: wrap; }
+.provider-name { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 4px; }
+.provider-tagline { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); }
+.provider-price { text-align: right; flex-shrink: 0; }
+.provider-price-number { font-family: 'DM Mono', monospace; font-size: 22px; font-weight: 700; color: var(--green); line-height: 1; }
+.provider-price-label { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.provider-body { font-size: 14px; color: var(--text-dim); line-height: 1.75; margin-bottom: 16px; font-weight: 400; }
+.provider-specs { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 18px; }
+.provider-spec { font-size: 12px; color: var(--text-dim); }
+.provider-spec strong { color: var(--white); font-weight: 600; display: block; font-size: 13px; margin-bottom: 2px; }
+.provider-cta { display: inline-block; padding: 10px 20px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; transition: all 0.2s; margin-right: 8px; }
+.provider-cta:hover { background: var(--green-bright); transform: translateY(-1px); border-bottom: none; }
+.provider-cta.secondary { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.provider-cta.secondary:hover { border-color: rgba(181,201,160,0.3); color: var(--white); background: transparent; }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+.callout a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.3); }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.verdict-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.verdict-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px; }
+.verdict-cell-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+.verdict-cell-winner { font-size: 15px; font-weight: 600; color: var(--green); letter-spacing: -0.01em; margin-bottom: 6px; }
+.verdict-cell-reason { font-size: 13px; color: var(--text-dim); line-height: 1.6; font-weight: 400; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+@media (max-width: 700px) {
+.verdict-grid { grid-template-columns: 1fr; }
+.page-tool-cta { grid-template-columns: 1fr; }
+.provider-header { flex-direction: column; }
+.provider-price { text-align: left; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Article",
+"headline": "Best Longevity Blood Tests (2026): Full Comparison",
+"description": "Side-by-side comparison of the best longevity blood testing services in 2026 — Superpower, Function Health, InsideTracker, OneTwenty, Marek Health, and Ulta Lab Tests.",
+"author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"datePublished": "2026-05-29",
+"dateModified": "2026-05-29"
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "What is the best blood test for longevity?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "The best longevity blood test depends on what you need. For the most comprehensive single panel with the lowest price, Superpower at $199/year covers the longevity fundamentals including ApoB, full hormone panel, thyroid, inflammatory markers, and nutritional status. For twice-yearly testing with cancer markers and heavy metals, Function Health at $365/year is the strongest option. For à la carte testing without an annual subscription, Ulta Lab Tests lets you order exactly the markers you need at any frequency. InsideTracker is best for athletic performance optimization with DNA integration. OneTwenty is a newer platform built around quarterly testing plus AI coaching, wearable integration, and prescription access."
+}
+},
+{
+"@type": "Question",
+"name": "How much does a comprehensive longevity blood test cost?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Annual subscription services range from $199 (Superpower) to $365 (Function Health) to $499 (InsideTracker Ultimate, OneTwenty). À la carte testing through Ulta Lab Tests can cover the same longevity markers for $150 to $300 depending on which panels you select, with no annual commitment. Marek Health is a different category — a clinical optimization service with physician oversight where testing is bundled with consultation fees, starting around $450 per panel."
+}
+},
+{
+"@type": "Question",
+"name": "Is Function Health or Superpower better?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Superpower is better if you want the longevity fundamentals at the lowest price ($199/year, one annual draw). Function Health is better if you need twice-yearly testing, cancer markers, heavy metals, or the broadest marker coverage available ($365/year, two draws, 160+ directly measured biomarkers). For a first comprehensive baseline, Superpower is the right entry point. For active health management or tracking interventions across the year, Function's second draw justifies the price difference."
+}
+},
+{
+"@type": "Question",
+"name": "What is OneTwenty Health?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "OneTwenty (formerly Outlive.bio) is a health optimization platform that combines quarterly biomarker testing with AI health coaching, wearable data integration, and prescription access through affiliated physicians. At $499/year it is the most integrated option in this comparison — less a pure testing service and more a continuous care system. It is in beta as of mid-2026, with full launch expected in July 2026. Not available in all states."
+}
+},
+{
+"@type": "Question",
+"name": "Can I do a longevity blood test without a doctor?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes. All of the services in this comparison — Superpower, Function Health, InsideTracker, OneTwenty, and Ulta Lab Tests — allow adults to order longevity biomarker panels directly without a physician referral. You purchase online, visit a lab draw site (typically Quest Diagnostics or LabCorp), and receive results through the service's platform. Most are not available in New York, New Jersey, or Rhode Island due to state regulations on direct-to-consumer lab testing."
+}
+},
+{
+"@type": "Question",
+"name": "What biomarkers matter most for longevity?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "The markers with the strongest evidence for predicting healthspan and lifespan outcomes are: ApoB (atherogenic particle count, superior to LDL-C for cardiovascular risk), Lp(a) (genetically determined cardiovascular risk — order once), fasting insulin (earliest signal of insulin resistance, years before HbA1c moves), hsCRP (systemic inflammation and cardiovascular risk), homocysteine (cardiovascular and cognitive risk, directly modifiable with B vitamins), Vitamin D (deficiency associated with cardiovascular disease, cancer, and all-cause mortality), and a full hormone panel including thyroid. These are consistently absent from standard annual bloodwork."
+}
+}
+]
+}
+</script>
+
+<section class="guide-hero">
+<div class="page-eyebrow">Comparison</div>
+<h1>Best longevity blood tests<br>&#8212; <em>2026 full comparison.</em></h1>
+<p class="guide-hero-sub">Six services, one honest breakdown. Superpower, Function Health, InsideTracker, OneTwenty, Marek Health, and Ulta Lab Tests &#8212; what each costs, what you actually get, and who each one is right for.</p>
+</section>
+
+<div class="guide-meta">
+<div class="guide-meta-item">Updated <span>May 2026</span></div>
+<div class="guide-meta-item">Reading time <span>~10 min</span></div>
+<div class="guide-meta-item">Affiliate <span>Disclosed</span></div>
+</div>
+
+<div class="content-section">
+<h2>At a glance</h2>
+<p>The direct-to-consumer biomarker testing market has consolidated around a handful of meaningful options. The table below covers the six services worth considering in 2026 &#8212; organized by what they are and what they cost.</p>
+
+<div class="at-a-glance">
+<table class="glance-table">
+<thead>
+<tr>
+<th>Service</th>
+<th>Price</th>
+<th>Draws/yr</th>
+<th>Biomarkers</th>
+<th>ApoB</th>
+<th>Lp(a)</th>
+<th>Cancer mkrs</th>
+<th>Rx access</th>
+<th>Best for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Superpower</td>
+<td class="price">$199/yr</td>
+<td>1</td>
+<td>100+ (150 w/ratios)</td>
+<td class="check">&#10003;</td>
+<td class="partial">Add-on</td>
+<td class="cross">&#10007;</td>
+<td class="cross">&#10007;</td>
+<td class="best-for">Entry-level longevity baseline</td>
+</tr>
+<tr>
+<td>Function Health</td>
+<td class="price">$365/yr</td>
+<td>2</td>
+<td>160+</td>
+<td class="check">&#10003;</td>
+<td class="check">&#10003;</td>
+<td class="check">&#10003;</td>
+<td class="cross">&#10007;</td>
+<td class="best-for">Comprehensive annual monitoring</td>
+</tr>
+<tr>
+<td>InsideTracker</td>
+<td class="price">$149&#8211;$489/yr</td>
+<td>1&#8211;2</td>
+<td>Up to 48</td>
+<td class="check">&#10003;</td>
+<td class="partial">Higher tiers</td>
+<td class="cross">&#10007;</td>
+<td class="cross">&#10007;</td>
+<td class="best-for">Athletic optimization + DNA</td>
+</tr>
+<tr>
+<td>OneTwenty</td>
+<td class="price">$499/yr</td>
+<td>4 (quarterly)</td>
+<td>78 baseline + targeted</td>
+<td class="check">&#10003;</td>
+<td class="partial">Selected panels</td>
+<td class="cross">&#10007;</td>
+<td class="check">&#10003;</td>
+<td class="best-for">Continuous care + coaching</td>
+</tr>
+<tr>
+<td>Marek Health</td>
+<td class="price">$450&#8211;$2,000/draw</td>
+<td>As needed</td>
+<td>65&#8211;100+ per tier</td>
+<td class="check">&#10003;</td>
+<td class="check">&#10003;</td>
+<td class="cross">&#10007;</td>
+<td class="check">&#10003;</td>
+<td class="best-for">Clinical optimization + TRT</td>
+</tr>
+<tr>
+<td>Ulta Lab Tests</td>
+<td class="price">&#192; la carte</td>
+<td>Unlimited</td>
+<td>Any combination</td>
+<td class="check">&#10003;</td>
+<td class="check">&#10003;</td>
+<td class="partial">Selected tests</td>
+<td class="cross">&#10007;</td>
+<td class="best-for">Custom panels, max flexibility</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="callout">
+<div class="callout-label">Affiliate disclosure</div>
+<p>AgelessLabs has affiliate relationships with <a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored">Superpower</a> and <a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored">Ulta Lab Tests</a>. We may earn a commission if you purchase through those links &#8212; at no additional cost to you. All assessments reflect our independent analysis.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>The services, in depth</h2>
+
+<div class="provider-card featured">
+<div class="provider-header">
+<div>
+<div class="provider-name">Superpower</div>
+<div class="provider-tagline">Best entry-level longevity panel</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">$199</div>
+<div class="provider-price-label">/ year · 1 draw</div>
+</div>
+</div>
+<p class="provider-body">Superpower covers the longevity fundamentals &#8212; <a href="/biomarkers/apob">ApoB</a>, full hormone panel (testosterone, estradiol, DHEA-S, SHBG), thyroid (TSH + free T3/T4), inflammatory markers (<a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>), nutritional status (<a href="/biomarkers/vitamin-d">Vitamin D</a>, B12, <a href="/biomarkers/ferritin">ferritin</a>), and complete metabolic and CBC panels &#8212; at the lowest price in the market. The AI dashboard is polished, results come with plain-language explanations, and the biological age score gives you a concrete number to optimize toward. One honest caveat: some of the advertised &#8220;100+ biomarkers&#8221; include algorithmically derived ratios rather than direct measurements &#8212; the subject of a pending lawsuit filed by Function Health in January 2026. <a href="/biomarkers/lipoprotein-a">Lp(a)</a> and omega-3 index require add-ons.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>1</strong>Annual draws</div>
+<div class="provider-spec"><strong>100+</strong>Biomarkers (150 w/ratios)</div>
+<div class="provider-spec"><strong>3,000+</strong>Quest draw locations</div>
+<div class="provider-spec"><strong>NY/NJ</strong>$399/yr</div>
+</div>
+<a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored" class="provider-cta">Get Started &#8594;</a>
+<a href="/reviews/superpower-health" class="provider-cta secondary">Full Review &#8594;</a>
+</div>
+
+<div class="provider-card">
+<div class="provider-header">
+<div>
+<div class="provider-name">Function Health</div>
+<div class="provider-tagline">Best comprehensive panel for active management</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">$365</div>
+<div class="provider-price-label">/ year · 2 draws</div>
+</div>
+</div>
+<p class="provider-body">Function Health is the most thorough consumer biomarker service at a non-concierge price. Two annual draws, 160+ directly measured markers, cancer screening markers (PSA, CEA, AFP, CA-125), heavy metals (lead, mercury, arsenic), ANA autoimmune screen, and <a href="/biomarkers/lipoprotein-a">Lp(a)</a> and <a href="/biomarkers/omega-3-index">omega-3 index</a> included in the base panel. The twice-yearly cadence is the key differentiator &#8212; the only service in this price range that enables a test-intervene-retest loop within a single membership year. Trade-offs: no historical lab import, the AI protocol builder is newer than Superpower&#8217;s, and there is no home draw option. Founded by Dr. Mark Hyman and backed by $298M in Series B funding.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>2</strong>Annual draws</div>
+<div class="provider-spec"><strong>160+</strong>Direct biomarkers</div>
+<div class="provider-spec"><strong>$365</strong>Reduced from $499</div>
+<div class="provider-spec"><strong>NY/NJ/RI</strong>Not available</div>
+</div>
+<a href="https://functionhealth.com" target="_blank" rel="noopener" class="provider-cta secondary">Visit Function Health &#8594;</a>
+<a href="/reviews/function-health" class="provider-cta secondary">Full Review &#8594;</a>
+</div>
+
+<div class="provider-card">
+<div class="provider-header">
+<div>
+<div class="provider-name">InsideTracker</div>
+<div class="provider-tagline">Best for athletic optimization and DNA integration</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">$149&#8211;$489</div>
+<div class="provider-price-label">/ year · varies by tier</div>
+</div>
+</div>
+<p class="provider-body">InsideTracker, founded in 2009 by researchers from MIT and Tufts University, was the original direct-to-consumer biomarker platform. Its differentiation today lies in DNA integration (genetic testing layered with blood data), wearable sync (Apple Watch and others), and a legacy of longevity science credibility. The marker breadth is narrower than Function or Superpower &#8212; up to 48 biomarkers on the Ultimate tier &#8212; but the action plan quality and InnerAge biological age calculation are well-regarded. Pricing is tiered and adds up quickly: the $149/year membership covers platform access only; actual testing runs $340&#8211;$489 additional depending on panel. Total annual cost for a serious user is $489&#8211;$638.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>Up to 48</strong>Biomarkers (Ultimate)</div>
+<div class="provider-spec"><strong>$489+</strong>Total cost with testing</div>
+<div class="provider-spec"><strong>DNA add-on</strong>Available</div>
+<div class="provider-spec"><strong>Wearables</strong>Apple Watch + others</div>
+</div>
+<a href="https://insidetracker.com" target="_blank" rel="noopener" class="provider-cta secondary">Visit InsideTracker &#8594;</a>
+</div>
+
+<div class="provider-card">
+<div class="provider-header">
+<div>
+<div class="provider-name">OneTwenty</div>
+<div class="provider-tagline">Best continuous care system (beta)</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">$499</div>
+<div class="provider-price-label">/ year · quarterly draws</div>
+</div>
+</div>
+<p class="provider-body">OneTwenty (formerly Outlive.bio) is the most integrated option in this comparison &#8212; less a pure testing service and more a continuous health optimization system. The $499/year Core membership includes quarterly biomarker testing (78 markers at baseline, then 20&#8211;40 targeted markers every 90 days), AI health coaching, wearable data integration (syncing continuous signals from Oura, Whoop, Apple Watch), and access to affiliated physicians who can prescribe when warranted. It is currently in beta, with full launch expected July 2026. The quarterly testing cadence is meaningful: it&#8217;s the only service that enables rapid intervention tracking. Trade-offs: newer platform with less track record, beta-stage product polish, and prescription access varies by state.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>4</strong>Quarterly draws</div>
+<div class="provider-spec"><strong>78 baseline</strong>+ targeted markers</div>
+<div class="provider-spec"><strong>Rx access</strong>Via affiliated physicians</div>
+<div class="provider-spec"><strong>Beta</strong>Full launch July 2026</div>
+</div>
+<a href="https://onetwenty.com" target="_blank" rel="noopener" class="provider-cta secondary">Visit OneTwenty &#8594;</a>
+</div>
+
+<div class="provider-card">
+<div class="provider-header">
+<div>
+<div class="provider-name">Marek Health</div>
+<div class="provider-tagline">Best for clinical optimization with physician oversight</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">$450&#8211;$2,000</div>
+<div class="provider-price-label">/ draw · à la carte</div>
+</div>
+</div>
+<p class="provider-body">Marek Health is a different category from the services above &#8212; a telehealth clinical optimization practice, not a pure testing subscription. Founded by Derek from More Plates More Dates on the premise that you cannot optimize what you do not measure, Marek pairs comprehensive LabCorp panels with physician and health coach oversight and the ability to prescribe treatments (TRT, peptides, GLP-1s, thyroid, and more). Four panel tiers: Base ($250), Comprehensive ($450), Complete ($850), and Executive ($2,000). A key technical differentiator: Marek uses LC/MS (liquid chromatography-mass spectrometry) for testosterone and estradiol &#8212; significantly more accurate than standard immunoassays, particularly important for women and anyone on hormone therapy. Annual costs for a managed patient easily reach $1,000&#8211;$2,500 between panels and consultation fees. Right for someone who wants a clinician actively managing their optimization protocol. Not the right fit if you just want data.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>On-demand</strong>No annual commitment</div>
+<div class="provider-spec"><strong>LC/MS</strong>Higher-accuracy hormones</div>
+<div class="provider-spec"><strong>Rx access</strong>TRT, peptides, GLP-1</div>
+<div class="provider-spec"><strong>47 states</strong>Not NY/NJ/RI</div>
+</div>
+<a href="https://marekhealth.com" target="_blank" rel="noopener" class="provider-cta secondary">Visit Marek Health &#8594;</a>
+</div>
+
+<div class="provider-card featured">
+<div class="provider-header">
+<div>
+<div class="provider-name">Ulta Lab Tests</div>
+<div class="provider-tagline">Best for custom panels and maximum flexibility</div>
+</div>
+<div class="provider-price">
+<div class="provider-price-number">À la carte</div>
+<div class="provider-price-label">From $9/marker</div>
+</div>
+</div>
+<p class="provider-body">Ulta Lab Tests is the direct-to-consumer ordering platform &#8212; not a subscription, not a curated panel, not an interpretation service. You choose exactly which markers to test, pay per marker or panel, and get results from Quest Diagnostics in 24&#8211;48 hours. A comprehensive longevity panel covering all the markers that matter &#8212; <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a>, <a href="/biomarkers/fasting-insulin">fasting insulin</a>, full hormone panel, thyroid, inflammatory markers, and nutritional status &#8212; runs $150&#8211;$300 depending on selection. The right choice if you want to test more than once per year, if you already know which specific markers you need, or if you want to verify results from another service. No dashboard, no biological age score, no protocol &#8212; raw results delivered to you. Use our <a href="/analyze">AI tool</a> to interpret them.</p>
+<div class="provider-specs">
+<div class="provider-spec"><strong>Unlimited</strong>Test as often as needed</div>
+<div class="provider-spec"><strong>Full control</strong>Choose any markers</div>
+<div class="provider-spec"><strong>24&#8211;48 hrs</strong>Results turnaround</div>
+<div class="provider-spec"><strong>HSA/FSA</strong>Eligible</div>
+</div>
+<a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="provider-cta">Order Tests &#8594;</a>
+<a href="/reviews/ulta-lab-tests" class="provider-cta secondary">Full Review &#8594;</a>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Which service wins by category</h2>
+
+<div class="verdict-grid">
+<div class="verdict-cell">
+<div class="verdict-cell-label">Best overall value</div>
+<div class="verdict-cell-winner">Superpower &#8212; $199/yr</div>
+<div class="verdict-cell-reason">Covers the longevity fundamentals at the lowest annual price. Right for most people starting a biomarker practice.</div>
+</div>
+<div class="verdict-cell">
+<div class="verdict-cell-label">Most comprehensive panel</div>
+<div class="verdict-cell-winner">Function Health &#8212; $365/yr</div>
+<div class="verdict-cell-reason">160+ directly measured markers, two annual draws, cancer markers, heavy metals. Nothing else competes at this price.</div>
+</div>
+<div class="verdict-cell">
+<div class="verdict-cell-label">Best for tracking interventions</div>
+<div class="verdict-cell-winner">OneTwenty &#8212; $499/yr</div>
+<div class="verdict-cell-reason">Quarterly draws enable rapid intervention feedback. Function Health's two draws are the runner-up for this use case.</div>
+</div>
+<div class="verdict-cell">
+<div class="verdict-cell-label">Best for athletic performance</div>
+<div class="verdict-cell-winner">InsideTracker &#8212; $489+/yr</div>
+<div class="verdict-cell-reason">DNA integration, wearable sync, and a longevity science pedigree built around performance optimization.</div>
+</div>
+<div class="verdict-cell">
+<div class="verdict-cell-label">Best clinical oversight</div>
+<div class="verdict-cell-winner">Marek Health &#8212; $450+/draw</div>
+<div class="verdict-cell-reason">The only option with genuine physician management, LC/MS hormone accuracy, and prescription access. Costs accordingly.</div>
+</div>
+<div class="verdict-cell">
+<div class="verdict-cell-label">Best for custom or frequent testing</div>
+<div class="verdict-cell-winner">Ulta Lab Tests &#8212; à la carte</div>
+<div class="verdict-cell-reason">No subscription, no dashboard, no guesswork. Order exactly what you need, as often as you need it.</div>
+</div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>How to choose</h2>
+
+<h3>Start here if you&#8217;ve never done comprehensive testing</h3>
+<p><strong>Superpower at $199/year</strong> is the right entry point for most people in this situation. It covers the markers that matter most for longevity &#8212; <a href="/biomarkers/apob">ApoB</a>, full hormone panel, thyroid, inflammatory markers, nutritional status &#8212; at a price that makes it easy to commit. The biological age score and polished dashboard make results easy to act on. You can always upgrade to Function Health after you have a baseline and understand what you want to track more closely.</p>
+
+<h3>Choose Function Health if you&#8217;re actively managing your health</h3>
+<p>The twice-yearly draw is what separates Function from everything in its price range. If you&#8217;re working on a specific cardiovascular marker, adjusting hormone protocols, or supplementing based on deficiencies, the mid-year retest is the only way to know whether anything worked within a single year. Function also belongs at the top of the list for anyone who wants cancer marker screening or heavy metal testing as part of their annual workup.</p>
+
+<h3>Choose OneTwenty if you want a full system, not just data</h3>
+<p>OneTwenty is built around the idea that testing alone isn&#8217;t enough &#8212; what matters is continuous feedback and guided action. If you want quarterly testing, AI coaching that integrates your wearable data, and physician access for prescription optimization, OneTwenty is the most complete product in this space. The caveat is that it&#8217;s still in beta as of mid-2026, and newer platforms carry product maturity risk.</p>
+
+<h3>Choose InsideTracker if you&#8217;re performance-focused</h3>
+<p>InsideTracker&#8217;s strengths are its athletic performance orientation, its DNA add-on (which layers genetic data with blood results for more personalized recommendations), and its wearable integrations. If you&#8217;re training seriously and want a platform built around performance optimization rather than longevity risk reduction, InsideTracker is the best fit. Be aware that the total annual cost including testing is $489&#8211;$638 &#8212; higher than the membership price alone suggests.</p>
+
+<h3>Choose Marek Health if you want clinical management, not just data</h3>
+<p>Marek Health is for someone who wants a physician actively involved in interpreting results and prescribing protocols &#8212; TRT, peptides, thyroid optimization, or GLP-1 weight management. The testing panels are excellent and the LC/MS hormone methodology is more accurate than what subscription services use. But the annual cost is substantially higher, and the model works best for someone already committed to an active optimization protocol.</p>
+
+<h3>Use Ulta Lab Tests for flexibility and frequency</h3>
+<p>If you already know which markers you want, if you need to test more than twice per year, or if you want to verify specific results from another service, Ulta Lab Tests is the right tool. There is no dashboard or interpretation layer &#8212; results come raw. Pair it with our <a href="/analyze">AI biomarker interpreter</a> to get longevity-optimal range analysis on whatever you order.</p>
+
+<div class="warning-callout">
+<div class="warning-callout-label">State availability</div>
+<p>Most of these services are unavailable or priced differently in New York, New Jersey, and Rhode Island due to state regulations on direct-to-consumer lab testing. Superpower charges $399/year (vs. $199) in NY and NJ. Function Health, InsideTracker, and Ulta Lab Tests are generally not available in those states. Marek Health operates in 47 states. Confirm availability at each service&#8217;s website before purchasing.</p>
+</div>
+</div>
+
+<div class="page-tool-cta">
+<div>
+<h3>Already have results from any of these services?</h3>
+<p>Upload or paste your labs into our AI tool for a longevity analysis &#8212; every marker scored against longevity-optimal ranges, not just standard lab reference ranges. Works with results from any service.</p>
+</div>
+<a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What is the best blood test for longevity?</div>
+<div class="faq-answer">Depends on your situation. For a first comprehensive baseline at the lowest price: <a href="/reviews/superpower-health">Superpower at $199/year</a>. For the most complete panel with twice-yearly testing: <a href="/reviews/function-health">Function Health at $365/year</a>. For à la carte testing without an annual commitment: <a href="/reviews/ulta-lab-tests">Ulta Lab Tests</a>. For continuous coaching and quarterly draws: OneTwenty. The markers that matter most for longevity are <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a>, <a href="/biomarkers/fasting-insulin">fasting insulin</a>, <a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, <a href="/biomarkers/vitamin-d">Vitamin D</a>, and a full hormone and thyroid panel.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Is Function Health or Superpower better?</div>
+<div class="faq-answer">Superpower is better if you want the longevity fundamentals at the lowest price (one annual draw, $199). Function Health is better if you need twice-yearly testing, cancer markers, or heavy metal screening ($365, two draws, 160+ directly measured biomarkers). For a first draw, Superpower. For active health management, Function. See the full <a href="/reviews/function-health">Function Health review</a> and <a href="/reviews/superpower-health">Superpower review</a> for the detailed comparison.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">How much does a comprehensive longevity blood test cost?</div>
+<div class="faq-answer">Annual subscriptions range from $199 (Superpower) to $365 (Function Health) to $499 (InsideTracker Ultimate, OneTwenty). À la carte testing through <a href="/reviews/ulta-lab-tests">Ulta Lab Tests</a> covers the same longevity markers for $150&#8211;$300 with no annual commitment. Marek Health is in a different category &#8212; panels run $450&#8211;$2,000 plus consultation fees, suited for clinical optimization rather than self-directed testing.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What is OneTwenty Health?</div>
+<div class="faq-answer">OneTwenty (formerly Outlive.bio) is a health optimization platform combining quarterly biomarker testing, AI coaching, wearable data integration, and prescription access via affiliated physicians. At $499/year it is the most integrated service in this comparison. Currently in beta, with full launch expected July 2026.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Can I do a longevity blood test without a doctor?</div>
+<div class="faq-answer">Yes. Superpower, Function Health, InsideTracker, OneTwenty, and Ulta Lab Tests all allow adults to order comprehensive biomarker panels directly without a physician referral. You purchase online, visit a Quest Diagnostics or LabCorp draw site, and receive results through the platform. Most are not available in New York, New Jersey, or Rhode Island.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What biomarkers matter most for longevity?</div>
+<div class="faq-answer">The markers with the strongest evidence for predicting healthspan outcomes: <a href="/biomarkers/apob">ApoB</a> (atherogenic particle count &#8212; superior to LDL-C), <a href="/biomarkers/lipoprotein-a">Lp(a)</a> (genetically determined cardiovascular risk &#8212; order once), <a href="/biomarkers/fasting-insulin">fasting insulin</a> (earliest signal of insulin resistance), <a href="/biomarkers/hscrp">hsCRP</a> (systemic inflammation), <a href="/biomarkers/homocysteine">homocysteine</a> (cardiovascular and cognitive risk), <a href="/biomarkers/vitamin-d">Vitamin D</a>, and a full hormone and thyroid panel. These are consistently absent from standard annual bloodwork.</div>
+</div>
+</div>
+</div>
+
+<script>
+function toggleFaq(el) {
+const answer = el.nextElementSibling;
+const isOpen = answer.classList.contains('open');
+document.querySelectorAll('.faq-answer.open').forEach(a => {
+a.classList.remove('open');
+a.previousElementSibling.classList.remove('open');
+});
+if (!isOpen) {
+answer.classList.add('open');
+el.classList.add('open');
+}
+}
+</script>
