@@ -15,7 +15,7 @@ http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 <loc>https://agelesslabs.ai{{ item.url }}</loc>
 <lastmod>{{ item.date | htmlDateString }}</lastmod>
 <changefreq>{% if item.url == '/' %}weekly{% elif '/biomarkers/' in item.url %}monthly{% else %}monthly{% endif %}</changefreq>
-<priority>{% if item.url == '/' %}1.0{% elif item.url == '/analyze/' %}0.9{% elif item.url == '/biomarkers/' %}0.9{% elif '/biomarkers/' in item.url %}0.8{% elif item.url == '/blog/' %}0.7{% elif '/blog/' in item.url %}0.7{% elif '/reviews/' in item.url %}0.7{% elif '/guides/' in item.url %}0.7{% else %}0.5{% endif %}</priority>
+<priority>{% if item.url == '/' %}1.0{% elif item.url == '/analyze/' %}0.9{% elif item.url == '/biomarkers/' %}0.9{% elif '/biomarkers/' in item.url %}0.8{% elif item.url == '/blog/' %}0.7{% elif '/blog/' in item.url %}0.7{% elif '/reviews/' in item.url %}0.7{% elif '/guides/' in item.url %}0.7{% elif '/compare/' in item.url %}0.7{% else %}0.5{% endif %}</priority>
 </url>
 {%- endif %}
 {%- endfor %}
