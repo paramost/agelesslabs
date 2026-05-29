@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 29, 2026 · 11:55 PM CST
+> Last updated: May 29, 2026 · 11:59 PM CST
 
 ---
 
@@ -140,6 +140,7 @@ agelesslabs/
 - **sitemap.njk** uses a single `collections.all` loop — never add hardcoded `<url>` blocks inside or outside the loop; they will be multiplied or duplicated
 - **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`, `/longevity-lab-guide/`
 - **Guides and reviews index pages** do NOT use `eleventyExcludeFromCollections: true` — they are indexed pages and should appear in the sitemap
+- **Nav dropdown** — `base.njk` has a JS-driven hover dropdown on "Reviews" with two items (All Reviews, Longevity Test Comparison). Toggle via `.nav-dropdown-toggle` button; menu opens/closes via `.nav-dropdown-menu.open` class. Close on outside click and Escape key.
 
 ### Sitemap priority rules (line 18 of sitemap.njk)
 `/` → 1.0 · `/analyze/` → 0.9 · `/biomarkers/` index → 0.9 · `/biomarkers/*` → 0.8 · `/blog/*` → 0.7 · `/reviews/*` → 0.7 · `/guides/*` → 0.7 · `/compare/*` → 0.7 · everything else → 0.5
@@ -317,6 +318,9 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 ### Phase 5.8 — Stripe Conversion Tracking — COMPLETE (May 28 2026)
 ### Phase 5.9 — Tier 2 Content — COMPLETE (May 29 2026)
 ### Phase 5.10 — Tier 2 Index Pages + Comparison Upload — COMPLETE (May 29 2026)
+### Phase 5.11 — Nav Quick-Fix — COMPLETE (May 29 2026)
+
+Desktop nav: removed "Lab Tests" anchor link, added Reviews dropdown (All Reviews + Longevity Test Comparison) and Guides. Mobile nav: added Reviews and Guides, commented out Blog placeholder. Footer: added Reviews and Guides links.
 
 **Final status:**
 
@@ -396,6 +400,20 @@ Apply AgelessLabs system to a new niche.
 - **Biomarker index container bug pattern** — `<section>` tag closed with `</div>` causes the container div to close early, ejecting all subsequent content from the layout. Check rendered DOM parent of `.bmi-intro` if layout breaks.
 - **Index page updates deferred until Tier 2 complete** — reviews/index.njk and guides/index.njk intentionally not updated mid-batch; update all at once when item 7 ships.
 - **Full-replace via CodeMirror on pages with existing `---\n---\n` header** — when replacing the full content of an existing file via `view.dispatch({ changes: { from: 0, to: docLen, insert: newContent } })`, the new content's own `---\n---\n` prepends to the existing one, creating three `---` delimiters. The fix: new content to inject should start with just `---\nlayout:...` (single opening delimiter), not `---\n---\n`. Alternatively, strip the leading `---\n` from the target file first.
+
+---
+
+## Near-Future Enhancements
+
+Items to build in future sessions. Not yet prioritized or scheduled.
+
+| # | Enhancement | Notes |
+|---|---|---|
+| 1 | Content freshness schedule | Regular review cadence, update triggers, SEO/LLM freshness signals. If a page has a meaningful update, that's a content event worth capturing. |
+| 2 | News section vs. page-level updates | Decision pending. Lean toward updating existing pages until there's enough traffic and editorial cadence to justify a standalone news/blog section. |
+| 3 | Site search | Search box for the biomarker library and content pages. |
+| 4 | Navigation improvements | Broader pass beyond current quick-fix — clearer labeling, mobile nav refinement, potentially surfacing the AI tool more prominently. |
+| 5 | Sitewide readability review | Text, font sizes, color contrast — especially on mobile. |
 
 ---
 
