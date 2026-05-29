@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 28, 2026 · 11:30 PM CST
+> Last updated: May 29, 2026 · 11:55 PM CST
 
 ---
 
@@ -96,6 +96,18 @@ agelesslabs/
     │   └── [66 .njk files]   # All live and indexed — see wave breakdown below
     ├── blog/
     │   └── blog-index.njk    # Blog placeholder — 6 categories, priority post list
+    ├── guides/
+    │   ├── index.njk         # Guides index — lists all published guides
+    │   ├── best-longevity-blood-panel.njk
+    │   ├── blood-tests-men-over-40.njk
+    │   └── blood-tests-women-over-40.njk
+    ├── reviews/
+    │   ├── index.njk         # Reviews index — lists all published reviews
+    │   ├── ulta-lab-tests.njk
+    │   ├── superpower-health.njk
+    │   └── function-health.njk
+    ├── compare/
+    │   └── longevity-blood-tests.njk  # 6-service comparison — live at /compare/longevity-blood-tests/
     ├── index.njk             # Homepage
     ├── about.njk             # About page
     ├── analyze.njk           # AI tool page
@@ -127,6 +139,10 @@ agelesslabs/
 - **base.njk must have `---\n---` (empty frontmatter with closing delimiter)** — a single opening `---` with no closing causes gray-matter to parse the entire HTML file as YAML, crashing the build
 - **sitemap.njk** uses a single `collections.all` loop — never add hardcoded `<url>` blocks inside or outside the loop; they will be multiplied or duplicated
 - **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`, `/longevity-lab-guide/`
+- **Guides and reviews index pages** do NOT use `eleventyExcludeFromCollections: true` — they are indexed pages and should appear in the sitemap
+
+### Sitemap priority rules (line 18 of sitemap.njk)
+`/` → 1.0 · `/analyze/` → 0.9 · `/biomarkers/` index → 0.9 · `/biomarkers/*` → 0.8 · `/blog/*` → 0.7 · `/reviews/*` → 0.7 · `/guides/*` → 0.7 · `/compare/*` → 0.7 · everything else → 0.5
 
 ### .eleventy.js Filters
 - `htmlDateString` — formats dates for sitemap.njk (ISO 8601)
@@ -227,6 +243,15 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Ulta + Superpower cards live |
 | email-thank-you.njk | Complete | Confirmation page — noindexed · live at /email-thank-you/ |
 | longevity-lab-guide.njk | Complete — May 28 2026 | Email lead magnet — noindexed · live at /longevity-lab-guide/ |
+| reviews/index.njk | Complete — May 28 2026 | Reviews index — live at /reviews/ |
+| reviews/ulta-lab-tests.njk | Complete — May 28 2026 | Live at /reviews/ulta-lab-tests/ · Review schema + FAQPage schema |
+| reviews/superpower-health.njk | Complete — May 29 2026 | Live at /reviews/superpower-health/ · Review schema + FAQPage schema · 8.2/10 |
+| reviews/function-health.njk | Complete — May 29 2026 | Live at /reviews/function-health/ · Review schema + FAQPage schema · 8.7/10 · no affiliate |
+| guides/index.njk | Complete — May 28 2026 | Guides index — live at /guides/ |
+| guides/best-longevity-blood-panel.njk | Complete — May 28 2026 | Live at /guides/best-longevity-blood-panel/ · Article + FAQPage schema |
+| guides/blood-tests-men-over-40.njk | Complete — May 28 2026 | Live at /guides/blood-tests-men-over-40/ · Article + FAQPage schema |
+| guides/blood-tests-women-over-40.njk | Complete — May 29 2026 | Live at /guides/blood-tests-women-over-40/ · Article + FAQPage schema |
+| compare/longevity-blood-tests.njk | Complete — May 29 2026 | Live at /compare/longevity-blood-tests/ · Article + FAQPage schema · 6-service comparison |
 
 ### Biomarker Pages — Complete Library (66 pages across 9 waves)
 
@@ -289,86 +314,30 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 ## Immediate Next Steps (Resume Here)
 
 ### Phase 5.7 — Full Site Audit — COMPLETE (May 28 2026)
-
-All 4 sessions complete. Full findings and fixes:
-
-**Session 1 — Sitemap + URL health + robots meta — COMPLETE (May 27 2026)**
-
-| Issue | Fix | Status |
-|---|---|---|
-| Sitemap had 3,675 URLs (hardcoded blocks inside loop × 55 pages) | Rewrote sitemap.njk as pure dynamic loop | ✅ Fixed |
-| All 75 URLs return 200 | Zero failures | ✅ Clean |
-| GSC verification file, digest, email-thank-you in sitemap | Added URL exclusions to sitemap.njk if condition | ✅ Fixed |
-| biomarkers/index.njk lost `layout: base.njk` — full CSS failure | Restored layout declaration | ✅ Fixed |
-| bmi-hero `</section>` mismatched tag causing blank gap | Fixed to `</div>` | ✅ Fixed |
-| "66+ Biomarkers planned" stat contradicted "66 Live" | Removed redundant stat | ✅ Fixed |
-
-**Session 2 — Frontmatter audit + title tag shortening — COMPLETE (May 27 2026)**
-
-All 66 pages passed on every critical check: layout, noindex, MedicalWebPage schema, FAQPage schema, title tags, meta descriptions, robots meta, canonical tags. 57 title tags shortened to under 68 chars across 5 batches.
-
-**Session 3 — Link audit — COMPLETE (May 28 2026)**
-
-| Check | Result |
-|---|---|
-| All 66 pages have Ulta affiliate links | ✅ |
-| All 66 pages have PubMed citations | ✅ Fixed c-peptide (was missing all citations) |
-| All 66 pages have 5 related biomarker links | ✅ Fixed 15 pages across 3 batches |
-| All 66 biomarker index cards present, no broken slugs | ✅ |
-| Ulta + PubMed HTTP status | Unverifiable from automated environment (WAF blocks data center IPs) — Ulta manually spot-checked (4 links confirmed) |
-
-**Session 4 — Schema + analytics + tool/Stripe end-to-end — COMPLETE (May 28 2026)**
-
-| Check | Result |
-|---|---|
-| MedicalWebPage + FAQPage schema on biomarker pages | ✅ Confirmed live (ApoB + vitamin-c) |
-| GA4 firing — homepage, biomarker, analyze | ✅ |
-| Clarity firing — homepage, biomarker, analyze | ✅ |
-| Free analysis end-to-end | ✅ Returns score + per-marker breakdown |
-| Paid tier Stripe checkout | ✅ Redirects to checkout.stripe.com with live session |
-
-**Post-audit checks — COMPLETE (May 28 2026)**
-
-| Check | Result |
-|---|---|
-| Related link fixes verified live (omega-3-index, ferritin, c-peptide) | ✅ |
-| Email capture flow (form → MailerLite → /email-thank-you/) | ✅ All working |
-| Ulta affiliate links manual spot-check (4 links) | ✅ All resolve with affiliate attribution |
-| /get-tested page audit | ✅ Rendering, analytics, links all clean |
-| Superpower card added to /get-tested | ✅ Live — May 28 2026 |
-| Biomarker index intro card layout fixed (stray </div> closing container) | ✅ Live — May 28 2026 |
-
----
-
 ### Phase 5.8 — Stripe Conversion Tracking — COMPLETE (May 28 2026)
+### Phase 5.9 — Tier 2 Content — COMPLETE (May 29 2026)
+### Phase 5.10 — Tier 2 Index Pages + Comparison Upload — COMPLETE (May 29 2026)
 
-GA4 `purchase` event added to `src/analyze.njk` — fires immediately after `stripe-verify` returns `success: true`. Uses `sessionId` as `transaction_id` for deduplication. Event marked as key event in GA4 Admin → Events.
+**Final status:**
 
----
+| # | Page | Slug | Status |
+|---|---|---|---|
+| 1 | Ulta Lab Tests review | `/reviews/ulta-lab-tests` | ✅ Live — May 28 2026 |
+| 2 | Best longevity blood panel guide | `/guides/best-longevity-blood-panel` | ✅ Live — May 28 2026 |
+| 3 | Best blood tests for men over 40 | `/guides/blood-tests-men-over-40` | ✅ Live — May 28 2026 |
+| 4 | Best blood tests for women over 40 | `/guides/blood-tests-women-over-40` | ✅ Live — May 29 2026 |
+| 5 | Superpower Health review | `/reviews/superpower-health` | ✅ Live — May 29 2026 |
+| 6 | Function Health review | `/reviews/function-health` | ✅ Live — May 29 2026 |
+| 7 | Longevity blood test comparison | `/compare/longevity-blood-tests` | ✅ Live — May 29 2026 · no affiliate links for InsideTracker/OneTwenty/Marek pending approval |
 
-### NEXT: Tier 2 Content — Lab Test Comparison Pages
 
-**Priority Tier 2 pages:**
 
-| # | Page | Slug | Primary Affiliate | Notes |
-|---|---|---|---|---|
-| 1 | Function Health vs Superpower vs InsideTracker vs OneTwenty | `/compare/longevity-blood-tests` | Superpower + Ulta | Include OneTwenty — in every 2026 roundup |
-| 2 | Best blood tests for men over 40 | `/guides/blood-tests-men-over-40` | Ulta + Superpower | Lead with ApoB/Lp(a)/fasting insulin — what doctors skip |
-| 3 | Best blood tests for women over 40 | `/guides/blood-tests-women-over-40` | Ulta + Superpower | Lead with perimenopause angle; thyroid-mimicking-menopause is key sub-topic |
-| 4 | Ulta Lab Tests review — is it legit? | `/reviews/ulta-lab-tests` | Ulta | Address Hawaii DOH violation directly; thin competition |
-| 5 | Function Health review | `/reviews/function-health` | Ulta as alternative | High volume; drive Ulta as DIY alternative |
-| 6 | Superpower Health review | `/reviews/superpower-health` | Superpower | Fast-rising term; affiliate approved |
-| 7 | Best longevity blood panel guide | `/guides/best-longevity-blood-panel` | Ulta + Superpower | Catch-all guide; heavy Ulta integration |
-
-**Format:** 1,500–2,500 words · Review/comparison format · Intro / what's included / who it's for / pros-cons table / pricing / verdict / FAQ (5–6 Qs) / affiliate CTAs
-
-**Key research findings:**
-- OneTwenty appearing in every 2026 comparison roundup — include even without affiliate
-- Ulta review competition is weak (thin affiliate sites) — big opportunity with honest review
-- Hawaii DOH issued Ulta a violation notice (Jan 2026) for operating without authorization — address directly
-- Women over 40: "can blood tests confirm perimenopause?" is the dominant search question
-- Men over 40 differentiation: ApoB/Lp(a)/fasting insulin — what doctors routinely skip
-- Current pricing (May 2026): Superpower $199/yr · Function Health $365/yr · InsideTracker $489 entry
+**Key research captured this session:**
+- Function Health sued Superpower (Jan 2026, C.D. Cal.) over "100+ biomarkers" claim — some are algorithmically derived ratios, not direct measurements. Covered honestly in Superpower review.
+- Function Health loyalty pricing controversy: dropped $499→$365 for new members while initially keeping existing members at $499. Covered in Function review.
+- Function pricing history: launched $499 → now $365. Superpower $199 (NY/NJ: $399). InsideTracker $489 entry.
+- Function: 160+ direct markers, 2 draws/yr. Superpower: 100+ (150 w/ratios), 1 draw/yr.
+- Function raised $298M Series B at $2.5B valuation (Nov 2025). Superpower raised $30M.
 
 ---
 
@@ -396,6 +365,7 @@ Apply AgelessLabs system to a new niche.
 - **InsideTracker, OneTwenty, Marek Health affiliate applications** — follow-up emails needed, not code changes.
 - **Trademark check at USPTO.gov** — not done.
 
+
 ---
 
 ## Key Learnings & Principles
@@ -417,12 +387,15 @@ Apply AgelessLabs system to a new niche.
 - **index.njk `layout: base.njk` critical** — this declaration gets silently dropped during batch edit sessions. Always verify it's present after any batch edit to biomarkers/index.njk.
 - **Sitemap hardcoded `<url>` blocks** — must NEVER be placed inside or around the `collections.all` loop in sitemap.njk.
 - **Sitemap URL exclusions** — add unwanted pages to the `{%- if %}` condition as `and item.url != '/slug/'` rather than editing individual files.
+- **Guides and reviews index pages** — do NOT set `eleventyExcludeFromCollections: true`; these are indexed pages that should appear in the sitemap.
 - **Vitamin K2 serum testing limitation** — no consumer lab offers specific serum K2. Standard tests measure total K (predominantly K1). Functional K2 status: ucOC at specialty labs.
 - **Title tag length** — target under 68 chars total including ` | AgelessLabs`.
 - **CodeMirror title replacement pattern** — read old title line first with `doc.split('\n').find(l => l.includes('title:'))`, then use `doc.indexOf(oldLine)` to locate and replace.
 - **Ulta + PubMed HTTP verification** — both block data center IPs (403). Browser extension also blocks navigation to ultalabtests.com. Manual spot-check from a real browser is the only reliable method.
 - **checkout.stripe.com blocks browser extension navigation** — after Stripe redirect, open a new MCP tab via `tabs_create_mcp` to continue browser automation.
 - **Biomarker index container bug pattern** — `<section>` tag closed with `</div>` causes the container div to close early, ejecting all subsequent content from the layout. Check rendered DOM parent of `.bmi-intro` if layout breaks.
+- **Index page updates deferred until Tier 2 complete** — reviews/index.njk and guides/index.njk intentionally not updated mid-batch; update all at once when item 7 ships.
+- **Full-replace via CodeMirror on pages with existing `---\n---\n` header** — when replacing the full content of an existing file via `view.dispatch({ changes: { from: 0, to: docLen, insert: newContent } })`, the new content's own `---\n---\n` prepends to the existing one, creating three `---` delimiters. The fix: new content to inject should start with just `---\nlayout:...` (single opening delimiter), not `---\n---\n`. Alternatively, strip the leading `---\n` from the target file first.
 
 ---
 
@@ -496,8 +469,8 @@ One clarifying question before starting ambiguous tasks.
 #### Tier 1 — Biomarker Reference Library — COMPLETE (66 pages)
 All 66 pages complete across Waves 1–9. Do not add more biomarker pages.
 
-#### Tier 2 — Lab Test Comparison & Buyer's Guide Pages — NEXT PRIORITY
-See Tier 2 content plan in Immediate Next Steps above.
+#### Tier 2 — Lab Test Comparison & Buyer's Guide Pages — COMPLETE (7 of 7)
+All 7 pages live. InsideTracker, OneTwenty, and Marek Health links in the comparison page are non-affiliate direct links pending approval.
 
 #### Tier 3 — Protocol & Optimization Guides
 Categories: Metabolic Health, Cardiovascular, Hormonal Health, Inflammation & Immune, Nutrient Optimization.
