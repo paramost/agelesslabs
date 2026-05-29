@@ -1,0 +1,443 @@
+---
+layout: base.njk
+title: "Function Health Review (2026): Is $365/Year Worth It? | AgelessLabs"
+permalink: /reviews/function-health/index.html
+description: "An honest review of Function Health's 160+ biomarker panel. Two draws per year, cancer markers, heavy metals, and how it compares to Superpower Health and Ulta Lab Tests."
+---
+
+<style>
+.review-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.review-hero .page-eyebrow { margin-bottom: 20px; }
+.review-hero h1 { margin-bottom: 16px; }
+.review-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.review-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.review-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.review-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.verdict-banner { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.25); border-radius: 3px; padding: 28px 32px; margin-bottom: 48px; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 32px; }
+.verdict-score { text-align: center; flex-shrink: 0; }
+.verdict-score-number { font-family: 'DM Mono', monospace; font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
+.verdict-score-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+.verdict-title { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 10px; }
+.verdict-text { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.pros-cons-col { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 22px; }
+.pros-cons-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+.pros-cons-label.pros { color: var(--green); }
+.pros-cons-label.cons { color: #e07070; }
+.pros-cons-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.pros-cons-list li { font-size: 13px; color: var(--text-dim); line-height: 1.55; padding-left: 16px; position: relative; font-weight: 400; }
+.pros-cons-list li::before { position: absolute; left: 0; font-family: 'DM Mono', monospace; font-size: 11px; }
+.pros-cons-list.pros-list li::before { content: '+'; color: var(--green); }
+.pros-cons-list.cons-list li::before { content: '&#8722;'; color: #e07070; }
+
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+.compare-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.compare-table th:first-child { width: 30%; }
+.compare-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.55; }
+.compare-table td:first-child { color: var(--white); font-weight: 600; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: rgba(181,201,160,0.02); }
+.compare-table .highlight { color: var(--green); font-weight: 600; }
+.compare-table .dim { color: var(--text-muted); }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+.callout a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.3); }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.pricing-card { background: var(--bg2); border: 1px solid rgba(181,201,160,0.25); border-radius: 3px; padding: 28px; margin-bottom: 32px; }
+.pricing-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+.pricing-card-name { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+.pricing-card-price { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 700; color: var(--green); line-height: 1; }
+.pricing-card-price span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+.pricing-card-features { display: grid; gap: 8px; margin-bottom: 24px; }
+.pricing-card-feature { font-size: 13px; color: var(--text-dim); padding-left: 16px; position: relative; line-height: 1.5; font-weight: 400; }
+.pricing-card-feature::before { content: '&#8594;'; position: absolute; left: 0; color: var(--green); font-size: 11px; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+@media (max-width: 700px) {
+.verdict-banner { grid-template-columns: 1fr; }
+.verdict-score { text-align: left; }
+.pros-cons { grid-template-columns: 1fr; }
+.page-tool-cta { grid-template-columns: 1fr; }
+.pricing-card-header { flex-direction: column; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Review",
+"itemReviewed": {
+"@type": "Product",
+"name": "Function Health",
+"url": "https://functionhealth.com",
+"description": "Annual subscription biomarker testing service with 160+ markers across two annual draws, including cancer markers, heavy metals, and clinician review."
+},
+"reviewRating": {
+"@type": "Rating",
+"ratingValue": "8.7",
+"bestRating": "10",
+"worstRating": "1"
+},
+"author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"datePublished": "2026-05-29",
+"dateModified": "2026-05-29",
+"reviewBody": "Function Health is the most comprehensive subscription-based biomarker testing service currently available to consumers. At $365/year you get 160+ directly measured markers across two annual draws, including cancer screening markers, heavy metals, an autoimmune screen, and advanced lipids. The twice-yearly testing cadence is its clearest differentiator — the ability to test before and after an intervention, in a single membership year, is clinically meaningful and not available at this price anywhere else."
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Is Function Health worth it in 2026?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "For anyone serious about comprehensive biomarker monitoring, yes — particularly at the current $365/year price point (reduced from $499). Two annual draws, 160+ directly measured markers including cancer markers, heavy metals, and ANA autoimmune screen, plus a clinician review process make it the most thorough consumer biomarker service available. The honest limitations: no historical lab import, the AI-generated protocol can feel generic, and it doesn't offer customizable test selection."
+}
+},
+{
+"@type": "Question",
+"name": "How does Function Health compare to Superpower?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Function Health is $365/year with two draws and 160+ directly measured biomarkers. Superpower is $199/year with one draw and 100+ markers (including derived ratios). Function's key advantages are the twice-yearly cadence, broader marker coverage (cancer markers, heavy metals, ANA), and all measurements being directly from blood or other biological samples. Superpower's key advantages are lower price, a more polished AI chat, and the ability to import historical lab data. For anyone tracking an intervention or managing cardiovascular or hormonal health actively, Function's second draw justifies the price difference."
+}
+},
+{
+"@type": "Question",
+"name": "What biomarkers does Function Health test?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Function's panel includes 160+ directly measured markers: advanced cardiovascular (ApoB, Lp(a), NMR lipoprofile, homocysteine), full metabolic panel, sex hormones, thyroid, inflammatory markers (hsCRP, fibrinogen, IL-6), cancer screening markers (PSA, CEA, AFP, CA-125 for women), heavy metals (lead, mercury, arsenic), an ANA autoimmune screen, omega-3 index, nutritional markers, and complete CBC and CMP. The mid-year follow-up draw covers approximately 60 of the most important markers."
+}
+},
+{
+"@type": "Question",
+"name": "How much does Function Health cost?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Function Health costs $365/year as of 2026 — reduced from the original $499 launch price. The membership includes two comprehensive draws per year. HSA and FSA funds are accepted. Access is via referral link rather than promotional codes; a $25 discount is often available through referral. No home draw option is currently available — all draws are at Quest Diagnostics locations."
+}
+},
+{
+"@type": "Question",
+"name": "Is Function Health available without a doctor?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes. Function Health is a direct-to-consumer service — you sign up, schedule a blood draw at Quest Diagnostics, and receive results in your Function dashboard without a physician referral. Function does have an affiliated clinical review team that reviews flagged values; this is not the same as a personal physician relationship, but it provides a layer of medical oversight."
+}
+},
+{
+"@type": "Question",
+"name": "What states is Function Health available in?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Function Health is available in most US states. New York, New Jersey, and Rhode Island have restrictions due to state regulations on direct-to-consumer lab testing. Check functionhealth.com for current state availability."
+}
+}
+]
+}
+</script>
+
+<section class="review-hero">
+<div class="page-eyebrow">Review</div>
+<h1>Function Health review<br>&#8212; <em>the most complete panel available.</em></h1>
+<p class="review-hero-sub">At $365/year with two annual draws and 160+ directly measured biomarkers, Function Health is the most comprehensive subscription-based testing service on the market. Here&#8217;s what you actually get, what it&#8217;s worth, and when Superpower or à la carte testing is the better call.</p>
+</section>
+
+<div class="review-meta">
+<div class="review-meta-item">Updated <span>May 2026</span></div>
+<div class="review-meta-item">Reading time <span>~8 min</span></div>
+<div class="review-meta-item">Affiliate <span>None — no current affiliate relationship</span></div>
+</div>
+
+<div class="verdict-banner">
+<div>
+<div class="verdict-title">Verdict: Best comprehensive panel for active health management</div>
+<p class="verdict-text">Function Health is the most thorough consumer biomarker service available at a non-concierge price point. Two annual draws, 160+ directly measured markers, cancer screening, heavy metals, and ANA autoimmune screen set it apart from every competitor. The twice-yearly cadence is the key differentiator &#8212; the ability to baseline, intervene, and retest within a single membership year is clinically meaningful. At $365/year, it&#8217;s the right choice for anyone actively managing cardiovascular, hormonal, or metabolic health. At $199/year, Superpower is the right entry point for everyone else.</p>
+</div>
+<div class="verdict-score">
+<div class="verdict-score-number">8.7</div>
+<div class="verdict-score-label">/ 10</div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>What Function Health actually is</h2>
+<p>Function Health, co-founded by Dr. Mark Hyman and Jonathan Swerdlin and backed by $298 million in Series B financing (raised November 2025), is a direct-to-consumer biomarker testing platform built around the premise that the data underlying most serious disease begins accumulating years before diagnosis &#8212; and that consumers should be able to see it without waiting for a physician to order it.</p>
+<p>The membership includes two comprehensive blood draws per year at Quest Diagnostics locations. The first draw covers the full 100+ marker panel. The mid-year follow-up covers the roughly 60 most clinically significant markers &#8212; enough to detect meaningful changes from interventions made after the first draw. Results are delivered through a polished dashboard with per-marker explanations, flagged values, a clinician review process, and a personalized protocol. An AI-assisted protocol builder is in beta as of early 2026.</p>
+
+<div class="callout">
+<div class="callout-label">No affiliate relationship</div>
+<p>AgelessLabs does not currently have an affiliate relationship with Function Health. This review is included because it&#8217;s one of the most-searched services in our audience, and an honest comparison requires covering it. If you decide to purchase, a referral link from a current member typically unlocks $25 off.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>What&#8217;s included &#8212; the full marker breakdown</h2>
+<p>Function&#8217;s panel is the most comprehensive available at a non-concierge price. The key differentiator versus Superpower is not just volume &#8212; it&#8217;s the categories of markers that Superpower doesn&#8217;t offer at any tier:</p>
+
+<table class="compare-table">
+<thead>
+<tr><th>Category</th><th>Key markers included</th><th>vs. Superpower</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Cardiovascular</td>
+<td><a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a>, NMR lipoprofile, <a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, <a href="/biomarkers/omega-3-index">omega-3 index</a>, <a href="/biomarkers/fibrinogen">fibrinogen</a></td>
+<td class="highlight">Lp(a) + omega-3 included (add-ons at Superpower)</td>
+</tr>
+<tr>
+<td>Metabolic</td>
+<td><a href="/biomarkers/hba1c">HbA1c</a>, fasting glucose, <a href="/biomarkers/fasting-insulin">fasting insulin</a>, <a href="/biomarkers/alt-ast">ALT/AST</a>, <a href="/biomarkers/ggt">GGT</a>, full CMP</td>
+<td>Comparable</td>
+</tr>
+<tr>
+<td>Hormonal</td>
+<td>Total + free testosterone, <a href="/biomarkers/estradiol">estradiol</a>, <a href="/biomarkers/progesterone">progesterone</a>, <a href="/biomarkers/shbg">SHBG</a>, <a href="/biomarkers/dhea-s">DHEA-S</a>, <a href="/biomarkers/igf-1">IGF-1</a>, <a href="/biomarkers/cortisol">cortisol</a></td>
+<td>Comparable</td>
+</tr>
+<tr>
+<td>Thyroid</td>
+<td><a href="/biomarkers/tsh">TSH</a>, <a href="/biomarkers/free-t3-t4">free T3 + free T4</a>, reverse T3, TPO antibodies</td>
+<td class="highlight">Reverse T3 + TPO antibodies included</td>
+</tr>
+<tr>
+<td>Inflammatory</td>
+<td><a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, <a href="/biomarkers/il-6">IL-6</a>, fibrinogen</td>
+<td class="highlight">IL-6 included</td>
+</tr>
+<tr>
+<td>Cancer markers</td>
+<td>PSA, CEA, AFP, CA-125 (women)</td>
+<td class="highlight">Not available at Superpower</td>
+</tr>
+<tr>
+<td>Heavy metals</td>
+<td>Lead, mercury, arsenic</td>
+<td class="highlight">Not available at Superpower</td>
+</tr>
+<tr>
+<td>Autoimmune</td>
+<td>ANA screen</td>
+<td class="highlight">Not available at Superpower</td>
+</tr>
+<tr>
+<td>Nutrients</td>
+<td><a href="/biomarkers/vitamin-d">Vitamin D</a>, <a href="/biomarkers/vitamin-b12">B12</a>, <a href="/biomarkers/ferritin">ferritin</a>, folate, zinc, magnesium, <a href="/biomarkers/omega-3-index">omega-3 index</a></td>
+<td class="highlight">Magnesium + omega-3 included</td>
+</tr>
+</tbody>
+</table>
+
+<p>The mid-year follow-up draw covers approximately 60 of the highest-priority markers &#8212; the cardiovascular, metabolic, inflammatory, and hormonal set that moves meaningfully in response to lifestyle and supplement interventions. It does not repeat the full panel.</p>
+
+<div class="callout">
+<div class="callout-label">Why the second draw matters</div>
+<p>Most biomarker services test you once per year. Function&#8217;s mid-year draw is the only way to answer the question that matters most: did the intervention work? If your first draw showed elevated <a href="/biomarkers/apob">ApoB</a> and low <a href="/biomarkers/vitamin-d">Vitamin D</a>, and you spent six months adjusting your diet and supplementing &#8212; the mid-year draw tells you whether it moved. That test-intervene-retest loop is what preventive medicine is actually supposed to do.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>The platform experience</h2>
+<p>Function&#8217;s dashboard is polished and well-organized &#8212; results are grouped by category with clear flagging, per-marker explanations, and recommended next steps. The desktop and mobile app experience is consistently praised for being clean and non-overwhelming given the volume of data.</p>
+<p>The AI protocol builder, introduced in early 2026, generates a full-body optimization plan from your biomarker profile, health goals, and stated preferences. Compared to Superpower&#8217;s more mature AI chat, Function&#8217;s AI feels slightly less conversational in early reviews &#8212; but the protocol generation feature is a meaningful addition that is being actively developed.</p>
+<p>One notable limitation: Function does not allow historical lab data import. If you have years of prior bloodwork, you cannot integrate it into your Function dashboard &#8212; you start fresh. Superpower&#8217;s &#8220;Bring Your Own Data&#8221; feature handles this and it&#8217;s a real advantage for users with an established testing history.</p>
+</div>
+
+<div class="content-section">
+<h2>Pricing history &#8212; and the loyalty controversy</h2>
+<p>Function launched at $499/year. In late 2025, facing competition from Superpower ($199) and Empirical Health ($190), Function reduced pricing to $365/year for new members. The rollout was initially botched &#8212; existing members were initially told they would continue paying $499 while new members got the lower rate. The backlash on Reddit was swift and pointed; Function ultimately addressed the disparity, though early adopters were understandably frustrated.</p>
+<p>At $365/year, the value proposition is meaningfully improved. Two draws at 160+ markers works out to roughly $1.40 per marker per draw &#8212; substantially cheaper than ordering equivalent tests piecemeal through à la carte services.</p>
+</div>
+
+<div class="content-section">
+<h2>Pros and cons</h2>
+<div class="pros-cons">
+<div class="pros-cons-col">
+<div class="pros-cons-label pros">What works</div>
+<ul class="pros-cons-list pros-list">
+<li>Two annual draws &#8212; the only service that enables test-intervene-retest within a single year</li>
+<li>160+ directly measured biomarkers &#8212; the most comprehensive panel at this price point</li>
+<li>Includes Lp(a), omega-3 index, and magnesium in the base panel (add-ons or unavailable elsewhere)</li>
+<li>Cancer screening markers (PSA, CEA, AFP, CA-125) not offered by any competitor at this price</li>
+<li>Heavy metals panel (lead, mercury, arsenic) included</li>
+<li>ANA autoimmune screen included</li>
+<li>Thyroid panel includes reverse T3 and TPO antibodies</li>
+<li>Clinician review process for flagged values</li>
+<li>Clean, well-organized dashboard with mobile app</li>
+<li>HSA/FSA eligible</li>
+</ul>
+</div>
+<div class="pros-cons-col">
+<div class="pros-cons-label cons">What to know</div>
+<ul class="pros-cons-list cons-list">
+<li>$166 more per year than Superpower &#8212; meaningful for price-sensitive buyers</li>
+<li>No historical lab data import &#8212; you start fresh regardless of prior testing history</li>
+<li>AI protocol builder is newer and less polished than Superpower&#8217;s as of early 2026</li>
+<li>No home draw option &#8212; lab visit required for all draws</li>
+<li>No biomarker customization &#8212; you get what they test, not what you choose</li>
+<li>NY, NJ, and RI have availability restrictions</li>
+<li>Loyalty pricing controversy damaged trust with early adopters</li>
+<li>Mid-year draw covers ~60 markers, not the full panel</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Pricing</h2>
+
+<div class="pricing-card">
+<div class="pricing-card-header">
+<div class="pricing-card-name">Function Health Annual Membership</div>
+<div class="pricing-card-price">$365 <span>/ year</span></div>
+</div>
+<div class="pricing-card-features">
+<div class="pricing-card-feature">160+ directly measured biomarkers across two draws per year</div>
+<div class="pricing-card-feature">First draw: full 100+ marker panel including cancer markers, heavy metals, ANA</div>
+<div class="pricing-card-feature">Mid-year follow-up: ~60 highest-priority markers to track intervention response</div>
+<div class="pricing-card-feature">Clinician review for flagged values</div>
+<div class="pricing-card-feature">AI protocol builder (beta)</div>
+<div class="pricing-card-feature">Mobile app + desktop dashboard</div>
+<div class="pricing-card-feature">HSA/FSA eligible</div>
+<div class="pricing-card-feature">$25 discount available via member referral link</div>
+</div>
+</div>
+
+<p>No home draw option. All draws at Quest Diagnostics. Not available in NY, NJ, or RI. Referral links (not promo codes) are the only reliable way to access a discount.</p>
+</div>
+
+<div class="content-section">
+<h2>How Function Health compares to the alternatives</h2>
+
+<table class="compare-table">
+<thead>
+<tr><th>Service</th><th>Price</th><th>Draws/year</th><th>Biomarkers</th><th>Best for</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Function Health</td>
+<td class="highlight">$365/yr</td>
+<td class="highlight">2</td>
+<td class="highlight">160+</td>
+<td>Active health management, cancer markers, tracking interventions</td>
+</tr>
+<tr>
+<td>Superpower</td>
+<td>$199/yr</td>
+<td>1</td>
+<td>100+ (150 w/ratios)</td>
+<td>Entry-level longevity testing, budget-conscious, first draw</td>
+</tr>
+<tr>
+<td>Ulta Lab Tests</td>
+<td>À la carte</td>
+<td>Unlimited</td>
+<td>Any combination</td>
+<td>Custom panels, frequent testing, maximum cost control</td>
+</tr>
+<tr>
+<td>InsideTracker</td>
+<td>$489 entry</td>
+<td>1</td>
+<td>~54</td>
+<td>Athletic performance optimization</td>
+</tr>
+</tbody>
+</table>
+
+<p>For à la carte testing without a subscription, the <a href="/reviews/ulta-lab-tests">Ulta Lab Tests review</a> covers the direct-to-consumer alternative. For the detailed head-to-head with Superpower, see our <a href="/reviews/superpower-health">Superpower Health review</a>.</p>
+</div>
+
+<div class="content-section">
+<h2>Who Function Health is right for</h2>
+<p>Function Health is the right choice if you&#8217;re actively managing a cardiovascular, hormonal, or metabolic health issue and need to track response to interventions across the year. The twice-yearly draw is the key &#8212; if you only need a single annual snapshot, Superpower at $199 is the better value. If you want cancer marker or heavy metal screening alongside your biomarker panel, Function is the only service in this price category that offers it.</p>
+<p>It&#8217;s also the right choice for anyone who wants the most defensible, complete picture of their health &#8212; all direct measurements, clinician review on flagged values, and the broadest marker coverage available outside of a concierge medicine practice.</p>
+<p>Where it falls short: if you have existing years of lab data you want to integrate, Superpower&#8217;s historical import feature is a meaningful practical advantage. And if budget is the primary constraint, Superpower&#8217;s $199 covers the longevity fundamentals at two-thirds the price.</p>
+</div>
+
+<div class="page-tool-cta">
+<div>
+<h3>Already have your Function Health results?</h3>
+<p>Upload or paste your labs into our AI tool for a deeper longevity analysis &#8212; every marker scored against longevity-optimal ranges, not just standard lab reference ranges.</p>
+</div>
+<a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Is Function Health worth it in 2026?</div>
+<div class="faq-answer">At $365/year, yes &#8212; particularly if you&#8217;re actively managing health markers or want the ability to retest mid-year. Two draws, 160+ directly measured markers, cancer screening, and heavy metals make it the most complete consumer panel available. If a single annual snapshot covers your needs, <a href="/reviews/superpower-health">Superpower at $199</a> is the better value.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">How does Function Health compare to Superpower?</div>
+<div class="faq-answer">Function is $166/year more with two annual draws, 160+ direct measurements, and coverage Superpower doesn&#8217;t offer (cancer markers, heavy metals, ANA, Lp(a) and omega-3 index in base panel). Superpower&#8217;s advantages are lower price, a more polished AI chat, and historical lab import. If you&#8217;re tracking an active intervention, Function&#8217;s second draw makes the price difference worthwhile. See the <a href="/reviews/superpower-health">Superpower review</a> for the full comparison.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What biomarkers does Function Health include?</div>
+<div class="faq-answer">160+ directly measured markers including <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a>, NMR lipoprofile, full hormone panel, thyroid (TSH + free T3/T4 + reverse T3 + TPO antibodies), cancer markers (PSA, CEA, AFP, CA-125), heavy metals (lead, mercury, arsenic), ANA autoimmune screen, <a href="/biomarkers/omega-3-index">omega-3 index</a>, and complete CBC and CMP.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">How much does Function Health cost?</div>
+<div class="faq-answer">$365/year as of 2026, reduced from the original $499 launch price. HSA/FSA eligible. A $25 discount is typically available via member referral link &#8212; referral links are the only reliable discount mechanism; promo codes circulating on coupon sites are generally expired or invalid.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Does Function Health require a doctor?</div>
+<div class="faq-answer">No. Function is a direct-to-consumer service &#8212; you sign up, schedule a draw at Quest Diagnostics, and receive results without a physician referral. Function has an affiliated clinical review team that reviews flagged values; this is not a personal physician relationship but provides a layer of medical oversight not available at Superpower.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What states is Function Health available in?</div>
+<div class="faq-answer">Most US states. New York, New Jersey, and Rhode Island have restrictions due to state regulations on direct-to-consumer lab testing. Check functionhealth.com for current state availability before purchasing.</div>
+</div>
+</div>
+</div>
+
+<script>
+function toggleFaq(el) {
+const answer = el.nextElementSibling;
+const isOpen = answer.classList.contains('open');
+document.querySelectorAll('.faq-answer.open').forEach(a => {
+a.classList.remove('open');
+a.previousElementSibling.classList.remove('open');
+});
+if (!isOpen) {
+answer.classList.add('open');
+el.classList.add('open');
+}
+}
+</script>
