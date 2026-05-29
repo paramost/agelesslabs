@@ -1,0 +1,573 @@
+---
+layout: base.njk
+title: "Best Blood Tests for Women Over 40: The Complete Guide (2026) | AgelessLabs"
+permalink: /guides/blood-tests-women-over-40/index.html
+description: "The blood tests women over 40 actually need — ApoB, fasting insulin, estradiol, thyroid, and the markers your doctor consistently skips. With optimal ranges and where to order."
+---
+
+<style>
+.guide-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.guide-hero .page-eyebrow { margin-bottom: 20px; }
+.guide-hero h1 { margin-bottom: 16px; }
+.guide-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.guide-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.guide-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.guide-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.marker-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+.marker-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.marker-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.55; }
+.marker-table td:first-child { color: var(--white); font-weight: 600; white-space: nowrap; }
+.marker-table td:first-child a { color: var(--white); border-bottom-color: rgba(255,255,255,0.1); font-weight: 600; }
+.marker-table td:first-child a:hover { color: var(--green); border-bottom-color: var(--green); }
+.marker-table tr:last-child td { border-bottom: none; }
+.marker-table tr:hover td { background: rgba(181,201,160,0.02); }
+.marker-table .optimal { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--green); }
+.marker-table .skipped { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(224,112,112,0.08); color: #e07070; border: 1px solid rgba(224,112,112,0.2); }
+.marker-table .included { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 2px; background: rgba(181,201,160,0.08); color: var(--green); border: 1px solid rgba(181,201,160,0.2); }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+.callout a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.3); }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-bottom: 32px; }
+.stat-cell { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 20px; text-align: center; }
+.stat-number { font-family: 'DM Mono', monospace; font-size: 32px; font-weight: 700; color: var(--green); line-height: 1; margin-bottom: 6px; }
+.stat-label { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
+
+.hormone-axis { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 24px; margin-bottom: 24px; }
+.hormone-axis-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 6px; }
+.hormone-axis-sub { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--green); margin-bottom: 14px; }
+.hormone-axis p { font-size: 13px; color: var(--text-dim); line-height: 1.7; margin: 0; font-weight: 400; }
+
+.order-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.order-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 22px; }
+.order-card.featured { border-color: rgba(181,201,160,0.25); }
+.order-card-title { font-size: 15px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.order-card-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; margin-bottom: 18px; font-weight: 400; }
+.order-card-cta { display: inline-block; padding: 11px 20px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; transition: all 0.2s; }
+.order-card-cta:hover { background: var(--green-bright); transform: translateY(-1px); border-bottom: none; }
+.order-card-cta.secondary { background: transparent; color: var(--text-dim); border: 1px solid var(--border); }
+.order-card-cta.secondary:hover { border-color: rgba(181,201,160,0.3); color: var(--white); background: transparent; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+@media (max-width: 700px) {
+.stat-row { grid-template-columns: 1fr; }
+.order-cards { grid-template-columns: 1fr; }
+.page-tool-cta { grid-template-columns: 1fr; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Article",
+"headline": "Best Blood Tests for Women Over 40: The Complete Guide (2026)",
+"description": "The blood tests women over 40 actually need &#8212; ApoB, fasting insulin, estradiol, thyroid, and the markers your doctor consistently skips.",
+"author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"datePublished": "2026-05-29",
+"dateModified": "2026-05-29"
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Can blood tests confirm perimenopause?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Not reliably. Hormone levels fluctuate too widely during the perimenopause transition for any single blood test to confirm it. FSH is sometimes used as a supporting data point, but a single elevated FSH doesn't diagnose perimenopause on its own. The value of blood testing in perimenopause isn't confirming the transition — it's ruling out other causes of symptoms (thyroid dysfunction, iron deficiency, insulin resistance), identifying cardiovascular risk that accelerates after estrogen declines, and establishing a hormonal baseline to guide treatment if symptoms become significant."
+}
+},
+{
+"@type": "Question",
+"name": "What blood tests should a woman get at 40?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "At 40, a woman should add several markers to the standard annual panel: ApoB, Lp(a) (once), fasting insulin, hsCRP, homocysteine, and a full hormone panel including estradiol, FSH, progesterone, and DHEA-S. Thyroid function (TSH plus free T3 and T4), Vitamin D, ferritin, and RBC magnesium are also critical. Most of these are not included in standard primary care bloodwork."
+}
+},
+{
+"@type": "Question",
+"name": "How does perimenopause affect cardiovascular risk?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Estrogen has a protective effect on the cardiovascular system — it helps maintain flexible arteries, favorable lipid profiles, and lower inflammation. As estrogen declines during perimenopause, cardiovascular risk increases substantially. ApoB and LDL-C tend to rise, HDL-C can fall, and hs-CRP often climbs. Women who were at low cardiovascular risk in their 30s can find their risk profile meaningfully elevated by their mid-40s — often with no clinical warning. This is why ApoB, Lp(a), and hsCRP become essential measurements at this life stage."
+}
+},
+{
+"@type": "Question",
+"name": "Why is fasting insulin important for women over 40?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Research suggests that a significant proportion of women develop some degree of insulin resistance during perimenopause — often without any flagged lab results on a standard panel. Fasting insulin rises years before HbA1c or fasting glucose moves into the prediabetes range. A woman can have completely normal glucose and HbA1c while carrying meaningfully elevated insulin, which indicates the pancreas is working overtime to hold the line. This insulin resistance also worsens the cardiovascular risk changes of perimenopause. Fasting insulin is rarely ordered in standard primary care."
+}
+},
+{
+"@type": "Question",
+"name": "Is thyroid disease more common in women over 40?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes. Thyroid disorders — particularly Hashimoto's thyroiditis and subclinical hypothyroidism — are significantly more common in women than men, and prevalence increases with age. Symptoms of subclinical hypothyroidism (fatigue, weight gain, hair loss, cognitive fog, mood changes) overlap heavily with perimenopause, making it easy to miss. Standard care typically orders TSH only; adding free T3 and free T4 gives a more complete picture of thyroid function. TPO antibodies should be ordered if Hashimoto's is suspected."
+}
+},
+{
+"@type": "Question",
+"name": "Do I need a doctor to order these tests?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "No. Direct-to-consumer services like Ulta Lab Tests allow any adult to order all of these markers without a physician's referral — you purchase online, visit a Quest Diagnostics draw site, and receive results in 24 to 48 hours. Not available in New York, New Jersey, Rhode Island, or Hawaii."
+}
+}
+]
+}
+</script>
+
+<section class="guide-hero">
+<div class="page-eyebrow">Guide</div>
+<h1>Blood tests for women<br>over 40 &#8212;<br><em>beyond the perimenopause question.</em></h1>
+<p class="guide-hero-sub">The most common reason women over 40 seek blood tests is to understand what&#8217;s happening hormonally. But the more consequential reason is what&#8217;s happening cardiovascularly and metabolically &#8212; shifts that standard care almost never measures, and that estrogen decline accelerates.</p>
+</section>
+
+<div class="guide-meta">
+<div class="guide-meta-item">Updated <span>May 2026</span></div>
+<div class="guide-meta-item">Reading time <span>~9 min</span></div>
+<div class="guide-meta-item">Affiliate <span>Disclosed</span></div>
+</div>
+
+<div class="content-section">
+<h2>Why 40 changes everything for women</h2>
+<p>The dominant search query for women researching blood tests at this life stage is some version of &#8220;can a blood test confirm perimenopause?&#8221; The short answer is no &#8212; not reliably. Hormone levels fluctuate too widely during the perimenopause transition for a single draw to be diagnostic. But that framing misses the more important question: what else should women be measuring at this inflection point?</p>
+<p>The answer is: a great deal that standard primary care isn&#8217;t ordering. Estrogen has a protective effect on the cardiovascular system &#8212; it maintains arterial flexibility, supports favorable lipid profiles, and suppresses inflammation. As estrogen declines in the 40s, <a href="/biomarkers/apob">ApoB</a> tends to rise, <a href="/biomarkers/hscrp">hsCRP</a> often climbs, and a meaningful proportion of women develop insulin resistance &#8212; most without any flagged results on a standard panel. The cardiovascular risk profile of a woman at 45 can look substantially different from her profile at 35, yet routine bloodwork rarely reflects this.</p>
+
+<div class="stat-row">
+<div class="stat-cell">
+<div class="stat-number">80%</div>
+<div class="stat-label">Of women develop some degree of insulin resistance during perimenopause, most undiagnosed</div>
+</div>
+<div class="stat-cell">
+<div class="stat-number">5&#215;</div>
+<div class="stat-label">Increase in cardiovascular risk for women in the decade following menopause</div>
+</div>
+<div class="stat-cell">
+<div class="stat-number">7&#215;</div>
+<div class="stat-label">More likely to have thyroid disease than men &#8212; and prevalence rises sharply after 40</div>
+</div>
+</div>
+
+<p>The markers below are organized by the clinical domain where standard care falls most consistently short for women in their 40s and beyond.</p>
+</div>
+
+<div class="content-section">
+<h2>Cardiovascular markers &#8212; the post-estrogen shift</h2>
+<p>Heart disease is the leading cause of death in women &#8212; not breast cancer. Yet women are significantly less likely than men to be assessed for advanced cardiovascular risk markers. The standard lipid panel is a starting point, not a complete risk assessment &#8212; and the gap between those two things widens as estrogen declines.</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/apob">ApoB</a></td>
+<td>The most accurate cardiovascular risk marker available &#8212; counts atherogenic lipoprotein particles directly rather than measuring cholesterol mass. ApoB rises predictably as estrogen declines in perimenopause. A woman can have &#8220;normal&#8221; LDL-C while carrying an elevated ApoB &#8212; a disconnect that is especially common in women with small, dense LDL particles.</td>
+<td class="optimal">&lt;80 mg/dL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/lipoprotein-a">Lp(a)</a></td>
+<td>A genetically inherited lipoprotein that standard panels never measure. Elevated in roughly 1 in 5 people. Particularly relevant for women with a family history of early cardiovascular disease or aortic stenosis. Order once &#8212; the value is largely fixed by genetics and doesn&#8217;t change with lifestyle.</td>
+<td class="optimal">&lt;30 mg/dL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/hscrp">hsCRP</a></td>
+<td>Systemic inflammation &#8212; an independent predictor of cardiovascular events that rises as estrogen falls. The high-sensitivity version is required (standard CRP is too insensitive for cardiovascular risk stratification). Values chronically above 1.0 mg/L represent meaningful risk, even when cholesterol appears normal.</td>
+<td class="optimal">&lt;1.0 mg/L</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/homocysteine">Homocysteine</a></td>
+<td>An independent cardiovascular and cognitive risk factor, associated with endothelial damage, stroke, and dementia. Elevated homocysteine is directly modifiable with B vitamins &#8212; folate, B6, and B12 &#8212; but only if you know it&#8217;s elevated. Women on hormonal contraceptives historically show elevated homocysteine.</td>
+<td class="optimal">&lt;9 &#956;mol/L</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/triglycerides">Lipid panel</a></td>
+<td>LDL-C, HDL-C, triglycerides, total cholesterol. Standard care includes this &#8212; but the numbers are less informative in isolation than alongside ApoB. Triglycerides rising and HDL-C falling is a common perimenopausal pattern that standard reports may not flag as concerning.</td>
+<td class="optimal">TG &lt;100 · HDL &gt;60</td>
+<td><span class="included">Included</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/omega-3-index">Omega-3 Index</a></td>
+<td>EPA+DHA as a percentage of red blood cell fatty acids. A low omega-3 index is associated with increased cardiovascular risk, inflammation, and cognitive decline. Fish oil supplementation is effective &#8212; but only if your index is actually low. Measures whether your intake is adequate, not just whether you&#8217;re supplementing.</td>
+<td class="optimal">&gt;8%</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout">
+<div class="callout-label">Why women&#8217;s cardiovascular risk is underdetected</div>
+<p>Most cardiovascular risk models were built primarily on data from men. Women tend to present with atypical symptoms, have smaller coronary arteries that imaging can miss, and are more likely to have microvascular disease that doesn&#8217;t show up on standard stress tests. Getting ahead of risk with <a href="/biomarkers/apob">ApoB</a> and Lp(a) is especially important when the downstream diagnostic tools are less reliable.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Metabolic markers &#8212; the insulin resistance surge</h2>
+<p>Insulin resistance in women over 40 is both extremely common and extremely underdiagnosed. The hormonal shifts of perimenopause &#8212; declining estrogen, disrupted sleep, and shifts in body fat distribution toward visceral adiposity &#8212; all worsen insulin sensitivity simultaneously. Fasting insulin is the only standard blood marker that can detect this in its early, reversible stages.</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a></td>
+<td>The earliest detectable signal of insulin resistance &#8212; rises years before HbA1c or fasting glucose moves into prediabetes range. In perimenopausal women, insulin above 10 &#956;IU/mL with normal glucose is insulin resistance in progress. Actionable, reversible, and invisible on a standard panel. Almost never ordered in standard primary care.</td>
+<td class="optimal">&lt;6 &#956;IU/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/hba1c">HbA1c</a></td>
+<td>90-day glucose average. Standard care orders this for diabetics and prediabetics. For women over 40, it belongs on every annual panel &#8212; but use a longevity-optimal threshold (below 5.4%) rather than the standard prediabetes cutoff of 5.7%, which misses early metabolic deterioration.</td>
+<td class="optimal">4.8&#8211;5.4%</td>
+<td><span class="skipped">Partial</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/uric-acid">Uric Acid</a></td>
+<td>An early marker of metabolic dysfunction and insulin resistance, independently associated with hypertension and cardiovascular risk. Often elevated before formal metabolic syndrome develops. Less recognized in women but relevant as cardiovascular risk rises post-perimenopause.</td>
+<td class="optimal">&lt;5.0 mg/dL (F)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/alt-ast">ALT</a></td>
+<td>Liver health and metabolic function. Non-alcoholic fatty liver disease (NAFLD) &#8212; the hepatic expression of insulin resistance &#8212; is increasingly common in women post-menopause. Optimal range is tighter than standard lab flags. An elevated ALT in an otherwise &#8220;healthy&#8221; woman is often a metabolic signal being missed.</td>
+<td class="optimal">&lt;25 U/L (F)</td>
+<td><span class="included">Included*</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/ggt">GGT</a></td>
+<td>A more sensitive liver marker than ALT alone. Independently predicts cardiovascular mortality even at values within the standard normal range. Rises with metabolic liver stress, alcohol, and oxidative burden &#8212; all relevant in this demographic.</td>
+<td class="optimal">&lt;15 U/L (F)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="warning-callout">
+<div class="warning-callout-label">The &#8220;normal glucose&#8221; trap &#8212; women&#8217;s version</div>
+<p>A fasting glucose of 85 mg/dL and HbA1c of 5.3% appear clean on a standard panel. But if fasting insulin is 13 &#956;IU/mL, the pancreas is compensating &#8212; producing excess insulin to maintain that normal glucose. This state worsens cardiovascular risk, promotes visceral fat accumulation, and is silently common in perimenopausal women. Fasting insulin is the only marker that reveals it.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Hormone markers &#8212; the perimenopause picture</h2>
+<p>Blood tests cannot confirm perimenopause &#8212; hormones fluctuate too widely during the transition for a single draw to be diagnostic. But they can do several clinically important things: establish a baseline for tracking changes over time, rule out other conditions with overlapping symptoms (thyroid disease, iron deficiency, insulin resistance), and guide hormone therapy decisions if and when that becomes relevant.</p>
+
+<div class="hormone-axis">
+<div class="hormone-axis-sub">The diagnostic limitation to understand upfront</div>
+<div class="hormone-axis-title">Why FSH doesn&#8217;t &#8220;confirm&#8221; perimenopause</div>
+<p>FSH (follicle-stimulating hormone) rises as the ovaries become less responsive &#8212; but it fluctuates enormously cycle to cycle during perimenopause. An elevated FSH on one draw can return to normal on the next. A single value above 30 mIU/mL is often cited as a perimenopause signal, but it&#8217;s neither sensitive nor specific enough to be diagnostic on its own. The clinical reality is that perimenopause is diagnosed from symptoms, menstrual history, and age &#8212; not from a single blood value. Test it to track trend, not to get a verdict.</p>
+</div>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/estradiol">Estradiol (E2)</a></td>
+<td>The dominant form of estrogen and the most important hormone to track in perimenopause. Establishes a baseline; serial values over time reveal the trajectory of decline. Also essential if hormone therapy is being considered &#8212; your provider uses E2 levels to guide dosing and monitor response.</td>
+<td class="optimal">50&#8211;150 pg/mL (cycling)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/fsh">FSH</a></td>
+<td>Rises as ovarian responsiveness declines. Track trend over multiple draws rather than relying on a single value. FSH above 30 mIU/mL on two separate draws, 6+ weeks apart, combined with 12 months of amenorrhea, is used to confirm menopause &#8212; not perimenopause.</td>
+<td class="optimal">&lt;10 mIU/mL (pre)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/progesterone">Progesterone</a></td>
+<td>Declines in perimenopause before estradiol does &#8212; low progesterone relative to estradiol is one of the earliest hormonal shifts. Associated with poor sleep, anxiety, and irregular cycles. Relevant if considering HRT; progesterone is typically co-administered with estrogen for endometrial protection.</td>
+<td class="optimal">&gt;5 ng/mL (luteal)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/testosterone">Total + Free Testosterone</a></td>
+<td>Often overlooked in women. Testosterone declines through the 40s and contributes to fatigue, reduced libido, and poor recovery. Female testosterone ranges are far lower than male, but the functional impact of deficiency is significant. Free testosterone is the clinically relevant fraction.</td>
+<td class="optimal">Total: 15&#8211;70 ng/dL (F)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/shbg">SHBG</a></td>
+<td>Sex hormone-binding globulin. Rises with estrogen therapy and certain medications, reducing the bioavailable fraction of both testosterone and estrogen. Low SHBG correlates with insulin resistance. Context-dependent: SHBG matters most when interpreting total sex hormone values alongside free fractions.</td>
+<td class="optimal">40&#8211;120 nmol/L (F)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/dhea-s">DHEA-S</a></td>
+<td>An adrenal precursor to sex hormones that declines progressively with age. In women, DHEA-S is a precursor to both estrogen and testosterone. Low DHEA-S is associated with reduced vitality, poor immune function, and accelerated biological aging. Directly supplementable if low.</td>
+<td class="optimal">100&#8211;300 &#956;g/dL (F, 40s)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="content-section">
+<h2>Thyroid markers &#8212; the most common missed diagnosis</h2>
+<p>Thyroid disease is roughly seven times more common in women than men, and prevalence increases sharply after 40. Symptoms of subclinical hypothyroidism &#8212; fatigue, weight gain, hair loss, cognitive fog, depression, and cold intolerance &#8212; overlap extensively with perimenopause, making it one of the most commonly missed diagnoses in this demographic. Standard care orders TSH alone; a complete thyroid workup requires more.</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/tsh">TSH</a></td>
+<td>The primary thyroid screening marker. Standard care orders this &#8212; but the reference range (0.4&#8211;4.0 mIU/L) is too wide for longevity purposes. TSH above 2.5 mIU/L with symptoms warrants further investigation. Subclinical hypothyroidism (TSH 2.5&#8211;4.0) is clinically meaningful even when TSH is &#8220;within range.&#8221;</td>
+<td class="optimal">1.0&#8211;2.0 mIU/L</td>
+<td><span class="included">Included</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/free-t3-t4">Free T3 + Free T4</a></td>
+<td>TSH reflects the pituitary&#8217;s signal to the thyroid &#8212; free T3 and T4 reflect what the thyroid is actually producing and converting. Suboptimal conversion of T4 to active T3 can cause hypothyroid symptoms even with a normal TSH. Free T3 and T4 require a specific request; they are rarely ordered in standard primary care.</td>
+<td class="optimal">Free T3: 3.2&#8211;4.2 pg/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td>TPO Antibodies</td>
+<td>Thyroid peroxidase antibodies &#8212; the marker for Hashimoto&#8217;s thyroiditis, the most common cause of hypothyroidism in women. Hashimoto&#8217;s is an autoimmune condition that can be present for years before TSH rises out of range. Elevated TPO antibodies with normal TSH is early Hashimoto&#8217;s &#8212; clinically actionable information that standard care misses entirely.</td>
+<td class="optimal">&lt;35 IU/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+</tbody>
+</table>
+
+<div class="callout">
+<div class="callout-label">Perimenopause or thyroid?</div>
+<p>Fatigue, weight gain, hair loss, brain fog, and mood changes are symptoms of both perimenopause and hypothyroidism. The only way to distinguish them is to test thyroid function directly &#8212; and to test it completely. TSH alone can appear normal in early Hashimoto&#8217;s. A full thyroid panel (TSH + free T3 + free T4 + TPO antibodies) is the minimum required workup when these symptoms are present in a woman over 40.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Nutritional markers &#8212; the deficiencies driving symptoms</h2>
+<p>Many of the symptoms women in their 40s attribute to perimenopause &#8212; fatigue, poor sleep, hair loss, anxiety, brain fog &#8212; are partially or entirely driven by correctable nutritional deficiencies. Ferritin in particular is one of the most common overlooked findings: heavy or irregular perimenopausal periods can deplete iron stores well below what&#8217;s needed for normal energy even when hemoglobin remains technically normal.</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/ferritin">Ferritin</a></td>
+<td>Iron stores &#8212; the most important nutritional marker for women over 40. Heavy or irregular perimenopausal periods can drain stores significantly. A woman can be below optimal ferritin with a normal hemoglobin &#8212; technically &#8220;not anemic&#8221; by standard flagging while experiencing severe fatigue, hair shedding, restless legs, and poor exercise tolerance. Standard labs often flag nothing below 12 ng/mL; longevity-optimal is above 70.</td>
+<td class="optimal">70&#8211;150 ng/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/vitamin-d">Vitamin D (25-OH)</a></td>
+<td>Deficiency is associated with cardiovascular disease, cancer, immune dysfunction, depression, and bone loss &#8212; all of accelerating concern after 40. The standard deficiency cutoff of 20 ng/mL is far below longevity-optimal. Most women over 40 are under 40 ng/mL. Supplementation is straightforward and inexpensive once you know where you stand.</td>
+<td class="optimal">50&#8211;80 ng/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/magnesium">Magnesium (RBC)</a></td>
+<td>Involved in over 300 enzymatic reactions including sleep regulation, insulin signaling, and cardiovascular function. Deficiency drives poor sleep, anxiety, muscle cramps, and constipation &#8212; all common perimenopausal complaints. Standard serum magnesium is a poor indicator of intracellular status; RBC magnesium is the meaningful test.</td>
+<td class="optimal">5.6&#8211;6.8 mg/dL (RBC)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/vitamin-b12">Vitamin B12</a></td>
+<td>Critical for neurological function, energy metabolism, and homocysteine clearance. Deficiency causes cognitive symptoms and fatigue that are frequently misattributed to aging or perimenopause. Women on long-term oral contraceptives or metformin are at higher risk of depletion.</td>
+<td class="optimal">600&#8211;900 pg/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/folate">Folate</a></td>
+<td>Works synergistically with B12 and B6 to metabolize homocysteine. Also supports DNA repair and methylation. Often tested together with B12. Deficiency is associated with elevated homocysteine, cognitive decline, and mood disorders.</td>
+<td class="optimal">&gt;15 ng/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/creatinine-egfr">Creatinine + eGFR</a></td>
+<td>Kidney function baseline. Important to establish before starting any supplement or medication protocol. Women have lower muscle mass than men, so creatinine-based eGFR calculations can actually overestimate kidney function in women &#8212; worth being aware of when interpreting results.</td>
+<td class="optimal">eGFR &gt;90</td>
+<td><span class="included">Included</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="content-section">
+<h2>Bone health &#8212; the silent accelerator</h2>
+<p>Bone density loss accelerates sharply in the years surrounding menopause &#8212; women can lose 3&#8211;5% of bone mass per year in the early postmenopausal period. Standard bone density (DEXA) scans aren&#8217;t typically recommended until 65. Blood markers can provide an earlier signal.</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Marker</th><th>What it reveals</th><th>Optimal range</th><th>Standard care?</th></tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="/biomarkers/vitamin-d">Vitamin D (25-OH)</a></td>
+<td>Critical for calcium absorption and bone mineralization. Deficiency accelerates bone loss &#8212; and the majority of women over 40 are below the optimal level for bone protection. Already covered above; optimize this first.</td>
+<td class="optimal">50&#8211;80 ng/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/pth">PTH (Parathyroid Hormone)</a></td>
+<td>PTH rises when calcium or Vitamin D is low, mobilizing calcium from bone. Chronically elevated PTH &#8212; even at values within the standard normal range &#8212; accelerates bone resorption. Testing PTH alongside Vitamin D clarifies whether low Vitamin D is already driving compensatory bone loss.</td>
+<td class="optimal">15&#8211;40 pg/mL</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+<tr>
+<td><a href="/biomarkers/vitamin-k2">Vitamin K2</a></td>
+<td>Directs calcium into bone rather than arterial walls. Low K2 is associated with both osteoporosis and arterial calcification. Most lab panels do not offer a direct K2 serum test; the functional marker is osteocalcin carboxylation (ucOC) at specialty labs. Vitamin K2 supplementation has strong evidence for bone support.</td>
+<td class="optimal">ucOC &lt;4 ng/mL (functional)</td>
+<td><span class="skipped">Skipped</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<div class="content-section">
+<h2>The complete panel &#8212; at a glance</h2>
+<p>Taken together, the full women&#8217;s longevity panel for age 40+ covers six domains. On a first draw, order all of these:</p>
+
+<table class="marker-table">
+<thead>
+<tr><th>Domain</th><th>Order</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Cardiovascular</td>
+<td><a href="/biomarkers/apob">ApoB</a> · <a href="/biomarkers/lipoprotein-a">Lp(a)</a> · Lipid panel · <a href="/biomarkers/hscrp">hsCRP</a> · <a href="/biomarkers/homocysteine">Homocysteine</a> · <a href="/biomarkers/omega-3-index">Omega-3 Index</a></td>
+</tr>
+<tr>
+<td>Metabolic</td>
+<td><a href="/biomarkers/fasting-insulin">Fasting Insulin</a> · <a href="/biomarkers/hba1c">HbA1c</a> · <a href="/biomarkers/uric-acid">Uric Acid</a> · <a href="/biomarkers/ggt">GGT</a> · <a href="/biomarkers/alt-ast">ALT/AST</a> · CBC · CMP</td>
+</tr>
+<tr>
+<td>Hormonal</td>
+<td><a href="/biomarkers/estradiol">Estradiol</a> · <a href="/biomarkers/fsh">FSH</a> · <a href="/biomarkers/progesterone">Progesterone</a> · Total + <a href="/biomarkers/testosterone">Free Testosterone</a> · <a href="/biomarkers/shbg">SHBG</a> · <a href="/biomarkers/dhea-s">DHEA-S</a></td>
+</tr>
+<tr>
+<td>Thyroid</td>
+<td><a href="/biomarkers/tsh">TSH</a> · <a href="/biomarkers/free-t3-t4">Free T3 + Free T4</a> · TPO Antibodies</td>
+</tr>
+<tr>
+<td>Nutrients / Organs</td>
+<td><a href="/biomarkers/ferritin">Ferritin</a> · <a href="/biomarkers/vitamin-d">Vitamin D</a> · <a href="/biomarkers/magnesium">Magnesium (RBC)</a> · <a href="/biomarkers/vitamin-b12">B12</a> · <a href="/biomarkers/folate">Folate</a> · <a href="/biomarkers/creatinine-egfr">Creatinine/eGFR</a></td>
+</tr>
+<tr>
+<td>Bone</td>
+<td><a href="/biomarkers/pth">PTH</a> · Vitamin D (above) · <a href="/biomarkers/vitamin-k2">Vitamin K2</a> (ucOC if available)</td>
+</tr>
+</tbody>
+</table>
+
+<p>This is a comprehensive first-draw panel &#8212; roughly 30 individual markers. After the baseline, the cardiovascular and metabolic markers are worth retesting annually. Hormonal markers can be retested every 6&#8211;12 months during active perimenopause, or more frequently if hormone therapy is being managed. Lp(a) only needs to be ordered once.</p>
+</div>
+
+<div class="content-section">
+<h2>Where to order</h2>
+
+<div class="order-cards">
+<div class="order-card featured">
+<div class="order-card-title">Ulta Lab Tests &#8212; Best value, order &#224; la carte</div>
+<div class="order-card-desc">All of the markers above are available individually or as bundled panels. No doctor required. Results in 24&#8211;48 hours at Quest Diagnostics. From $9 per marker; a comprehensive women&#8217;s longevity panel runs $150&#8211;$300 depending on what you include. HSA/FSA accepted.</div>
+<a href="https://www.ultalabtests.com/partners/agelesslabs" target="_blank" rel="noopener sponsored" class="order-card-cta">Order Tests &#8594;</a>
+</div>
+<div class="order-card">
+<div class="order-card-title">Superpower &#8212; Annual subscription with physician review</div>
+<div class="order-card-desc">100+ markers, physician review of results, trend tracking, and a personalized protocol. The right choice if you want professional guidance built in. $199/year. Well-suited for ongoing annual management after an initial comprehensive baseline.</div>
+<a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored" class="order-card-cta secondary">Learn More &#8594;</a>
+</div>
+</div>
+
+<p>Not available in New York, New Jersey, Rhode Island, or Hawaii via Ulta. See the full <a href="/reviews/ulta-lab-tests">Ulta Lab Tests review</a> for details on state restrictions, draw fees, and what the competition offers.</p>
+</div>
+
+<div class="page-tool-cta">
+<div>
+<h3>Got your results? Analyze them here.</h3>
+<p>Upload or paste your labs and get a full longevity analysis in 60 seconds &#8212; every marker scored against optimal ranges, with actionable priorities.</p>
+</div>
+<a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Can blood tests confirm perimenopause?</div>
+<div class="faq-answer">Not reliably. Hormone levels fluctuate too widely during the perimenopause transition for a single draw to be diagnostic. FSH is sometimes cited as a signal, but a single elevated value isn&#8217;t conclusive. The more important value of testing is ruling out thyroid disease and iron deficiency (which overlap symptomatically with perimenopause), establishing a cardiovascular risk baseline, and tracking hormonal trends over time &#8212; not getting a one-draw verdict.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What blood tests should a woman get at 40?</div>
+<div class="faq-answer">Beyond the standard lipid panel: <a href="/biomarkers/apob">ApoB</a>, <a href="/biomarkers/lipoprotein-a">Lp(a)</a> (once), <a href="/biomarkers/fasting-insulin">fasting insulin</a>, <a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, a full hormone panel (<a href="/biomarkers/estradiol">estradiol</a>, <a href="/biomarkers/fsh">FSH</a>, <a href="/biomarkers/progesterone">progesterone</a>, testosterone), full thyroid (TSH + free T3 + free T4 + TPO antibodies), <a href="/biomarkers/ferritin">ferritin</a>, <a href="/biomarkers/vitamin-d">Vitamin D</a>, and RBC magnesium. Most are not included in standard primary care.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">How does perimenopause affect cardiovascular risk?</div>
+<div class="faq-answer">Estrogen supports arterial flexibility, favorable lipid profiles, and lower inflammation. As estrogen declines, <a href="/biomarkers/apob">ApoB</a> tends to rise, <a href="/biomarkers/hscrp">hsCRP</a> climbs, and the overall cardiovascular risk profile can shift substantially &#8212; often without any clinical warning. Women who were at low risk in their 30s may find their risk profile meaningfully elevated by their mid-40s. This is why ApoB and hsCRP become essential measurements at this life stage.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Why is fasting insulin important for women over 40?</div>
+<div class="faq-answer">Research suggests a significant proportion of women develop some degree of insulin resistance during perimenopause. <a href="/biomarkers/fasting-insulin">Fasting insulin</a> rises years before HbA1c moves into the prediabetes range. A woman can have completely normal glucose and HbA1c while fasting insulin is already elevated &#8212; a state of early insulin resistance that worsens cardiovascular risk and promotes visceral fat accumulation. It&#8217;s almost never ordered in standard primary care.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Is thyroid disease more common in women over 40?</div>
+<div class="faq-answer">Yes &#8212; substantially. Thyroid disorders, particularly Hashimoto&#8217;s thyroiditis and subclinical hypothyroidism, are far more common in women and prevalence rises with age. Symptoms overlap heavily with perimenopause. <a href="/biomarkers/tsh">TSH</a> alone can appear normal in early Hashimoto&#8217;s. A complete workup &#8212; TSH + free T3 + free T4 + TPO antibodies &#8212; is the minimum when these symptoms are present.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Do I need a doctor to order these tests?</div>
+<div class="faq-answer">No. Direct-to-consumer services like <a href="/reviews/ulta-lab-tests">Ulta Lab Tests</a> allow any adult to order all of these markers without a physician&#8217;s referral &#8212; you purchase online, visit a Quest Diagnostics draw site, and receive results in 24&#8211;48 hours. Not available in New York, New Jersey, Rhode Island, or Hawaii.</div>
+</div>
+</div>
+</div>
+
+<script>
+function toggleFaq(el) {
+const answer = el.nextElementSibling;
+const isOpen = answer.classList.contains('open');
+document.querySelectorAll('.faq-answer.open').forEach(a => {
+a.classList.remove('open');
+a.previousElementSibling.classList.remove('open');
+});
+if (!isOpen) {
+answer.classList.add('open');
+el.classList.add('open');
+}
+}
+</script>
