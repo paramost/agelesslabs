@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: May 29, 2026 · 11:59 PM CST
+> Last updated: May 30, 2026 · 11:30 PM CST
 
 ---
 
@@ -112,6 +112,7 @@ agelesslabs/
     ├── about.njk             # About page
     ├── analyze.njk           # AI tool page
     ├── digest.njk            # Community digest dashboard — key-protected, noindexed
+    ├── 404.njk               # Custom 404 page — outputs to /404.html, noindexed
     ├── email-thank-you.njk   # Email capture confirmation — noindexed, live at /email-thank-you/
     ├── get-tested.njk        # "Get Your Baseline" affiliate page — live at /get-tested/
     ├── longevity-lab-guide.njk  # Email lead magnet — noindexed, live at /longevity-lab-guide/
@@ -138,9 +139,12 @@ agelesslabs/
 - **Arrow characters** in index cards use `&#8594;` HTML entity — NOT the Unicode arrow, which mojibakes in the GitHub editor
 - **base.njk must have `---\n---` (empty frontmatter with closing delimiter)** — a single opening `---` with no closing causes gray-matter to parse the entire HTML file as YAML, crashing the build
 - **sitemap.njk** uses a single `collections.all` loop — never add hardcoded `<url>` blocks inside or outside the loop; they will be multiplied or duplicated
-- **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`, `/longevity-lab-guide/`
+- **Pages to exclude from sitemap** — add URL conditions to the `{%- if %}` filter in sitemap.njk: currently excludes `/google84b2549f1010612c/`, `/digest/`, `/email-thank-you/`, `/longevity-lab-guide/`, `/404.html`
 - **Guides and reviews index pages** do NOT use `eleventyExcludeFromCollections: true` — they are indexed pages and should appear in the sitemap
 - **Nav dropdown** — `base.njk` has a JS-driven hover dropdown on "Reviews" with two items (All Reviews, Longevity Test Comparison). Toggle via `.nav-dropdown-toggle` button; menu opens/closes via `.nav-dropdown-menu.open` class. Close on outside click and Escape key.
+- **Nav dropdown button styling** — `.nav-dropdown-toggle` must explicitly set `font-family: 'DM Mono'`, `font-size: 10px`, `letter-spacing: 0.15em`, `text-transform: uppercase`, `color: var(--text-dim)` — browser button defaults override inherited values
+- **Mobile nav** — at ≤1024px, `.nav-right .nav-link`, `.nav-right .nav-dropdown`, and `.nav-right .badge` are hidden; `.nav-cta` stays visible alongside the hamburger
+- **Mobile viewport overflow** — `html { overflow-x: hidden }` prevents any overflowing element from expanding the layout viewport on reload
 
 ### Sitemap priority rules (line 18 of sitemap.njk)
 `/` → 1.0 · `/analyze/` → 0.9 · `/biomarkers/` index → 0.9 · `/biomarkers/*` → 0.8 · `/blog/*` → 0.7 · `/reviews/*` → 0.7 · `/guides/*` → 0.7 · `/compare/*` → 0.7 · everything else → 0.5
@@ -207,7 +211,7 @@ if (cb) cb.click();
 ```
 Never type commit messages while CodeMirror has focus — they go into the file.
 
-**New file creation:** Use GitHub's upload page (`/upload/main/src`) and drag the file into the drop zone. Do NOT use the "new file" editor (`/new/main/src`) — it becomes unstable with large files.
+**New file creation:** Use GitHub's new file editor (`/new/main/src`) for files under ~200 lines — inject content via CodeMirror, then commit. For larger files use the upload page (`/upload/main/src`) and drag the file into the drop zone (requires file_upload tool support).
 
 ### Google Drive — Working Files
 **Folder:** AgelessLabs > Source Files
@@ -244,6 +248,7 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Ulta + Superpower cards live |
 | email-thank-you.njk | Complete | Confirmation page — noindexed · live at /email-thank-you/ |
 | longevity-lab-guide.njk | Complete — May 28 2026 | Email lead magnet — noindexed · live at /longevity-lab-guide/ |
+| 404.njk | Complete — May 30 2026 | Custom 404 — outputs to /404.html · noindexed · excluded from sitemap |
 | reviews/index.njk | Complete — May 28 2026 | Reviews index — live at /reviews/ |
 | reviews/ulta-lab-tests.njk | Complete — May 28 2026 | Live at /reviews/ulta-lab-tests/ · Review schema + FAQPage schema |
 | reviews/superpower-health.njk | Complete — May 29 2026 | Live at /reviews/superpower-health/ · Review schema + FAQPage schema · 8.2/10 |
@@ -319,41 +324,42 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 ### Phase 5.9 — Tier 2 Content — COMPLETE (May 29 2026)
 ### Phase 5.10 — Tier 2 Index Pages + Comparison Upload — COMPLETE (May 29 2026)
 ### Phase 5.11 — Nav Quick-Fix — COMPLETE (May 29 2026)
+### Phase 5.12 — Site Polish — COMPLETE (May 30 2026)
 
-Desktop nav: removed "Lab Tests" anchor link, added Reviews dropdown (All Reviews + Longevity Test Comparison) and Guides. Mobile nav: added Reviews and Guides, commented out Blog placeholder. Footer: added Reviews and Guides links.
-
-**Final status:**
-
-| # | Page | Slug | Status |
-|---|---|---|---|
-| 1 | Ulta Lab Tests review | `/reviews/ulta-lab-tests` | ✅ Live — May 28 2026 |
-| 2 | Best longevity blood panel guide | `/guides/best-longevity-blood-panel` | ✅ Live — May 28 2026 |
-| 3 | Best blood tests for men over 40 | `/guides/blood-tests-men-over-40` | ✅ Live — May 28 2026 |
-| 4 | Best blood tests for women over 40 | `/guides/blood-tests-women-over-40` | ✅ Live — May 29 2026 |
-| 5 | Superpower Health review | `/reviews/superpower-health` | ✅ Live — May 29 2026 |
-| 6 | Function Health review | `/reviews/function-health` | ✅ Live — May 29 2026 |
-| 7 | Longevity blood test comparison | `/compare/longevity-blood-tests` | ✅ Live — May 29 2026 · no affiliate links for InsideTracker/OneTwenty/Marek pending approval |
-
-
-
-**Key research captured this session:**
-- Function Health sued Superpower (Jan 2026, C.D. Cal.) over "100+ biomarkers" claim — some are algorithmically derived ratios, not direct measurements. Covered honestly in Superpower review.
-- Function Health loyalty pricing controversy: dropped $499→$365 for new members while initially keeping existing members at $499. Covered in Function review.
-- Function pricing history: launched $499 → now $365. Superpower $199 (NY/NJ: $399). InsideTracker $489 entry.
-- Function: 160+ direct markers, 2 draws/yr. Superpower: 100+ (150 w/ratios), 1 draw/yr.
-- Function raised $298M Series B at $2.5B valuation (Nov 2025). Superpower raised $30M.
+- Custom 404 page — live at /404.html · noindexed · excluded from sitemap
+- Mobile hamburger menu restored — `.nav-dropdown`, `.nav-cta` (then re-added), `.badge` hidden at ≤1024px
+- Reviews nav link styled consistently — `.nav-dropdown-toggle` now uses DM Mono, 10px, 0.15em tracking, uppercase, `var(--text-dim)` color
+- Mobile viewport overflow fixed — `html { overflow-x: hidden }` + footer links `flex-wrap: wrap` at ≤600px
 
 ---
 
-### Phase 6 — Medical Review (deferred)
+### Phase 6.0 — Tier 3 Content (Resume Here)
+
+Protocol & Optimization Guides — the "how to fix it" layer above the biomarker reference pages. Drives long-tail SEO and keeps readers in the funnel after they understand their markers.
+
+**Five categories, one guide each to start:**
+
+| # | Guide | Slug | Status |
+|---|---|---|---|
+| 1 | How to lower ApoB | `/guides/how-to-lower-apob` | — |
+| 2 | How to improve insulin sensitivity | `/guides/how-to-improve-insulin-sensitivity` | — |
+| 3 | How to optimize testosterone naturally | `/guides/how-to-optimize-testosterone` | — |
+| 4 | How to reduce chronic inflammation | `/guides/how-to-reduce-inflammation` | — |
+| 5 | How to fix nutrient deficiencies | `/guides/how-to-fix-nutrient-deficiencies` | — |
+
+Format: 1,800+ words · comparison/summary table · FAQ schema · tool CTA mid-article · affiliate links where natural · links to relevant biomarker pages.
+
+---
+
+### Phase 7 — Medical Review (deferred)
 Decision (April 19 2026): Not a launch blocker. Revisit once affiliate revenue is consistent.
 
 Candidates: Cynthia Thurlow NP · Jenni Gallagher MSN NP-C · Upwork fallback (NP/DNP functional medicine)
 
-### Phase 7 — Course Product (deferred)
+### Phase 8 — Course Product (deferred)
 "How to Build a Money-Making Website with Claude." Don't launch until "here's what I made in month 3" story exists.
 
-### Phase 8 — Next Site (deferred)
+### Phase 9 — Next Site (deferred)
 Apply AgelessLabs system to a new niche.
 
 ---
@@ -364,11 +370,9 @@ Apply AgelessLabs system to a new niche.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have literal string in JSON-LD. Not a validity issue.
 - **Vitamin K2 page note** — Ulta "vitamin-k" test measures total K (K1+K2 combined). Page accurately notes this and recommends ucOC as the functional K2 marker.
 - **MailerLite v2 classic API** — `api/subscribe.js` uses `api.mailerlite.com/api/v2`. Classic API still functional but a newer API exists. Low urgency.
-- **No custom 404 page** — broken URLs hit Vercel's default. A branded 404 with links to the biomarker library and tool would recover more traffic.
 - **OG images not page-specific** — all pages share one `og-image.png`. Matters more once traffic and social sharing scale.
 - **InsideTracker, OneTwenty, Marek Health affiliate applications** — follow-up emails needed, not code changes.
 - **Trademark check at USPTO.gov** — not done.
-
 
 ---
 
@@ -387,7 +391,7 @@ Apply AgelessLabs system to a new niche.
 - **Ulta Lab Tests URL slugs are not predictable** — always verify via `site:ultalabtests.com [test name]`.
 - **Biomarker library stopping point** — 66 pages (Waves 1–9). Pivot to Tier 2/3 content.
 - **GitHub CodeMirror commit technique** — use `breadcrumb.click()` + `setTimeout(800)` to release editor focus before opening commit dialog. Then find and click the dialog's "Commit changes" button via `b.closest('[role="dialog"]') && b.textContent.trim() === 'Commit changes'`. Never type commit messages while CodeMirror has focus.
-- **New file creation via GitHub** — use the upload page (`/upload/main/src`) and drag-and-drop. Do NOT use the "new file" editor (`/new/main/src`) — it becomes unstable with large files and the feedback dialog blocks the commit dialog.
+- **New file creation via GitHub** — use the new file editor (`/new/main/src`) for files under ~200 lines via CodeMirror injection. For larger files use the upload page (`/upload/main/src`) — but note `file_upload` tool requires files shared with the session, not host filesystem paths; produce the file as an artifact first.
 - **index.njk `layout: base.njk` critical** — this declaration gets silently dropped during batch edit sessions. Always verify it's present after any batch edit to biomarkers/index.njk.
 - **Sitemap hardcoded `<url>` blocks** — must NEVER be placed inside or around the `collections.all` loop in sitemap.njk.
 - **Sitemap URL exclusions** — add unwanted pages to the `{%- if %}` condition as `and item.url != '/slug/'` rather than editing individual files.
@@ -400,6 +404,8 @@ Apply AgelessLabs system to a new niche.
 - **Biomarker index container bug pattern** — `<section>` tag closed with `</div>` causes the container div to close early, ejecting all subsequent content from the layout. Check rendered DOM parent of `.bmi-intro` if layout breaks.
 - **Index page updates deferred until Tier 2 complete** — reviews/index.njk and guides/index.njk intentionally not updated mid-batch; update all at once when item 7 ships.
 - **Full-replace via CodeMirror on pages with existing `---\n---\n` header** — when replacing the full content of an existing file via `view.dispatch({ changes: { from: 0, to: docLen, insert: newContent } })`, the new content's own `---\n---\n` prepends to the existing one, creating three `---` delimiters. The fix: new content to inject should start with just `---\nlayout:...` (single opening delimiter), not `---\n---\n`. Alternatively, strip the leading `---\n` from the target file first.
+- **Nav dropdown button styling** — `.nav-dropdown-toggle` must explicitly set `font-family`, `font-size`, `letter-spacing`, `text-transform`, and `color` — browser button element defaults override inherited values from `.nav-link`.
+- **Mobile viewport overflow on reload** — caused by any element wider than the viewport (e.g. unwrapped footer links). Fix: `html { overflow-x: hidden }` + `flex-wrap: wrap` on the offending element.
 
 ---
 
@@ -460,7 +466,7 @@ Split larger tasks across sessions. Propose batches upfront, complete first batc
 | Task type | Method |
 |---|---|
 | Small targeted edit (<20 lines, 1–2 files) | GitHub direct edit via browser automation |
-| New file or heavily rewritten file | GitHub upload page (/upload/main/src) — drag and drop |
+| New file or heavily rewritten file | GitHub new file editor (/new/main/src) via CodeMirror for files <200 lines |
 | Master plan updates | Downloadable artifact, Dan uploads to project manually |
 | Never | Drive MCP for .njk or .js files (silent truncation above ~3KB) |
 
@@ -490,8 +496,9 @@ All 66 pages complete across Waves 1–9. Do not add more biomarker pages.
 #### Tier 2 — Lab Test Comparison & Buyer's Guide Pages — COMPLETE (7 of 7)
 All 7 pages live. InsideTracker, OneTwenty, and Marek Health links in the comparison page are non-affiliate direct links pending approval.
 
-#### Tier 3 — Protocol & Optimization Guides
+#### Tier 3 — Protocol & Optimization Guides — IN PROGRESS
 Categories: Metabolic Health, Cardiovascular, Hormonal Health, Inflammation & Immune, Nutrient Optimization.
+See Phase 6.0 for guide list and slugs.
 
 ### Content Quality Standards
 - Minimum 1,200 words for biomarker pages; 1,800+ for guides
