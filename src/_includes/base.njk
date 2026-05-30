@@ -356,7 +356,14 @@ z-index: 501;
 box-shadow: 0 8px 32px rgba(0,0,0,0.5);
 display: none;
 }
-.feedback-popover.open { display: block; }
+.feedback-popover.open {
+display: block;
+border-color: var(--green);
+box-shadow: 0 8px 32px rgba(0,0,0,0.5), 0 0 0 1px var(--green);
+}
+.feedback-popover.open .feedback-popover-label { color: var(--green); opacity: 1; }
+.feedback-popover.open .feedback-popover-question { color: var(--white); }
+.feedback-popover.open textarea { border-color: rgba(181,201,160,0.35); color: var(--white); }
 .feedback-popover-label {
 font-family: 'DM Mono', monospace;
 font-size: 10px;
