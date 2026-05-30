@@ -4,7 +4,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <title>{{ title | safe }}</title>
 <meta name="description" content="{{ description }}">
@@ -325,8 +325,8 @@ display: none;
 /* --- Feedback FAB --- */
 .feedback-fab {
 position: fixed;
-bottom: 24px;
-right: 24px;
+bottom: calc(24px + env(safe-area-inset-bottom));
+right: calc(24px + env(safe-area-inset-right));
 width: 44px;
 height: 44px;
 background: var(--bg2);
@@ -346,8 +346,8 @@ box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 .feedback-fab:hover svg { stroke: var(--green); }
 .feedback-popover {
 position: fixed;
-bottom: 80px;
-right: 24px;
+bottom: calc(84px + env(safe-area-inset-bottom));
+right: calc(24px + env(safe-area-inset-right));
 width: 300px;
 background: var(--bg2);
 border: 1px solid var(--border);
@@ -451,8 +451,8 @@ display: none;
 }
 .feedback-popover-status.error { color: #c87060; }
 @media (max-width: 480px) {
-.feedback-fab { bottom: 16px; right: 16px; }
-.feedback-popover { right: 16px; bottom: 72px; width: calc(100dvw - 32px); max-width: calc(100dvw - 32px); box-sizing: border-box; }
+.feedback-fab { bottom: calc(16px + env(safe-area-inset-bottom)); right: calc(16px + env(safe-area-inset-right)); }
+.feedback-popover { right: calc(16px + env(safe-area-inset-right)); bottom: calc(76px + env(safe-area-inset-bottom)); width: calc(100dvw - 32px); max-width: calc(100dvw - 32px); box-sizing: border-box; }
 }
 </style>
 
