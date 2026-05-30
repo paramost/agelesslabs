@@ -1,0 +1,175 @@
+---
+layout: base.njk
+title: Page Not Found | AgelessLabs
+description: The page you're looking for doesn't exist. Explore the AgelessLabs biomarker library or try the free AI lab interpreter.
+noindex: true
+permalink: /404.html
+---
+
+<style>
+.error-page {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 0;
+}
+
+.error-inner {
+  text-align: center;
+  max-width: 560px;
+}
+
+.error-code {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--green);
+  opacity: 0.7;
+  margin-bottom: 24px;
+}
+
+.error-headline {
+  font-size: clamp(32px, 5vw, 52px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--white);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+
+.error-sub {
+  font-size: 17px;
+  color: var(--text-dim);
+  line-height: 1.65;
+  margin-bottom: 48px;
+}
+
+.error-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 56px;
+}
+
+.error-links a.btn-primary {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--bg);
+  background: var(--green);
+  border: none;
+  border-radius: 2px;
+  padding: 13px 24px;
+  text-decoration: none;
+  transition: background 0.15s;
+}
+
+.error-links a.btn-primary:hover {
+  background: var(--green-bright);
+}
+
+.error-links a.btn-secondary {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 13px 24px;
+  text-decoration: none;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.error-links a.btn-secondary:hover {
+  color: var(--white);
+  border-color: rgba(181,201,160,0.35);
+}
+
+.error-divider {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.error-shortcuts-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.error-shortcut-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.error-shortcut-list a {
+  font-size: 13px;
+  color: var(--text-dim);
+  text-decoration: none;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  padding: 7px 14px;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.error-shortcut-list a:hover {
+  color: var(--green);
+  border-color: rgba(181,201,160,0.3);
+}
+
+@media (max-width: 600px) {
+  .error-links {
+    flex-direction: column;
+    align-items: center;
+  }
+  .error-links a {
+    width: 100%;
+    max-width: 300px;
+    text-align: center;
+  }
+}
+</style>
+
+<main class="error-page">
+  <div class="error-inner">
+
+    <div class="error-code">404 &mdash; Page not found</div>
+
+    <h1 class="error-headline">This page doesn't exist.</h1>
+
+    <p class="error-sub">
+      The URL may have changed, or the page was removed.<br>
+      Here's where you probably want to go:
+    </p>
+
+    <div class="error-links">
+      <a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+      <a href="/biomarkers" class="btn-secondary">Biomarker Library</a>
+    </div>
+
+    <hr class="error-divider">
+
+    <div class="error-shortcuts-label">Other pages</div>
+    <div class="error-shortcut-list">
+      <a href="/">Home</a>
+      <a href="/get-tested">Get Tested</a>
+      <a href="/guides/">Guides</a>
+      <a href="/reviews/">Reviews</a>
+      <a href="/about">About</a>
+    </div>
+
+  </div>
+</main>
