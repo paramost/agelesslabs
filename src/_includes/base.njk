@@ -536,7 +536,7 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 <div class="feedback-popover-question">Is this page helpful? Anything missing or unclear?</div>
 <textarea id="pageFeedbackText" placeholder="Your thoughts&#8230;"></textarea>
 <div class="feedback-popover-footer">
-<button class="feedback-popover-submit" id="pageFeedbackBtn" onclick="submitPageFeedback()">Send</button>
+<button class="feedback-popover-submit" id="pageFeedbackBtn" onclick="event.stopPropagation(); submitPageFeedback()">Send</button>
 <span class="feedback-popover-status" id="pageFeedbackStatus"></span>
 </div>
 </div>
@@ -679,7 +679,7 @@ body: JSON.stringify({ email: email })
 
 if (res.ok) {
 var popover = document.getElementById('feedbackPopover');
-popover.innerHTML = '<button class="feedback-popover-close" onclick="toggleFeedbackPopover(event)" aria-label="Close">'
+popover.classList.add('open'); popover.innerHTML = '<button class="feedback-popover-close" onclick="toggleFeedbackPopover(event)" aria-label="Close">'
 + '<svg viewBox="0 0 12 12" xmlns="http://www.w3.org/2000/svg"><line x1="1" y1="1" x2="11" y2="11"/><line x1="11" y1="1" x2="1" y2="11"/></svg></button>'
 + '<div style="padding:8px 0 4px">'
 + '<div class="feedback-popover-label" style="color:var(--green);opacity:1;margin-bottom:12px">Feedback received</div>'
