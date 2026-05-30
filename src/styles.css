@@ -19,7 +19,7 @@
 
 /* ─── Reset & Base ────────────────────────────────────────────── */
 * { margin: 0; padding: 0; box-sizing: border-box; }
-html { background: var(--bg); }
+html { background: var(--bg); overflow-x: hidden; }
 body {
   background: var(--bg);
   color: var(--text);
@@ -302,4 +302,6 @@ footer {
   .values { grid-template-columns: 1fr; }
   .products-grid { grid-template-columns: 1fr; }
   .score-bar-row { grid-template-columns: 60px 1fr auto; gap: 6px; }
+  .footer-links { flex-wrap: wrap; gap: 12px; }
+  footer { flex-direction: column; align-items: flex-start; }
 }
