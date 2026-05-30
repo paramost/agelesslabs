@@ -743,12 +743,6 @@ method: 'POST',
 headers: { 'Content-Type': 'application/json' },
 body: JSON.stringify({ feedback: text, pageUrl: window.location.pathname })
 });
-
-if (res.ok) {
-textarea.value = '';
-btn.style.display = 'none';
-status.textContent = 'Received — thank you.';
-status.style.display = 'inline';
 } else {
 throw new Error('non-ok');
 }
