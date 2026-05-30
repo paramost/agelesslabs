@@ -322,56 +322,84 @@ display: none;
 .email-form button[type="submit"] { width: 100%; padding: 13px; font-size: 13px; }
 }
 
-/* --- Page feedback widget --- */
-.page-feedback {
-border-top: 1px solid var(--border);
-padding: 32px 0 40px;
+/* --- Feedback FAB --- */
+.feedback-fab {
+position: fixed;
+bottom: 24px;
+right: 24px;
+width: 44px;
+height: 44px;
+background: var(--bg2);
+border: 1px solid var(--border);
+border-radius: 50%;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 500;
+transition: border-color 0.15s, background 0.15s;
+box-shadow: 0 4px 16px rgba(0,0,0,0.4);
 }
-.page-feedback-inner {
-max-width: 560px;
+.feedback-fab:hover { border-color: rgba(181,201,160,0.4); background: var(--bg3); }
+.feedback-fab svg { width: 18px; height: 18px; fill: none; stroke: var(--text-dim); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; transition: stroke 0.15s; }
+.feedback-fab:hover svg { stroke: var(--green); }
+.feedback-popover {
+position: fixed;
+bottom: 80px;
+right: 24px;
+width: 300px;
+background: var(--bg2);
+border: 1px solid var(--border);
+border-radius: 4px;
+padding: 18px;
+z-index: 501;
+box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+display: none;
 }
-.page-feedback-label {
+.feedback-popover.open { display: block; }
+.feedback-popover-label {
 font-family: 'DM Mono', monospace;
 font-size: 10px;
 letter-spacing: 0.2em;
 text-transform: uppercase;
 color: var(--text-muted);
-margin-bottom: 10px;
+margin-bottom: 8px;
 }
-.page-feedback-question {
-font-size: 15px;
+.feedback-popover-question {
+font-size: 13px;
 font-weight: 500;
 color: var(--text-dim);
-margin-bottom: 12px;
+margin-bottom: 10px;
 letter-spacing: -0.01em;
+line-height: 1.4;
 }
-.page-feedback-textarea {
+.feedback-popover textarea {
 width: 100%;
-background: var(--bg2);
+background: var(--bg3);
 border: 1px solid var(--border);
 border-radius: 2px;
-padding: 12px 14px;
+padding: 10px 12px;
 font-family: 'Red Hat Display', sans-serif;
-font-size: 14px;
+font-size: 13px;
 color: var(--text);
-resize: vertical;
-min-height: 80px;
+resize: none;
+height: 80px;
 outline: none;
 transition: border-color 0.15s;
 box-sizing: border-box;
 -webkit-appearance: none;
 }
-.page-feedback-textarea::placeholder { color: var(--text-muted); }
-.page-feedback-textarea:focus { border-color: rgba(181,201,160,0.35); }
-.page-feedback-footer {
+.feedback-popover textarea::placeholder { color: var(--text-muted); }
+.feedback-popover textarea:focus { border-color: rgba(181,201,160,0.35); }
+.feedback-popover-footer {
 display: flex;
 align-items: center;
-gap: 16px;
+gap: 12px;
 margin-top: 10px;
 }
-.page-feedback-submit {
+.feedback-popover-submit {
 font-family: 'Red Hat Display', sans-serif;
-font-size: 12px;
+font-size: 11px;
 font-weight: 700;
 letter-spacing: 0.08em;
 text-transform: uppercase;
@@ -379,21 +407,25 @@ color: var(--bg);
 background: var(--green);
 border: none;
 border-radius: 2px;
-padding: 10px 18px;
+padding: 9px 16px;
 cursor: pointer;
 transition: background 0.15s;
 flex-shrink: 0;
 }
-.page-feedback-submit:hover { background: var(--green-bright); }
-.page-feedback-submit:disabled { opacity: 0.5; cursor: not-allowed; }
-.page-feedback-status {
+.feedback-popover-submit:hover { background: var(--green-bright); }
+.feedback-popover-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+.feedback-popover-status {
 font-family: 'DM Mono', monospace;
-font-size: 12px;
+font-size: 11px;
 letter-spacing: 0.04em;
 color: var(--green);
 display: none;
 }
-.page-feedback-status.error { color: #c87060; }
+.feedback-popover-status.error { color: #c87060; }
+@media (max-width: 480px) {
+.feedback-fab { bottom: 16px; right: 16px; }
+.feedback-popover { right: 16px; bottom: 72px; width: calc(100vw - 32px); }
+}
 </style>
 
 <!-- Google tag (gtag.js) -->
@@ -447,17 +479,20 @@ y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 
 {{ content | safe }}
 
-<div class="page-feedback">
-<div class="page-feedback-inner">
-<div class="page-feedback-label">Feedback</div>
-<div class="page-feedback-question">Is this page helpful? Anything missing or unclear?</div>
-<textarea class="page-feedback-textarea" id="pageFeedbackText" placeholder="Your thoughts&#8230;" rows="3"></textarea>
-<div class="page-feedback-footer">
-<button class="page-feedback-submit" id="pageFeedbackBtn" onclick="submitPageFeedback()">Send</button>
-<span class="page-feedback-status" id="pageFeedbackStatus"></span>
+{% if page.url != '/digest/' %}
+<button class="feedback-fab" id="feedbackFab" aria-label="Send feedback" title="Send feedback" onclick="toggleFeedbackPopover()">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
+</button>
+<div class="feedback-popover" id="feedbackPopover">
+<div class="feedback-popover-label">Feedback</div>
+<div class="feedback-popover-question">Is this page helpful? Anything missing or unclear?</div>
+<textarea id="pageFeedbackText" placeholder="Your thoughts&#8230;"></textarea>
+<div class="feedback-popover-footer">
+<button class="feedback-popover-submit" id="pageFeedbackBtn" onclick="submitPageFeedback()">Send</button>
+<span class="feedback-popover-status" id="pageFeedbackStatus"></span>
 </div>
 </div>
-</div>
+{% endif %}
 
 <footer>
 <a href="/" class="logo">
@@ -626,7 +661,29 @@ errorEl.style.display = 'block';
 }
 }
 
-/* --- Page feedback --- */
+/* --- Feedback FAB --- */
+function toggleFeedbackPopover() {
+  var popover = document.getElementById('feedbackPopover');
+  if (!popover) return;
+  popover.classList.toggle('open');
+}
+
+document.addEventListener('click', function(e) {
+  var fab = document.getElementById('feedbackFab');
+  var popover = document.getElementById('feedbackPopover');
+  if (!fab || !popover) return;
+  if (!fab.contains(e.target) && !popover.contains(e.target)) {
+    popover.classList.remove('open');
+  }
+});
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var popover = document.getElementById('feedbackPopover');
+    if (popover) popover.classList.remove('open');
+  }
+});
+
 async function submitPageFeedback() {
 var textarea = document.getElementById('pageFeedbackText');
 var btn = document.getElementById('pageFeedbackBtn');
@@ -638,7 +695,7 @@ if (!text) { textarea.focus(); return; }
 btn.disabled = true;
 btn.textContent = 'Sending…';
 status.style.display = 'none';
-status.className = 'page-feedback-status';
+status.className = 'feedback-popover-status';
 
 try {
 var res = await fetch('/api/feedback', {
