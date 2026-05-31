@@ -156,6 +156,29 @@ permalink: /ops/
 .composer-row button:hover { opacity: 0.88; }
 .composer-row button:disabled { opacity: 0.5; cursor: not-allowed; }
 
+/* Platform checkboxes */
+.platform-checks {
+  display: flex;
+  gap: 18px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+.pcheck-label {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 0.85rem;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-dim, #a0a89a);
+  cursor: pointer;
+  user-select: none;
+}
+.pcheck-label input[type="checkbox"] {
+  width: 15px; height: 15px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
 .platform-tabs {
   display: flex;
   gap: 6px;
@@ -398,6 +421,12 @@ permalink: /ops/
     <!-- 2. Post Composer -->
     <div class="ops-section">
       <p class="ops-section-title">Post composer</p>
+      <div class="platform-checks">
+        <label class="pcheck-label"><input type="checkbox" id="pcheck-twitter" checked /> Twitter / X</label>
+        <label class="pcheck-label"><input type="checkbox" id="pcheck-instagram" checked /> Instagram</label>
+        <label class="pcheck-label"><input type="checkbox" id="pcheck-reddit" checked /> Reddit</label>
+        <label class="pcheck-label"><input type="checkbox" id="pcheck-threads" checked /> Threads</label>
+      </div>
       <div class="composer-row">
         <input type="url" id="compose-url" placeholder="https://agelesslabs.ai/guides/..." />
         <button id="compose-btn" onclick="generatePosts()">Generate</button>
@@ -556,65 +585,72 @@ function openAllSocial() {
 
 // ── Post Composer ─────────────────────────────────
 async function generatePosts() {
-  const urlInput = document.getElementById('compose-url');
-  const rawUrl = urlInput.value.trim();
-  if (!rawUrl) return;
+const urlInput = document.getElementById('compose-url');
+const rawUrl = urlInput.value.trim();
+if (!rawUrl) return;
 
-  const btn = document.getElementById('compose-btn');
-  btn.disabled = true;
-  document.getElementById('compose-spinner').classList.add('visible');
-  document.getElementById('ptabs').style.display = 'none';
-  document.getElementById('post-output').classList.remove('visible');
-  document.getElementById('output-actions').style.display = 'none';
-  composedPosts = {};
-
-  try {
-    const fullUrl = rawUrl.startsWith('http') ? rawUrl : 'https://agelesslabs.ai' + rawUrl;
-
-    const prompt = `You are a social media writer for AgelessLabs.ai — a longevity-focused health site that helps people understand their biomarkers and lab results through an AI tool.
-
-URL to promote: ${fullUrl}
-
-Write 4 platform-specific posts for this page. Return ONLY valid JSON with this exact structure, no other text:
-{
-  "twitter": "...",
-  "instagram": "...",
-  "reddit": "...",
-  "threads": "..."
+const selected = ['twitter','instagram','reddit','threads'].filter(p =>
+  document.getElementById('pcheck-' + p)?.checked
+);
+if (selected.length === 0) {
+  alert('Select at least one platform.');
+  return;
 }
 
-Guidelines:
-- Twitter/X: Max 260 chars. Punchy hook, 1-2 data points or insights, end with the URL. No hashtags.
-- Instagram: 150-300 chars. Hook line, 2-3 value bullets (use ✦ as bullet), end with link in bio mention. 3-5 relevant hashtags at end.
-- Reddit: 3-5 sentences. Conversational, value-first, no self-promotion feel. Mention the site naturally. No hashtags.
-- Threads: Max 480 chars. Warm, conversational tone similar to Twitter but slightly longer. Include the URL.
-- Voice: authoritative but not clinical. Speak to health-optimizers aged 35-65.
-- Always weave in the URL naturally.`;
+const btn = document.getElementById('compose-btn');
+btn.disabled = true;
+document.getElementById('compose-spinner').classList.add('visible');
+document.getElementById('ptabs').style.display = 'none';
+document.getElementById('post-output').classList.remove('visible');
+document.getElementById('output-actions').style.display = 'none';
+composedPosts = {};
 
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
-      })
-    });
+try {
+const fullUrl = rawUrl.startsWith('http') ? rawUrl : 'https://agelesslabs.ai' + rawUrl;
 
-    const data = await res.json();
-    const text = data.content?.[0]?.text || '';
-    const clean = text.replace(/```json|```/g, '').trim();
-    composedPosts = JSON.parse(clean);
+const platformGuides = {
+  twitter: 'Twitter/X: Max 260 chars. Punchy hook, 1-2 data points or insights, end with the URL. No hashtags.',
+  instagram: 'Instagram: 150-300 chars. Hook line, 2-3 value bullets (use ✦ as bullet), end with link in bio mention. 3-5 relevant hashtags at end.',
+  reddit: 'Reddit: 3-5 sentences. Conversational, value-first, no self-promotion feel. Mention the site naturally. No hashtags.',
+  threads: 'Threads: Max 480 chars. Warm, conversational tone similar to Twitter but slightly longer. Include the URL.'
+};
 
-    document.getElementById('ptabs').style.display = 'flex';
-    showPlatform('twitter');
-  } catch(err) {
-    document.getElementById('post-output').textContent = 'Error generating posts. Check the URL and try again.';
-    document.getElementById('post-output').classList.add('visible');
-  } finally {
-    btn.disabled = false;
-    document.getElementById('compose-spinner').classList.remove('visible');
-  }
+const keys = selected.map(p => '"' + p + '": "..."').join(',\n  ');
+const guides = selected.map(p => '- ' + platformGuides[p]).join('\n');
+
+const prompt = 'You are a social media writer for AgelessLabs.ai — a longevity-focused health site that helps people understand their biomarkers and lab results through an AI tool.\n\nURL to promote: ' + fullUrl + '\n\nWrite posts for the following platforms only. Return ONLY valid JSON with this exact structure, no other text:\n{\n  ' + keys + '\n}\n\nGuidelines:\n' + guides + '\n- Voice: authoritative but not clinical. Speak to health-optimizers aged 35-65.\n- Always weave in the URL naturally.';
+
+const res = await fetch('https://api.anthropic.com/v1/messages', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    model: 'claude-sonnet-4-20250514',
+    max_tokens: 1000,
+    messages: [{ role: 'user', content: prompt }]
+  })
+});
+
+const data = await res.json();
+const text = data.content?.[0]?.text || '';
+const clean = text.replace(/```json|```/g, '').trim();
+composedPosts = JSON.parse(clean);
+
+// Build tabs only for selected platforms
+const ptabs = document.getElementById('ptabs');
+ptabs.innerHTML = selected.map((p, i) => {
+  const label = { twitter: 'Twitter / X', instagram: 'Instagram', reddit: 'Reddit', threads: 'Threads' }[p];
+  return '<button class="ptab' + (i === 0 ? ' active' : '') + '" onclick="showPlatform(\'' + p + '\')">' + label + '</button>';
+}).join('');
+ptabs.style.display = 'flex';
+showPlatform(selected[0]);
+
+} catch(err) {
+document.getElementById('post-output').textContent = 'Error generating posts. Check the URL and try again.';
+document.getElementById('post-output').classList.add('visible');
+} finally {
+btn.disabled = false;
+document.getElementById('compose-spinner').classList.remove('visible');
+}
 }
 
 function showPlatform(p) {
