@@ -77,15 +77,34 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
 
 /* Search button */
 .pagefind-ui__search-clear {
-  background: none !important;
-  color: var(--text-dim) !important;
-  font-family: 'DM Mono', monospace !important;
-  font-size: 10px !important;
-  letter-spacing: 0.1em !important;
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 50% !important;
+  background: var(--bg3) !important;
+  border: 1px solid var(--border) !important;
+  color: transparent !important;
+  font-size: 0 !important;
+  position: relative !important;
+  flex-shrink: 0 !important;
+  margin-right: 8px !important;
+  cursor: pointer !important;
 }
-.pagefind-ui__search-clear:hover {
-  color: var(--green) !important;
+.pagefind-ui__search-clear::before,
+.pagefind-ui__search-clear::after {
+  content: '' !important;
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  width: 10px !important;
+  height: 1.5px !important;
+  background: var(--text-dim) !important;
+  border-radius: 1px !important;
 }
+.pagefind-ui__search-clear::before { transform: translate(-50%, -50%) rotate(45deg) !important; }
+.pagefind-ui__search-clear::after { transform: translate(-50%, -50%) rotate(-45deg) !important; }
+.pagefind-ui__search-clear:hover { border-color: rgba(181,201,160,0.35) !important; background: var(--bg2) !important; }
+.pagefind-ui__search-clear:hover::before,
+.pagefind-ui__search-clear:hover::after { background: var(--green) !important; }
 
 /* Results */
 .pagefind-ui__results-area {
