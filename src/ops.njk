@@ -1,0 +1,709 @@
+---
+layout: base.njk
+title: Ops Dashboard — AgelessLabs
+noindex: true
+permalink: /ops/
+---
+
+<style>
+.ops-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+/* Gate */
+.ops-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 80px 24px;
+  text-align: center;
+}
+.ops-gate h1 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 1.6rem;
+  color: var(--text-bright);
+  margin: 0;
+}
+.ops-gate p { color: var(--text-muted); font-size: 0.95rem; margin: 0; }
+.gate-row { display: flex; gap: 10px; width: 100%; max-width: 380px; }
+.gate-row input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--surface-2, #1e201c);
+  border: 1px solid var(--border, #2e3028);
+  border-radius: 8px;
+  color: var(--text-bright);
+  font-size: 0.95rem;
+  outline: none;
+}
+.gate-row input:focus { border-color: var(--green); }
+.gate-row button {
+  padding: 10px 20px;
+  background: var(--green);
+  color: #111210;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.gate-row button:hover { opacity: 0.88; }
+.gate-error { color: #e07070; font-size: 0.85rem; }
+
+/* Dashboard */
+.ops-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.ops-header h1 {
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 1.5rem;
+  color: var(--text-bright);
+  margin: 0;
+}
+.ops-badge {
+  font-size: 0.72rem;
+  font-family: 'DM Mono', monospace;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: #1e2a1a;
+  color: var(--green);
+  border: 1px solid #2d3d28;
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+/* Section */
+.ops-section {
+  margin-bottom: 48px;
+}
+.ops-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin: 0 0 16px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border, #2e3028);
+}
+
+/* Quick links */
+.quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.ql-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 16px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.15s;
+}
+.ql-btn:hover { opacity: 0.82; }
+.ql-btn-primary { background: var(--green); color: #111210; }
+.ql-btn-outline {
+  background: transparent;
+  border: 1px solid var(--border, #2e3028);
+  color: var(--text-dim, #a0a89a);
+}
+.ql-btn-outline:hover { border-color: var(--green); color: var(--green); }
+.ql-icon { width: 16px; height: 16px; flex-shrink: 0; }
+
+/* Composer */
+.composer-row {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.composer-row input {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--surface-2, #1e201c);
+  border: 1px solid var(--border, #2e3028);
+  border-radius: 8px;
+  color: var(--text-bright);
+  font-size: 0.9rem;
+  outline: none;
+}
+.composer-row input:focus { border-color: var(--green); }
+.composer-row input::placeholder { color: var(--text-muted); }
+.composer-row button {
+  padding: 10px 20px;
+  background: var(--green);
+  color: #111210;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.88rem;
+  white-space: nowrap;
+}
+.composer-row button:hover { opacity: 0.88; }
+.composer-row button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.platform-tabs {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+.ptab {
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  border: 1px solid var(--border, #2e3028);
+  background: transparent;
+  color: var(--text-dim, #a0a89a);
+  transition: border-color 0.15s, color 0.15s;
+}
+.ptab.active, .ptab:hover { border-color: var(--green); color: var(--green); }
+
+.post-output {
+  background: #111210;
+  border: 1px solid var(--border, #2e3028);
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 0.87rem;
+  color: var(--text-dim, #a0a89a);
+  line-height: 1.6;
+  white-space: pre-wrap;
+  min-height: 80px;
+  display: none;
+}
+.post-output.visible { display: block; }
+
+.output-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.copy-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  background: var(--green);
+  color: #111210;
+  font-weight: 600;
+  font-size: 0.8rem;
+  border: none;
+  cursor: pointer;
+}
+.copy-btn:hover { opacity: 0.85; }
+.copy-btn.copied { background: #5a8050; color: #eef2ea; }
+.char-count {
+  font-size: 0.78rem;
+  font-family: 'DM Mono', monospace;
+  color: var(--text-muted);
+  margin-left: auto;
+}
+.char-over { color: #e07070; }
+
+.composer-spinner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  padding: 8px 0;
+}
+.composer-spinner.visible { display: flex; }
+.spinner-sm {
+  width: 16px; height: 16px;
+  border: 2px solid var(--border, #2e3028);
+  border-top-color: var(--green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  flex-shrink: 0;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* Affiliate links */
+.aff-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.aff-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--surface-1, #171916);
+  border: 1px solid var(--border, #2e3028);
+  border-radius: 8px;
+  padding: 12px 16px;
+}
+.aff-name {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-bright);
+  min-width: 130px;
+}
+.aff-note {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace;
+  flex: 1;
+}
+.aff-url {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: 'DM Mono', monospace;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.copy-btn-sm {
+  padding: 5px 12px;
+  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--border, #2e3028);
+  color: var(--text-dim, #a0a89a);
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.copy-btn-sm:hover { border-color: var(--green); color: var(--green); }
+.copy-btn-sm.copied { border-color: #5a8050; color: #5a8050; }
+
+/* Checklist */
+.checklist-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+}
+.checklist-table th {
+  font-family: 'DM Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  font-weight: 400;
+  padding: 8px 10px;
+  text-align: left;
+  border-bottom: 1px solid var(--border, #2e3028);
+}
+.checklist-table th:not(:first-child) { text-align: center; }
+.checklist-table td {
+  padding: 10px 10px;
+  border-bottom: 1px solid #1e2018;
+  color: var(--text-dim, #a0a89a);
+  vertical-align: middle;
+}
+.checklist-table td:not(:first-child) { text-align: center; }
+.checklist-table tr:last-child td { border-bottom: none; }
+.checklist-table tr:hover td { background: #14160f; }
+.page-link {
+  color: var(--text-dim, #a0a89a);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.page-link:hover { color: var(--green); }
+.check-cell input[type="checkbox"] {
+  width: 16px; height: 16px;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+.done-row td { opacity: 0.45; }
+.done-row td:first-child .page-link { text-decoration: line-through; }
+
+.checklist-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+.cl-btn {
+  padding: 5px 14px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-family: 'DM Mono', monospace;
+  cursor: pointer;
+  border: 1px solid var(--border, #2e3028);
+  background: transparent;
+  color: var(--text-dim, #a0a89a);
+}
+.cl-btn:hover { border-color: var(--green); color: var(--green); }
+</style>
+
+<div class="ops-wrap" id="ops-app">
+
+  <!-- Gate -->
+  <div class="ops-gate" id="gate-view">
+    <h1>Ops Dashboard</h1>
+    <p>Enter your key to access the marketing command centre.</p>
+    <div class="gate-row">
+      <input type="password" id="key-input" placeholder="Key" autocomplete="off" />
+      <button onclick="unlockOps()">Unlock</button>
+    </div>
+    <span class="gate-error" id="gate-error" style="display:none">Incorrect key.</span>
+  </div>
+
+  <!-- Dashboard -->
+  <div id="dashboard-view" style="display:none">
+    <div class="ops-header">
+      <h1>Ops Dashboard</h1>
+      <span class="ops-badge">AgelessLabs</span>
+    </div>
+
+    <!-- 1. Quick Links -->
+    <div class="ops-section">
+      <p class="ops-section-title">Quick links</p>
+      <div class="quick-links">
+        <a href="/digest/" class="ql-btn ql-btn-primary" target="_blank">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/><path d="M8 12h8M12 8l4 4-4 4"/></svg>
+          Community Digest
+        </a>
+        <a href="https://x.com/agelesslabsai" class="ql-btn ql-btn-outline" target="_blank" rel="noopener">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Twitter / X
+        </a>
+        <a href="https://instagram.com/agelesslabs.ai" class="ql-btn ql-btn-outline" target="_blank" rel="noopener">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+          Instagram
+        </a>
+        <a href="https://www.threads.net/@agelesslabs.ai" class="ql-btn ql-btn-outline" target="_blank" rel="noopener">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.47 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098 1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-.934-3.378-3.39-5.268-8.304-5.301h-.011c-2.972.021-5.237.938-6.73 2.726C4.2 7.337 3.495 9.641 3.47 12c.025 2.357.73 4.662 2.225 6.438 1.494 1.79 3.758 2.71 6.73 2.728h.01c2.668-.02 4.387-.72 5.604-2.268.797-1.012 1.32-2.44 1.555-4.25-.984.3-2.01.437-3.035.4-2.53-.085-4.702-1.208-5.585-3.072a5.32 5.32 0 0 1-.39-1.998c0-1.97 1.024-3.812 2.785-4.81 1.52-.862 3.442-1.11 5.42-.7.652.137 1.282.34 1.882.608a5.03 5.03 0 0 0-.064-.587c-.31-1.96-1.45-3.054-3.364-3.251-.198-.02-.4-.031-.6-.031-.982 0-1.918.248-2.693.716l-.757-1.743A7.27 7.27 0 0 1 12.186 0zm3.615 9.47c-1.48-.313-2.878-.177-3.84.37-.97.553-1.523 1.537-1.523 2.708 0 .456.092.875.267 1.253.58 1.23 2.095 1.99 3.966 2.05.882.03 1.784-.105 2.636-.39-.215-1.636-.748-4.29-1.506-5.99z"/></svg>
+          Threads
+        </a>
+        <a href="https://reddit.com/user/agelesslabs" class="ql-btn ql-btn-outline" target="_blank" rel="noopener">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.249 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"/></svg>
+          Reddit
+        </a>
+        <button class="ql-btn ql-btn-outline" onclick="openAllSocial()">
+          <svg class="ql-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Open all social
+        </button>
+      </div>
+    </div>
+
+    <!-- 2. Post Composer -->
+    <div class="ops-section">
+      <p class="ops-section-title">Post composer</p>
+      <div class="composer-row">
+        <input type="url" id="compose-url" placeholder="https://agelesslabs.ai/guides/..." />
+        <button id="compose-btn" onclick="generatePosts()">Generate</button>
+      </div>
+      <div class="platform-tabs" id="ptabs" style="display:none">
+        <button class="ptab active" onclick="showPlatform('twitter')">Twitter / X</button>
+        <button class="ptab" onclick="showPlatform('instagram')">Instagram</button>
+        <button class="ptab" onclick="showPlatform('reddit')">Reddit</button>
+        <button class="ptab" onclick="showPlatform('threads')">Threads</button>
+      </div>
+      <div class="composer-spinner" id="compose-spinner">
+        <div class="spinner-sm"></div>
+        <span>Generating posts…</span>
+      </div>
+      <div class="post-output" id="post-output"></div>
+      <div class="output-actions" id="output-actions" style="display:none">
+        <button class="copy-btn" id="copy-post-btn" onclick="copyPost()">Copy</button>
+        <span class="char-count" id="char-count"></span>
+      </div>
+    </div>
+
+    <!-- 3. Affiliate Links -->
+    <div class="ops-section">
+      <p class="ops-section-title">Affiliate links</p>
+      <div class="aff-grid">
+        <div class="aff-row">
+          <span class="aff-name">Ulta Lab Tests</span>
+          <span class="aff-note">Base partner URL</span>
+          <span class="aff-url">ultalabtests.com/partners/agelesslabs/</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://ultalabtests.com/partners/agelesslabs/')">Copy</button>
+        </div>
+        <div class="aff-row">
+          <span class="aff-name">Superpower</span>
+          <span class="aff-note">$30–60/sale</span>
+          <span class="aff-url">superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y')">Copy</button>
+        </div>
+        <div class="aff-row">
+          <span class="aff-name">Life Extension</span>
+          <span class="aff-note">8–12% · supplements + labs</span>
+          <span class="aff-url">lifeextension.com</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://www.lifeextension.com')">Copy</button>
+        </div>
+        <div class="aff-row">
+          <span class="aff-name">InsideTracker</span>
+          <span class="aff-note">Pending approval</span>
+          <span class="aff-url">insidetracker.com</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://www.insidetracker.com')">Copy</button>
+        </div>
+        <div class="aff-row">
+          <span class="aff-name">OneTwenty</span>
+          <span class="aff-note">Pending approval</span>
+          <span class="aff-url">onetwenty.health</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://www.onetwenty.health')">Copy</button>
+        </div>
+        <div class="aff-row">
+          <span class="aff-name">Marek Health</span>
+          <span class="aff-note">Pending approval</span>
+          <span class="aff-url">marekhealth.com</span>
+          <button class="copy-btn-sm" onclick="copyAff(this, 'https://marekhealth.com')">Copy</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Promotion Checklist -->
+    <div class="ops-section">
+      <p class="ops-section-title">Promotion checklist</p>
+      <table class="checklist-table">
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Twitter</th>
+            <th>IG</th>
+            <th>Reddit</th>
+            <th>Threads</th>
+          </tr>
+        </thead>
+        <tbody id="checklist-body"></tbody>
+      </table>
+      <div class="checklist-actions">
+        <button class="cl-btn" onclick="resetChecklist()">Reset all</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+const PAGES = [
+  { label: 'Homepage', url: '/' },
+  { label: 'AI Tool', url: '/analyze/' },
+  { label: 'Best Longevity Blood Panel', url: '/guides/best-longevity-blood-panel/' },
+  { label: 'Blood Tests — Men Over 40', url: '/guides/blood-tests-men-over-40/' },
+  { label: 'Blood Tests — Women Over 40', url: '/guides/blood-tests-women-over-40/' },
+  { label: 'How to Lower ApoB', url: '/guides/how-to-lower-apob/' },
+  { label: 'How to Improve Insulin Sensitivity', url: '/guides/how-to-improve-insulin-sensitivity/' },
+  { label: 'How to Optimize Testosterone', url: '/guides/how-to-optimize-testosterone/' },
+  { label: 'How to Reduce Inflammation', url: '/guides/how-to-reduce-inflammation/' },
+  { label: 'How to Fix Nutrient Deficiencies', url: '/guides/how-to-fix-nutrient-deficiencies/' },
+  { label: 'Ulta Lab Tests Review', url: '/reviews/ulta-lab-tests/' },
+  { label: 'Superpower Review', url: '/reviews/superpower-health/' },
+  { label: 'Function Health Review', url: '/reviews/function-health/' },
+  { label: 'Longevity Test Comparison', url: '/compare/longevity-blood-tests/' },
+  { label: 'Get Your Baseline', url: '/get-tested/' },
+];
+
+const PLATFORMS = ['twitter', 'instagram', 'reddit', 'threads'];
+const CHAR_LIMITS = { twitter: 280, instagram: 2200, reddit: null, threads: 500 };
+const CL_KEY = 'ops_checklist_v1';
+
+let composedPosts = {};
+let activePlatform = 'twitter';
+let opsKey = '';
+
+// ── Auth ──────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('key-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') unlockOps();
+  });
+  document.getElementById('compose-url').addEventListener('keydown', e => {
+    if (e.key === 'Enter') generatePosts();
+  });
+  buildChecklist();
+});
+
+async function unlockOps() {
+  const key = document.getElementById('key-input').value.trim();
+  if (!key) return;
+  opsKey = key;
+  try {
+    const res = await fetch('/api/digest?key=' + encodeURIComponent(key), { method: 'HEAD' }).catch(() => fetch('/api/digest?key=' + encodeURIComponent(key)));
+    if (res.status === 401) {
+      document.getElementById('gate-error').style.display = 'block';
+      return;
+    }
+    document.getElementById('gate-error').style.display = 'none';
+    document.getElementById('gate-view').style.display = 'none';
+    document.getElementById('dashboard-view').style.display = 'block';
+  } catch(e) {
+    document.getElementById('gate-error').style.display = 'none';
+    document.getElementById('gate-view').style.display = 'none';
+    document.getElementById('dashboard-view').style.display = 'block';
+  }
+}
+
+// ── Quick Links ───────────────────────────────────
+function openAllSocial() {
+  const urls = [
+    'https://x.com/agelesslabsai',
+    'https://instagram.com/agelesslabs.ai',
+    'https://www.threads.net/@agelesslabs.ai',
+    'https://reddit.com/user/agelesslabs'
+  ];
+  urls.forEach(u => window.open(u, '_blank'));
+}
+
+// ── Post Composer ─────────────────────────────────
+async function generatePosts() {
+  const urlInput = document.getElementById('compose-url');
+  const rawUrl = urlInput.value.trim();
+  if (!rawUrl) return;
+
+  const btn = document.getElementById('compose-btn');
+  btn.disabled = true;
+  document.getElementById('compose-spinner').classList.add('visible');
+  document.getElementById('ptabs').style.display = 'none';
+  document.getElementById('post-output').classList.remove('visible');
+  document.getElementById('output-actions').style.display = 'none';
+  composedPosts = {};
+
+  try {
+    const fullUrl = rawUrl.startsWith('http') ? rawUrl : 'https://agelesslabs.ai' + rawUrl;
+
+    const prompt = `You are a social media writer for AgelessLabs.ai — a longevity-focused health site that helps people understand their biomarkers and lab results through an AI tool.
+
+URL to promote: ${fullUrl}
+
+Write 4 platform-specific posts for this page. Return ONLY valid JSON with this exact structure, no other text:
+{
+  "twitter": "...",
+  "instagram": "...",
+  "reddit": "...",
+  "threads": "..."
+}
+
+Guidelines:
+- Twitter/X: Max 260 chars. Punchy hook, 1-2 data points or insights, end with the URL. No hashtags.
+- Instagram: 150-300 chars. Hook line, 2-3 value bullets (use ✦ as bullet), end with link in bio mention. 3-5 relevant hashtags at end.
+- Reddit: 3-5 sentences. Conversational, value-first, no self-promotion feel. Mention the site naturally. No hashtags.
+- Threads: Max 480 chars. Warm, conversational tone similar to Twitter but slightly longer. Include the URL.
+- Voice: authoritative but not clinical. Speak to health-optimizers aged 35-65.
+- Always weave in the URL naturally.`;
+
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    const data = await res.json();
+    const text = data.content?.[0]?.text || '';
+    const clean = text.replace(/```json|```/g, '').trim();
+    composedPosts = JSON.parse(clean);
+
+    document.getElementById('ptabs').style.display = 'flex';
+    showPlatform('twitter');
+  } catch(err) {
+    document.getElementById('post-output').textContent = 'Error generating posts. Check the URL and try again.';
+    document.getElementById('post-output').classList.add('visible');
+  } finally {
+    btn.disabled = false;
+    document.getElementById('compose-spinner').classList.remove('visible');
+  }
+}
+
+function showPlatform(p) {
+  activePlatform = p;
+  document.querySelectorAll('.ptab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.ptab').forEach(t => {
+    if (t.textContent.toLowerCase().includes(p === 'twitter' ? 'twitter' : p)) t.classList.add('active');
+  });
+  const text = composedPosts[p] || '';
+  const output = document.getElementById('post-output');
+  output.textContent = text;
+  output.classList.add('visible');
+
+  const actions = document.getElementById('output-actions');
+  actions.style.display = 'flex';
+
+  const limit = CHAR_LIMITS[p];
+  const cc = document.getElementById('char-count');
+  if (limit) {
+    const over = text.length > limit;
+    cc.textContent = text.length + ' / ' + limit;
+    cc.className = 'char-count' + (over ? ' char-over' : '');
+  } else {
+    cc.textContent = text.length + ' chars';
+    cc.className = 'char-count';
+  }
+
+  const btn = document.getElementById('copy-post-btn');
+  btn.textContent = 'Copy';
+  btn.classList.remove('copied');
+}
+
+function copyPost() {
+  const text = document.getElementById('post-output').textContent;
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = document.getElementById('copy-post-btn');
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── Affiliate Links ───────────────────────────────
+function copyAff(btn, url) {
+  navigator.clipboard.writeText(url).then(() => {
+    btn.textContent = 'Copied!';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// ── Checklist ─────────────────────────────────────
+function loadChecklist() {
+  try { return JSON.parse(localStorage.getItem(CL_KEY) || '{}'); } catch { return {}; }
+}
+
+function saveChecklist(data) {
+  localStorage.setItem(CL_KEY, JSON.stringify(data));
+}
+
+function buildChecklist() {
+  const state = loadChecklist();
+  const tbody = document.getElementById('checklist-body');
+  tbody.innerHTML = PAGES.map(page => {
+    const allDone = PLATFORMS.every(p => state[page.url + '_' + p]);
+    return `<tr class="${allDone ? 'done-row' : ''}" id="row-${CSS.escape(page.url)}">
+      <td><a class="page-link" href="${page.url}" target="_blank">${page.label}</a></td>
+      ${PLATFORMS.map(p => {
+        const key = page.url + '_' + p;
+        const checked = state[key] ? 'checked' : '';
+        return `<td class="check-cell"><input type="checkbox" ${checked} data-key="${key}" data-url="${page.url}" onchange="toggleCheck(this)" /></td>`;
+      }).join('')}
+    </tr>`;
+  }).join('');
+}
+
+function toggleCheck(el) {
+  const state = loadChecklist();
+  state[el.dataset.key] = el.checked;
+  saveChecklist(state);
+  const row = el.closest('tr');
+  const allChecks = row.querySelectorAll('input[type="checkbox"]');
+  const allDone = Array.from(allChecks).every(c => c.checked);
+  row.className = allDone ? 'done-row' : '';
+}
+
+function resetChecklist() {
+  if (!confirm('Reset all promotion checkboxes?')) return;
+  localStorage.removeItem(CL_KEY);
+  buildChecklist();
+}
+</script>
