@@ -250,7 +250,11 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
     // Move button inside the form if it isn't already
     if (!form.contains(clearBtn)) {
       clearBtn.innerHTML = svgX;
+      // Set position:relative on form via inline style to beat Svelte scoping
+      form.style.position = 'relative';
       form.appendChild(clearBtn);
+      // Force inline styles on the button so Svelte scoping can't override
+      clearBtn.style.cssText = 'position:absolute !important;right:12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--bg3);border:1px solid var(--border);color:var(--text-dim);font-size:0;cursor:pointer;display:flex;align-items:center;justify-content:center;';
     } else if (clearBtn.textContent.trim() === 'Clear') {
       clearBtn.innerHTML = svgX;
     }
