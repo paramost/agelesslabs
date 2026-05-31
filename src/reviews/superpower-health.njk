@@ -1,0 +1,427 @@
+---
+layout: base.njk
+title: "Superpower Health Review (2026): Is $199/Year Worth It? | AgelessLabs"
+permalink: /reviews/superpower-health/index.html
+description: "An honest review of Superpower Health's 100+ biomarker panel. What's actually included, what's algorithmically derived, how it compares to Function Health, and who it's right for."
+---
+
+<style>
+.review-hero { padding: 40px 0 48px; border-bottom: 1px solid var(--border); margin-bottom: 48px; animation: fadeUp 0.7s ease both; }
+.review-hero .page-eyebrow { margin-bottom: 20px; }
+.review-hero h1 { margin-bottom: 16px; }
+.review-hero-sub { font-size: 16px; color: var(--text-dim); line-height: 1.75; font-weight: 400; max-width: 640px; margin-bottom: 0; }
+.review-meta { display: flex; align-items: center; gap: 20px; margin-bottom: 40px; flex-wrap: wrap; }
+.review-meta-item { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.review-meta-item span { color: var(--text-dim); }
+
+.content-section { margin-bottom: 48px; }
+.content-section h2 { font-size: 22px; font-weight: 600; color: var(--white); letter-spacing: -0.02em; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
+.content-section h3 { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 12px; margin-top: 32px; }
+.content-section p { font-size: 15px; color: var(--text-dim); line-height: 1.8; font-weight: 400; margin-bottom: 16px; }
+.content-section p:last-child { margin-bottom: 0; }
+.content-section a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); transition: border-color 0.2s; }
+.content-section a:hover { border-bottom-color: var(--green); }
+
+.verdict-banner { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.25); border-radius: 3px; padding: 28px 32px; margin-bottom: 48px; display: grid; grid-template-columns: 1fr auto; align-items: start; gap: 32px; }
+.verdict-score { text-align: center; flex-shrink: 0; }
+.verdict-score-number { font-family: 'DM Mono', monospace; font-size: 52px; font-weight: 700; color: var(--green); line-height: 1; }
+.verdict-score-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+.verdict-title { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 10px; }
+.verdict-text { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 3px; margin-bottom: 32px; }
+.pros-cons-col { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; padding: 22px; }
+.pros-cons-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 14px; }
+.pros-cons-label.pros { color: var(--green); }
+.pros-cons-label.cons { color: #e07070; }
+.pros-cons-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.pros-cons-list li { font-size: 13px; color: var(--text-dim); line-height: 1.55; padding-left: 16px; position: relative; font-weight: 400; }
+.pros-cons-list li::before { position: absolute; left: 0; font-family: 'DM Mono', monospace; font-size: 11px; }
+.pros-cons-list.pros-list li::before { content: '+'; color: var(--green); }
+.pros-cons-list.cons-list li::before { content: '&#8722;'; color: #e07070; }
+
+.compare-table { width: 100%; border-collapse: collapse; margin-bottom: 32px; font-size: 14px; }
+.compare-table th { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); padding: 10px 14px; text-align: left; border-bottom: 1px solid var(--border); background: var(--bg3); }
+.compare-table th:first-child { width: 30%; }
+.compare-table td { padding: 13px 14px; border-bottom: 1px solid var(--border); color: var(--text-dim); vertical-align: top; line-height: 1.55; }
+.compare-table td:first-child { color: var(--white); font-weight: 600; }
+.compare-table tr:last-child td { border-bottom: none; }
+.compare-table tr:hover td { background: rgba(181,201,160,0.02); }
+.compare-table .highlight { color: var(--green); font-weight: 600; }
+.compare-table .dim { color: var(--text-muted); }
+
+.callout { background: rgba(181,201,160,0.04); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+.callout a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.3); }
+
+.warning-callout { background: rgba(200,169,110,0.04); border: 1px solid rgba(200,169,110,0.2); border-radius: 3px; padding: 20px 24px; margin-bottom: 24px; }
+.warning-callout-label { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+.warning-callout p { font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; margin: 0; }
+
+.pricing-card { background: var(--bg2); border: 1px solid rgba(181,201,160,0.25); border-radius: 3px; padding: 28px; margin-bottom: 32px; }
+.pricing-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; gap: 16px; flex-wrap: wrap; }
+.pricing-card-name { font-size: 17px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; }
+.pricing-card-price { font-family: 'DM Mono', monospace; font-size: 26px; font-weight: 700; color: var(--green); line-height: 1; }
+.pricing-card-price span { font-size: 12px; color: var(--text-muted); font-weight: 400; }
+.pricing-card-features { display: grid; gap: 8px; margin-bottom: 24px; }
+.pricing-card-feature { font-size: 13px; color: var(--text-dim); padding-left: 16px; position: relative; line-height: 1.5; font-weight: 400; }
+.pricing-card-feature::before { content: '&#8594;'; position: absolute; left: 0; color: var(--green); font-size: 11px; }
+.pricing-card-cta { display: inline-block; padding: 12px 24px; background: var(--green); color: var(--bg); border-radius: 3px; font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; text-decoration: none; border: none; transition: all 0.2s; }
+.pricing-card-cta:hover { background: var(--green-bright); transform: translateY(-1px); border-bottom: none; }
+
+.page-tool-cta { padding: 32px; background: rgba(181,201,160,0.03); border: 1px solid rgba(181,201,160,0.2); border-radius: 3px; display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 24px; margin-bottom: 48px; }
+.page-tool-cta h3 { font-size: 18px; font-weight: 600; color: var(--white); letter-spacing: -0.01em; margin-bottom: 8px; }
+.page-tool-cta p { font-size: 14px; color: var(--text-dim); line-height: 1.6; margin: 0; font-weight: 400; }
+
+.faq-list { display: grid; gap: 2px; margin-bottom: 48px; }
+.faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.faq-question { padding: 18px 20px; font-size: 15px; font-weight: 500; color: var(--white); cursor: pointer; display: flex; justify-content: space-between; align-items: center; letter-spacing: -0.01em; }
+.faq-question::after { content: '+'; font-family: 'DM Mono', monospace; font-size: 16px; color: var(--green); opacity: 0.6; flex-shrink: 0; }
+.faq-question.open::after { content: '\2212'; }
+.faq-answer { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--text-dim); line-height: 1.75; font-weight: 400; }
+.faq-answer.open { display: block; }
+.faq-answer a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(181,201,160,0.25); }
+
+@media (max-width: 700px) {
+.verdict-banner { grid-template-columns: 1fr; }
+.verdict-score { text-align: left; }
+.pros-cons { grid-template-columns: 1fr; }
+.page-tool-cta { grid-template-columns: 1fr; }
+.pricing-card-header { flex-direction: column; }
+}
+</style>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "Review",
+"itemReviewed": {
+"@type": "Product",
+"name": "Superpower Health",
+"url": "https://superpower.com",
+"description": "Annual subscription biomarker testing service with 100+ markers, biological age scoring, and concierge health support."
+},
+"reviewRating": {
+"@type": "Rating",
+"ratingValue": "8.2",
+"bestRating": "10",
+"worstRating": "1"
+},
+"author": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"publisher": { "@type": "Organization", "name": "AgelessLabs", "url": "https://agelesslabs.ai" },
+"datePublished": "2026-05-29",
+"dateModified": "2026-05-29",
+"reviewBody": "Superpower Health offers strong value at $199/year for 100+ biomarkers including critical longevity markers like ApoB and a full hormone panel. The AI-powered dashboard is genuinely polished, the biological age score is motivating, and the price point undercuts every meaningful competitor. Honest caveats: only one annual draw, some advertised biomarker count includes algorithmically derived ratios rather than direct measurements, and the at-home draw option costs extra."
+}
+</script>
+
+<script type="application/ld+json">
+{
+"@context": "https://schema.org",
+"@type": "FAQPage",
+"mainEntity": [
+{
+"@type": "Question",
+"name": "Is Superpower Health worth it?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "For most health-conscious adults who want comprehensive biomarker data without a physician referral, yes — Superpower Health delivers strong value at $199/year. The panel includes the markers that matter most for longevity (ApoB, full hormone panel, inflammatory markers, metabolic markers, thyroid) and the AI-powered dashboard makes results genuinely actionable. The honest limitations: only one annual draw (Function Health includes two), some of the advertised 100+ biomarker count includes algorithmically derived ratios rather than direct measurements, and the at-home blood draw option costs extra."
+}
+},
+{
+"@type": "Question",
+"name": "How does Superpower compare to Function Health?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Superpower is $199/year with one annual draw and 100+ biomarkers (150 including derived ratios). Function Health is $365/year with two draws and 160+ directly measured biomarkers. Function includes more unique markers (ANA autoimmune screen, heavy metals, cancer markers) and the twice-yearly cadence is a meaningful advantage for tracking interventions. Superpower's AI chat is more polished and its price point is substantially lower. For someone starting out or on a budget, Superpower is the right entry point. For someone actively managing cardiovascular or hormonal health who wants to track changes over the course of a year, Function's second draw justifies the cost difference."
+}
+},
+{
+"@type": "Question",
+"name": "What biomarkers does Superpower Health test?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Superpower's base panel covers cardiovascular health (including ApoB, LDL particle analysis), metabolic health, liver and kidney function, sex hormones (testosterone, estradiol, DHEA-S, progesterone, SHBG), thyroid (TSH, free T3, free T4), inflammatory markers (hsCRP), nutritional status (Vitamin D, B12, ferritin, magnesium), and immune function. The 100+ count includes direct measurements and algorithmically derived ratios. Lp(a) and advanced lipid markers like omega-3 index are available as add-ons."
+}
+},
+{
+"@type": "Question",
+"name": "Is Superpower Health available in all states?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Superpower is available in most US states. New York and New Jersey have different pricing ($399/year rather than $199) due to state regulations requiring additional physician oversight. Rhode Island has restrictions. Check superpower.com for current state availability before purchasing."
+}
+},
+{
+"@type": "Question",
+"name": "Can I use HSA or FSA funds for Superpower?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes. Superpower Health is eligible for payment with HSA and FSA funds. If you have a health savings account, using pre-tax dollars effectively reduces the real cost of a $199 membership by 25 to 35 percent depending on your tax bracket — bringing the out-of-pocket cost closer to $130 to $150."
+}
+},
+{
+"@type": "Question",
+"name": "Does Superpower Health require a blood draw at a lab?",
+"acceptedAnswer": {
+"@type": "Answer",
+"text": "Yes, Superpower requires a venous blood draw — either at one of their 3,000+ partner lab locations (primarily Quest Diagnostics), or via a mobile phlebotomist who comes to your home for an additional fee of approximately $120. The lab draw itself is included in the base membership price; only the home draw option carries a surcharge."
+}
+}
+]
+}
+</script>
+
+<section class="review-hero">
+<div class="page-eyebrow">Review</div>
+<h1>Superpower Health review<br>&#8212; <em>the honest version.</em></h1>
+<p class="review-hero-sub">At $199/year, Superpower is the most aggressively priced comprehensive biomarker service in the market. Here&#8217;s what you actually get, what the &#8220;100+ biomarker&#8221; claim really means, and whether the price-to-value is as good as it looks.</p>
+</section>
+
+<div class="review-meta">
+<div class="review-meta-item">Updated <span>May 2026</span></div>
+<div class="review-meta-item">Reading time <span>~7 min</span></div>
+<div class="review-meta-item">Affiliate <span>Disclosed</span></div>
+</div>
+
+<div class="verdict-banner">
+<div>
+<div class="verdict-title">Verdict: Best entry-level longevity panel on the market</div>
+<p class="verdict-text">Superpower delivers a genuinely comprehensive biomarker panel at a price point that undercuts every meaningful competitor. The AI dashboard is polished, the included markers cover the longevity fundamentals, and the biological age score gives you something concrete to optimize toward. Honest caveats: one annual draw (not two), some of the advertised biomarker count is derived rather than directly measured, and the at-home draw option costs extra. For anyone starting a biomarker practice or on a budget, this is the right first step.</p>
+</div>
+<div class="verdict-score">
+<div class="verdict-score-number">8.2</div>
+<div class="verdict-score-label">/ 10</div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>What Superpower Health actually is</h2>
+<p>Superpower, founded in 2023, is an annual subscription service that combines comprehensive biomarker testing with an AI-powered health dashboard and concierge messaging access to a clinical team. The pitch is simple: the markers that preventive cardiologists and longevity physicians use to assess long-term risk &#8212; <a href="/biomarkers/apob">ApoB</a>, full hormone panels, advanced metabolic markers, inflammatory markers &#8212; made available directly to consumers at a fraction of the cost of concierge medicine.</p>
+<p>When you join, you book a blood draw at one of 3,000+ Quest Diagnostics locations (or pay extra for a mobile phlebotomist). Results arrive in the Superpower dashboard within 3&#8211;7 days, translated into 17 health score categories with plain-language explanations, a personalized protocol, and a biological age calculation. Ongoing access to a concierge team via messaging is included in the base membership.</p>
+
+<div class="callout">
+<div class="callout-label">Affiliate disclosure</div>
+<p>AgelessLabs has an affiliate relationship with Superpower. If you sign up via our link, we may earn a commission &#8212; at no additional cost to you. This review reflects our independent assessment. <a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored">Sign up for Superpower &#8594;</a></p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>What&#8217;s included &#8212; and what the &#8220;100+ biomarkers&#8221; claim really means</h2>
+<p>The &#8220;100+ biomarkers&#8221; headline is accurate in aggregate but worth understanding precisely. The base panel includes roughly 80 directly measured markers from a single blood draw. The remaining count includes algorithmically derived ratios &#8212; calculations like TG/HDL, non-HDL cholesterol, and other composite indices derived from primary measurements. This distinction matters because Function Health filed a false advertising lawsuit in January 2026 specifically challenging Superpower&#8217;s biomarker count claims, arguing that derived ratios should not be counted equivalently to direct measurements.</p>
+<p>That said, the directly measured markers cover the longevity fundamentals comprehensively:</p>
+
+<table class="compare-table">
+<thead>
+<tr><th>Category</th><th>Key markers included</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Cardiovascular</td>
+<td><a href="/biomarkers/apob">ApoB</a>, LDL-C, HDL-C, triglycerides, LDL particle analysis, <a href="/biomarkers/hscrp">hsCRP</a></td>
+</tr>
+<tr>
+<td>Metabolic</td>
+<td><a href="/biomarkers/hba1c">HbA1c</a>, fasting glucose, <a href="/biomarkers/alt-ast">ALT/AST</a>, <a href="/biomarkers/ggt">GGT</a>, insulin (base panel)</td>
+</tr>
+<tr>
+<td>Hormonal</td>
+<td>Total + free testosterone, <a href="/biomarkers/estradiol">estradiol</a>, <a href="/biomarkers/progesterone">progesterone</a>, <a href="/biomarkers/shbg">SHBG</a>, <a href="/biomarkers/dhea-s">DHEA-S</a>, <a href="/biomarkers/igf-1">IGF-1</a></td>
+</tr>
+<tr>
+<td>Thyroid</td>
+<td><a href="/biomarkers/tsh">TSH</a>, <a href="/biomarkers/free-t3-t4">free T3 + free T4</a></td>
+</tr>
+<tr>
+<td>Inflammatory</td>
+<td><a href="/biomarkers/hscrp">hsCRP</a>, <a href="/biomarkers/homocysteine">homocysteine</a>, fibrinogen</td>
+</tr>
+<tr>
+<td>Nutrients</td>
+<td><a href="/biomarkers/vitamin-d">Vitamin D</a>, <a href="/biomarkers/vitamin-b12">B12</a>, <a href="/biomarkers/ferritin">ferritin</a>, folate, zinc</td>
+</tr>
+<tr>
+<td>Kidney / Liver</td>
+<td><a href="/biomarkers/creatinine-egfr">Creatinine/eGFR</a>, <a href="/biomarkers/albumin">albumin</a>, BUN, bilirubin, full CMP</td>
+</tr>
+<tr>
+<td>CBC</td>
+<td>Complete blood count with differential</td>
+</tr>
+</tbody>
+</table>
+
+<p>Notable omissions from the base panel: <a href="/biomarkers/lipoprotein-a">Lp(a)</a> and the <a href="/biomarkers/omega-3-index">omega-3 index</a> are available as paid add-ons, not included by default. Heavy metals and cancer screening markers are not part of Superpower&#8217;s current offering at any tier &#8212; this is where Function Health has a meaningful edge.</p>
+
+<div class="warning-callout">
+<div class="warning-callout-label">The Function vs. Superpower lawsuit</div>
+<p>In January 2026, Function Health filed a false advertising lawsuit against Superpower, alleging the &#8220;100+ biomarkers&#8221; claim misleads consumers by including algorithmically derived ratios alongside directly measured markers. The case (Function Health v. Superpower Health, C.D. Cal. 2026) is pending as of this writing. Both companies remain fully operational. We mention it not to adjudicate the dispute, but because it&#8217;s material information for anyone comparing the two services.</p>
+</div>
+</div>
+
+<div class="content-section">
+<h2>The platform experience</h2>
+<p>Superpower&#8217;s dashboard is one of its genuine differentiators. Results are presented in clean, category-organized cards with plain-language explanations for each marker &#8212; what it measures, why it matters, what your value means, and what lifestyle, nutritional, or supplement changes may help. The AI chat feature has been live longer than Function Health&#8217;s comparable tool and is consistently described as more conversational and personalized in head-to-head comparisons.</p>
+<p>The biological age score and 17-category health scoring system give you a concrete baseline to track over time. The &#8220;Bring Your Own Data&#8221; feature lets you upload historical PDF lab results &#8212; Superpower digitizes them and builds trend lines before you even complete your first Superpower draw. For anyone with years of prior bloodwork, this is a meaningful feature that Function Health doesn&#8217;t offer.</p>
+<p>Concierge messaging &#8212; unlimited SMS access to a clinical team &#8212; is included. This is not a one-on-one physician relationship, but for clarifying what a specific result means or whether a value warrants follow-up, it fills a real gap.</p>
+</div>
+
+<div class="content-section">
+<h2>Pros and cons</h2>
+<div class="pros-cons">
+<div class="pros-cons-col">
+<div class="pros-cons-label pros">What works</div>
+<ul class="pros-cons-list pros-list">
+<li>Best price-to-biomarker ratio in the market at $199/year</li>
+<li>Includes ApoB, full hormone panel, thyroid (free T3 + T4), hsCRP, homocysteine &#8212; the longevity fundamentals</li>
+<li>AI dashboard is polished and genuinely easy to navigate</li>
+<li>&#8220;Bring Your Own Data&#8221; uploads historical labs and builds trend lines automatically</li>
+<li>Biological age score gives a concrete optimization target</li>
+<li>Unlimited concierge messaging included</li>
+<li>HSA/FSA eligible</li>
+<li>3,000+ Quest Diagnostics draw locations nationwide</li>
+<li>Results typically within 3&#8211;7 days</li>
+</ul>
+</div>
+<div class="pros-cons-col">
+<div class="pros-cons-label cons">What to know</div>
+<ul class="pros-cons-list cons-list">
+<li>One annual draw only &#8212; Function Health includes two, which matters if you&#8217;re tracking intervention response</li>
+<li>Some of the &#8220;100+ biomarkers&#8221; are derived ratios, not direct measurements &#8212; subject of ongoing litigation</li>
+<li>Lp(a) and omega-3 index are add-ons, not included by default</li>
+<li>No heavy metals or cancer marker screening at any tier</li>
+<li>At-home draw option costs approximately $120 extra</li>
+<li>NY and NJ pricing is $399/year due to state regulations</li>
+<li>Newer company (founded 2023) &#8212; less longitudinal track record than Function</li>
+<li>Supplements recommended in protocol cost extra</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="content-section">
+<h2>Pricing</h2>
+
+<div class="pricing-card">
+<div class="pricing-card-header">
+<div class="pricing-card-name">Superpower Annual Membership</div>
+<div class="pricing-card-price">$199 <span>/ year</span></div>
+</div>
+<div class="pricing-card-features">
+<div class="pricing-card-feature">100+ biomarkers (80+ directly measured, remainder derived)</div>
+<div class="pricing-card-feature">1 comprehensive blood draw per year at Quest Diagnostics</div>
+<div class="pricing-card-feature">Biological age score + 17 health category scores</div>
+<div class="pricing-card-feature">Personalized health protocol (lifestyle, diet, supplement recommendations)</div>
+<div class="pricing-card-feature">Unlimited concierge messaging with clinical team</div>
+<div class="pricing-card-feature">&#8220;Bring Your Own Data&#8221; historical lab import</div>
+<div class="pricing-card-feature">HSA/FSA eligible</div>
+<div class="pricing-card-feature">At-home draw available for ~$120 additional</div>
+</div>
+<a href="https://superpower.com/welcome?dub_id=d99GM8QoZlGRZs2y" target="_blank" rel="noopener sponsored" class="pricing-card-cta">Get Started with Superpower &#8594;</a>
+</div>
+
+<p>NY/NJ members pay $399/year. Rhode Island has availability restrictions &#8212; check superpower.com before purchasing.</p>
+</div>
+
+<div class="content-section">
+<h2>How Superpower compares to the alternatives</h2>
+
+<table class="compare-table">
+<thead>
+<tr><th>Service</th><th>Price</th><th>Draws/year</th><th>Biomarkers</th><th>Best for</th></tr>
+</thead>
+<tbody>
+<tr>
+<td>Superpower</td>
+<td class="highlight">$199/yr</td>
+<td>1</td>
+<td>100+ (150 w/ratios)</td>
+<td>Entry-level longevity testing, budget-conscious, first draw</td>
+</tr>
+<tr>
+<td>Function Health</td>
+<td>$365/yr</td>
+<td>2</td>
+<td>160+</td>
+<td>Tracking interventions, cancer markers, heavy metals</td>
+</tr>
+<tr>
+<td>Ulta Lab Tests</td>
+<td>À la carte</td>
+<td>As many as you want</td>
+<td>Any combination</td>
+<td>Custom panels, frequent testing, cost control</td>
+</tr>
+<tr>
+<td>InsideTracker</td>
+<td>$489 entry</td>
+<td>1</td>
+<td>~54</td>
+<td>Athletic performance optimization</td>
+</tr>
+</tbody>
+</table>
+
+<p>For a direct comparison of Superpower vs. Function Health, see our <a href="/reviews/function-health">Function Health review</a>. For à la carte testing without an annual subscription, the <a href="/reviews/ulta-lab-tests">Ulta Lab Tests review</a> covers the direct-to-consumer alternative.</p>
+</div>
+
+<div class="content-section">
+<h2>Who Superpower is right for</h2>
+<p>Superpower is the right choice if you want a comprehensive first baseline without spending more than $200, you&#8217;re new to advanced biomarker testing, or you want AI-powered results interpretation built into the experience. It&#8217;s an especially good fit for anyone who has accumulated years of prior lab results they want to consolidate and trend &#8212; the historical import feature makes Superpower immediately useful even before your first draw.</p>
+<p>It&#8217;s less suited for someone who needs to test more than once per year (tracking a specific intervention, managing an active health issue), wants heavy metal or cancer marker coverage, or is specifically focused on the markers Superpower currently places behind add-on pricing &#8212; namely Lp(a) and omega-3 index.</p>
+<p>For most of AgelessLabs&#8217; audience &#8212; health-conscious adults 35&#8211;65 who want to understand their longevity risk profile and haven&#8217;t yet done comprehensive testing &#8212; Superpower is the right starting point.</p>
+</div>
+
+<div class="page-tool-cta">
+<div>
+<h3>Already have your Superpower results?</h3>
+<p>Upload or paste your labs into our AI tool for a deeper longevity analysis &#8212; every marker scored against longevity-optimal ranges, not just standard lab reference ranges.</p>
+</div>
+<a href="/analyze" class="btn-primary">Analyze My Labs &#8594;</a>
+</div>
+
+<div class="content-section">
+<h2>Frequently asked questions</h2>
+<div class="faq-list">
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Is Superpower Health worth it?</div>
+<div class="faq-answer">For most health-conscious adults, yes. At $199/year, Superpower delivers the longevity fundamentals &#8212; <a href="/biomarkers/apob">ApoB</a>, full hormone panel, inflammatory markers, thyroid, nutritional markers &#8212; at the lowest price point in the market. The honest caveats: one annual draw, some of the advertised biomarker count includes derived ratios, and Lp(a) requires an add-on. If you need twice-yearly testing or want cancer/heavy metal markers, <a href="/reviews/function-health">Function Health</a> is the better fit.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">How does Superpower compare to Function Health?</div>
+<div class="faq-answer">Superpower is $166/year cheaper with one annual draw and 100+ markers (including derived ratios). Function is $365/year with two draws and 160+ directly measured markers &#8212; including cancer markers, heavy metals, and ANA autoimmune screen. Superpower&#8217;s AI chat is more polished; Function&#8217;s twice-yearly cadence is a meaningful advantage for tracking interventions. See our full <a href="/reviews/function-health">Function Health review</a> for the detailed comparison.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">What biomarkers does Superpower include?</div>
+<div class="faq-answer">The base panel includes cardiovascular markers (<a href="/biomarkers/apob">ApoB</a>, LDL particle analysis, <a href="/biomarkers/hscrp">hsCRP</a>), full metabolic panel, sex hormones (testosterone, estradiol, DHEA-S, SHBG, progesterone), thyroid (TSH + free T3/T4), inflammatory markers, nutritional status (Vitamin D, B12, ferritin), and complete CBC and CMP. <a href="/biomarkers/lipoprotein-a">Lp(a)</a> and omega-3 index are available as add-ons.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Is Superpower available in all states?</div>
+<div class="faq-answer">Available in most US states. New York and New Jersey members pay $399/year (double the standard rate) due to state regulatory requirements. Rhode Island has restrictions. Check superpower.com for current availability in your state.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Can I use HSA or FSA funds?</div>
+<div class="faq-answer">Yes. Superpower is HSA/FSA eligible. Using pre-tax funds effectively reduces the real cost by 25&#8211;35% depending on your tax bracket &#8212; bringing the out-of-pocket cost of a $199 membership to approximately $130&#8211;$150.</div>
+</div>
+<div class="faq-item">
+<div class="faq-question" onclick="toggleFaq(this)">Does Superpower require a lab visit?</div>
+<div class="faq-answer">Yes &#8212; Superpower requires a venous blood draw. The lab draw at Quest Diagnostics is included in the base membership. A mobile phlebotomist home draw option is available for approximately $120 extra in most markets.</div>
+</div>
+</div>
+</div>
+
+<script>
+function toggleFaq(el) {
+const answer = el.nextElementSibling;
+const isOpen = answer.classList.contains('open');
+document.querySelectorAll('.faq-answer.open').forEach(a => {
+a.classList.remove('open');
+a.previousElementSibling.classList.remove('open');
+});
+if (!isOpen) {
+answer.classList.add('open');
+el.classList.add('open');
+}
+}
+</script>
