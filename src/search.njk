@@ -242,10 +242,17 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
   }
 
   // Replace Pagefind's "Clear" text with an ✕ SVG icon
+  var svgX = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
   var clearObserver = new MutationObserver(function() {
     var clearBtn = document.querySelector('.pagefind-ui__search-clear');
-    if (clearBtn && clearBtn.textContent.trim() === 'Clear') {
-      clearBtn.innerHTML = '<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="1" y1="1" x2="9" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/><line x1="9" y1="1" x2="1" y2="9" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>';
+    var form = document.querySelector('.pagefind-ui__form');
+    if (!clearBtn || !form) return;
+    // Move button inside the form if it isn't already
+    if (!form.contains(clearBtn)) {
+      clearBtn.innerHTML = svgX;
+      form.appendChild(clearBtn);
+    } else if (clearBtn.textContent.trim() === 'Clear') {
+      clearBtn.innerHTML = svgX;
     }
   });
   clearObserver.observe(document.getElementById('search'), { childList: true, subtree: true });
