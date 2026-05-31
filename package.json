@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "AgelessLabs.ai - AI-powered longevity biomarker interpreter",
   "scripts": {
-    "build": "eleventy",
+    "build": "eleventy && npx pagefind --site _site",
     "start": "eleventy --serve",
     "dev": "eleventy --serve"
   },
