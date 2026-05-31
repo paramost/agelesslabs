@@ -59,6 +59,16 @@ nav {
   position: relative;
   z-index: 10;
 }
+
+/* ─── Sticky nav ─────────────────────────────────────────────── */
+.nav-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
 .nav-right { display: flex; align-items: center; gap: 28px; }
 .nav-link {
   font-family: 'DM Mono', monospace;
@@ -288,6 +298,54 @@ footer {
 @keyframes growBar { from { width:0%; } }
 @keyframes fadeUp  { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
 @keyframes scan    { from { transform:translateX(-200%); } to { transform:translateX(350%); } }
+
+/* ─── Nav search icon ────────────────────────────────────────── */
+.nav-search-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--text-dim);
+  padding: 0;
+  flex-shrink: 0;
+  transition: color 0.15s;
+}
+.nav-search-btn:hover { color: var(--green); }
+.nav-search-btn svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; fill: none; pointer-events: none; }
+.nav-search-expand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  overflow: hidden;
+  max-width: 0;
+  opacity: 0;
+  transition: max-width 0.25s ease, opacity 0.2s ease;
+}
+.nav-search-expand.open {
+  max-width: 220px;
+  opacity: 1;
+}
+.nav-search-input {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: 'Red Hat Display', sans-serif;
+  font-size: 13px;
+  padding: 6px 10px;
+  outline: none;
+  width: 180px;
+  transition: border-color 0.15s;
+}
+.nav-search-input:focus { border-color: rgba(181,201,160,0.4); }
+.nav-search-input::placeholder { color: var(--text-muted); }
+
+/* ─── Scroll offset for sticky header ────────────────────────── */
+:target { scroll-margin-top: 72px; }
 
 /* ─── Responsive ──────────────────────────────────────────────── */
 @media (max-width: 1024px) {
