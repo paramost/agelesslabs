@@ -6,7 +6,7 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
 ---
 
 <style>
-/* ── Search page ─────────────────────────────────────────────────────── */
+/* ── Search page ──────────────────────────────────────────────────────── */
 .search-hero {
   padding: 40px 0 32px;
   border-bottom: 1px solid var(--border);
@@ -62,7 +62,7 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
   color: var(--text) !important;
   font-family: 'Red Hat Display', sans-serif !important;
   font-size: 16px !important;
-  padding: 14px 52px 14px 44px !important;
+  padding: 14px 44px !important;
   outline: none !important;
   transition: border-color 0.15s !important;
   width: 100% !important;
@@ -75,34 +75,17 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
   color: var(--text-muted) !important;
 }
 
-/* Hide Pagefind's own clear button — we inject our own */
+/* Pagefind clear button */
 .pagefind-ui__search-clear {
-  display: none !important;
+  background: none !important;
+  color: var(--text-dim) !important;
+  font-family: 'DM Mono', monospace !important;
+  font-size: 10px !important;
+  letter-spacing: 0.1em !important;
 }
-
-/* Our custom clear button */
-.search-clear-btn {
-  display: none;
-  position: absolute;
-  right: 12px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--bg3);
-  border: 1px solid var(--border);
-  cursor: pointer;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  transition: border-color 0.15s, background 0.15s;
-  z-index: 10;
+.pagefind-ui__search-clear:hover {
+  color: var(--green) !important;
 }
-.search-clear-btn.visible { display: flex; }
-.search-clear-btn:hover { border-color: rgba(181,201,160,0.35); background: var(--bg2); }
-.search-clear-btn svg { width: 10px; height: 10px; stroke: var(--text-dim); stroke-width: 1.5; stroke-linecap: round; fill: none; pointer-events: none; transition: stroke 0.15s; }
-.search-clear-btn:hover svg { stroke: var(--green); }
 
 /* Results */
 .pagefind-ui__results-area {
@@ -233,8 +216,8 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
     pf.triggerSearch(q);
   }
 
-  // Auto-focus the search input on page load
-  var focusAttempts = 0;
+  // Auto-focus the search input on page load (desktop + mobile)
+  var attempts = 0;
   var focusInterval = setInterval(function() {
     var input = document.querySelector('.pagefind-ui__search-input');
     if (input) {
@@ -245,56 +228,7 @@ description: "Search the AgelessLabs biomarker library, guides, and reviews."
       }
       clearInterval(focusInterval);
     }
-    if (++focusAttempts > 20) clearInterval(focusInterval);
+    if (++attempts > 20) clearInterval(focusInterval);
   }, 50);
-
-  // --- Custom clear button ---
-  // Pagefind/Svelte rebuilds its DOM on every search, so we use a
-  // MutationObserver to re-inject our button whenever the form appears or changes.
-  var clearBtn = null;
-
-  function injectClearBtn(form, input) {
-    // Don't inject twice into the same form
-    if (form.querySelector('.search-clear-btn')) return;
-
-    // The form needs relative positioning so our button anchors correctly
-    form.style.position = 'relative';
-
-    clearBtn = document.createElement('button');
-    clearBtn.type = 'button';
-    clearBtn.className = 'search-clear-btn';
-    clearBtn.setAttribute('aria-label', 'Clear search');
-    clearBtn.innerHTML = '<svg viewBox="0 0 10 10" xmlns="http://www.w3.org/2000/svg"><line x1="1" y1="1" x2="9" y2="9"/><line x1="9" y1="1" x2="1" y2="9"/></svg>';
-    form.appendChild(clearBtn);
-
-    // Sync visibility with input content
-    function sync() {
-      if (input.value.trim().length > 0) {
-        clearBtn.classList.add('visible');
-      } else {
-        clearBtn.classList.remove('visible');
-      }
-    }
-    input.addEventListener('input', sync);
-    sync();
-
-    // Clear action
-    clearBtn.addEventListener('click', function() {
-      input.value = '';
-      input.dispatchEvent(new Event('input', { bubbles: true }));
-      clearBtn.classList.remove('visible');
-      input.focus();
-    });
-  }
-
-  // Watch for Pagefind rendering or re-rendering the search form
-  var observer = new MutationObserver(function() {
-    var input = document.querySelector('.pagefind-ui__search-input');
-    var form  = input && input.closest('form');
-    if (input && form) {
-      injectClearBtn(form, input);
-    }
-  });
-  observer.observe(document.getElementById('search'), { childList: true, subtree: true });
 })();
 </script>
