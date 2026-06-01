@@ -13,7 +13,9 @@ const SCOPES = [
 const REDIRECT_URI = 'https://agelesslabs.ai/api/gsc-setup';
 
 export default async function handler(req, res) {
-  const { key, code, state } = req.query;
+  const key = req.query.key;
+  const code = req.query.code;
+  const state = req.query.state;
 
   // Step 1: Initiate OAuth flow
   if (!code) {
@@ -31,10 +33,7 @@ export default async function handler(req, res) {
       state: key,
     });
 
-    return res.redirect(
-      302,
-      'https://accounts.google.com/o/oauth2/v2/auth?' + params.toString()
-    );
+    return res.redirect(302, 'https://accounts.google.com/o/oauth2/v2/auth?' + params.toString());
   }
 
   // Step 2: Handle callback from Google
@@ -49,7 +48,7 @@ export default async function handler(req, res) {
       body: new URLSearchParams({
         client_id: process.env.GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET,
-        code,
+        code: code,
         redirect_uri: REDIRECT_URI,
         grant_type: 'authorization_code',
       }),
@@ -58,38 +57,25 @@ export default async function handler(req, res) {
     const tokenData = await tokenRes.json();
 
     if (!tokenData.refresh_token) {
-      return res.status(400).send(
-        '<pre>No refresh token returned. Try visiting /api/gsc-setup?key=YOUR_KEY again.
-
-' +
-        JSON.stringify(tokenData, null, 2) + '</pre>'
-      );
+      return res.status(400).send('<pre>No refresh token returned.\n\n' + JSON.stringify(tokenData, null, 2) + '</pre>');
     }
 
-    return res.status(200).send(`<!DOCTYPE html>
-<html>
-<head>
-  <title>GSC/GA4 Setup Complete</title>
-  <style>
-    body { font-family: monospace; background: #111210; color: #b5c9a0; padding: 40px; }
-    h1 { color: #eef2ea; font-size: 1.2rem; }
-    .token { background: #1e201c; border: 1px solid #2e3028; padding: 16px; border-radius: 8px; word-break: break-all; margin: 16px 0; color: #c8a96e; }
-    p { color: #a0a89a; line-height: 1.6; }
-    ol { color: #a0a89a; line-height: 2; }
-  </style>
-</head>
-<body>
-  <h1>Setup Complete</h1>
-  <p>Your refresh token:</p>
-  <div class="token">${tokenData.refresh_token}</div>
-  <ol>
-    <li>Copy the token above</li>
-    <li>Go to Vercel &rarr; Settings &rarr; Environment Variables</li>
-    <li>Set <strong>GOOGLE_REFRESH_TOKEN</strong> to this value</li>
-    <li>Return to <a href="/ops/" style="color:#b5c9a0">/ops/</a> and click Refresh in the Analytics section</li>
-  </ol>
-</body>
-</html>`);
+    const html = '<!DOCTYPE html><html><head><title>GSC/GA4 Setup Complete</title>'
+      + '<style>body{font-family:monospace;background:#111210;color:#b5c9a0;padding:40px}'
+      + 'h1{color:#eef2ea;font-size:1.2rem}'
+      + '.token{background:#1e201c;border:1px solid #2e3028;padding:16px;border-radius:8px;word-break:break-all;margin:16px 0;color:#c8a96e}'
+      + 'p,ol{color:#a0a89a;line-height:1.8}</style></head><body>'
+      + '<h1>Setup Complete</h1>'
+      + '<p>Your refresh token:</p>'
+      + '<div class="token">' + tokenData.refresh_token + '</div>'
+      + '<ol>'
+      + '<li>Copy the token above</li>'
+      + '<li>Go to Vercel &rarr; Settings &rarr; Environment Variables</li>'
+      + '<li>Set <strong>GOOGLE_REFRESH_TOKEN</strong> to this value</li>'
+      + '<li>Return to <a href="/ops/" style="color:#b5c9a0">/ops/</a> and click Refresh in the Analytics section</li>'
+      + '</ol></body></html>';
+
+    return res.status(200).send(html);
   } catch (err) {
     return res.status(500).send('Error: ' + err.message);
   }
