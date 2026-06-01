@@ -308,6 +308,115 @@ permalink: /ops/
 .copy-btn-sm:hover { border-color: var(--green); color: var(--green); }
 .copy-btn-sm.copied { border-color: #5a8050; color: #5a8050; }
 
+/* Analytics */
+.analytics-grid {
+display: grid;
+grid-template-columns: 1fr 1fr;
+gap: 24px;
+}
+@media (max-width: 640px) {
+.analytics-grid { grid-template-columns: 1fr; }
+}
+.analytics-card {
+background: var(--surface-1, #171916);
+border: 1px solid var(--border, #2e3028);
+border-radius: 10px;
+overflow: hidden;
+}
+.analytics-card-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: 14px 16px 10px;
+border-bottom: 1px solid var(--border, #2e3028);
+}
+.analytics-card-title {
+font-family: 'DM Mono', monospace;
+font-size: 0.72rem;
+letter-spacing: 0.08em;
+text-transform: uppercase;
+color: var(--text-muted);
+}
+.analytics-card-meta {
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+color: var(--text-muted);
+opacity: 0.6;
+}
+.analytics-table {
+width: 100%;
+border-collapse: collapse;
+font-size: 0.82rem;
+}
+.analytics-table th {
+font-family: 'DM Mono', monospace;
+font-size: 0.68rem;
+letter-spacing: 0.05em;
+text-transform: uppercase;
+color: var(--text-muted);
+font-weight: 400;
+padding: 8px 16px;
+text-align: left;
+border-bottom: 1px solid var(--border, #2e3028);
+}
+.analytics-table th:not(:first-child) { text-align: right; }
+.analytics-table td {
+padding: 8px 16px;
+border-bottom: 1px solid #1a1c17;
+color: var(--text-dim, #a0a89a);
+vertical-align: middle;
+font-size: 0.82rem;
+}
+.analytics-table td:not(:first-child) { text-align: right; font-family: 'DM Mono', monospace; }
+.analytics-table tr:last-child td { border-bottom: none; }
+.analytics-table tr:hover td { background: #14160f; }
+.analytics-page {
+color: var(--text-dim, #a0a89a);
+font-family: 'DM Mono', monospace;
+font-size: 0.76rem;
+max-width: 200px;
+overflow: hidden;
+text-overflow: ellipsis;
+white-space: nowrap;
+display: block;
+}
+.analytics-num {
+color: var(--text-bright);
+font-weight: 600;
+}
+.analytics-loading {
+padding: 24px 16px;
+text-align: center;
+color: var(--text-muted);
+font-size: 0.85rem;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 10px;
+}
+.analytics-error {
+padding: 16px;
+color: #e07070;
+font-size: 0.82rem;
+font-family: 'DM Mono', monospace;
+}
+.analytics-refresh {
+display: flex;
+justify-content: flex-end;
+margin-top: 10px;
+}
+.analytics-refresh button {
+padding: 5px 14px;
+border-radius: 6px;
+font-size: 0.78rem;
+font-family: 'DM Mono', monospace;
+cursor: pointer;
+border: 1px solid var(--border, #2e3028);
+background: transparent;
+color: var(--text-dim, #a0a89a);
+}
+.analytics-refresh button:hover { border-color: var(--green); color: var(--green); }
+
 /* Checklist */
 .checklist-table {
   width: 100%;
@@ -491,7 +600,35 @@ permalink: /ops/
       </div>
     </div>
 
-    <!-- 4. Promotion Checklist -->
+    <!-- 4. Analytics -->
+<div class="ops-section">
+<p class="ops-section-title">Analytics — last 28 days</p>
+<div class="analytics-grid">
+<div class="analytics-card">
+<div class="analytics-card-header">
+<span class="analytics-card-title">Top pages — GSC clicks</span>
+<span class="analytics-card-meta">Search Console</span>
+</div>
+<div id="gsc-container">
+<div class="analytics-loading"><div class="spinner-sm"></div><span>Loading...</span></div>
+</div>
+</div>
+<div class="analytics-card">
+<div class="analytics-card-header">
+<span class="analytics-card-title">Top pages — GA4 sessions</span>
+<span class="analytics-card-meta">Google Analytics</span>
+</div>
+<div id="ga4-container">
+<div class="analytics-loading"><div class="spinner-sm"></div><span>Loading...</span></div>
+</div>
+</div>
+</div>
+<div class="analytics-refresh">
+<button onclick="loadAnalytics()">Refresh</button>
+</div>
+</div>
+
+<!-- 4. Promotion Checklist -->
     <div class="ops-section">
       <p class="ops-section-title">Promotion checklist</p>
       <table class="checklist-table">
@@ -541,6 +678,52 @@ let composedPosts = {};
 let activePlatform = 'twitter';
 let opsKey = '';
 
+// -- Analytics
+async function loadAnalytics() {
+setAnalyticsLoading();
+try {
+const res = await fetch('/api/gsc-ga4?key=' + encodeURIComponent(opsKey));
+if (!res.ok) {
+const err = await res.json().catch(() => ({ error: 'Request failed' }));
+throw new Error(err.error || 'Request failed');
+}
+const data = await res.json();
+renderGSC(data.gsc || []);
+renderGA4(data.ga4 || []);
+} catch(err) {
+document.getElementById('gsc-container').innerHTML = '<div class="analytics-error">Error: ' + err.message + '</div>';
+document.getElementById('ga4-container').innerHTML = '<div class="analytics-error">Error: ' + err.message + '</div>';
+}
+}
+
+function setAnalyticsLoading() {
+const spinner = '<div class="analytics-loading"><div class="spinner-sm"></div><span>Loading...</span></div>';
+document.getElementById('gsc-container').innerHTML = spinner;
+document.getElementById('ga4-container').innerHTML = spinner;
+}
+
+function renderGSC(rows) {
+if (!rows.length) {
+document.getElementById('gsc-container').innerHTML = '<div class="analytics-loading">No data yet.</div>';
+return;
+}
+const html = '<table class="analytics-table"><thead><tr><th>Page</th><th>Clicks</th><th>Impr.</th><th>CTR</th></tr></thead><tbody>' +
+rows.map(r => '<tr><td><span class="analytics-page" title="' + r.page + '">' + r.page + '</span></td><td><span class="analytics-num">' + r.clicks + '</span></td><td>' + r.impressions + '</td><td>' + r.ctr + '</td></tr>').join('') +
+'</tbody></table>';
+document.getElementById('gsc-container').innerHTML = html;
+}
+
+function renderGA4(rows) {
+if (!rows.length) {
+document.getElementById('ga4-container').innerHTML = '<div class="analytics-loading">No data yet.</div>';
+return;
+}
+const html = '<table class="analytics-table"><thead><tr><th>Page</th><th>Sessions</th><th>Views</th></tr></thead><tbody>' +
+rows.map(r => '<tr><td><span class="analytics-page" title="' + r.page + '">' + r.page + '</span></td><td><span class="analytics-num">' + r.sessions + '</span></td><td>' + r.pageviews + '</td></tr>').join('') +
+'</tbody></table>';
+document.getElementById('ga4-container').innerHTML = html;
+}
+
 // ── Auth ──────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('key-input').addEventListener('keydown', e => {
@@ -565,10 +748,12 @@ async function unlockOps() {
     document.getElementById('gate-error').style.display = 'none';
     document.getElementById('gate-view').style.display = 'none';
     document.getElementById('dashboard-view').style.display = 'block';
+  loadAnalytics();
   } catch(e) {
     document.getElementById('gate-error').style.display = 'none';
     document.getElementById('gate-view').style.display = 'none';
     document.getElementById('dashboard-view').style.display = 'block';
+  loadAnalytics();
   }
 }
 
