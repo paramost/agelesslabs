@@ -56,33 +56,33 @@
 // ---------- program ----------
 const P1=[
  {id:"b1",time:"9:00",name:"Block 1 · Chest & Arms",ex:[
-  {id:"flyes",n:"DB flyes on bench",s:"3×10–12",w:1},
-  {id:"hammer",n:"Hammer curls",s:"3×10–12",w:1},
-  {id:"skull",n:"EZ bar skull crushers",s:"3×10–12",w:1}]},
+  {id:"flyes",n:"DB flyes on bench",s:"3×10–12",w:1,d:"Lie on the bench, dumbbells above your chest, palms facing each other, slight bend in the elbows. Lower the weights out wide in an arc until you feel a stretch across your chest, then squeeze them back together like hugging a barrel. Don't turn it into a press — the elbow bend stays fixed."},
+  {id:"hammer",n:"Hammer curls",s:"3×10–12",w:1,d:"Stand tall, dumbbells at your sides with palms facing each other (like holding hammers). Curl up without swinging — elbows stay pinned to your ribs. Hits the biceps and forearms."},
+  {id:"skull",n:"EZ bar skull crushers",s:"3×10–12",w:1,d:"Lie on the bench, EZ bar pressed above your chest. Bending ONLY at the elbows, lower the bar toward your forehead, then press back up. Upper arms stay vertical the whole time. Go light — this one humbles people."}]},
  {id:"b2",time:"12:30",name:"Block 2 · Chest & Shoulders",ex:[
-  {id:"bench",n:"DB bench / floor press",s:"3×8–12",w:1},
-  {id:"incline",n:"Incline DB press",s:"3×8–12",w:1},
-  {id:"ohp",n:"Overhead DB press",s:"3×8–12",w:1}]},
+  {id:"bench",n:"DB bench / floor press",s:"3×8–12",w:1,d:"Lie on the bench (or floor), dumbbells at chest level just outside your shoulders. Press up until arms are straight, lower with control until elbows are just below bench level. Feet planted, butt on the bench."},
+  {id:"incline",n:"Incline DB press",s:"3×8–12",w:1,d:"Set the bench to a 30–45° incline. Same press motion, but the angle shifts the work to your upper chest — the part that fills out a shirt. Lower until you feel a stretch, press up and slightly together."},
+  {id:"ohp",n:"Overhead DB press",s:"3×8–12",w:1,d:"Seated or standing, dumbbells at shoulder height, palms forward. Press straight overhead until arms lock out, lower with control. Keep your ribs down — don't arch your lower back to cheat the weight up."}]},
  {id:"b3",time:"15:30",name:"Block 3 · Back, Arms & Core",ex:[
-  {id:"rows",n:"EZ bar bent-over rows",s:"3×8–12",w:1},
-  {id:"curls",n:"EZ bar curls",s:"3×8–12",w:1},
-  {id:"cgp",n:"Close-grip press",s:"3×8–12",w:1},
-  {id:"situps",n:"Decline sit-ups",s:"3×10–15",w:1},
-  {id:"plank",n:"Plank",s:"3×30–45s",w:0}]}];
+  {id:"rows",n:"EZ bar bent-over rows",s:"3×8–12",w:1,d:"Hinge at the hips until your torso is about 45°, back flat, knees soft. Pull the bar to your belly button, squeezing shoulder blades together, then lower slowly. If your lower back rounds, stand up a bit more."},
+  {id:"curls",n:"EZ bar curls",s:"3×8–12",w:1,d:"Grip the angled part of the EZ bar (easier on the wrists than a straight bar). Curl up with elbows pinned at your sides, squeeze at the top, lower for a slow 2–3 count. The lowering builds as much muscle as the lifting."},
+  {id:"cgp",n:"Close-grip press",s:"3×8–12",w:1,d:"Lie on the bench, hands on the EZ bar's inner grips, elbows tucked close to your body. Press up and lower to your lower chest. The narrow grip shifts the work from chest to triceps — the muscle that's 2/3 of your arm size."},
+  {id:"situps",n:"Decline sit-ups",s:"3×10–15",w:1,d:"Hook your feet into the sit-up bench. Lower yourself back with control, come up until your chest nears your knees. Once 15 reps get easy, hold a plate at your chest instead of adding reps."},
+  {id:"plank",n:"Plank",s:"3×30–45s",w:0,d:"Forearms and toes, body in a straight line from head to heels. Squeeze your glutes and brace your abs like you're about to take a punch. If your hips sag or pike up, the set is over."}]}];
 const CARDIO=[{id:"cardio",time:"12:30",name:"Cardio Break",ex:[
-  {id:"ride",n:"Bike, pool laps, or treading water — 20–30 min",s:"",w:0},
-  {id:"bonus",n:"Bonus: decline sit-ups 2×15",s:"",w:0}]}];
+  {id:"ride",n:"Bike, pool laps, or treading water — 20–30 min",s:"",w:0,d:"Conversational pace — you should be able to talk in short sentences. This is about burning calories and building your engine, not destroying yourself. Zone 2 effort, roughly 6/10."},
+  {id:"bonus",n:"Bonus: decline sit-ups 2×15",s:"",w:0,d:"Optional finisher if you've got 3 minutes left. Same form as strength days."}]}];
 const PROGRAM={
- 0:[{id:"rest",time:"",name:"Rest Day",ex:[{id:"walk",n:"Optional: easy walk or float in the pool",s:"",w:0}]}],
+ 0:[{id:"rest",time:"",name:"Rest Day",ex:[{id:"walk",n:"Optional: easy walk or float in the pool",s:"",w:0,d:"Rest is where muscle actually gets built. A gentle walk or float helps recovery — anything harder defeats the purpose."}]}],
  1:P1, 2:CARDIO, 3:P1, 4:CARDIO,
  5:[{id:"legs",time:"9:00",name:"Legs · Quick Maintenance",ex:[
-   {id:"goblet",n:"Goblet squats",s:"2×10",w:1},
-   {id:"ext",n:"Leg extensions",s:"2×10",w:1},
-   {id:"curl",n:"Lying leg curls",s:"2×10",w:1}]}, P1[1], P1[2]],
+   {id:"goblet",n:"Goblet squats",s:"2×10",w:1,d:"Hold one dumbbell vertically against your chest like a goblet. Squat down until thighs are parallel (or as low as comfortable), keeping your chest up and heels down. Drive up through your whole foot."},
+   {id:"ext",n:"Leg extensions",s:"2×10",w:1,d:"Seated on the bench, shins behind the pad. Extend your legs until straight, pause a beat at the top, lower with control. Don't slam the weight down."},
+   {id:"curl",n:"Lying leg curls",s:"2×10",w:1,d:"Face down on the bench, heels under the pad. Curl your heels toward your butt, squeeze at the top, lower slowly. Keep your hips pressed into the bench."}]}, P1[1], P1[2]],
  6:[{id:"mace",time:"10:00",name:"Mace + Active Fun",ex:[
-   {id:"m360",n:"Mace 360 swings",s:"3×10 / side",w:0},
-   {id:"pend",n:"Mace front pendulums",s:"3×10",w:0},
-   {id:"fun",n:"Anything fun: bike, swim, yard work",s:"",w:0}]}]
+   {id:"m360",n:"Mace 360 swings",s:"3×10 / side",w:0,d:"Hands stacked at the end of the handle, ball behind your head. Swing the mace in a full circle around your head, catching the momentum with your core and shoulders. Start slow — smooth beats fast. Watch a video before your first session."},
+   {id:"pend",n:"Mace front pendulums",s:"3×10",w:0,d:"Hold the mace in front of you and let the ball swing side to side like a pendulum, resisting the pull with your grip and core. Great warm-up before 360s."},
+   {id:"fun",n:"Anything fun: bike, swim, yard work",s:"",w:0,d:"Move for at least 20 minutes doing something you enjoy. Consistency comes from not hating your program."}]}]
 };
 const DAYS=["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
 const START_W=230, GOAL_W=200, KEY="recomp-tracker-v1";
@@ -154,11 +154,17 @@ function renderToday(){
       <span style="font-family:'Oswald',sans-serif;font-size:16px;letter-spacing:.05em;text-transform:uppercase">${esc(b.name)}</span>
       ${b.time?`<span style="font-size:13px;color:var(--collar);font-family:'Oswald',sans-serif">${b.time}</span>`:""}</div>`;
     for(const ex of b.ex){
-      const k=b.id+"."+ex.id, on=!!done[k];
-      html+=`<button class="ex${on?" on":""}" onclick="toggle('${k}')">
-        <span class="box">${on?"✓":""}</span>
-        <span class="name" style="flex:1">${esc(ex.n)}</span>
-        <span style="font-size:13px;color:var(--faint)">${ex.s}</span></button>`;
+      const k=b.id+"."+ex.id, on=!!done[k], open=!!openInfo[k];
+      html+=`<div style="border-top:1px solid var(--line)">
+        <div style="display:flex;align-items:stretch">
+        <button class="ex${on?" on":""}" style="border-top:none;flex:1" onclick="toggle('${k}')">
+          <span class="box">${on?"✓":""}</span>
+          <span class="name" style="flex:1">${esc(ex.n)}</span>
+          <span style="font-size:13px;color:var(--faint)">${ex.s}</span></button>
+        ${ex.d?`<button aria-expanded="${open}" aria-label="How to do ${esc(ex.n)}" onclick="toggleInfo('${k}')" style="background:none;border:none;cursor:pointer;color:${open?"var(--collar)":"var(--faint)"};font-size:14px;padding:0 10px;font-family:'Oswald',sans-serif">${open?"▲":"▼"}</button>`:""}
+        </div>
+        ${open&&ex.d?`<div style="font-size:13.5px;line-height:1.5;color:var(--muted);background:var(--bg);border-radius:8px;padding:10px 12px;margin:0 4px 10px 36px">${esc(ex.d)}</div>`:""}
+      </div>`;
     }
     html+=`</section>`;
   }
@@ -172,24 +178,33 @@ function renderToday(){
   renderTimer();
 }
 
+// ---------- exercise info toggles ----------
+const openInfo={};
+function toggleInfo(k){ openInfo[k]=!openInfo[k]; render(); }
+
 // ---------- lift log ----------
 function logLift(exId){
-  const inp=document.getElementById("in-"+exId), lb=parseFloat(inp.value);
+  const lb=parseFloat(document.getElementById("in-"+exId).value);
+  const reps=parseInt(document.getElementById("reps-"+exId).value,10);
   if(!lb||lb<=0)return;
-  (data.lifts[exId]=data.lifts[exId]||[]).push({d:today(),lb}); save(); render();
+  const entry={d:today(),lb}; if(reps&&reps>0)entry.reps=reps;
+  (data.lifts[exId]=data.lifts[exId]||[]).push(entry); save(); render();
 }
 function renderLifts(){
   const liftable=[]; [1,5].forEach(d=>PROGRAM[d].forEach(b=>b.ex.forEach(ex=>{
     if(ex.w&&!liftable.find(l=>l.id===ex.id))liftable.push(ex);})));
   let html=`<h2 style="margin-top:16px">Working weights</h2>
-   <p class="muted" style="margin:6px 0 14px">Log the weight you used. Beat last time by a rep or a small plate — that's the whole recomp game.</p>`;
+   <p class="muted" style="margin:6px 0 14px">Log weight and reps. Beat last time by one rep, then by one small plate — that's the whole recomp game.</p>`;
   for(const ex of liftable){
     const h=data.lifts[ex.id]||[], last=h[h.length-1], prev=h[h.length-2];
-    const up=last&&prev&&last.lb>prev.lb;
-    html+=`<div class="card row">
-      <div style="flex:1"><div style="font-size:15px;font-weight:500">${esc(ex.n)}</div>
-      <div style="font-size:13px;color:${up?"var(--good)":"var(--faint)"}">${last?`Last: ${last.lb} lb (${last.d.slice(5)})${up?" ▲ PR pace":""}`:"Not logged yet"}</div></div>
-      <input id="in-${ex.id}" type="number" inputmode="decimal" placeholder="lb" style="width:70px">
+    // progress = more weight, or same weight for more reps
+    const up=last&&prev&&((last.lb||0)>(prev.lb||0)||((last.lb||0)===(prev.lb||0)&&(last.reps||0)>(prev.reps||0)));
+    const lastTxt=last?`Last: ${last.lb?last.lb+" lb":""}${last.lb&&last.reps?" × ":""}${last.reps?last.reps+(last.lb?"":" reps"):""} (${last.d.slice(5)})${up?" ▲ PR pace":""}`:"Not logged yet";
+    html+=`<div class="card row" style="flex-wrap:wrap">
+      <div style="flex:1 1 160px"><div style="font-size:15px;font-weight:500">${esc(ex.n)}</div>
+      <div style="font-size:13px;color:${up?"var(--good)":"var(--faint)"}">${lastTxt}</div></div>
+      <input id="in-${ex.id}" type="number" inputmode="decimal" placeholder="lb" style="width:66px">
+      <input id="reps-${ex.id}" type="number" inputmode="numeric" placeholder="reps" style="width:66px">
       <button class="btn" onclick="logLift('${ex.id}')">Log</button></div>`;
   }
   document.getElementById("main").innerHTML=html;
