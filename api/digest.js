@@ -2,11 +2,14 @@
 // AgelessLabs Community Digest — Vercel Edge Function
 //
 // Running as Edge (Cloudflare network) so Reddit doesn't block the IP.
-// Reddit fetched via RSS/Atom — no credentials or app registration needed.
+// Reddit fetched via plain new.rss feeds (NOT search.rss — Reddit gates the
+// search endpoint aggressively for datacenter IPs). Topical filtering is
+// done locally against the KEYWORDS list.
 //
 // GET /api/digest?key=YOUR_DIGEST_KEY
 // GET /api/digest?key=YOUR_DIGEST_KEY&drafts=false   (skip draft generation)
 // GET /api/digest?key=YOUR_DIGEST_KEY&limit=10       (default 8, max 12)
+// GET /api/digest?key=YOUR_DIGEST_KEY&debug=1        (per-source fetch diagnostics)
 //
 // Required env vars:
 //   DIGEST_KEY        — secret string protecting this endpoint
@@ -25,15 +28,7 @@ const REDDIT_SUBREDDITS = [
   { name: 'PeterAttia', weight: 0.85 },
 ];
 
-// Four targeted searches — every result should be topically relevant
-const REDDIT_SEARCH_TERMS = [
-  'ApoB OR hsCRP OR biomarker',
-  'lab results OR bloodwork longevity',
-  'fasting insulin OR homocysteine OR "vitamin D"',
-  'longevity labs OR "longevity panel" OR "blood test"',
-];
-
-// Keywords used for relevance scoring
+// Keywords used for topical filtering AND relevance scoring
 const KEYWORDS = [
   'apob', 'apolipoprotein', 'hscrp', 'hs-crp', 'biomarker',
   'blood test', 'bloodwork', 'blood work', 'lab results', 'labs',
@@ -46,7 +41,18 @@ const KEYWORDS = [
   'function health', 'ulta lab', 'marek health', 'insidetracker',
 ];
 
+function matchesKeywords(text) {
+  const t = text.toLowerCase();
+  for (const kw of KEYWORDS) {
+    if (t.includes(kw)) return true;
+  }
+  return false;
+}
+
 // ─── Scoring ─────────────────────────────────────────────────────────────────
+// Note: Reddit new.rss does not expose upvotes/comments, so those terms are
+// usually 0 for Reddit posts. Scoring leans on keywords + recency + question
+// signals. Rapamycin.news posts still carry like/reply counts.
 
 function scorePost(post) {
   let score = 0;
@@ -69,16 +75,17 @@ function scorePost(post) {
   return Math.max(score, 0);
 }
 
-// ─── Reddit via RSS/Atom ──────────────────────────────────────────────────────
-// No credentials needed. Edge runtime IPs (Cloudflare) are not blocked by Reddit.
+// ─── Reddit via plain Atom feeds ─────────────────────────────────────────────
+// One request per subreddit: /r/{sub}/new.rss?limit=25
+// Far more reliably served than search.rss from datacenter IPs.
 
 function decodeXmlEntities(str) {
   return str
-    .replace(/&amp;/g,  '&')
-    .replace(/&lt;/g,   '<')
-    .replace(/&gt;/g,   '>')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
-    .replace(/&#39;/g,  "'")
+    .replace(/&#39;/g, "'")
     .replace(/&#x27;/g, "'");
 }
 
@@ -111,48 +118,54 @@ function parseAtomEntries(xml) {
   return entries;
 }
 
-async function fetchRedditSubreddit(subreddit) {
-  const seen  = new Set();
+async function fetchRedditSubreddit(subreddit, diag) {
   const posts = [];
+  const url = `https://www.reddit.com/r/${subreddit}/new.rss?limit=25`;
 
-  for (const q of REDDIT_SEARCH_TERMS) {
-    try {
-      const url = `https://www.reddit.com/r/${subreddit}/search.rss?q=${encodeURIComponent(q)}&sort=new&t=week&limit=15&restrict_sr=1`;
-      const res = await fetch(url, {
-        headers: {
-          'User-Agent': 'AgelessLabs-Digest/1.0',
-          'Accept': 'application/rss+xml, application/atom+xml, text/xml, */*',
-        },
-      });
-      if (!res.ok) continue;
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'AgelessLabs-Digest/2.0 (community digest; contact hello@agelesslabs.ai)',
+        'Accept': 'application/rss+xml, application/atom+xml, text/xml, */*',
+      },
+    });
 
-      const xml = await res.text();
-      const entries = parseAtomEntries(xml);
-
-      for (const e of entries) {
-        if (!e.id || seen.has(e.id)) continue;
-        seen.add(e.id);
-        posts.push({
-          id:        `reddit_${e.id}`,
-          source:    `r/${subreddit}`,
-          title:     e.title,
-          excerpt:   e.excerpt,
-          url:       e.link,
-          upvotes:   e.upvotes,
-          comments:  0,
-          age_hours: e.ageHours,
-        });
-      }
-    } catch (e) {
-      // individual search term failure — silently continue
+    if (!res.ok) {
+      diag.push({ source: 'r/' + subreddit, url, status: res.status, entries: 0, kept: 0 });
+      return posts;
     }
+
+    const xml = await res.text();
+    const entries = parseAtomEntries(xml);
+    let kept = 0;
+
+    for (const e of entries) {
+      if (!e.id) continue;
+      // Local topical filter — replaces the old search.rss queries
+      if (!matchesKeywords(`${e.title} ${e.excerpt}`)) continue;
+      kept++;
+      posts.push({
+        id:        `reddit_${e.id}`,
+        source:    `r/${subreddit}`,
+        title:     e.title,
+        excerpt:   e.excerpt,
+        url:       e.link,
+        upvotes:   e.upvotes,
+        comments:  0,
+        age_hours: e.ageHours,
+      });
+    }
+
+    diag.push({ source: 'r/' + subreddit, url, status: res.status, entries: entries.length, kept });
+  } catch (err) {
+    diag.push({ source: 'r/' + subreddit, url, status: 'fetch_error', error: String(err && err.message || err), entries: 0, kept: 0 });
   }
   return posts;
 }
 
-async function fetchAllReddit() {
+async function fetchAllReddit(diag) {
   const results = await Promise.allSettled(
-    REDDIT_SUBREDDITS.map(s => fetchRedditSubreddit(s.name))
+    REDDIT_SUBREDDITS.map(s => fetchRedditSubreddit(s.name, diag))
   );
   const posts = [];
   results.forEach((r, i) => {
@@ -164,22 +177,39 @@ async function fetchAllReddit() {
 }
 
 // ─── rapamycin.news (Discourse) ──────────────────────────────────────────────
+// Discourse search supports an after:YYYY-MM-DD operator — constrain to the
+// last 7 days so evergreen threads from years ago stop dominating.
 
-async function fetchRapamycinNews() {
-  const searches = ['biomarker bloodwork ApoB labs', 'longevity blood test'];
+function daysAgoISODate(days) {
+  const d = new Date(Date.now() - days * 86400000);
+  return d.toISOString().slice(0, 10);
+}
+
+async function fetchRapamycinNews(diag) {
+  const afterDate = daysAgoISODate(7);
+  const searches = [
+    'biomarker bloodwork ApoB labs after:' + afterDate,
+    'longevity blood test after:' + afterDate,
+  ];
   const seen  = new Set();
   const posts = [];
 
   for (const q of searches) {
+    const url = `https://www.rapamycin.news/search.json?q=${encodeURIComponent(q)}&order=latest`;
     try {
-      const url = `https://www.rapamycin.news/search.json?q=${encodeURIComponent(q)}&order=latest`;
-      const res = await fetch(url, { headers: { 'User-Agent': 'AgelessLabs-Digest/1.0' } });
-      if (!res.ok) continue;
+      const res = await fetch(url, { headers: { 'User-Agent': 'AgelessLabs-Digest/2.0' } });
+      if (!res.ok) {
+        diag.push({ source: 'rapamycin.news', url, status: res.status, entries: 0, kept: 0 });
+        continue;
+      }
       const data = await res.json();
+      const topics = data.topics || [];
+      let kept = 0;
 
-      for (const t of (data.topics || [])) {
+      for (const t of topics) {
         if (seen.has(t.id)) continue;
         seen.add(t.id);
+        kept++;
         posts.push({
           id:        `rap_${t.id}`,
           source:    'rapamycin.news',
@@ -192,8 +222,10 @@ async function fetchRapamycinNews() {
           weight:    1.0,
         });
       }
-    } catch (e) {
-      // continue
+
+      diag.push({ source: 'rapamycin.news', url, status: res.status, entries: topics.length, kept });
+    } catch (err) {
+      diag.push({ source: 'rapamycin.news', url, status: 'fetch_error', error: String(err && err.message || err), entries: 0, kept: 0 });
     }
   }
   return posts;
@@ -205,7 +237,7 @@ const SYSTEM_CONTEXT = `You help AgelessLabs.ai build genuine community presence
 
 AgelessLabs.ai facts you can draw on:
 - Free AI biomarker interpreter at agelesslabs.ai/analyze (upload labs → longevity score + per-marker breakdown)
-- 18 detailed biomarker reference pages at agelesslabs.ai/biomarkers
+- 66 detailed biomarker reference pages at agelesslabs.ai/biomarkers
 - Longevity-optimal ranges (more aggressive than standard lab reference ranges):
   ApoB <60 mg/dL · Fasting insulin <6 uIU/mL · hsCRP <0.5 mg/L · HbA1c <5.3% · Vitamin D 50–80 ng/mL
   Homocysteine <7 µmol/L · Ferritin 50–100 ng/mL · TSH 1.0–2.0 mIU/L · IGF-1 120–180 ng/mL
@@ -256,12 +288,13 @@ Reply text only — no preamble.`;
 
 export default async function handler(req) {
   const url    = new URL(req.url);
-  const key    = url.searchParams.get('key')    || '';
+  const key    = url.searchParams.get('key') || '';
   const drafts = url.searchParams.get('drafts') !== 'false';
+  const debug  = url.searchParams.get('debug') === '1';
   const limit  = Math.min(parseInt(url.searchParams.get('limit') || '8', 10), 12);
 
   const corsHeaders = {
-    'Access-Control-Allow-Origin':  '*',
+    'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods': 'GET, OPTIONS',
     'Content-Type': 'application/json',
   };
@@ -277,9 +310,11 @@ export default async function handler(req) {
   }
 
   try {
+    const diagnostics = [];
+
     const [redditPosts, rapPosts] = await Promise.all([
-      fetchAllReddit(),
-      fetchRapamycinNews(),
+      fetchAllReddit(diagnostics),
+      fetchRapamycinNews(diagnostics),
     ]);
 
     const allPosts = [...redditPosts, ...rapPosts];
@@ -310,6 +345,8 @@ export default async function handler(req) {
         draft:     p.draft,
       })),
     };
+
+    if (debug) payload.diagnostics = diagnostics;
 
     return new Response(JSON.stringify(payload), { status: 200, headers: corsHeaders });
   } catch (err) {
