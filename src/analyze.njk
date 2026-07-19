@@ -64,9 +64,9 @@ textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
 .biomarker-desc { font-size: 12px; color: var(--text-dim); line-height: 1.5; font-weight: 400; }
 .biomarker-value { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--text); white-space: nowrap; }
 .status-pill { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 8px; border-radius: 2px; white-space: nowrap; }
-.status-optimal { color: var(--green); background: var(--green-dim); border: 1px solid var(--border); }
-.status-monitor { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
-.status-concern { color: #c87060; background: rgba(200,112,96,0.08); border: 1px solid rgba(200,112,96,0.15); }
+.status-optimal { color: var(--status-optimal); background: rgba(126,203,140,0.10); border: 1px solid rgba(126,203,140,0.22); }
+.status-monitor { color: var(--status-monitor); background: rgba(236,171,62,0.10); border: 1px solid rgba(236,171,62,0.22); }
+.status-concern { color: var(--status-concern); background: rgba(229,118,106,0.10); border: 1px solid rgba(229,118,106,0.22); }
 .narrative { font-size: 15px; color: var(--text); line-height: 1.8; font-weight: 400; padding: 20px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
 .recommendations { display: grid; gap: 8px; }
 .rec-item { display: flex; gap: 16px; align-items: flex-start; padding: 16px; background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; }
@@ -153,7 +153,7 @@ textarea::placeholder { color: var(--text-muted); opacity: 0.5; }
 .missing-test-name { font-size: 14px; font-weight: 600; color: var(--white); margin-bottom: 4px; letter-spacing: -0.01em; }
 .missing-test-reason { font-size: 12px; color: var(--text-dim); line-height: 1.5; }
 .missing-test-priority { font-family: 'DM Mono', monospace; font-size: 8px; letter-spacing: 0.1em; text-transform: uppercase; padding: 2px 7px; border-radius: 2px; display: inline-block; margin-bottom: 6px; }
-.missing-test-priority.high { color: #c87060; background: rgba(200,112,96,0.08); border: 1px solid rgba(200,112,96,0.15); }
+.missing-test-priority.high { color: var(--status-concern); background: rgba(229,118,106,0.10); border: 1px solid rgba(229,118,106,0.22); }
 .missing-test-priority.medium { color: var(--gold); background: rgba(200,169,110,0.08); border: 1px solid rgba(200,169,110,0.15); }
 .missing-test-links { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; }
 .affiliate-link { font-family: 'Red Hat Display', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; padding: 7px 14px; border-radius: 2px; text-decoration: none; transition: all 0.15s; white-space: nowrap; }
@@ -267,7 +267,7 @@ Ferritin: 45 ng/mL"></textarea>
     <button class="analyze-btn" id="analyzeBtn" onclick="analyzeLabResults()" style="margin-top:24px;">
       Analyze My Biomarkers
     </button>
-    <div id="analyzeError" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(200,112,96,0.08);border:1px solid rgba(200,112,96,0.2);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:#c87060;"></div>
+    <div id="analyzeError" style="display:none;margin-top:14px;padding:12px 16px;background:rgba(229,118,106,0.10);border:1px solid rgba(229,118,106,0.22);border-radius:3px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:0.04em;color:var(--status-concern);"></div>
   </div>
 
   <!-- Loading -->
