@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: June 24, 2026 · CST
+> Last updated: July 19, 2026 · CST
 
 ---
 
@@ -21,7 +21,7 @@ AgelessLabs.ai is a longevity-focused content site with an integrated AI biomark
 
 | Stream | Status | Notes |
 |---|---|---|
-| Affiliate commissions from lab testing partners | Live (links in place) | Primary revenue driver |
+| Affiliate commissions from lab testing partners | Live (links in place, click tracking live on /get-tested/) | Primary revenue driver |
 | AI report upgrade — $19 one-time | Live — May 19 2026 | Stripe live mode active |
 | Display advertising | Deferred | Later stage, once traffic scales |
 
@@ -80,6 +80,7 @@ The centerpiece of AgelessLabs.ai. A free tool that analyzes lab results through
 ```
 agelesslabs/
 ├── api/
+│   ├── affiliate-click.js    # Vercel serverless function — logs affiliate clicks to Google Sheet, redirects to partner
 │   ├── analyze.js            # Vercel serverless proxy — forwards requests to Anthropic API
 │   ├── subscribe.js          # Vercel serverless proxy — forwards email signups to MailerLite API
 │   ├── stripe-checkout.js    # Creates Stripe Checkout session
@@ -99,7 +100,7 @@ agelesslabs/
     │   ├── index.njk         # Biomarker library index — all 66 markers, 5 categories
     │   └── [66 .njk files]   # All live and indexed — see wave breakdown below
     ├── blog/
-    │   └── blog-index.njk    # Blog placeholder — 6 categories, priority post list
+    │   └── blog-index.njk    # Blog placeholder — 6 content categories, priority post list
     ├── guides/
     │   ├── index.njk         # Guides index — all 8 guides listed (3 Tier 2 + 5 Tier 3)
     │   ├── best-longevity-blood-panel.njk
@@ -123,7 +124,7 @@ agelesslabs/
     ├── digest.njk            # Community digest dashboard — key-protected, noindexed
     ├── 404.njk               # Custom 404 page — outputs to /404.html, noindexed
     ├── email-thank-you.njk   # Email capture confirmation — noindexed, live at /email-thank-you/
-    ├── get-tested.njk        # "Get Your Baseline" affiliate page — live at /get-tested/
+    ├── get-tested.njk        # "Get Your Baseline" affiliate page — all 5 affiliate links route through /api/affiliate-click
     ├── longevity-lab-guide.njk  # Email lead magnet — noindexed, live at /longevity-lab-guide/
     ├── search.njk            # Site search — live at /search/ · Pagefind-powered
     ├── ops.njk               # Marketing ops dashboard — key-protected, noindexed · /ops/
@@ -142,7 +143,7 @@ agelesslabs/
 - **Mobile menu** lives in `base.njk` — full-screen overlay, slides in from right, styles inline in `<style>` block in head, JS inline before `</body>`
 - **Biomarker pages** use `layout: biomarker.njk` in frontmatter (NOT base.njk directly)
 - **All other pages** use `layout: base.njk` in frontmatter — **always verify this is present after batch edits**
-- **analyze.njk** uses the standard `base.njk` nav like every other page — no special-casing. The former `analyzePage` conditional (which swapped the "Try Free" CTA for a "Beta — Free Interpreter" badge) was removed June 24 2026: the wide badge filled the nav to the pixel and squeezed "How it works" against the logo at desktop widths. The `analyzePage: true` frontmatter flag in `analyze.njk` is now a dead no-op pending removal (see Known Issues).
+- **analyze.njk** uses the standard `base.njk` nav like every other page — no special-casing. The former `analyzePage` conditional was removed June 24 2026; the dead `analyzePage: true` frontmatter flag was deleted July 15 2026. Tech debt closed.
 - **Page-specific styles** go in a style block at the top of the page file
 - **Biomarker index and blog index** use `eleventyExcludeFromCollections: true`
 - **Biomarker pages** no longer use `noindex: true` — all 66 fully indexed
@@ -163,6 +164,7 @@ agelesslabs/
 - **Pagefind search** — build command in `package.json`: `eleventy && npx pagefind --site _site`. Index auto-regenerates on every Vercel deploy. Search page at `/search/`. Pagefind respects `<meta name="robots" content="noindex">` — noindexed pages excluded from index automatically.
 - **Pagefind category metadata** — `data-pagefind-meta="category:VALUE"` added to: `biomarker.njk` (`Biomarker — {{ category }}`), all 8 guide pages (`Guide`), all 3 review pages (`Review`), comparison page (`Comparison`).
 - **Pagefind clear button** — styled via CSS overrides to match DM Mono aesthetic (pill button with border). Cannot be replaced with custom element — Pagefind/Svelte rebuilds its DOM on every search, wiping injected elements.
+- **Affiliate link pattern (tracked pages)** — `href="/api/affiliate-click?partner=[ulta|superpower]&destination=[URL-ENCODED destination]"`. Destination MUST be URL-encoded (`encodeURIComponent`) or query params in the destination (e.g. Superpower's `dub_id`) get swallowed by the tracker endpoint. Keep `target="_blank" rel="noopener sponsored"` on the anchor.
 
 ### Sitemap priority rules (line 18 of sitemap.njk)
 `/` → 1.0 · `/analyze/` → 0.9 · `/biomarkers/` index → 0.9 · `/biomarkers/*` → 0.8 · `/blog/*` → 0.7 · `/reviews/*` → 0.7 · `/guides/*` → 0.7 · `/compare/*` → 0.7 · `/search/` → 0.5 · everything else → 0.5
@@ -179,8 +181,8 @@ agelesslabs/
 | `DIGEST_KEY` | api/digest.js, api/gsc-ga4.js, api/gsc-setup.js | Secret string protecting /digest, /ops, /api/gsc-* endpoints |
 | `STRIPE_SECRET_KEY` | api/stripe-checkout.js, api/stripe-verify.js | Live mode active May 19 2026 |
 | `STRIPE_PRICE_ID` | api/stripe-checkout.js | Live price ID |
-| `GOOGLE_SHEET_ID` | api/feedback.js | Sheet ID from URL — AgelessLabs Feedback sheet |
-| `GOOGLE_SERVICE_ACCOUNT_KEY` | api/feedback.js | Full JSON of Google service account key (agelesslabs-sheets@vocal-oarlock-497921-e7.iam.gserviceaccount.com) |
+| `GOOGLE_SHEET_ID` | api/feedback.js, api/affiliate-click.js | Sheet ID from URL — AgelessLabs Feedback sheet: https://docs.google.com/spreadsheets/d/1B5kebMXzudqvlXMfkOG0kis9VnQrgAJ-vnDFxP3qm_0/edit |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | api/feedback.js, api/affiliate-click.js | Full JSON of Google service account key (agelesslabs-sheets@vocal-oarlock-497921-e7.iam.gserviceaccount.com) |
 | `GOOGLE_CLIENT_ID` | api/gsc-ga4.js, api/gsc-setup.js | OAuth2 client ID for GSC/GA4 access |
 | `GOOGLE_CLIENT_SECRET` | api/gsc-ga4.js, api/gsc-setup.js | OAuth2 client secret for GSC/GA4 access |
 | `GOOGLE_REFRESH_TOKEN` | api/gsc-ga4.js | OAuth2 refresh token — regenerate via /api/gsc-setup?key=DIGEST_KEY if invalid_grant error occurs |
@@ -216,22 +218,35 @@ GitHub is the source of truth. Claude accesses files via two methods:
 
 **GitHub editing via browser:** Claude edits files directly in the GitHub web editor using CodeMirror 6 automation. Access via `document.querySelector('.cm-content').cmTile.view`. Use `view.dispatch({ changes: { from, to, insert } })` to make programmatic edits.
 
-**Reliable commit technique (tested May 27 2026):**
+**Reliable commit technique (updated July 15 2026):**
 ```javascript
 // 1. Apply change via view.dispatch()
 // 2. Release editor focus:
 document.querySelector('.breadcrumb')?.click();
-await new Promise(r => setTimeout(r, 800));
+await new Promise(r => setTimeout(r, 1000));
 // 3. Open commit dialog — button text is "Commit changes..." (with ellipsis):
 const ob = Array.from(document.querySelectorAll('button'))
   .find(b => b.textContent.trim() === 'Commit changes...');
 if (ob) ob.click();
-// 4. Wait and confirm via dialog button:
-// Use computer tool to click the green "Commit changes" button in the dialog
+// 4. WAIT ~3 SECONDS — the dialog mounts slowly. Querying too early finds nothing.
+// 5. Locate the confirm button (shadow-DOM-aware traversal), then click its
+//    coordinates with the computer tool:
+function allButtons(root, acc) {
+  root.querySelectorAll('*').forEach(el => {
+    if (el.tagName === 'BUTTON') acc.push(el);
+    if (el.shadowRoot) allButtons(el.shadowRoot, acc);
+  });
+  return acc;
+}
+const vis = allButtons(document, []).filter(b => {
+  const r = b.getBoundingClientRect();
+  return r.width > 0 && b.textContent.trim() === 'Commit changes';
+});
+// Click the returned coordinates via the computer tool
 ```
 Never type commit messages while CodeMirror has focus — they go into the file.
 
-**New file creation:** Use GitHub's new file editor (`/new/main/api` or `/new/main/src`) — set filename by clicking name input and typing, then inject content via `cm.cmTile.view`, then click "Commit changes..." button and confirm in dialog.
+**New file creation:** Use GitHub's new file editor (`/new/main/api` or `/new/main/src`) — inject content via `cm.cmTile.view` FIRST, then click the filename input and type the name LAST, then commit. **After typing the filename, always verify it via JS** (`document.querySelector('input[placeholder*="Name your file"]').value`) — typed text can land in the sidebar file-tree search instead of the filename input, and stray characters can leak in from keyboard shortcuts. With an empty filename the commit dialog silently fails.
 
 ### Google Drive — Working Files
 **Folder:** AgelessLabs > Source Files
@@ -260,12 +275,12 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | about.njk | Complete | Mission, principles, values grid, named founder (Dan Carey) |
 | privacy.njk | Complete | Privacy policy |
 | disclaimer.njk | Complete | Disclaimer + affiliate disclosure |
-| analyze.njk | Complete | AI tool — free + paid tiers live |
+| analyze.njk | Complete | AI tool — free + paid tiers live · dead `analyzePage` flag removed July 15 2026 |
 | biomarkers/index.njk | Complete | 66 markers, 5 categories, "Library Complete" banner |
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list |
 | digest.njk | Complete | Key-protected community digest dashboard |
-| get-tested.njk | Complete — May 21 2026 | "Get Your Baseline" page — Ulta + Superpower cards live |
+| get-tested.njk | Complete — updated July 15 2026 | All 5 affiliate links (4 Ulta + 1 Superpower) route through /api/affiliate-click · confirmed working live |
 | email-thank-you.njk | Complete | Confirmation page — noindexed · live at /email-thank-you/ |
 | longevity-lab-guide.njk | Complete — May 28 2026 | Email lead magnet — noindexed · live at /longevity-lab-guide/ |
 | 404.njk | Complete — May 30 2026 | Custom 404 — outputs to /404.html · noindexed · excluded from sitemap |
@@ -330,7 +345,14 @@ vitamin-b6, copper, bilirubin, phosphorus, nt-probnp, vitamin-c
 ### Feedback Feature — Complete (May 31 2026)
 - **`api/feedback.js`** — Vercel serverless function. Appends rows to Google Sheet via service account JWT auth. Env vars: `GOOGLE_SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_KEY` (full JSON string). No npm dependencies — uses Node.js built-ins + `crypto.subtle`.
 - **FAB + popover in `base.njk`** — Flag icon FAB, lower-right corner. Toggle mechanism: `<input type="checkbox" id="feedbackToggle">` + `<label for="feedbackToggle">`. Popover shown/hidden via `#feedbackToggle:checked ~ .feedback-popover` CSS selector — no JS for open/close. On submit: form div hidden, thank-you div shown. Close button unchecks the checkbox. Hidden on `/digest/`. FAB and popover are direct children of `<body>`, outside `.container`.
-- **Google Sheet** — "AgelessLabs Feedback" · columns: Timestamp, Page URL, Feedback. Service account shared as Editor.
+- **Google Sheet** — "AgelessLabs Feedback" · https://docs.google.com/spreadsheets/d/1B5kebMXzudqvlXMfkOG0kis9VnQrgAJ-vnDFxP3qm_0/edit · Feedback tab columns: Timestamp, Page URL, Feedback. Service account shared as Editor.
+
+### Affiliate Click Tracker — Phase 7.1a Complete (July 15 2026, confirmed working live)
+- **`api/affiliate-click.js`** — Vercel serverless function. Receives `?partner=X&destination=URL-ENCODED-URL`, validates destination against an allowlist (ultalabtests.com, superpower.com, insidetracker.com, marekhealth.com — https only, prevents open-redirect abuse), optionally logs the click, then 302-redirects to the destination. Logging failures never block the redirect.
+- **Exclusion logic (corrected from original spec):** skip logging when the referrer is EMPTY (bots/crawlers hitting the endpoint directly — e.g. Googlebot following the links) or when the referrer contains `/ops/` (dashboard test clicks). The original spec ("skip if referer includes agelesslabs.ai") would have excluded ALL legitimate clicks, since every real click originates from an agelesslabs.ai page. Dan's own clicks from regular site pages DO get logged — referrer-based filtering cannot distinguish them; accepted as rounding-error noise at current traffic. Add a `?self=1` bypass later if needed.
+- **Sheet logging:** "Affiliate Clicks" tab in the AgelessLabs Feedback sheet · columns: Timestamp, Partner, Source Page (referrer pathname), Referrer (full URL), Destination. The tab is AUTO-CREATED with headers on the first logged click (batchUpdate addSheet + header row; handles "already exists" race). Same service account as feedback.js — no new credentials.
+- **`src/get-tested.njk`** — all 5 affiliate links converted (3 Ulta panel CTAs, 1 inline Ulta text link, 1 Superpower). Destination URLs are URL-encoded — REQUIRED so query params like Superpower's `dub_id` survive.
+- **Scope remaining:** 7.1b — 5 Tier 3 guide pages (~10 links) · 7.1c — biomarker pages (deferred, 66 pages) · ops dashboard clicks widget.
 
 ### Search Feature — Complete (May 31 2026)
 - **Pagefind** — open-source static search. Build command: `eleventy && npx pagefind --site _site` in `package.json`. Index regenerates automatically on every Vercel deploy.
@@ -365,27 +387,54 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 
 ## Immediate Next Steps (Resume Here)
 
-### Phase 7.1 — Affiliate Click Tracker (Next Session)
+### Pending Changes Queue (cross-chat — this is the coordination surface; verify each against the live repo before executing, since a chat's plan can go stale)
 
-**Goal:** Know which pages and partners are driving real clicks, with own-domain clicks excluded.
+**1. Color palette rollout — Variant A + status color system**
+- Problem being solved: near-black bg + near-white text (16.6:1 contrast) causes halation/shimmer for older readers, especially at thin font weights. Not a WCAG failure — a polarity/weight problem.
+- New values: bg `#111210` → `#1a261c` (warm dark green) · headings/key numbers `#eef2ea` → `#f0e9d9` (warm ivory) · body copy → tan `#ddc9a3` · `--text-dim` `#7a8a72` → `#8ba07e` (bumped — old value fell below AA on the new bg) · gold `#c8a96e` → `#d8b87a` · new status trio: optimal mint `#7ecb8c` / monitor amber `#ecab3e` / concern coral `#e5766a` (also fixes a live bug — `.status-monitor` in `analyze.njk` currently reuses `var(--gold)`, indistinguishable from category labels)
+- Files: `styles.css` (Batch 1 — 7 variable edits + 3 new status vars in `:root`, single commit, whole site reflows at once) → `analyze.njk` + `base.njk` (Batch 2 — wire status colors in, retire ad-hoc `#c87060` coral references)
+- **DO NOT TOUCH:** `analyze.njk` `@media print` block (~lines 192–195) — controls the paid PDF download, must stay light (`#f8f8f8`/`#333`/`#2d6a2d`)
+- Status: fully planned, self-contained rollout doc already prepared. Not yet executed. All colors are centralized in `:root` and templates reference via `var(--...)`, so rollback is a single-commit revert.
+- After shipping: update the **Brand Direction** section below with the new hex values, and check Clarity/GA4 bounce data over the following days to confirm it actually helped.
 
-**How it works:**
-- New Vercel serverless function `api/affiliate-click.js` — receives `?partner=X&destination=URL`, checks referrer (skips clicks from `agelesslabs.ai`), logs row to Google Sheet, then redirects to destination
-- Logs: Timestamp · Partner · Source Page · Referrer · Destination URL
-- Sheet: new "Affiliate Clicks" tab in the existing AgelessLabs Feedback Google Sheet (same service account, no new credentials needed)
-- Exclusion: if `req.headers.referer` includes `agelesslabs.ai`, skip logging and redirect silently
+**2. Community digest tool fix — `api/digest.js`**
+- Switch Reddit feed from `search.rss` to `new.rss`, add date constraints, add a debug mode, bump biomarker count referenced in the system prompt 18 → 66 (stale since the library completed).
+- Status: rewritten and delivered as an artifact on iPad — confirmed NOT yet committed to the live repo (verified against raw GitHub July 19).
+- Sequencing note: needs a `src/` commit to trigger a Vercel deploy — land in the same session as the palette's `styles.css` commit rather than burning a throwaway deploy.
 
-**Scope — staged:**
-- 7.1a: `/get-tested/` — Ulta + Superpower links (2 links)
-- 7.1b: 5 Tier 3 guide pages — Ulta + Superpower CTAs (~10 links)
-- 7.1c: Biomarker pages — deferred (66 pages, separate session)
+**3. Wordmark case — resolved, keep as-is**
+- Explored recasing to Title Case (`AgelessLabs.ai`) to match social/prose usage, tried several alternate fonts (Space Grotesk, Bricolage Grotesque, Familjen Grotesk, Instrument Sans/Serif, Unbounded, IBM Plex Sans, Gabarito) chasing capitals that would hold up in Title Case. IBM Plex Sans 700/300 came closest, but a direct side-by-side against the original (Red Hat Display, lowercase) confirmed the original is still the better wordmark — the casing "inconsistency" vs. social/prose is a real but minor issue, not worth trading away a mark that's already working.
+- **Decision: no change to font or case.** Wordmark stays Red Hat Display, lowercase, bold/light weight split — exactly as live today.
+- Icon (hourglass/helix) stays a standalone mark — do not recombine with the wordmark inline (tried before, hurt readability). Refine for favicon/app-icon/social-avatar use at 32/64/96px; inverted solid-tile treatment (green square, bg-colored strokes) recommended as the primary version since it holds up best as a small circular avatar.
+- Files: `favicon.svg`; app-icon/social-avatar assets not yet audited — worth checking if those exist yet. (No `base.njk` wordmark edit needed — see item 4 for the one change that is landing there.)
+- Status: closed. Icon refinement remains open but low-priority — not scheduled.
 
-**Files:**
-1. `api/affiliate-click.js` — new
-2. `src/get-tested.njk` — update hrefs to `/api/affiliate-click?partner=ulta&destination=...`
-3. `src/guides/how-to-*.njk` (5 files) — same pattern
+**4. Pulsing period on the wordmark**
+- Adds a "live" signal to the existing lowercase wordmark: the period in `.ai` animates color (ivory → `--green-bright` #c8ddb4, already defined in `styles.css`, currently unused) with a layered `text-shadow` (tight + medium + wide glow) on a slow 2.4s ease-in-out cycle. Letterform size/position unchanged — it's still a real period, just breathing.
+- Rejected alternatives: a separate circular tick mark replacing the period (lost the punctuation read), a single-layer glow in plain `--green` (too subtle — too close in hue/brightness to the new bg), scale-pulse variant (reads more like a heartbeat but changes the letterform, treated as a separate future decision), gold glow (reads as a status/label color, not a "live" signal).
+- Implementation notes: freeze at resting ivory state for any static context (favicon, social avatar, print) — do not ship the mid-pulse green as a static default. Respect `prefers-reduced-motion` — disable animation, hold resting color, for anyone with that OS setting on.
+- Files: `base.njk` (3 wordmark instances — nav, footer, mobile menu) for the markup/class hook, `styles.css` for the `@keyframes` + dot styling.
+- Sequencing note: also touches `styles.css`, same file as pending item 1 (palette rollout). Doesn't functionally depend on item 1 landing first (`--green-bright` is untouched by the palette change), but land whichever is second against the freshly committed version of the file to avoid a stale diff.
+- Status: direction decided (Option A: brighter color + layered shadow), not yet built.
 
-**Ops dashboard addition:** Affiliate clicks widget — top partners + top source pages, last 7 days, reads from Google Sheet via existing service account.
+### Phase 7.1b — Affiliate Click Tracker: Guide Pages (Next Session)
+
+**Goal:** Extend tracked affiliate links to the 5 Tier 3 guide pages.
+
+**Files (5 — one full session batch):**
+1. `src/guides/how-to-lower-apob.njk`
+2. `src/guides/how-to-improve-insulin-sensitivity.njk`
+3. `src/guides/how-to-optimize-testosterone.njk`
+4. `src/guides/how-to-reduce-inflammation.njk`
+5. `src/guides/how-to-fix-nutrient-deficiencies.njk`
+
+**Pattern (proven in 7.1a):** swap each Ulta/Superpower href to `/api/affiliate-click?partner=[ulta|superpower]&destination=[URL-ENCODED destination]`. Verify each href matches exactly once before dispatching the replacement. Keep `target="_blank" rel="noopener sponsored"`.
+
+### Phase 7.1d — Ops Dashboard Affiliate Clicks Widget (after 7.1b)
+Widget in `ops.njk`: top partners + top source pages, last 7 days, reading the "Affiliate Clicks" tab via the existing service account (new endpoint or extend `api/gsc-ga4.js` pattern).
+
+### Phase 7.1c — Biomarker Pages (deferred)
+66 pages — separate multi-session effort. Decide whether template-level change in `biomarker.njk` can convert all pages at once (links are per-page frontmatter — audit first).
 
 ---
 
@@ -404,7 +453,6 @@ Apply AgelessLabs system to a new niche.
 
 ## Known Issues / Tech Debt
 
-- **Orphaned `analyzePage: true` frontmatter flag in `analyze.njk`** — dead no-op since the `base.njk` nav stopped branching on it (June 24 2026). Safe to delete the line whenever convenient; no rendering impact. Remove this tech-debt entry once the flag is gone.
 - **Digest caching not built** — generates fresh on every load (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have literal string in JSON-LD. Not a validity issue.
 - **Vitamin K2 page note** — Ulta "vitamin-k" test measures total K (K1+K2 combined). Page accurately notes this and recommends ucOC as the functional K2 marker.
@@ -416,6 +464,7 @@ Apply AgelessLabs system to a new niche.
 - **Search not in sitemap** — `/search/` excluded from sitemap (standard practice). SearchAction schema in `base.njk` still points to biomarkers — update `urlTemplate` to `/search/?q={search_term_string}`.
 - **GOOGLE_REFRESH_TOKEN expiry** — OAuth2 refresh tokens from a test-mode app can expire or be revoked. If `invalid_grant` errors appear in ops dashboard analytics, visit `/api/gsc-setup?key=DIGEST_KEY` to regenerate.
 - **gsc-setup.js is a permanent utility** — keep in the repo; delete only after switching to a production-verified OAuth app or service account access.
+- **Self-clicks on tracked affiliate links are logged** — Dan's own clicks from regular site pages appear in the Affiliate Clicks tab (only `/ops/` clicks and empty-referrer hits are excluded). Acceptable noise at current traffic; add a `?self=1` bypass or cookie flag if it becomes a problem.
 
 ---
 
@@ -434,11 +483,16 @@ Apply AgelessLabs system to a new niche.
 - **Ulta Lab Tests URL slugs are not predictable** — always verify via `site:ultalabtests.com [test name]`.
 - **Biomarker library stopping point** — 66 pages (Waves 1–9). Pivot to Tier 2/3 content.
 - **GitHub CodeMirror accessor** — use `cm.cmTile.view` (not `cm.cmView.view`). `cmTile` is the correct property in the GitHub editor environment.
-- **GitHub new file commit pattern** — type filename in name input, inject content via CodeMirror, click "Commit changes..." button (with ellipsis), confirm in dialog. The name input clears if you click the Commit button without re-entering the filename — always type filename last before clicking Commit.
+- **GitHub new file commit pattern** — inject content via CodeMirror FIRST, type filename LAST, then commit. ALWAYS verify the filename input's value via JS after typing: typed text can land in the sidebar file-tree search instead of the filename field, and stray characters can leak in (e.g. from ctrl+a). With an empty filename the commit dialog silently fails.
+- **GitHub commit dialog mounts slowly (~3s)** — after clicking "Commit changes...", wait ~3 seconds before querying for the confirm button; querying immediately finds nothing and looks like the dialog never opened. Use a shadow-DOM-aware button traversal, then click the confirm button's coordinates via the computer tool.
+- **Unauthenticated GitHub API rate limits** — verification via `api.github.com` from the sandbox gets rate-limited quickly, and the error body greps as "0 matches" (false negative). Verify committed files by fetching `raw.githubusercontent.com` with a cache-buster (`?cb=Date.now()`) from the browser tab instead.
+- **Referrer-based self-click exclusion is impossible** — all legitimate affiliate clicks carry an agelesslabs.ai referrer, so "exclude own-domain referrers" excludes everything. Correct filters: skip EMPTY referrers (bots/crawlers) and `/ops/` referrers (dashboard testing). Same-origin requests send the full referrer URL under the default strict-origin-when-cross-origin policy, so the source page path is always capturable.
+- **Affiliate tracker destination URLs must be URL-encoded** — unencoded query params in the destination (e.g. Superpower's `dub_id`) become params of the tracker endpoint and are lost.
+- **Tracker endpoints need a destination allowlist** — an open redirect on agelesslabs.ai would be a spam/phishing vector. Validate hostname against known partner domains, https only.
 - **Vercel deploy trigger** — committing only to `api/` may not trigger a Vercel deploy. Always commit a `src/` file change in the same session to guarantee a fresh deploy.
 - **OAuth2 refresh tokens from test-mode apps** — the OAuth Playground auto-revokes tokens after 24h unless using your own credentials AND the app is in production mode. Use `gsc-setup.js` endpoint to regenerate whenever needed.
 - **GA4/GSC UI rejects service account emails** — Google's property UIs validate against Google Accounts; service account emails fail. Use personal Google account OAuth2 instead for GSC/GA4 API access.
-- **Template literals with `${...}` in Vercel serverless functions** — can cause ES module parse failures when injected via CodeMirror into GitHub. Use string concatenation instead.
+- **Template literals with `${...}` in Vercel serverless functions** — can cause ES module parse failures when injected via CodeMirror into GitHub. Use string concatenation instead. (affiliate-click.js written entirely with concatenation.)
 - **index.njk `layout: base.njk` critical** — this declaration gets silently dropped during batch edit sessions. Always verify it's present after any batch edit to biomarkers/index.njk.
 - **Sitemap hardcoded `<url>` blocks** — must NEVER be placed inside or around the `collections.all` loop in sitemap.njk.
 - **Title tag length** — target under 68 chars total including ` | AgelessLabs`.
@@ -449,6 +503,7 @@ Apply AgelessLabs system to a new niche.
 - **Tier 3 guide template** — intervention table ranked by effect size with High/Medium/Low badges, phase-card protocol sequence, marker grid (3-col) for relevant biomarkers, test-cards for Ulta + Superpower CTAs, 6-question FAQ schema. All Tier 3 guides follow this pattern.
 - **FAB toggle pattern** — use `<label for="checkbox">` + `<input type="checkbox">` for CSS-driven show/hide of fixed UI elements. Never use a `<button onclick>` as the trigger for a floating popover on mobile.
 - **Google Sheets API via service account** — JWT auth using `crypto.subtle.importKey` (pkcs8, RSASSA-PKCS1-v1_5 SHA-256). Exchange JWT for OAuth2 token at `oauth2.googleapis.com/token`, then POST to Sheets append endpoint. No npm dependencies needed.
+- **Google Sheets tab auto-creation** — append to a non-existent tab returns "Unable to parse range"; catch that, batchUpdate `addSheet`, then append header + data rows. Handle the "already exists" race on addSheet.
 - **DIGEST_KEY** — shared password protecting `/digest/`, `/ops/`, and `/api/gsc-*`. Set in Vercel env vars.
 - **Pagefind + Svelte DOM rebuilding** — Pagefind's UI is Svelte-compiled. It rebuilds its entire form DOM on every search event, wiping any elements injected into it. CSS overrides work; DOM injection does not survive re-renders.
 
@@ -592,4 +647,4 @@ All 5 guides live at `/guides/how-to-[slug]/`. `guides/index.njk` updated with a
 | Albumin | albumin-test |
 | Lp(a) | lipoprotein-a |
 
-*AgelessLabs.ai — Master Project Plan · June 2026*
+*AgelessLabs.ai — Master Project Plan · July 2026*
