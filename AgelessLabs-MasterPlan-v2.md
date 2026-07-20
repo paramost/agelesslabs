@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: July 19, 2026 · CST
+> Last updated: July 20, 2026 · CST
 
 ---
 
@@ -132,10 +132,10 @@ agelesslabs/
     ├── disclaimer.njk        # Disclaimer + affiliate disclosure
     ├── sitemap.njk           # Auto-generates /sitemap.xml — dynamic loop only, no hardcoded URLs
     ├── styles.css            # Global stylesheet (passthrough to _site)
-    ├── favicon.svg           # Favicon (passthrough to _site)
-    ├── og-image.png          # OG image 1200x630 (passthrough to _site)
-    ├── robots.txt            # 12 crawlers + AI agents explicitly permitted
-    └── llms.txt              # AI agent site description — all 66 biomarker URLs listed
+    ├── favicon.svg            # Favicon (passthrough to _site)
+    ├── og-image.png           # OG image 1200x630 (passthrough to _site)
+    ├── robots.txt             # 12 crawlers + AI agents explicitly permitted
+    └── llms.txt                # AI agent site description — all 66 biomarker URLs listed
 ```
 
 ### Key Conventions
@@ -165,6 +165,7 @@ agelesslabs/
 - **Pagefind category metadata** — `data-pagefind-meta="category:VALUE"` added to: `biomarker.njk` (`Biomarker — {{ category }}`), all 8 guide pages (`Guide`), all 3 review pages (`Review`), comparison page (`Comparison`).
 - **Pagefind clear button** — styled via CSS overrides to match DM Mono aesthetic (pill button with border). Cannot be replaced with custom element — Pagefind/Svelte rebuilds its DOM on every search, wiping injected elements.
 - **Affiliate link pattern (tracked pages)** — `href="/api/affiliate-click?partner=[ulta|superpower]&destination=[URL-ENCODED destination]"`. Destination MUST be URL-encoded (`encodeURIComponent`) or query params in the destination (e.g. Superpower's `dub_id`) get swallowed by the tracker endpoint. Keep `target="_blank" rel="noopener sponsored"` on the anchor.
+- **Logo wordmark markup** — `<span class="ageless">ageless</span><span class="labs">labs</span><span class="dot">.</span><span class="ai">ai</span>` — identical across all 3 instances (nav, footer, mobile menu). The `.dot` span was already present pre-July 2026, so the pulsing-period animation (shipped July 20 2026) only required a `styles.css` change — no `base.njk` markup edit was needed, contrary to original scope estimate.
 
 ### Sitemap priority rules (line 18 of sitemap.njk)
 `/` → 1.0 · `/analyze/` → 0.9 · `/biomarkers/` index → 0.9 · `/biomarkers/*` → 0.8 · `/blog/*` → 0.7 · `/reviews/*` → 0.7 · `/guides/*` → 0.7 · `/compare/*` → 0.7 · `/search/` → 0.5 · everything else → 0.5
@@ -246,6 +247,8 @@ const vis = allButtons(document, []).filter(b => {
 ```
 Never type commit messages while CodeMirror has focus — they go into the file.
 
+**Confirm-click reliability note (added July 19–20 2026):** the first click on the confirm "Commit changes" button inside the dialog sometimes doesn't register (dialog stays open, no error shown). Always re-check `document.querySelector('[role="dialog"]')` after clicking — if still present, re-locate the button fresh (don't reuse cached coordinates) and click again, or fall back to `button.click()` via JS directly rather than simulated mouse coordinates.
+
 **New file creation:** Use GitHub's new file editor (`/new/main/api` or `/new/main/src`) — inject content via `cm.cmTile.view` FIRST, then click the filename input and type the name LAST, then commit. **After typing the filename, always verify it via JS** (`document.querySelector('input[placeholder*="Name your file"]').value`) — typed text can land in the sidebar file-tree search instead of the filename input, and stray characters can leak in from keyboard shortcuts. With an empty filename the commit dialog silently fails.
 
 ### Google Drive — Working Files
@@ -275,7 +278,7 @@ Drive is a staging area. Master plan is kept as a project file in the Claude Pro
 | about.njk | Complete | Mission, principles, values grid, named founder (Dan Carey) |
 | privacy.njk | Complete | Privacy policy |
 | disclaimer.njk | Complete | Disclaimer + affiliate disclosure |
-| analyze.njk | Complete | AI tool — free + paid tiers live · dead `analyzePage` flag removed July 15 2026 |
+| analyze.njk | Complete | AI tool — free + paid tiers live · dead `analyzePage` flag removed July 15 2026 · status pill colors updated to status-color-system July 19 2026 |
 | biomarkers/index.njk | Complete | 66 markers, 5 categories, "Library Complete" banner |
 | _includes/biomarker.njk | Complete | Layout template for all biomarker pages |
 | blog/blog-index.njk | Complete | Placeholder — 6 content categories, priority post list |
@@ -374,8 +377,16 @@ Complete — May 28 2026. Live at `/longevity-lab-guide/`. Noindexed + excluded 
 ### Community Digest Tool
 Complete — April 23 2026. Key-protected at `/digest`. Caching not built — generates live (~20s, ~$0.08/run).
 
+**Reddit fetch fix — shipped July 19 2026 (`api/digest.js`, commit `727fd42`):** switched from `search.rss` (aggressively gated for datacenter/Edge IPs, returning zero results) to plain `new.rss` feeds per subreddit with local keyword-based topical filtering (`matchesKeywords` against the `KEYWORDS` list). Added an `after:YYYY-MM-DD` date constraint on rapamycin.news searches (last 7 days) so evergreen old threads stop dominating. Added `&debug=1` diagnostics mode returning per-source `status`/`entries`/`kept` counts. Bumped the biomarker count referenced in the Claude system prompt from the stale 18 to the current 66.
+
+**Rate-limit fix — shipped July 20 2026 (commit `bcf9595`):** debug-mode testing surfaced that firing all 3 subreddit `new.rss` requests concurrently (`Promise.allSettled`) from the same Edge IP tripped Reddit's rate limiter — 2 of 3 subreddits returned HTTP 429. Fixed by switching `fetchAllReddit` to sequential fetches staggered by 400ms via a `sleep()` helper. Verify on next run: `?debug=1` diagnostics should show `status: 200` for all 3 subreddits, not just one.
+
 ### Design / CSS
-All complete. Dark theme only.
+**Palette rollout — shipped July 19 2026 (commit `5fa2d17` for `styles.css`, `546773c` for `analyze.njk`, `d264286` for `base.njk`).** Replaced the original near-black/near-white palette (16.6:1 contrast — technically AAA but caused halation/shimmer for older readers at thin font weights) with warm-dark Variant A. See **Brand Direction** below for live hex values. Also introduced a formal 3-color status system (optimal/monitor/concern) that fixed a live bug where `.status-monitor` in `analyze.njk` reused `var(--gold)`, making it visually indistinguishable from category labels. The `@media print` block in `analyze.njk` (paid PDF report) and `.score-value` were deliberately left untouched — confirmed intact post-edit.
+
+**Pulsing period on wordmark — shipped July 20 2026 (commit `29838e6`, `styles.css` only).** The `.` in `.ai` now animates ivory (`--white`) → `--green-bright` (`#c8ddb4`) with a layered `text-shadow` (tight/medium/wide glow) on a 2.4s ease-in-out infinite cycle. `prefers-reduced-motion: reduce` disables the animation and holds resting ivory. No `base.njk` edit was needed — the `.dot` span already existed as a unique selector across all 3 wordmark instances (nav, footer, mobile menu). The animated dot never appears in the printed PDF since `nav, footer` are already `display: none` in the print stylesheet.
+
+Dark theme only — re-evaluate if mobile bounce data warrants it. Watch Clarity/GA4 bounce-rate data over the following days to confirm the palette change helped as intended.
 
 ### Technical SEO
 All complete. GSC verified + sitemap submitted April 21 2026.
@@ -387,35 +398,21 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 
 ## Immediate Next Steps (Resume Here)
 
-### Pending Changes Queue (cross-chat — this is the coordination surface; verify each against the live repo before executing, since a chat's plan can go stale)
+### Recently Shipped (July 19–20, 2026 session)
 
-**1. Color palette rollout — Variant A + status color system**
-- Problem being solved: near-black bg + near-white text (16.6:1 contrast) causes halation/shimmer for older readers, especially at thin font weights. Not a WCAG failure — a polarity/weight problem.
-- New values: bg `#111210` → `#1a261c` (warm dark green) · headings/key numbers `#eef2ea` → `#f0e9d9` (warm ivory) · body copy → tan `#ddc9a3` · `--text-dim` `#7a8a72` → `#8ba07e` (bumped — old value fell below AA on the new bg) · gold `#c8a96e` → `#d8b87a` · new status trio: optimal mint `#7ecb8c` / monitor amber `#ecab3e` / concern coral `#e5766a` (also fixes a live bug — `.status-monitor` in `analyze.njk` currently reuses `var(--gold)`, indistinguishable from category labels)
-- Files: `styles.css` (Batch 1 — 7 variable edits + 3 new status vars in `:root`, single commit, whole site reflows at once) → `analyze.njk` + `base.njk` (Batch 2 — wire status colors in, retire ad-hoc `#c87060` coral references)
-- **DO NOT TOUCH:** `analyze.njk` `@media print` block (~lines 192–195) — controls the paid PDF download, must stay light (`#f8f8f8`/`#333`/`#2d6a2d`)
-- Status: fully planned, self-contained rollout doc already prepared. Not yet executed. All colors are centralized in `:root` and templates reference via `var(--...)`, so rollback is a single-commit revert.
-- After shipping: update the **Brand Direction** section below with the new hex values, and check Clarity/GA4 bounce data over the following days to confirm it actually helped.
+All four items from the prior pending queue are now live, plus one bug caught along the way:
 
-**2. Community digest tool fix — `api/digest.js`**
-- Switch Reddit feed from `search.rss` to `new.rss`, add date constraints, add a debug mode, bump biomarker count referenced in the system prompt 18 → 66 (stale since the library completed).
-- Status: rewritten and delivered as an artifact on iPad — confirmed NOT yet committed to the live repo (verified against raw GitHub July 19).
-- Sequencing note: needs a `src/` commit to trigger a Vercel deploy — land in the same session as the palette's `styles.css` commit rather than burning a throwaway deploy.
+1. **Color palette rollout (Variant A + status colors)** — `styles.css` (`5fa2d17`), `analyze.njk` (`546773c`), `base.njk` (`d264286`). Verified: print block and `.score-value` untouched, no stray `#c87060` coral references left anywhere.
+2. **Community digest tool fix** — `api/digest.js` (`727fd42`): new.rss switch, keyword filtering, `after:` date constraint, debug mode, 66-biomarker prompt update. Verified live via `?debug=1` — real posts returned from Reddit + rapamycin.news.
+3. **Rate-limit fix (found during verification, not originally scoped)** — `api/digest.js` (`bcf9595`): staggered Reddit subreddit requests to stop tripping 429s. Deploy briefly stalled on an unrelated GitHub-side incident (Actions/API degradation, confirmed via githubstatus.com) — not a code issue; cleared and deployed successfully once GitHub recovered.
+4. **Wordmark case** — closed with no code change (previous session decision, reconfirmed): staying Red Hat Display, lowercase, as-is.
+5. **Pulsing period on the wordmark** — `styles.css` only (`29838e6`) — see Design/CSS section above.
 
-**3. Wordmark case — resolved, keep as-is**
-- Explored recasing to Title Case (`AgelessLabs.ai`) to match social/prose usage, tried several alternate fonts (Space Grotesk, Bricolage Grotesque, Familjen Grotesk, Instrument Sans/Serif, Unbounded, IBM Plex Sans, Gabarito) chasing capitals that would hold up in Title Case. IBM Plex Sans 700/300 came closest, but a direct side-by-side against the original (Red Hat Display, lowercase) confirmed the original is still the better wordmark — the casing "inconsistency" vs. social/prose is a real but minor issue, not worth trading away a mark that's already working.
-- **Decision: no change to font or case.** Wordmark stays Red Hat Display, lowercase, bold/light weight split — exactly as live today.
-- Icon (hourglass/helix) stays a standalone mark — do not recombine with the wordmark inline (tried before, hurt readability). Refine for favicon/app-icon/social-avatar use at 32/64/96px; inverted solid-tile treatment (green square, bg-colored strokes) recommended as the primary version since it holds up best as a small circular avatar.
-- Files: `favicon.svg`; app-icon/social-avatar assets not yet audited — worth checking if those exist yet. (No `base.njk` wordmark edit needed — see item 4 for the one change that is landing there.)
-- Status: closed. Icon refinement remains open but low-priority — not scheduled.
-
-**4. Pulsing period on the wordmark**
-- Adds a "live" signal to the existing lowercase wordmark: the period in `.ai` animates color (ivory → `--green-bright` #c8ddb4, already defined in `styles.css`, currently unused) with a layered `text-shadow` (tight + medium + wide glow) on a slow 2.4s ease-in-out cycle. Letterform size/position unchanged — it's still a real period, just breathing.
-- Rejected alternatives: a separate circular tick mark replacing the period (lost the punctuation read), a single-layer glow in plain `--green` (too subtle — too close in hue/brightness to the new bg), scale-pulse variant (reads more like a heartbeat but changes the letterform, treated as a separate future decision), gold glow (reads as a status/label color, not a "live" signal).
-- Implementation notes: freeze at resting ivory state for any static context (favicon, social avatar, print) — do not ship the mid-pulse green as a static default. Respect `prefers-reduced-motion` — disable animation, hold resting color, for anyone with that OS setting on.
-- Files: `base.njk` (3 wordmark instances — nav, footer, mobile menu) for the markup/class hook, `styles.css` for the `@keyframes` + dot styling.
-- Sequencing note: also touches `styles.css`, same file as pending item 1 (palette rollout). Doesn't functionally depend on item 1 landing first (`--green-bright` is untouched by the palette change), but land whichever is second against the freshly committed version of the file to avoid a stale diff.
-- Status: direction decided (Option A: brighter color + layered shadow), not yet built.
+**Still to verify (Dan, next time you're in):**
+- Re-run `agelesslabs.ai/api/digest?key=YOUR_KEY&drafts=false&debug=1` and confirm all 3 subreddits now show `status: 200` (not just `r/biohacking`).
+- Visual gut-check of the live site: homepage, a biomarker page, the analyze tool's three status pills (should now read clearly distinct, not gold-on-gold), and the wordmark's pulsing period (nav/footer/mobile menu).
+- Confirm the paid PDF report still prints light (print block was untouched, but worth a real check).
+- Watch Clarity/GA4 bounce-rate data over the following days to gauge whether the palette change helped.
 
 ### Phase 7.1b — Affiliate Click Tracker: Guide Pages (Next Session)
 
@@ -465,6 +462,7 @@ Apply AgelessLabs system to a new niche.
 - **GOOGLE_REFRESH_TOKEN expiry** — OAuth2 refresh tokens from a test-mode app can expire or be revoked. If `invalid_grant` errors appear in ops dashboard analytics, visit `/api/gsc-setup?key=DIGEST_KEY` to regenerate.
 - **gsc-setup.js is a permanent utility** — keep in the repo; delete only after switching to a production-verified OAuth app or service account access.
 - **Self-clicks on tracked affiliate links are logged** — Dan's own clicks from regular site pages appear in the Affiliate Clicks tab (only `/ops/` clicks and empty-referrer hits are excluded). Acceptable noise at current traffic; add a `?self=1` bypass or cookie flag if it becomes a problem.
+- **Digest tool Reddit rate limiting** — even with the 400ms stagger fix (July 20 2026), Reddit may still rate-limit under some conditions (shared Edge IP pool, unpredictable timing). Monitor `?debug=1` output periodically; consider increasing the delay or adding retry-with-backoff if 429s recur.
 
 ---
 
@@ -485,11 +483,14 @@ Apply AgelessLabs system to a new niche.
 - **GitHub CodeMirror accessor** — use `cm.cmTile.view` (not `cm.cmView.view`). `cmTile` is the correct property in the GitHub editor environment.
 - **GitHub new file commit pattern** — inject content via CodeMirror FIRST, type filename LAST, then commit. ALWAYS verify the filename input's value via JS after typing: typed text can land in the sidebar file-tree search instead of the filename field, and stray characters can leak in (e.g. from ctrl+a). With an empty filename the commit dialog silently fails.
 - **GitHub commit dialog mounts slowly (~3s)** — after clicking "Commit changes...", wait ~3 seconds before querying for the confirm button; querying immediately finds nothing and looks like the dialog never opened. Use a shadow-DOM-aware button traversal, then click the confirm button's coordinates via the computer tool.
+- **GitHub commit confirm click can silently fail to register (added July 19–20 2026)** — the first click on the confirm button inside the "Commit changes" dialog sometimes doesn't take effect (dialog stays open, no visible error). Always re-check `document.querySelector('[role="dialog"]')` after clicking; if still present, re-locate the button fresh and click again — don't reuse cached coordinates, and prefer `button.click()` via JS over simulated mouse coordinates if the first attempt fails.
 - **Unauthenticated GitHub API rate limits** — verification via `api.github.com` from the sandbox gets rate-limited quickly, and the error body greps as "0 matches" (false negative). Verify committed files by fetching `raw.githubusercontent.com` with a cache-buster (`?cb=Date.now()`) from the browser tab instead.
 - **Referrer-based self-click exclusion is impossible** — all legitimate affiliate clicks carry an agelesslabs.ai referrer, so "exclude own-domain referrers" excludes everything. Correct filters: skip EMPTY referrers (bots/crawlers) and `/ops/` referrers (dashboard testing). Same-origin requests send the full referrer URL under the default strict-origin-when-cross-origin policy, so the source page path is always capturable.
 - **Affiliate tracker destination URLs must be URL-encoded** — unencoded query params in the destination (e.g. Superpower's `dub_id`) become params of the tracker endpoint and are lost.
 - **Tracker endpoints need a destination allowlist** — an open redirect on agelesslabs.ai would be a spam/phishing vector. Validate hostname against known partner domains, https only.
-- **Vercel deploy trigger** — committing only to `api/` may not trigger a Vercel deploy. Always commit a `src/` file change in the same session to guarantee a fresh deploy.
+- **Vercel deploy trigger** — committing only to `api/` may not trigger a Vercel deploy. Always commit a `src/` file change in the same session to guarantee a fresh deploy. (Observed exception July 20 2026: an `api/`-only commit *did* trigger its own deploy — behavior may not be perfectly consistent. Still safest to pair with a `src/` commit when possible.)
+- **Vercel deploys can stall on GitHub-side incidents, not your code (added July 20 2026)** — a commit that shows "Initializing" for several minutes with no progress may be waiting on a GitHub Actions/API outage rather than a build problem. Check `githubstatus.com` before troubleshooting a stuck deploy; it will typically clear on its own once GitHub recovers.
+- **Reddit new.rss concurrent requests trip rate limits (added July 20 2026)** — firing requests to multiple subreddits at once via `Promise.allSettled` from the same Edge IP triggered 429s on 2 of 3 subreddits. Fix: sequential fetches staggered by ~400ms via a `sleep()` helper instead of firing all at once.
 - **OAuth2 refresh tokens from test-mode apps** — the OAuth Playground auto-revokes tokens after 24h unless using your own credentials AND the app is in production mode. Use `gsc-setup.js` endpoint to regenerate whenever needed.
 - **GA4/GSC UI rejects service account emails** — Google's property UIs validate against Google Accounts; service account emails fail. Use personal Google account OAuth2 instead for GSC/GA4 API access.
 - **Template literals with `${...}` in Vercel serverless functions** — can cause ES module parse failures when injected via CodeMirror into GitHub. Use string concatenation instead. (affiliate-click.js written entirely with concatenation.)
@@ -506,6 +507,8 @@ Apply AgelessLabs system to a new niche.
 - **Google Sheets tab auto-creation** — append to a non-existent tab returns "Unable to parse range"; catch that, batchUpdate `addSheet`, then append header + data rows. Handle the "already exists" race on addSheet.
 - **DIGEST_KEY** — shared password protecting `/digest/`, `/ops/`, and `/api/gsc-*`. Set in Vercel env vars.
 - **Pagefind + Svelte DOM rebuilding** — Pagefind's UI is Svelte-compiled. It rebuilds its entire form DOM on every search event, wiping any elements injected into it. CSS overrides work; DOM injection does not survive re-renders.
+- **CSS-only animation for brand micro-interactions** — the wordmark pulsing period used a pure CSS `@keyframes` + `animation` property rather than JS, keeping it lightweight and automatically respecting `prefers-reduced-motion` via a media query override. Preferred pattern for small, always-on decorative animations.
+- **Reassembling a rewritten file from past-chat search results** — when a file was rewritten in a prior session but not yet committed, pulling the exact code back from conversation history is workable but exact-match string replacements against the live file are safer than reconstructing and pasting the whole file from memory-of-search-results. Always `node --check` (or equivalent) syntax-validate before pushing, and diff key markers (function names, new logic) against the live file post-edit.
 
 ---
 
@@ -537,9 +540,17 @@ Items to build in future sessions. Not yet prioritized or scheduled.
 ## Brand Direction
 
 - **Voice:** Authoritative, clinical, aspirational — not wellness-fluffy
-- **Aesthetic:** Deep green on near-black, DM Mono for labels/data, Red Hat Display for headings
-- **Color palette:** #111210 bg · #b5c9a0 green · #eef2ea near-white · #c8a96e gold
-- **Theme:** Dark only (no light theme) — re-evaluate if mobile bounce data warrants it
+- **Aesthetic:** Warm dark green, DM Mono for labels/data, Red Hat Display for headings
+- **Color palette (live — Variant A, shipped July 19 2026):**
+  - Background `#1a261c` (warm dark green, was `#111210`)
+  - Body text `#ddc9a3` (warm tan, was `#d4dece`)
+  - Headings / key numbers `#f0e9d9` (warm ivory, was `#eef2ea`)
+  - Gold (labels/CTAs) `#d8b87a` (was `#c8a96e`)
+  - Sage green (brand, unchanged) `#b5c9a0`
+  - Status trio: optimal `#7ecb8c` · monitor `#ecab3e` · concern `#e5766a`
+  - Secondary backgrounds: `--bg2` `#202e23` · `--bg3` `#26362a`
+- **Theme:** Dark only (no light theme). The July 2026 palette refinement addressed halation/shimmer from the original near-black/near-white combo (16.6:1 contrast — technically passed WCAG but was uncomfortable for older readers at thin font weights) without abandoning the dark aesthetic that differentiates AgelessLabs from generic light wellness-brand sites. Re-evaluate theme direction only if Clarity/GA4 bounce data warrants it.
+- **Wordmark:** Red Hat Display, lowercase, bold/light weight split (`ageless`=700, `labs`=300, `.ai`=300 in ivory). Kept as-is after a full exploration of Title Case and alternate fonts (Fraunces, Space Grotesk, Instrument Serif/Sans, Sora, Bricolage Grotesque, Familjen Grotesk, Unbounded, IBM Plex Sans, Gabarito) — direct side-by-side comparison confirmed the original is still the stronger mark. Icon (hourglass/helix) stays a standalone asset, not combined with the wordmark inline (tried before, hurt readability). Pulsing period on `.ai`'s dot shipped July 20 2026 — breathes ivory → `--green-bright` with layered glow on a 2.4s cycle, respects `prefers-reduced-motion`.
 - **Domain:** AgelessLabs.ai — .ai signals AI-powered tool, resonates with tech-forward longevity audience
 
 ---
