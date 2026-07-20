@@ -2,8 +2,10 @@
 // AgelessLabs Community Digest — Vercel Edge Function
 //
 // Running as Edge (Cloudflare network) so Reddit doesn't block the IP.
-// Reddit fetched via plain new.rss feeds (NOT search.rss — Reddit gates the
-// search endpoint aggressively for datacenter IPs). Topical filtering is
+// Reddit is fetched via a single combined multi-subreddit new.rss feed (NOT
+// search.rss — Reddit gates the search endpoint aggressively for datacenter
+// IPs, and NOT one request per subreddit — even staggered 400ms apart, that
+// still tripped Reddit's rate limiter on 2 of 3 subs). Topical filtering is
 // done locally against the KEYWORDS list.
 //
 // GET /api/digest?key=YOUR_DIGEST_KEY
@@ -118,64 +120,81 @@ function parseAtomEntries(xml) {
   return entries;
 }
 
-async function fetchRedditSubreddit(subreddit, diag) {
-  const posts = [];
-  const url = `https://www.reddit.com/r/${subreddit}/new.rss?limit=25`;
+// ─── Reddit via a combined multi-subreddit Atom feed ─────────────────────────
+// One request total: /r/{sub1}+{sub2}+{sub3}/new.rss?limit=75
+// Reddit supports joining subreddits with "+" in the path. This replaces 3
+// separate per-subreddit requests with 1, which is what actually fixes the
+// rate limiting — the limiter was tripping after the very first request
+// regardless of stagger delay, so reducing the request count to one avoids
+// the problem instead of trying to outrun it.
 
-  try {
-    const res = await fetch(url, {
-      headers: {
-        'User-Agent': 'AgelessLabs-Digest/2.0 (community digest; contact hello@agelesslabs.ai)',
-        'Accept': 'application/rss+xml, application/atom+xml, text/xml, */*',
-      },
-    });
-
-    if (!res.ok) {
-      diag.push({ source: 'r/' + subreddit, url, status: res.status, entries: 0, kept: 0 });
-      return posts;
-    }
-
-    const xml = await res.text();
-    const entries = parseAtomEntries(xml);
-    let kept = 0;
-
-    for (const e of entries) {
-      if (!e.id) continue;
-      // Local topical filter — replaces the old search.rss queries
-      if (!matchesKeywords(`${e.title} ${e.excerpt}`)) continue;
-      kept++;
-      posts.push({
-        id:        `reddit_${e.id}`,
-        source:    `r/${subreddit}`,
-        title:     e.title,
-        excerpt:   e.excerpt,
-        url:       e.link,
-        upvotes:   e.upvotes,
-        comments:  0,
-        age_hours: e.ageHours,
-      });
-    }
-
-    diag.push({ source: 'r/' + subreddit, url, status: res.status, entries: entries.length, kept });
-  } catch (err) {
-    diag.push({ source: 'r/' + subreddit, url, status: 'fetch_error', error: String(err && err.message || err), entries: 0, kept: 0 });
-  }
-  return posts;
+function subredditWeight(name) {
+  const found = REDDIT_SUBREDDITS.find(s => s.name.toLowerCase() === name.toLowerCase());
+  return found ? found.weight : 0.7;
 }
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-// Sequential with a stagger delay — firing all 3 subreddit requests at once
-// from the same Edge IP was tripping Reddit's rate limiter (429s on 2 of 3).
-async function fetchAllReddit(diag) {
+// Retry-After-aware backoff as a safety net — in case the single combined
+// request still gets throttled (shared Edge IP pool), retry up to 2 more
+// times, waiting whatever Reddit asks for (capped at 5s) rather than guessing.
+async function fetchRedditCombined(diag, attempt = 1) {
   const posts = [];
-  for (let i = 0; i < REDDIT_SUBREDDITS.length; i++) {
-    const sub = REDDIT_SUBREDDITS[i];
-    const subPosts = await fetchRedditSubreddit(sub.name, diag);
-    subPosts.forEach(p => posts.push({ ...p, weight: sub.weight }));
-    if (i < REDDIT_SUBREDDITS.length - 1) await sleep(400);
+  const subsPath = REDDIT_SUBREDDITS.map(s => s.name).join('+');
+  const url = `https://www.reddit.com/r/${subsPath}/new.rss?limit=75`;
+
+  try {
+    const res = await fetch(url, {
+      headers: {
+        'User-Agent': 'AgelessLabs-Digest/2.1 (community digest; contact hello@agelesslabs.ai)',
+        'Accept': 'application/rss+xml, application/atom+xml, text/xml, */*',
+      },
+    });
+
+    if (res.status === 429 && attempt < 3) {
+      const retryAfter = Math.min(parseInt(res.headers.get('retry-after') || '2', 10), 5);
+      await sleep(retryAfter * 1000);
+      return fetchRedditCombined(diag, attempt + 1);
+    }
+
+    if (!res.ok) {
+      diag.push({ source: 'reddit_combined', url, status: res.status, entries: 0, kept: 0, attempt });
+      return posts;
+    }
+
+    const xml = await res.text();
+    const entries = parseAtomEntries(xml);
+    const perSub = {};
+
+    for (const e of entries) {
+      if (!e.id) continue;
+      const subMatch = e.link.match(/reddit\.com\/r\/([^/]+)\//i);
+      const subName = subMatch ? subMatch[1] : 'unknown';
+      perSub[subName] = perSub[subName] || { entries: 0, kept: 0 };
+      perSub[subName].entries++;
+
+      // Local topical filter — replaces the old search.rss queries
+      if (!matchesKeywords(`${e.title} ${e.excerpt}`)) continue;
+      perSub[subName].kept++;
+
+      posts.push({
+        id:        `reddit_${e.id}`,
+        source:    `r/${subName}`,
+        title:     e.title,
+        excerpt:   e.excerpt,
+        url:       e.link,
+        upvotes:   e.upvotes,
+        comments:  0,
+        age_hours: e.ageHours,
+        weight:    subredditWeight(subName),
+      });
+    }
+
+    diag.push({ source: 'reddit_combined', url, status: res.status, entries: entries.length, kept: posts.length, per_subreddit: perSub, attempt });
+  } catch (err) {
+    diag.push({ source: 'reddit_combined', url, status: 'fetch_error', error: String(err && err.message || err), entries: 0, kept: 0, attempt });
   }
   return posts;
 }
@@ -317,7 +336,7 @@ export default async function handler(req) {
     const diagnostics = [];
 
     const [redditPosts, rapPosts] = await Promise.all([
-      fetchAllReddit(diagnostics),
+      fetchRedditCombined(diagnostics),
       fetchRapamycinNews(diagnostics),
     ]);
 
