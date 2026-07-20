@@ -121,7 +121,7 @@ function parseAtomEntries(xml) {
 }
 
 // ─── Reddit via a combined multi-subreddit Atom feed ─────────────────────────
-// One request total: /r/{sub1}+{sub2}+{sub3}/new.rss?limit=75
+// One request total: /r/{sub1}+{sub2}+{sub3}/new.rss?limit=100
 // Reddit supports joining subreddits with "+" in the path. This replaces 3
 // separate per-subreddit requests with 1, which is what actually fixes the
 // rate limiting — the limiter was tripping after the very first request
@@ -143,7 +143,7 @@ function sleep(ms) {
 async function fetchRedditCombined(diag, attempt = 1) {
   const posts = [];
   const subsPath = REDDIT_SUBREDDITS.map(s => s.name).join('+');
-  const url = `https://www.reddit.com/r/${subsPath}/new.rss?limit=75`;
+  const url = `https://www.reddit.com/r/${subsPath}/new.rss?limit=100`;
 
   try {
     const res = await fetch(url, {
