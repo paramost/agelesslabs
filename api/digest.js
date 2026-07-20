@@ -163,16 +163,20 @@ async function fetchRedditSubreddit(subreddit, diag) {
   return posts;
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// Sequential with a stagger delay — firing all 3 subreddit requests at once
+// from the same Edge IP was tripping Reddit's rate limiter (429s on 2 of 3).
 async function fetchAllReddit(diag) {
-  const results = await Promise.allSettled(
-    REDDIT_SUBREDDITS.map(s => fetchRedditSubreddit(s.name, diag))
-  );
   const posts = [];
-  results.forEach((r, i) => {
-    if (r.status === 'fulfilled') {
-      r.value.forEach(p => posts.push({ ...p, weight: REDDIT_SUBREDDITS[i].weight }));
-    }
-  });
+  for (let i = 0; i < REDDIT_SUBREDDITS.length; i++) {
+    const sub = REDDIT_SUBREDDITS[i];
+    const subPosts = await fetchRedditSubreddit(sub.name, diag);
+    subPosts.forEach(p => posts.push({ ...p, weight: sub.weight }));
+    if (i < REDDIT_SUBREDDITS.length - 1) await sleep(400);
+  }
   return posts;
 }
 
