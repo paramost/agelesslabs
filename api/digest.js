@@ -88,7 +88,9 @@ function decodeXmlEntities(str) {
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
-    .replace(/&#x27;/g, "'");
+    .replace(/&#x27;/g, "'")
+    .replace(/&#(\d+);/g, function(m, dec) { return String.fromCharCode(parseInt(dec, 10)); })
+    .replace(/&#x([0-9a-fA-F]+);/g, function(m, hex) { return String.fromCharCode(parseInt(hex, 16)); });
 }
 
 function parseAtomEntries(xml) {
