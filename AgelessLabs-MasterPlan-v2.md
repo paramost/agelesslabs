@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: July 20, 2026 · CST
+> Last updated: July 21, 2026 · CST
 
 ---
 
@@ -365,8 +365,8 @@ vitamin-b6, copper, bilirubin, phosphorus, nt-probnp, vitamin-c
 - **Scroll offset** — `:target { scroll-margin-top: 72px }` in `styles.css` globally offsets anchor targets for sticky header.
 - **Category metadata** — `data-pagefind-meta="category:VALUE"` on all content pages. Values: `Biomarker — [Subcategory]` (66 pages via biomarker.njk template), `Guide` (8 pages), `Review` (3 pages), `Comparison` (1 page).
 
-### Analytics Feature — Complete (June 1 2026)
-- **`api/gsc-ga4.js`** — Vercel serverless function. Protected by DIGEST_KEY. Uses OAuth2 refresh token flow (GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET + GOOGLE_REFRESH_TOKEN). Fetches GSC top 10 pages by clicks (last 28 days) and GA4 top 10 pages by sessions (last 28 days). Returns combined JSON.
+### Analytics Feature — Complete (June 1 2026) · token regenerated July 21 2026
+- **`api/gsc-ga4.js`** — Vercel serverless function. Protected by DIGEST_KEY. Uses OAuth2 refresh token flow (GOOGLE_CLIENT_ID + GOOGLE_CLIENT_SECRET + GOOGLE_REFRESH_TOKEN). Fetches GSC top 10 pages by clicks (last 28 days) and GA4 top 10 pages by sessions (last 28 days). Returns combined JSON. **July 21 2026: refresh token had expired (`invalid_grant`); regenerated via the `/api/gsc-setup` flow and endpoint confirmed returning live data again.**
 - **`api/gsc-setup.js`** — One-time OAuth2 setup endpoint. Visit `/api/gsc-setup?key=DIGEST_KEY` to initiate Google OAuth flow. On callback, displays refresh token for copy-paste into Vercel. Use this whenever `invalid_grant` errors occur to regenerate the refresh token.
 - **Analytics section in `ops.njk`** — Two side-by-side cards: Top Pages (GSC clicks + impressions + CTR) and Top Pages (GA4 sessions + views). Loads automatically on dashboard unlock. Refresh button available.
 - **OAuth2 setup:** Google Cloud project `vocal-oarlock-497921` · OAuth client `AgelessLabs GSC/GA4` · Authorized redirect URIs: `https://developers.google.com/oauthplayground` + `https://agelesslabs.ai/api/gsc-setup` · Test user: `dwcarey@gmail.com` · GA4 property `properties/532502940` · GSC site `https://agelesslabs.ai/`.
@@ -379,7 +379,11 @@ Complete — April 23 2026. Key-protected at `/digest`. Caching not built — ge
 
 **Reddit fetch fix — shipped July 19 2026 (`api/digest.js`, commit `727fd42`):** switched from `search.rss` (aggressively gated for datacenter/Edge IPs, returning zero results) to plain `new.rss` feeds per subreddit with local keyword-based topical filtering (`matchesKeywords` against the `KEYWORDS` list). Added an `after:YYYY-MM-DD` date constraint on rapamycin.news searches (last 7 days) so evergreen old threads stop dominating. Added `&debug=1` diagnostics mode returning per-source `status`/`entries`/`kept` counts. Bumped the biomarker count referenced in the Claude system prompt from the stale 18 to the current 66.
 
-**Rate-limit fix — shipped July 20 2026 (commit `bcf9595`):** debug-mode testing surfaced that firing all 3 subreddit `new.rss` requests concurrently (`Promise.allSettled`) from the same Edge IP tripped Reddit's rate limiter — 2 of 3 subreddits returned HTTP 429. Fixed by switching `fetchAllReddit` to sequential fetches staggered by 400ms via a `sleep()` helper. Verify on next run: `?debug=1` diagnostics should show `status: 200` for all 3 subreddits, not just one.
+**Rate-limit fix (attempt 1) — shipped July 20 2026 (commit `bcf9595`):** debug-mode testing surfaced that firing all 3 subreddit `new.rss` requests concurrently (`Promise.allSettled`) from the same Edge IP tripped Reddit's rate limiter — 2 of 3 subreddits returned HTTP 429. Switched `fetchAllReddit` to sequential fetches staggered by 400ms via a `sleep()` helper. **This did NOT resolve the issue** — July 21 audit confirmed 2 of 3 subreddits still returned 429; the limiter trips after the very first request regardless of stagger delay.
+
+**Rate-limit fix (real fix) — shipped July 21 2026 (commits `69314f0` + `d6620ed`):** replaced the per-subreddit request loop entirely with a single combined multi-subreddit feed: `/r/longevity+biohacking+PeterAttia/new.rss?limit=100` (Reddit supports joining subreddits with `+` in the path). One request instead of three means there is no request sequence to rate-limit. New `fetchRedditCombined()` extracts each entry's originating subreddit from its permalink to preserve per-subreddit weighting, and includes a `Retry-After`-aware backoff (up to 2 retries, capped at 5s) as a safety net. `limit` bumped from 75 → 100 (`d6620ed`) to give lower-volume subreddits more room to survive the cutoff. **Verified live via `?debug=1`: `reddit_combined` returns `status: 200`, zero 429s.** The old `fetchRedditSubreddit` and `fetchAllReddit` functions were removed.
+
+**Known limitation — representation skew (July 21 2026):** the combined feed returns the most recent 100 posts *across all 3 subreddits pooled together*, so a high-volume subreddit (r/Biohacking, ~92 of 100 entries in testing) crowds out quieter ones (r/longevity, ~2 entries — despite being the highest-weighted at 1.0). Not a bug — it reflects real posting-volume differences. Bumping `limit` to 100 helped only marginally. If consistent r/longevity coverage matters, the fix is either score-weighting lower-volume subs more heavily, or running r/longevity as its own separate lightweight request (2 total requests, still clear of the rate limit that broke at 3). Deferred — flagged, not scoped.
 
 ### Design / CSS
 **Palette rollout — shipped July 19 2026 (commit `5fa2d17` for `styles.css`, `546773c` for `analyze.njk`, `d264286` for `base.njk`).** Replaced the original near-black/near-white palette (16.6:1 contrast — technically AAA but caused halation/shimmer for older readers at thin font weights) with warm-dark Variant A. See **Brand Direction** below for live hex values. Also introduced a formal 3-color status system (optimal/monitor/concern) that fixed a live bug where `.status-monitor` in `analyze.njk` reused `var(--gold)`, making it visually indistinguishable from category labels. The `@media print` block in `analyze.njk` (paid PDF report) and `.score-value` were deliberately left untouched — confirmed intact post-edit.
@@ -398,21 +402,25 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 
 ## Immediate Next Steps (Resume Here)
 
-### Recently Shipped (July 19–20, 2026 session)
+### Recently Shipped (July 21, 2026 — full audit session)
 
-All four items from the prior pending queue are now live, plus one bug caught along the way:
+Full sweep of disconnected work from the prior weeks. Fixed the two items that were broken, verified the rest, and flagged what's outside scope.
 
-1. **Color palette rollout (Variant A + status colors)** — `styles.css` (`5fa2d17`), `analyze.njk` (`546773c`), `base.njk` (`d264286`). Verified: print block and `.score-value` untouched, no stray `#c87060` coral references left anywhere.
-2. **Community digest tool fix** — `api/digest.js` (`727fd42`): new.rss switch, keyword filtering, `after:` date constraint, debug mode, 66-biomarker prompt update. Verified live via `?debug=1` — real posts returned from Reddit + rapamycin.news.
-3. **Rate-limit fix (found during verification, not originally scoped)** — `api/digest.js` (`bcf9595`): staggered Reddit subreddit requests to stop tripping 429s. Deploy briefly stalled on an unrelated GitHub-side incident (Actions/API degradation, confirmed via githubstatus.com) — not a code issue; cleared and deployed successfully once GitHub recovered.
-4. **Wordmark case** — closed with no code change (previous session decision, reconfirmed): staying Red Hat Display, lowercase, as-is.
-5. **Pulsing period on the wordmark** — `styles.css` only (`29838e6`) — see Design/CSS section above.
+**Fixed this session:**
+1. **Reddit 429s — REAL fix (commits `69314f0` + `d6620ed`).** The July 20 stagger fix (`bcf9595`) did not work — audit confirmed 2 of 3 subreddits still 429'd. Replaced per-subreddit requests with a single combined `/r/longevity+biohacking+PeterAttia/new.rss?limit=100` feed + `Retry-After` backoff. Verified live: `status: 200`, zero 429s. See Community Digest Tool section for detail.
+2. **GSC/GA4 refresh token — regenerated.** The `GOOGLE_REFRESH_TOKEN` had expired (`invalid_grant`), breaking the ops dashboard analytics widget. Dan re-ran `/api/gsc-setup?key=DIGEST_KEY`, logged in as `dwcarey@gmail.com`, pasted the new token into Vercel, redeployed. Verified live: `/api/gsc-ga4` returns full GSC + GA4 data. Token was then regenerated a second time to retire the copy that had appeared on-screen mid-session.
 
-**Still to verify (Dan, next time you're in):**
-- Re-run `agelesslabs.ai/api/digest?key=YOUR_KEY&drafts=false&debug=1` and confirm all 3 subreddits now show `status: 200` (not just `r/biohacking`).
-- Visual gut-check of the live site: homepage, a biomarker page, the analyze tool's three status pills (should now read clearly distinct, not gold-on-gold), and the wordmark's pulsing period (nav/footer/mobile menu).
-- Confirm the paid PDF report still prints light (print block was untouched, but worth a real check).
-- Watch Clarity/GA4 bounce-rate data over the following days to gauge whether the palette change helped.
+**Verified healthy (prior session's "still to verify" list — all now confirmed):**
+- Palette rollout (Variant A + status colors) — homepage, biomarker page, analyze tool all render correctly live; no console errors.
+- PDF print block in `analyze.njk` — confirmed untouched (`white` bg, `#2d6a2d` score color).
+- All July 19–20 commits (`5fa2d17`, `546773c`, `d264286`, `29838e6`, `727fd42`, `bcf9595`) present and live.
+- Affiliate Clicks sheet — logging correctly, `dub_id` surviving URL-encoding, partner/referrer capture intact. **Note:** last logged click was July 16 — 5 days quiet as of the audit. Probably low traffic; worth watching, not yet a problem.
+
+**Flagged, no action taken (decisions for later):**
+- **Digest representation skew** — combined feed lets r/Biohacking dominate; r/longevity underrepresented. Real volume difference, not a bug. See Community Digest Tool section.
+- **`dc/tracker` fitness files in public repo history** — a personal weight-tracking tool ("Road to 200" / "Garage Iron") was created + deleted twice on July 13 2026 (`dc/tracker`, `tracker/index.html`). Fully removed from the current tree; never lived under `src/` so it never built to the live site. Noted only because it sat in the public repo's history undocumented.
+- **Old `AgelessLabs-MasterPlan.md` (v1) still in repo root** — superseded by v2. Left in place per Dan's decision (he maintains v2 and copies it to Drive + GitHub manually; not deleting v1).
+- **Clarity/GA4 bounce-rate** since the palette change — still worth watching over coming days.
 
 ### Phase 7.1b — Affiliate Click Tracker: Guide Pages (Next Session)
 
@@ -462,7 +470,8 @@ Apply AgelessLabs system to a new niche.
 - **GOOGLE_REFRESH_TOKEN expiry** — OAuth2 refresh tokens from a test-mode app can expire or be revoked. If `invalid_grant` errors appear in ops dashboard analytics, visit `/api/gsc-setup?key=DIGEST_KEY` to regenerate.
 - **gsc-setup.js is a permanent utility** — keep in the repo; delete only after switching to a production-verified OAuth app or service account access.
 - **Self-clicks on tracked affiliate links are logged** — Dan's own clicks from regular site pages appear in the Affiliate Clicks tab (only `/ops/` clicks and empty-referrer hits are excluded). Acceptable noise at current traffic; add a `?self=1` bypass or cookie flag if it becomes a problem.
-- **Digest tool Reddit rate limiting** — even with the 400ms stagger fix (July 20 2026), Reddit may still rate-limit under some conditions (shared Edge IP pool, unpredictable timing). Monitor `?debug=1` output periodically; consider increasing the delay or adding retry-with-backoff if 429s recur.
+- **Digest tool Reddit rate limiting — RESOLVED July 21 2026** via the combined-feed approach (single `/r/a+b+c/new.rss` request instead of 3, plus `Retry-After` backoff). The July 20 400ms stagger did NOT resolve it. Still monitor `?debug=1` periodically — if the single combined request ever 429s under load, the backoff should absorb it, but a hard failure would need investigation.
+- **Digest representation skew** — the combined feed pools the most recent N posts across all subreddits, so high-volume subs crowd out quieter ones (r/longevity can drop to ~2 of 100 entries). Not yet addressed. Options if it matters: score-weight low-volume subs, or split r/longevity into its own request.
 
 ---
 
@@ -490,7 +499,8 @@ Apply AgelessLabs system to a new niche.
 - **Tracker endpoints need a destination allowlist** — an open redirect on agelesslabs.ai would be a spam/phishing vector. Validate hostname against known partner domains, https only.
 - **Vercel deploy trigger** — committing only to `api/` may not trigger a Vercel deploy. Always commit a `src/` file change in the same session to guarantee a fresh deploy. (Observed exception July 20 2026: an `api/`-only commit *did* trigger its own deploy — behavior may not be perfectly consistent. Still safest to pair with a `src/` commit when possible.)
 - **Vercel deploys can stall on GitHub-side incidents, not your code (added July 20 2026)** — a commit that shows "Initializing" for several minutes with no progress may be waiting on a GitHub Actions/API outage rather than a build problem. Check `githubstatus.com` before troubleshooting a stuck deploy; it will typically clear on its own once GitHub recovers.
-- **Reddit new.rss concurrent requests trip rate limits (added July 20 2026)** — firing requests to multiple subreddits at once via `Promise.allSettled` from the same Edge IP triggered 429s on 2 of 3 subreddits. Fix: sequential fetches staggered by ~400ms via a `sleep()` helper instead of firing all at once.
+- **Reddit new.rss rate limits — the request COUNT is the problem, not the timing (corrected July 21 2026)** — the limiter trips after the very first request from a shared Edge IP, so neither concurrent (`Promise.allSettled`) nor sequentially-staggered (400ms `sleep()`) per-subreddit requests fix it — the July 20 stagger fix failed in production. The working fix is to reduce the request count to ONE: use a combined `/r/sub1+sub2+sub3/new.rss` feed (Reddit joins subreddits with `+` in the path) and derive per-subreddit attribution from each entry's permalink. Add `Retry-After`-aware backoff as a safety net. Tradeoff: pooled results let high-volume subs crowd out quieter ones (see representation-skew note).
+- **OAuth2 refresh token regeneration flow (walked through July 21 2026)** — the flow is: visit `/api/gsc-setup?key=DIGEST_KEY` → it 302-redirects to Google's consent → choose the `dwcarey@gmail.com` account → approve the 2 read-only scopes (Search Console + Analytics; click Advanced → proceed past the unverified-app warning, it's the project's own app) → the endpoint prints the refresh token on a dark page → paste into Vercel `GOOGLE_REFRESH_TOKEN` → redeploy. **Account selection and consent are the user's clicks — Claude cannot and should not enter Google credentials or approve consent.** Do the whole flow in a single tab the user opens themselves; running it through browser automation caused tab-context confusion (clicks landing on the general Google Account page instead of the consent screen). If the token is ever displayed on-screen in a shared session, regenerate it again afterward to retire the exposed copy.
 - **OAuth2 refresh tokens from test-mode apps** — the OAuth Playground auto-revokes tokens after 24h unless using your own credentials AND the app is in production mode. Use `gsc-setup.js` endpoint to regenerate whenever needed.
 - **GA4/GSC UI rejects service account emails** — Google's property UIs validate against Google Accounts; service account emails fail. Use personal Google account OAuth2 instead for GSC/GA4 API access.
 - **Template literals with `${...}` in Vercel serverless functions** — can cause ES module parse failures when injected via CodeMirror into GitHub. Use string concatenation instead. (affiliate-click.js written entirely with concatenation.)
