@@ -1,7 +1,7 @@
 # AgelessLabs.ai — Master Project Plan
 
 > Single source of truth. Replaces all prior planning notes.
-> Last updated: July 21, 2026 · CST
+> Last updated: July 22, 2026 · CST
 
 ---
 
@@ -375,7 +375,11 @@ vitamin-b6, copper, bilirubin, phosphorus, nt-probnp, vitamin-c
 Complete — May 28 2026. Live at `/longevity-lab-guide/`. Noindexed + excluded from sitemap. Delivered via MailerLite welcome sequence.
 
 ### Community Digest Tool
-Complete — April 23 2026. Key-protected at `/digest`. Caching not built — generates live (~20s, ~$0.08/run).
+Complete — April 23 2026. Key-protected at `/digest`. **Client-side caching added July 22 2026** — see below; no longer regenerates on every load.
+
+**Entity decoding fix — shipped July 22 2026 (`api/digest.js`).** `decodeXmlEntities()` only decoded a fixed shortlist of named/numeric entities, so raw numeric entities in Reddit's Atom feed content (e.g. `&#32;`) survived into excerpt/title text and then got double-escaped by the client-side `escHtml()`, rendering as literal `&#32;` on the page. Fixed by adding generic `&#(\d+);` and `&#x([0-9a-fA-F]+);` decoding. Confirmed clean live.
+
+**Client-side caching added — shipped July 22 2026 (`src/digest.njk` only).** Previously every page load/login (including the bookmarked `/digest/#key` auto-load) triggered a full fresh run — Reddit fetch + rapamycin.news fetch + a Claude draft generation per post, ~20s and ~$0.08 every time, even with no new posts. Added a `localStorage` cache keyed to the digest key: normal loads (auto-load and the gate's "Load" button) now serve instantly from cache when available; the "↻ Refresh" button was renamed **"↻ Update"** and always forces a real fetch, overwriting the cache. Meta line shows `· cached` when serving a cached run. Cache is per-browser (not shared across devices/browsers). Confirmed working end-to-end by Dan.
 
 **Reddit fetch fix — shipped July 19 2026 (`api/digest.js`, commit `727fd42`):** switched from `search.rss` (aggressively gated for datacenter/Edge IPs, returning zero results) to plain `new.rss` feeds per subreddit with local keyword-based topical filtering (`matchesKeywords` against the `KEYWORDS` list). Added an `after:YYYY-MM-DD` date constraint on rapamycin.news searches (last 7 days) so evergreen old threads stop dominating. Added `&debug=1` diagnostics mode returning per-source `status`/`entries`/`kept` counts. Bumped the biomarker count referenced in the Claude system prompt from the stale 18 to the current 66.
 
@@ -392,6 +396,8 @@ Complete — April 23 2026. Key-protected at `/digest`. Caching not built — ge
 
 Dark theme only — re-evaluate if mobile bounce data warrants it. Watch Clarity/GA4 bounce-rate data over the following days to confirm the palette change helped as intended.
 
+**`--text-muted` contrast fix — shipped July 22 2026 (`src/styles.css`).** The July 19 palette rollout addressed the main text/bg contrast (body, headings), but `--text-muted` — used for small de-emphasized labels sitewide — was never part of that pass and sat at only ~1.97:1 contrast, failing WCAG AA badly. Changed `#4a5444` → `#838f76` (~4.6:1). Also removed a compounding `opacity: 0.5` on `.footer-disclaimer` that was dragging its effective contrast down further even after the token fix. See Immediate Next Steps for full detail and verification notes.
+
 ### Technical SEO
 All complete. GSC verified + sitemap submitted April 21 2026.
 
@@ -401,6 +407,26 @@ GA4 (G-28CHRFJLKJ) + Microsoft Clarity (wa32lp8ja6) — both live on all page ty
 ---
 
 ## Immediate Next Steps (Resume Here)
+
+### Recently Shipped (July 22, 2026 — contrast + digest session)
+
+Dan flagged three barely-readable text spots via screenshots (stats bar, biomarker card subtitles) plus a literal `&#32;` artifact showing up in Community Digest Reddit posts. Root-caused and fixed all three, then separately fixed the digest tool regenerating (and re-billing Claude API calls) on every single page load/login.
+
+**Fixed this session:**
+1. **`--text-muted` contrast failure (`src/styles.css`, commit).** Token was `#4a5444` — only ~1.97:1 contrast against `--bg` (`#1a261c`), well under WCAG AA's 4.5:1 minimum for normal text. This one token drives `.bmi-stat-label`, `.bmi-card-aka`, `.bmi-category-count`, `.badge`, `.updated`, `.score-card-header`, `.score-sublabel`, `.score-bar-label`, `.footer-disclaimer`, and more — explains why so many small labels sitewide read as near-invisible. Changed to `#838f76` (~4.6:1, clears AA). Verified live via computed styles on `/biomarkers/` and the homepage score card.
+2. **`.footer-disclaimer` compounding opacity (`src/styles.css`, commit).** Even after the token fix, `.footer-disclaimer` stacked `opacity: 0.5` on top of `--text-muted`, dragging effective contrast back down to ~2.2:1. Removed the opacity rule — the color alone now does the "de-emphasized" job without the extra transparency. Verified live (`opacity: 1` on the footer disclaimer, new color applied).
+3. **Digest `&#32;` artifact (`api/digest.js`, commit).** Root cause: Reddit's Atom feed content contains raw numeric HTML entities (e.g. `&#32;` as a literal space separator in the "submitted by" markup). `decodeXmlEntities()` only decoded a hardcoded shortlist (`&amp; &lt; &gt; &quot; &#39; &#x27;`), so entities like `&#32;` survived untouched into the excerpt/title text. The client-side `escHtml()` in `digest.njk` then re-escaped the stray `&`, turning `&#32;` into `&amp;#32;` — which the browser renders back out as the literal text `&#32;`. Fixed by extending `decodeXmlEntities()` to generically decode any `&#(\d+);` (decimal) or `&#x([0-9a-fA-F]+);` (hex) numeric entity, not just the fixed list. Dan confirmed live posts render clean.
+4. **Digest regenerating on every load (`src/digest.njk`, commit).** The tool had no caching at all — every page open (including the bookmarked `/digest/#key` auto-load) triggered a full fresh run: Reddit fetch, rapamycin.news fetch, and a Claude draft generation per post (~20s, ~$0.08/run), even if nothing had changed since the last visit. Added a `localStorage`-based client-side cache keyed to the digest key:
+   - Auto-load (bookmarked hash) and the gate's "Load" button now check the cache first and render instantly with zero API cost if a cached digest exists.
+   - The old "↻ Refresh" button is now **"↻ Update"** (`onclick="loadDigest(true)"`) — always forces a real fetch, bypassing the cache, and overwrites it with the fresh result.
+   - The meta line under the header now appends `· cached` when serving a cached digest, so it's clear at a glance whether you're looking at a stale or fresh run.
+   - Dan confirmed end-to-end: first load fetched fresh, reload served instantly from cache, "Update" forced a real regeneration.
+   - **Scope note:** this is a per-browser cache (localStorage), not shared across devices — first load on a different browser/device will still generate fresh once. No `api/digest.js` changes were needed for this part; it's entirely client-side in `digest.njk`.
+
+**Flagged, no action taken:**
+- **`/ops/` dashboard contrast** — uses the same `--text-muted` token (quick links, analytics widget labels, promotion checklist), so it should have inherited the July 22 contrast fix automatically, but it's key-gated and hasn't been visually confirmed yet. Worth a glance next time Dan is in there.
+- **`DIGEST_KEY` was pasted in plaintext in chat** during this session (to test the digest fix). Since the same key also gates `/ops/` and `/api/gsc-*`, Dan may want to rotate it at some point — not urgent, same logic as the "regenerate the OAuth token if it's ever shown on screen" precedent already in this doc. No action taken; Dan's call.
+- **Humanizing digest reply drafts** — Dan raised wanting a pass on making the Claude-generated forum reply drafts sound less AI-generated. Deferred pending a look at specific drafts that read wrong, so the prompt rewrite is grounded in real examples rather than generic "sound more human" guesses. Not started.
 
 ### Recently Shipped (July 21, 2026 — full audit session)
 
@@ -458,7 +484,7 @@ Apply AgelessLabs system to a new niche.
 
 ## Known Issues / Tech Debt
 
-- **Digest caching not built** — generates fresh on every load (~20s, ~$0.08/run). Add Vercel KV + GitHub Actions cron when daily usage warrants it.
+- **Digest caching — basic version shipped July 22 2026.** Client-side `localStorage` cache (per-browser) stops the "regenerates on every load" cost problem via a cache-first load + explicit "↻ Update" button. Still not shared across devices/browsers — if that ever matters (e.g. checking from iOS after generating on desktop), a server-side cache (Vercel KV + GitHub Actions cron, as originally scoped) would be the next step. Not currently a priority since the main cost issue is resolved.
 - **HTML entities in JSON-LD title strings** — low priority. Pages with `&#8212;` in title frontmatter have literal string in JSON-LD. Not a validity issue.
 - **Vitamin K2 page note** — Ulta "vitamin-k" test measures total K (K1+K2 combined). Page accurately notes this and recommends ucOC as the functional K2 marker.
 - **MailerLite v2 classic API** — `api/subscribe.js` uses `api.mailerlite.com/api/v2`. Classic API still functional but a newer API exists. Low urgency.
@@ -519,6 +545,10 @@ Apply AgelessLabs system to a new niche.
 - **Pagefind + Svelte DOM rebuilding** — Pagefind's UI is Svelte-compiled. It rebuilds its entire form DOM on every search event, wiping any elements injected into it. CSS overrides work; DOM injection does not survive re-renders.
 - **CSS-only animation for brand micro-interactions** — the wordmark pulsing period used a pure CSS `@keyframes` + `animation` property rather than JS, keeping it lightweight and automatically respecting `prefers-reduced-motion` via a media query override. Preferred pattern for small, always-on decorative animations.
 - **Reassembling a rewritten file from past-chat search results** — when a file was rewritten in a prior session but not yet committed, pulling the exact code back from conversation history is workable but exact-match string replacements against the live file are safer than reconstructing and pasting the whole file from memory-of-search-results. Always `node --check` (or equivalent) syntax-validate before pushing, and diff key markers (function names, new logic) against the live file post-edit.
+- **A CSS token can look fine to the eye but fail contrast math (added July 22 2026)** — `--text-muted` had shipped and looked plausible in casual review, but computing actual WCAG contrast ratios (relative luminance formula against `--bg`) revealed ~1.97:1, nowhere near the 4.5:1 AA minimum. Worth actually computing contrast ratios for token changes rather than eyeballing them, especially for small (8-10px) label text where low contrast is least forgiving.
+- **Opacity stacked on top of an already-dim color compounds, it doesn't just soften** — `.footer-disclaimer` combined `color: var(--text-muted)` with `opacity: 0.5`, and the two multiply: even after brightening the base token to a passing ~4.6:1, the 0.5 opacity alone dragged effective contrast back down to ~2.2:1. When a token's own contrast is already tuned to be "quiet," an additional opacity reduction on top usually isn't needed and can undo the fix.
+- **`decodeXmlEntities()` needs to decode entities generically, not via a hardcoded whitelist** — Reddit's Atom feed content contains raw numeric HTML entities (e.g. `&#32;` as a literal space separator) that aren't in any typical hardcoded list (`&amp; &lt; &gt; &quot; &#39; &#x27;`). They survive untouched into extracted text, and if that text is later run through a client-side HTML-escaper (e.g. `escHtml()`), the un-decoded entity's `&` gets re-escaped, producing a literal double-encoded artifact (`&#32;` renders as visible text instead of a space). Fix: decode numeric entities generically via regex (`&#(\d+);` and `&#x([0-9a-fA-F]+);`) rather than enumerating specific entities.
+- **Client-side `localStorage` caching is often sufficient to prevent redundant regeneration** — before reaching for server-side infrastructure (Vercel KV, cron jobs) to cache an expensive generation endpoint, a `localStorage` cache keyed to the auth/access key can solve "regenerates every visit" cheaply: cache-first on normal loads, one explicit "force refresh" button that bypasses the cache and overwrites it. Trade-off: per-browser only, not shared across devices — acceptable when the tool is single-operator and single-primary-device, as with the digest tool here.
 
 ---
 
@@ -559,6 +589,7 @@ Items to build in future sessions. Not yet prioritized or scheduled.
   - Sage green (brand, unchanged) `#b5c9a0`
   - Status trio: optimal `#7ecb8c` · monitor `#ecab3e` · concern `#e5766a`
   - Secondary backgrounds: `--bg2` `#202e23` · `--bg3` `#26362a`
+  - Muted/de-emphasized labels `--text-muted` `#838f76` (was `#4a5444` — fixed July 22 2026; previous value failed WCAG AA at ~1.97:1 contrast)
 - **Theme:** Dark only (no light theme). The July 2026 palette refinement addressed halation/shimmer from the original near-black/near-white combo (16.6:1 contrast — technically passed WCAG but was uncomfortable for older readers at thin font weights) without abandoning the dark aesthetic that differentiates AgelessLabs from generic light wellness-brand sites. Re-evaluate theme direction only if Clarity/GA4 bounce data warrants it.
 - **Wordmark:** Red Hat Display, lowercase, bold/light weight split (`ageless`=700, `labs`=300, `.ai`=300 in ivory). Kept as-is after a full exploration of Title Case and alternate fonts (Fraunces, Space Grotesk, Instrument Serif/Sans, Sora, Bricolage Grotesque, Familjen Grotesk, Unbounded, IBM Plex Sans, Gabarito) — direct side-by-side comparison confirmed the original is still the stronger mark. Icon (hourglass/helix) stays a standalone asset, not combined with the wordmark inline (tried before, hurt readability). Pulsing period on `.ai`'s dot shipped July 20 2026 — breathes ivory → `--green-bright` with layered glow on a 2.4s cycle, respects `prefers-reduced-motion`.
 - **Domain:** AgelessLabs.ai — .ai signals AI-powered tool, resonates with tech-forward longevity audience
