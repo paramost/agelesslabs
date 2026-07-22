@@ -197,7 +197,7 @@ footer {
 .footer-links { display: flex; gap: 24px; }
 .footer-links a { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--text-dim); text-decoration: none; text-transform: uppercase; transition: color 0.15s; }
 .footer-links a:hover { color: var(--green); }
-.footer-disclaimer { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-muted); line-height: 1.6; max-width: 460px; opacity: 0.5; }
+.footer-disclaimer { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.04em; color: var(--text-muted); line-height: 1.6; max-width: 460px; }
 
 /* ─── Page header (inner pages) ───────────────────────────────── */
 .page-header { padding: 28px 0 24px; max-width: 640px; }
