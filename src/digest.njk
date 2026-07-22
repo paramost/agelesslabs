@@ -326,7 +326,7 @@ permalink: /digest/
       <button class="ctrl-btn active" id="filter-all"       onclick="setFilter('all')">All</button>
       <button class="ctrl-btn"        id="filter-reddit"    onclick="setFilter('reddit')">Reddit</button>
       <button class="ctrl-btn"        id="filter-rapamycin" onclick="setFilter('rapamycin')">rapamycin.news</button>
-      <button class="refresh-btn"     onclick="loadDigest()">↻ Refresh</button>
+      <button class="refresh-btn" onclick="loadDigest(true)">↻ Update</button>
     </div>
 
     <div id="posts-container"></div>
@@ -353,10 +353,21 @@ permalink: /digest/
     });
   });
 
-  async function loadDigest() {
+  async function loadDigest(forceRefresh) {
     const keyEl = document.getElementById('key-input');
     digestKey = keyEl.value.trim();
     if (!digestKey) return;
+
+    if (!forceRefresh) {
+      const cached = getCachedDigest(digestKey);
+      if (cached) {
+        digestData = cached;
+        document.getElementById('gate-error').style.display = 'none';
+        renderDigest(true);
+        setView('results');
+        return;
+      }
+    }
 
     setView('loading');
     const loadingMsgs = [
@@ -383,8 +394,9 @@ permalink: /digest/
       if (!res.ok) throw new Error(`Server error ${res.status}`);
 
       digestData = await res.json();
+      setCachedDigest(digestKey, digestData);
       document.getElementById('gate-error').style.display = 'none';
-      renderDigest();
+      renderDigest(false);
       setView('results');
     } catch (err) {
       clearInterval(msgInterval);
@@ -392,6 +404,24 @@ permalink: /digest/
       setView('gate');
     }
   }
+
+  function getCachedDigest(key) {
+    try {
+      const raw = localStorage.getItem(`agelesslabs_digest_cache_${key}`);
+      return raw ? JSON.parse(raw) : null;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function setCachedDigest(key, data) {
+    try {
+      localStorage.setItem(`agelesslabs_digest_cache_${key}`, JSON.stringify(data));
+    } catch (err) {
+      // localStorage unavailable or full — fail silently, next load just fetches fresh
+    }
+  }
+
 
   function setView(view) {
     document.getElementById('gate-view').style.display    = view === 'gate'    ? 'flex'  : 'none';
@@ -407,19 +437,21 @@ permalink: /digest/
     renderPosts();
   }
 
-  function renderDigest() {
+  function renderDigest(fromCache) {
     const d = digestData;
     const date = new Date(d.generated_at);
     const dateStr = date.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
     const timeStr = date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
     const sourceSummary = [
-      d.reddit_count  ? `${d.reddit_count} Reddit`        : '0 Reddit',
+      d.reddit_count ? `${d.reddit_count} Reddit` : '0 Reddit',
       d.rapamycin_count ? `${d.rapamycin_count} rapamycin.news` : '0 rapamycin.news',
     ].join(' · ');
+    const cacheSuffix = fromCache ? ' · cached' : '';
     document.getElementById('digest-meta').textContent =
-      `${dateStr} · ${timeStr} · ${sourceSummary}`;
+      `${dateStr} · ${timeStr} · ${sourceSummary}${cacheSuffix}`;
     renderPosts();
   }
+
 
   function renderPosts() {
     const container = document.getElementById('posts-container');
