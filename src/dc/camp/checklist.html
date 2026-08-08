@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="day">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#E9EBE4">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>Camp &amp; Small Game Checklist</title>
+<style>
+html[data-theme="day"]{
+  --bg:#E9EBE4; --card:#F4F5F0; --ink:#18241F; --muted:#55655C; --edge:#B9C1B6;
+  --faint:#7C8A81; --blaze:#C24E00; --blazeTx:#A84300; --tick:#FFFFFF;
+}
+html[data-theme="night"]{
+  --bg:#0E1815; --card:#16241F; --ink:#E9EBE4; --muted:#8FA298; --edge:#2C4038;
+  --faint:#6B7E74; --blaze:#FF6B18; --blazeTx:#FF6B18; --tick:#0E1815;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;padding:0;min-height:100%;}
+body{font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  -webkit-text-size-adjust:100%;}
+/* The sheet paints its own background. Some preview windows override the
+   background on html/body but leave class rules alone, which would strand the
+   text on a surface it was never coloured against. */
+.sheet{background:var(--bg)!important;color:var(--ink)!important;
+  min-height:100vh;padding:0 0 90px;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  letter-spacing:.1em;text-transform:uppercase;}
+.wrap{max-width:660px;margin:0 auto;padding:0 16px;}
+
+.warn{background:var(--blaze);color:#fff;font-size:13px;line-height:1.45;
+  padding:12px 16px;font-weight:600;}
+.warn[hidden]{display:none;}
+
+header{padding:24px 0 16px;border-bottom:1px solid var(--edge);}
+.top{display:flex;align-items:flex-start;gap:12px;}
+h1{flex:1;font-size:25px;font-weight:700;line-height:1.15;margin:0 0 4px;
+  letter-spacing:-.01em;color:var(--ink);}
+.sub{font-size:10px;color:var(--muted);margin:0 0 18px;}
+.meter{height:4px;background:var(--edge);position:relative;overflow:hidden;border-radius:2px;}
+.meter i{position:absolute;inset:0 auto 0 0;background:var(--blaze);width:0;transition:width .35s ease;}
+.count{display:flex;justify-content:space-between;font-size:10px;color:var(--muted);margin-top:8px;}
+
+.bar{display:flex;gap:8px;flex-wrap:wrap;padding:14px 0;border-bottom:1px solid var(--edge);}
+.btn{font-size:10px;padding:10px 12px;background:none;cursor:pointer;border:1px solid var(--edge);
+  color:var(--muted);border-radius:3px;font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+  letter-spacing:.1em;text-transform:uppercase;}
+.btn:hover{border-color:var(--blaze);color:var(--ink);}
+.btn[data-on="true"]{border-color:var(--blaze);color:var(--blazeTx);font-weight:600;}
+.btn:focus-visible,input:focus-visible,.box:focus-visible,.x:focus-visible,
+.sect:focus-visible,.txt:focus-visible,.add:focus-visible{outline:2px solid var(--blaze);outline-offset:2px;}
+
+section{border-bottom:1px solid var(--edge);}
+.sech{display:flex;align-items:center;gap:10px;padding:18px 0 8px;}
+.sect{flex:1;font-size:12px;font-weight:700;color:var(--ink);background:none;border:none;padding:0;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.13em;
+  text-transform:uppercase;text-align:left;cursor:text;}
+.tag{font-size:9px;color:var(--blazeTx);border:1px solid var(--blaze);padding:2px 5px;
+  border-radius:2px;font-weight:600;}
+.tally{font-size:10px;color:var(--muted);}
+.x{background:none;border:none;color:var(--faint);cursor:pointer;font-size:18px;line-height:1;
+  padding:8px 8px;}
+.x:hover{color:var(--blaze);}
+
+.row{display:flex;align-items:flex-start;gap:12px;padding:8px 0;}
+.box{flex:none;width:24px;height:24px;cursor:pointer;border:2px solid var(--faint);
+  border-radius:3px;background:var(--card);position:relative;padding:0;}
+.box[data-done="true"]{background:var(--blaze);border-color:var(--blaze);}
+.box[data-done="true"]::after{content:"";position:absolute;left:7px;top:3px;width:6px;height:12px;
+  border:solid var(--tick);border-width:0 2.5px 2.5px 0;transform:rotate(42deg);}
+.txt{flex:1;font-size:16px;line-height:1.5;cursor:text;background:none;border:none;
+  color:var(--ink);font-family:inherit;padding:2px 0;text-align:left;}
+.row[data-done="true"] .txt{color:var(--faint);text-decoration:line-through;
+  text-decoration-color:var(--blaze);text-decoration-thickness:1.5px;}
+.in{width:100%;background:var(--card);border:1px solid var(--blaze);color:var(--ink);
+  font:inherit;font-size:16px;padding:9px 10px;border-radius:3px;}
+.add{display:block;width:100%;text-align:left;background:none;border:none;color:var(--muted);
+  font-size:14px;padding:12px 0 16px;cursor:pointer;font-family:inherit;}
+.add:hover{color:var(--blazeTx);}
+.empty{font-size:14px;color:var(--faint);padding:6px 0 12px;}
+.note{font-size:13px;color:var(--muted);line-height:1.6;padding:20px 0 0;}
+.note b{color:var(--ink);}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+<div class="warn" id="warn" hidden>
+  This copy can't save your checkmarks. Open the downloaded file in Safari or Chrome
+  rather than a file preview.
+</div>
+
+<div class="wrap">
+  <header>
+    <div class="top">
+      <h1>Camp &amp; Small Game</h1>
+      <button class="btn" id="bTheme">Night</button>
+    </div>
+    <p class="sub mono">Car camping · reusable</p>
+    <div class="meter"><i id="fill"></i></div>
+    <div class="count mono"><span id="c1">0 / 0 packed</span><span id="c2">0 to go</span></div>
+  </header>
+
+  <div class="bar">
+    <button class="btn" id="bHunt">Hunting on</button>
+    <button class="btn" id="bHide">Hide packed</button>
+    <button class="btn" id="bTrip">New trip</button>
+    <button class="btn" id="bSec">+ Section</button>
+    <button class="btn" id="bCopy">Copy as text</button>
+    <button class="btn" id="bReset">Restore list</button>
+  </div>
+
+  <div id="list"></div>
+
+  <p class="note">
+    Tap a line to rename it, <b>×</b> to remove it. Everything saves to this device as you go.
+    <br><br>
+    <b>To keep your checkmarks:</b> open this file in Safari or Chrome, then use the Share
+    menu and pick <b>Add to Home Screen</b>. A file preview window won't remember anything.
+    <br><br>
+    Blaze orange rules, season dates, and bag limits vary by state and sometimes by unit.
+    Check yours before every trip.
+  </p>
+</div>
+
+</div>
+
+<script>
+(function(){
+"use strict";
+var KEY="camp-checklist-v3", canSave=true;
+function uid(){return Math.random().toString(36).slice(2,9);}
+function mk(t,g,a){return {id:uid(),title:t,group:g,
+  items:a.map(function(x){return {id:uid(),text:x,done:false};})};}
+
+function seed(){return [
+mk("Shelter & Sleep","camp",["Tent, poles, stakes, guylines","Footprint or ground tarp","Rainfly",
+"Mallet for stakes","Sleeping bag rated for the low","Sleeping pad or air mattress + pump",
+"Pillow","Extra blanket","Tent repair kit / duct tape"]),
+mk("Kitchen & Food","camp",["Stove + fuel (check level before leaving)","Lighter + waterproof matches",
+"Pot, pan, kettle","Plates, bowls, mugs, utensils","Sharp knife + cutting board",
+"Can opener / bottle opener","Cooler + ice","Water jug — 2 gal per person per day","Water bottles",
+"Coffee setup","Dish tub, soap, sponge, towel","Trash bags",
+"Meals, snacks, condiments, oil, salt & pepper","Food storage: dry box or bear canister",
+"Foil, ziplocs, paper towels"]),
+mk("Clothing","camp",["Base layers — wicking, not cotton","Fleece or puffy mid layer",
+"Rain jacket + rain pants","Pants and shirts","Underwear + wool socks (extra socks)",
+"Sun hat and/or warm hat","Gloves","Broken-in boots + camp shoes",
+"Sleepwear kept dry for sleeping only","Bandana or buff"]),
+mk("Light, Tools & Safety","camp",["Headlamp + spare batteries","Lantern","First aid kit",
+"Personal medications","Multi-tool or knife","Hatchet or camp saw","Paracord","Shovel / trowel",
+"Fire extinguisher or water bucket","Map, compass, GPS","Phone, power bank, cables","Whistle",
+"Emergency blanket","Jumper cables, spare tire, tire iron"]),
+mk("Personal & Hygiene","camp",["Toilet paper + trowel","Hand sanitizer, wet wipes",
+"Toothbrush, toothpaste","Quick-dry towel","Sunscreen","Insect repellent","Lip balm",
+"Glasses / contacts / solution"]),
+mk("Camp Comfort","camp",["Camp chairs","Folding table","Tarp + poles for shade or rain",
+"Firewood — buy local, don't transport","Cards, book, binoculars","Clothesline + clips"]),
+mk("Documents & Money","camp",["Campsite reservation confirmation","ID, insurance card",
+"Cash for firewood, gate fees, ice","Park pass / permits"]),
+mk("Licenses & Legal","hunt",["Hunting license, current year","Small game permit / stamps",
+"Land access permission or public land map","Regulations downloaded or printed",
+"Hunter education card","Season dates, hours, bag limits confirmed"]),
+mk("Firearm & Ammunition","hunt",["Shotgun and/or rimfire rifle",
+"Ammunition + spare box in the vehicle","Choke tubes + wrench","Gun case for transport",
+"Cleaning kit and oil","Trigger lock / safe storage for camp","Sling"]),
+mk("Field Gear","hunt",["Blaze orange vest and hat — check your state's rule","Shooting glasses",
+"Hearing protection","Game vest or shell pouch with game bag","Binoculars",
+"Brush pants or gaiters","Waterproof boots","Light gloves","Squirrel / rabbit call",
+"Daypack, water, snacks"]),
+mk("Field Dressing & Meat Care","hunt",["Small sharp knife + sharpener","Nitrile gloves",
+"Game bags or ziplocs","Paper towels / rags","Separate cooler with ice for game",
+"Zip ties for tags","Hand wash / sanitizer"]),
+mk("Dog","hunt",["Food, bowls, water","Leash, collar, e-collar + charger","Blaze orange dog vest",
+"Dog first aid: tweezers, vet wrap, saline, boot","Crate or tie-out","Vaccination records"]),
+mk("Talk Through Before You Hunt","hunt",[
+"Everyone knows where each person will be and when you meet back","Safe zones of fire agreed on",
+"Identify the target and what's beyond it, every time",
+"Someone off-site has your location and return time",
+"Unload before fences, camp, and the vehicle"]),
+mk("Before You Leave Home","camp",["Check forecast and overnight lows",
+"Check fire restrictions and burn bans","Confirm reservation and check-in time",
+"Fuel up the vehicle","Download offline maps","Tell someone your itinerary"]),
+mk("Pack-Out Reset","camp",["Dry tent and tarps fully before storing","Air out sleeping bags",
+"Wash and dry cookware","Clean firearm","Restock first aid, fuel, matches, batteries, ammo",
+"Note what was missing or broken"])
+];}
+
+var S, hunting=true, hideDone=false, theme="day";
+
+try{
+  var raw=localStorage.getItem(KEY);
+  var p=raw?JSON.parse(raw):null;
+  if(p&&p.sections&&p.sections.length){
+    S=p.sections; hunting=p.hunting!==false; theme=p.theme==="night"?"night":"day";
+  }
+  localStorage.setItem(KEY+"-probe","1");
+  localStorage.removeItem(KEY+"-probe");
+}catch(e){canSave=false;document.getElementById("warn").hidden=false;}
+if(!S)S=seed();
+document.documentElement.dataset.theme=theme;
+
+function save(){
+  if(!canSave)return;
+  try{localStorage.setItem(KEY,JSON.stringify({sections:S,hunting:hunting,theme:theme}));}
+  catch(e){canSave=false;document.getElementById("warn").hidden=false;}
+}
+function vis(){return S.filter(function(s){return hunting||s.group!=="hunt";});}
+function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;}
+
+function swap(node,val,commit){
+  var i=el("input","in");i.value=val;var done=false;
+  function fin(ok){if(done)return;done=true;if(ok&&i.value.trim())commit(i.value.trim());save();render();}
+  i.addEventListener("keydown",function(e){
+    if(e.key==="Enter")fin(true);if(e.key==="Escape")fin(false);});
+  i.addEventListener("blur",function(){fin(true);});
+  node.replaceWith(i);i.focus();i.select();
+}
+
+function render(){
+  var list=document.getElementById("list");list.innerHTML="";
+  var shown=vis(),all=[];
+  shown.forEach(function(s){all=all.concat(s.items);});
+  var packed=all.filter(function(x){return x.done;}).length;
+  document.getElementById("fill").style.width=(all.length?packed/all.length*100:0)+"%";
+  document.getElementById("c1").textContent=packed+" / "+all.length+" packed";
+  document.getElementById("c2").textContent=(all.length-packed)+" to go";
+  var bh=document.getElementById("bHunt");
+  bh.textContent="Hunting "+(hunting?"on":"off");bh.dataset.on=hunting;
+  document.getElementById("bHide").dataset.on=hideDone;
+  document.getElementById("bTheme").textContent=theme==="day"?"Night":"Day";
+
+  shown.forEach(function(sec){
+    var w=el("section"),h=el("div","sech");
+    var t=el("button","sect mono",sec.title);
+    t.onclick=function(){swap(t,sec.title,function(v){sec.title=v;});};
+    h.appendChild(t);
+    if(sec.group==="hunt")h.appendChild(el("span","tag mono","Hunt"));
+    var d=sec.items.filter(function(x){return x.done;}).length;
+    h.appendChild(el("span","tally mono",d+"/"+sec.items.length));
+    var sx=el("button","x","×");
+    sx.setAttribute("aria-label","Delete "+sec.title+" section");
+    sx.onclick=function(){
+      if(confirm('Delete "'+sec.title+'" and its '+sec.items.length+' items?')){
+        S=S.filter(function(z){return z.id!==sec.id;});save();render();}};
+    h.appendChild(sx);w.appendChild(h);
+
+    var rows=hideDone?sec.items.filter(function(x){return !x.done;}):sec.items;
+    if(!rows.length)w.appendChild(el("p","empty",
+      sec.items.length?"All packed.":"Nothing here yet."));
+
+    rows.forEach(function(it){
+      var r=el("div","row");r.dataset.done=it.done;
+      var b=el("button","box");b.dataset.done=it.done;
+      b.setAttribute("role","checkbox");b.setAttribute("aria-checked",it.done);
+      b.setAttribute("aria-label",it.text);
+      b.onclick=function(){it.done=!it.done;save();render();};
+      var tx=el("button","txt",it.text);
+      tx.onclick=function(){swap(tx,it.text,function(v){it.text=v;});};
+      var rx=el("button","x","×");
+      rx.setAttribute("aria-label","Remove "+it.text);
+      rx.onclick=function(){
+        sec.items=sec.items.filter(function(z){return z.id!==it.id;});save();render();};
+      r.appendChild(b);r.appendChild(tx);r.appendChild(rx);w.appendChild(r);
+    });
+
+    var a=el("button","add","+ Add item");
+    a.onclick=function(){
+      var i2=el("input","in");i2.placeholder="Add an item, press Enter";var closed=false;
+      function push(keep){
+        var v=i2.value.trim();
+        if(v)sec.items.push({id:uid(),text:v,done:false});
+        save();
+        if(keep){i2.value="";}else if(!closed){closed=true;render();}
+      }
+      i2.addEventListener("keydown",function(e){
+        if(e.key==="Enter")push(true);
+        if(e.key==="Escape"){closed=true;render();}});
+      i2.addEventListener("blur",function(){push(false);});
+      a.replaceWith(i2);i2.focus();
+    };
+    w.appendChild(a);list.appendChild(w);
+  });
+}
+
+document.getElementById("bTheme").onclick=function(){
+  theme=theme==="day"?"night":"day";
+  document.documentElement.dataset.theme=theme;
+  document.querySelector('meta[name="theme-color"]')
+    .setAttribute("content",theme==="day"?"#E9EBE4":"#0E1815");
+  save();render();};
+document.getElementById("bHunt").onclick=function(){hunting=!hunting;save();render();};
+document.getElementById("bHide").onclick=function(){hideDone=!hideDone;render();};
+document.getElementById("bSec").onclick=function(){
+  S.push({id:uid(),title:"New section",group:"camp",items:[]});save();render();};
+document.getElementById("bTrip").onclick=function(){
+  if(confirm("Uncheck everything? Your items and sections stay.")){
+    S.forEach(function(s){s.items.forEach(function(i){i.done=false;});});save();render();}};
+document.getElementById("bReset").onclick=function(){
+  if(confirm("Replace the whole list with the original one?")){
+    S=seed();hunting=true;save();render();}};
+document.getElementById("bCopy").onclick=function(){
+  var out=["CAMP & SMALL GAME CHECKLIST",""];
+  vis().forEach(function(s){
+    out.push(s.title.toUpperCase());
+    s.items.forEach(function(i){out.push((i.done?"[x] ":"[ ] ")+i.text);});
+    out.push("");});
+  var txt=out.join("\n");
+  function fb(){
+    var ta=document.createElement("textarea");ta.value=txt;
+    ta.style.position="fixed";ta.style.opacity="0";
+    document.body.appendChild(ta);ta.select();
+    try{document.execCommand("copy");alert("Copied.");}
+    catch(e){alert("Couldn't copy automatically:\n\n"+txt);}
+    document.body.removeChild(ta);}
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){alert("Copied.");},fb);
+  }else fb();};
+
+render();
+})();
+</script>
+</body>
+</html>
