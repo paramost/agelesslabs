@@ -81,6 +81,16 @@ section{border-bottom:1px solid var(--edge);}
 .empty{font-size:14px;color:var(--faint);padding:6px 0 12px;}
 .note{font-size:13px;color:var(--muted);line-height:1.6;padding:20px 0 0;}
 .note b{color:var(--ink);}
+.status{font-size:10px;color:var(--muted);}
+.status[data-bad="true"]{color:#fff;background:var(--blaze);padding:3px 6px;border-radius:3px;font-weight:700;}
+.panel{border:1px solid var(--blaze);border-radius:3px;padding:14px;margin:14px 0;background:var(--card);}
+.panel[hidden]{display:none;}
+.panel h2{font-size:11px;margin:0 0 8px;letter-spacing:.12em;text-transform:uppercase;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--ink);}
+.panel p{font-size:13px;color:var(--muted);line-height:1.5;margin:0 0 10px;}
+.ta{width:100%;height:110px;background:var(--bg);border:1px solid var(--edge);border-radius:3px;
+  color:var(--ink);font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;
+  padding:8px;resize:vertical;}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 </head>
@@ -88,10 +98,7 @@ section{border-bottom:1px solid var(--edge);}
 
 <div class="sheet">
 
-<div class="warn" id="warn" hidden>
-  This copy can't save your checkmarks. Open the downloaded file in Safari or Chrome
-  rather than a file preview.
-</div>
+<div class="warn" id="warn" hidden></div>
 
 <div class="wrap">
   <header>
@@ -101,7 +108,7 @@ section{border-bottom:1px solid var(--edge);}
     </div>
     <p class="sub mono">Car camping · reusable</p>
     <div class="meter"><i id="fill"></i></div>
-    <div class="count mono"><span id="c1">0 / 0 packed</span><span id="c2">0 to go</span></div>
+    <div class="count mono"><span id="c1">0 / 0 packed</span><span class="status" id="status">—</span><span id="c2">0 to go</span></div>
   </header>
 
   <div class="bar">
@@ -109,8 +116,22 @@ section{border-bottom:1px solid var(--edge);}
     <button class="btn" id="bHide">Hide packed</button>
     <button class="btn" id="bTrip">New trip</button>
     <button class="btn" id="bSec">+ Section</button>
-    <button class="btn" id="bCopy">Copy as text</button>
+    <button class="btn" id="bSaveFile">Save to file</button>
+    <button class="btn" id="bBackup">Back up</button>
     <button class="btn" id="bReset">Restore list</button>
+  </div>
+
+  <div class="panel" id="panel" hidden>
+    <h2>Back up &amp; restore</h2>
+    <p>A paste-anywhere copy of your list. For a permanent fix use <b>Save to file</b>
+      instead and re-upload — iOS clears browser storage on its own schedule.</p>
+    <textarea class="ta" id="ta" spellcheck="false"></textarea>
+    <div class="bar" style="border:none;padding:10px 0 0;">
+      <button class="btn" id="bCopyJson">Copy backup</button>
+      <button class="btn" id="bLoadJson">Paste &amp; restore</button>
+      <button class="btn" id="bCopyPlain">Copy as plain text</button>
+      <button class="btn" id="bClosePanel">Close</button>
+    </div>
   </div>
 
   <div id="list"></div>
@@ -128,68 +149,30 @@ section{border-bottom:1px solid var(--edge);}
 
 </div>
 
+<script id="baked" type="application/json">[{"title":"Shelter & Sleep","group":"camp","items":["Tent, poles, stakes, guylines","Footprint or ground tarp","Rainfly","Mallet for stakes","Sleeping bag rated for the low","Sleeping pad or air mattress + pump","Pillow","Extra blanket","Tent repair kit / duct tape"]},{"title":"Kitchen & Food","group":"camp","items":["Stove + fuel (check level before leaving)","Lighter + waterproof matches","Pot, pan, kettle","Plates, bowls, mugs, utensils","Sharp knife + cutting board","Can opener / bottle opener","Cooler + ice","Water jug \u2014 2 gal per person per day","Water bottles","Coffee setup","Dish tub, soap, sponge, towel","Trash bags","Meals, snacks, condiments, oil, salt & pepper","Food storage: dry box or bear canister","Foil, ziplocs, paper towels"]},{"title":"Clothing","group":"camp","items":["Base layers \u2014 wicking, not cotton","Fleece or puffy mid layer","Rain jacket + rain pants","Pants and shirts","Underwear + wool socks (extra socks)","Sun hat and/or warm hat","Gloves","Broken-in boots + camp shoes","Sleepwear kept dry for sleeping only","Bandana or buff"]},{"title":"Light, Tools & Safety","group":"camp","items":["Headlamp + spare batteries","Lantern","First aid kit","Personal medications","Multi-tool or knife","Hatchet or camp saw","Paracord","Shovel / trowel","Fire extinguisher or water bucket","Map, compass, GPS","Phone, power bank, cables","Whistle","Emergency blanket","Jumper cables, spare tire, tire iron"]},{"title":"Personal & Hygiene","group":"camp","items":["Toilet paper + trowel","Hand sanitizer, wet wipes","Toothbrush, toothpaste","Quick-dry towel","Sunscreen","Insect repellent","Lip balm","Glasses / contacts / solution"]},{"title":"Camp Comfort","group":"camp","items":["Camp chairs","Folding table","Tarp + poles for shade or rain","Firewood \u2014 buy local, don't transport","Cards, book, binoculars","Clothesline + clips"]},{"title":"Documents & Money","group":"camp","items":["Campsite reservation confirmation","ID, insurance card","Cash for firewood, gate fees, ice","Park pass / permits"]},{"title":"Licenses & Legal","group":"hunt","items":["Hunting license, current year","Small game permit / stamps","Land access permission or public land map","Regulations downloaded or printed","Hunter education card","Season dates, hours, bag limits confirmed"]},{"title":"Firearm & Ammunition","group":"hunt","items":["Shotgun and/or rimfire rifle","Ammunition + spare box in the vehicle","Choke tubes + wrench","Gun case for transport","Cleaning kit and oil","Trigger lock / safe storage for camp","Sling"]},{"title":"Field Gear","group":"hunt","items":["Blaze orange vest and hat \u2014 check your state's rule","Shooting glasses","Hearing protection","Game vest or shell pouch with game bag","Binoculars","Brush pants or gaiters","Waterproof boots","Light gloves","Squirrel / rabbit call","Daypack, water, snacks"]},{"title":"Field Dressing & Meat Care","group":"hunt","items":["Small sharp knife + sharpener","Nitrile gloves","Game bags or ziplocs","Paper towels / rags","Separate cooler with ice for game","Zip ties for tags","Hand wash / sanitizer"]},{"title":"Dog","group":"hunt","items":["Food, bowls, water","Leash, collar, e-collar + charger","Blaze orange dog vest","Dog first aid: tweezers, vet wrap, saline, boot","Crate or tie-out","Vaccination records"]},{"title":"Talk Through Before You Hunt","group":"hunt","items":["Everyone knows where each person will be and when you meet back","Safe zones of fire agreed on","Identify the target and what's beyond it, every time","Someone off-site has your location and return time","Unload before fences, camp, and the vehicle"]},{"title":"Before You Leave Home","group":"camp","items":["Check forecast and overnight lows","Check fire restrictions and burn bans","Confirm reservation and check-in time","Fuel up the vehicle","Download offline maps","Tell someone your itinerary"]},{"title":"Pack-Out Reset","group":"camp","items":["Dry tent and tarps fully before storing","Air out sleeping bags","Wash and dry cookware","Clean firearm","Restock first aid, fuel, matches, batteries, ammo","Note what was missing or broken"]}]</script>
 <script>
 (function(){
 "use strict";
 var KEY="camp-checklist-v3", canSave=true;
 function uid(){return Math.random().toString(36).slice(2,9);}
-function mk(t,g,a){return {id:uid(),title:t,group:g,
-  items:a.map(function(x){return {id:uid(),text:x,done:false};})};}
 
-function seed(){return [
-mk("Shelter & Sleep","camp",["Tent, poles, stakes, guylines","Footprint or ground tarp","Rainfly",
-"Mallet for stakes","Sleeping bag rated for the low","Sleeping pad or air mattress + pump",
-"Pillow","Extra blanket","Tent repair kit / duct tape"]),
-mk("Kitchen & Food","camp",["Stove + fuel (check level before leaving)","Lighter + waterproof matches",
-"Pot, pan, kettle","Plates, bowls, mugs, utensils","Sharp knife + cutting board",
-"Can opener / bottle opener","Cooler + ice","Water jug — 2 gal per person per day","Water bottles",
-"Coffee setup","Dish tub, soap, sponge, towel","Trash bags",
-"Meals, snacks, condiments, oil, salt & pepper","Food storage: dry box or bear canister",
-"Foil, ziplocs, paper towels"]),
-mk("Clothing","camp",["Base layers — wicking, not cotton","Fleece or puffy mid layer",
-"Rain jacket + rain pants","Pants and shirts","Underwear + wool socks (extra socks)",
-"Sun hat and/or warm hat","Gloves","Broken-in boots + camp shoes",
-"Sleepwear kept dry for sleeping only","Bandana or buff"]),
-mk("Light, Tools & Safety","camp",["Headlamp + spare batteries","Lantern","First aid kit",
-"Personal medications","Multi-tool or knife","Hatchet or camp saw","Paracord","Shovel / trowel",
-"Fire extinguisher or water bucket","Map, compass, GPS","Phone, power bank, cables","Whistle",
-"Emergency blanket","Jumper cables, spare tire, tire iron"]),
-mk("Personal & Hygiene","camp",["Toilet paper + trowel","Hand sanitizer, wet wipes",
-"Toothbrush, toothpaste","Quick-dry towel","Sunscreen","Insect repellent","Lip balm",
-"Glasses / contacts / solution"]),
-mk("Camp Comfort","camp",["Camp chairs","Folding table","Tarp + poles for shade or rain",
-"Firewood — buy local, don't transport","Cards, book, binoculars","Clothesline + clips"]),
-mk("Documents & Money","camp",["Campsite reservation confirmation","ID, insurance card",
-"Cash for firewood, gate fees, ice","Park pass / permits"]),
-mk("Licenses & Legal","hunt",["Hunting license, current year","Small game permit / stamps",
-"Land access permission or public land map","Regulations downloaded or printed",
-"Hunter education card","Season dates, hours, bag limits confirmed"]),
-mk("Firearm & Ammunition","hunt",["Shotgun and/or rimfire rifle",
-"Ammunition + spare box in the vehicle","Choke tubes + wrench","Gun case for transport",
-"Cleaning kit and oil","Trigger lock / safe storage for camp","Sling"]),
-mk("Field Gear","hunt",["Blaze orange vest and hat — check your state's rule","Shooting glasses",
-"Hearing protection","Game vest or shell pouch with game bag","Binoculars",
-"Brush pants or gaiters","Waterproof boots","Light gloves","Squirrel / rabbit call",
-"Daypack, water, snacks"]),
-mk("Field Dressing & Meat Care","hunt",["Small sharp knife + sharpener","Nitrile gloves",
-"Game bags or ziplocs","Paper towels / rags","Separate cooler with ice for game",
-"Zip ties for tags","Hand wash / sanitizer"]),
-mk("Dog","hunt",["Food, bowls, water","Leash, collar, e-collar + charger","Blaze orange dog vest",
-"Dog first aid: tweezers, vet wrap, saline, boot","Crate or tie-out","Vaccination records"]),
-mk("Talk Through Before You Hunt","hunt",[
-"Everyone knows where each person will be and when you meet back","Safe zones of fire agreed on",
-"Identify the target and what's beyond it, every time",
-"Someone off-site has your location and return time",
-"Unload before fences, camp, and the vehicle"]),
-mk("Before You Leave Home","camp",["Check forecast and overnight lows",
-"Check fire restrictions and burn bans","Confirm reservation and check-in time",
-"Fuel up the vehicle","Download offline maps","Tell someone your itinerary"]),
-mk("Pack-Out Reset","camp",["Dry tent and tarps fully before storing","Air out sleeping bags",
-"Wash and dry cookware","Clean firearm","Restock first aid, fuel, matches, batteries, ammo",
-"Note what was missing or broken"])
-];}
+function seed(){
+  var raw=document.getElementById("baked").textContent;
+  return JSON.parse(raw).map(function(s){
+    return {id:uid(),title:s.title,group:s.group,
+      items:s.items.map(function(t){return {id:uid(),text:t,done:false};})};
+  });
+}
 
 var S, hunting=true, hideDone=false, theme="day";
+
+/* A write that succeeds is not a write that lasts. Preview windows and file://
+   sandboxes accept everything and then throw the whole origin away on close, so
+   probing for an exception proves nothing. Judge the context instead. */
+var framed=false;
+try{ framed = (window.self !== window.top); }catch(e){ framed=true; }
+var httpish = (location.protocol==="http:" || location.protocol==="https:");
+var risky = framed || !httpish;
 
 try{
   var raw=localStorage.getItem(KEY);
@@ -199,14 +182,36 @@ try{
   }
   localStorage.setItem(KEY+"-probe","1");
   localStorage.removeItem(KEY+"-probe");
-}catch(e){canSave=false;document.getElementById("warn").hidden=false;}
+}catch(e){canSave=false;}
 if(!S)S=seed();
 document.documentElement.dataset.theme=theme;
 
+function banner(){
+  var w=document.getElementById("warn");
+  if(!canSave){
+    w.textContent="This window can't save at all. Use Back up to copy your list out before you lose it.";
+    w.hidden=false;
+  }else if(risky){
+    w.textContent="Heads up: this is a preview window. It saves while you're here, but "+
+      "everything vanishes when you close it. Use Back up, or open the hosted copy instead.";
+    w.hidden=false;
+  }else{ w.hidden=true; }
+}
+
+function stamp(){
+  var el=document.getElementById("status");
+  if(!canSave){ el.textContent="not saving"; el.dataset.bad="true"; return; }
+  if(risky){ el.textContent="temporary"; el.dataset.bad="true"; return; }
+  var d=new Date();
+  el.textContent="saved "+d.getHours()+":"+String(d.getMinutes()).padStart(2,"0");
+  el.dataset.bad="false";
+}
+
 function save(){
-  if(!canSave)return;
+  if(!canSave){stamp();return;}
   try{localStorage.setItem(KEY,JSON.stringify({sections:S,hunting:hunting,theme:theme}));}
-  catch(e){canSave=false;document.getElementById("warn").hidden=false;}
+  catch(e){canSave=false;banner();}
+  stamp();
 }
 function vis(){return S.filter(function(s){return hunting||s.group!=="hunt";});}
 function el(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n;}
@@ -302,24 +307,86 @@ document.getElementById("bTrip").onclick=function(){
 document.getElementById("bReset").onclick=function(){
   if(confirm("Replace the whole list with the original one?")){
     S=seed();hunting=true;save();render();}};
-document.getElementById("bCopy").onclick=function(){
+function plainText(){
   var out=["CAMP & SMALL GAME CHECKLIST",""];
   vis().forEach(function(s){
     out.push(s.title.toUpperCase());
     s.items.forEach(function(i){out.push((i.done?"[x] ":"[ ] ")+i.text);});
     out.push("");});
-  var txt=out.join("\n");
+  return out.join("\n");
+}
+function toClipboard(txt,label){
   function fb(){
     var ta=document.createElement("textarea");ta.value=txt;
     ta.style.position="fixed";ta.style.opacity="0";
     document.body.appendChild(ta);ta.select();
-    try{document.execCommand("copy");alert("Copied.");}
-    catch(e){alert("Couldn't copy automatically:\n\n"+txt);}
+    try{document.execCommand("copy");alert(label+" copied.");}
+    catch(e){alert("Couldn't copy automatically. Select the text in the box and copy it.");}
     document.body.removeChild(ta);}
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(function(){alert("Copied.");},fb);
-  }else fb();};
+    navigator.clipboard.writeText(txt).then(function(){alert(label+" copied.");},fb);
+  }else fb();
+}
 
+/* The list is data in this file, not something the browser is trusted to keep.
+   This rewrites the embedded block and hands back a fresh copy to re-upload,
+   so the list survives anything iOS does to local storage. Checkmarks are
+   deliberately not baked in — they belong to one trip, the list doesn't. */
+document.getElementById("bSaveFile").onclick=function(){
+  var data=S.map(function(s){
+    return {title:s.title,group:s.group,
+      items:s.items.map(function(i){return i.text;})};
+  });
+  fetch(location.href,{cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error("fetch failed");
+    return r.text();
+  }).then(function(html){
+    var open='<script id="baked" type="application/json">';
+    var a=html.indexOf(open);
+    var b=html.indexOf("<\/script>",a);
+    if(a<0||b<0)throw new Error("marker missing");
+    var out=html.slice(0,a+open.length)+JSON.stringify(data)+html.slice(b);
+    var url=URL.createObjectURL(new Blob([out],{type:"text/html"}));
+    var link=document.createElement("a");
+    link.href=url; link.download="camp-checklist.html";
+    document.body.appendChild(link); link.click();
+    document.body.removeChild(link);
+    setTimeout(function(){URL.revokeObjectURL(url);},4000);
+    alert("Saved. Upload this file to your host, replacing the old one, and your "+
+          "list is permanent — even if the browser forgets everything.");
+  }).catch(function(){
+    alert("Couldn't rebuild the file from here. Use Back up instead and keep that "+
+          "text somewhere safe.");
+  });
+};
+
+document.getElementById("bBackup").onclick=function(){
+  var pn=document.getElementById("panel");
+  pn.hidden=!pn.hidden;
+  if(!pn.hidden){
+    document.getElementById("ta").value=
+      JSON.stringify({sections:S,hunting:hunting,theme:theme});
+  }};
+document.getElementById("bClosePanel").onclick=function(){
+  document.getElementById("panel").hidden=true;};
+document.getElementById("bCopyJson").onclick=function(){
+  toClipboard(document.getElementById("ta").value,"Backup");};
+document.getElementById("bCopyPlain").onclick=function(){
+  toClipboard(plainText(),"Checklist");};
+document.getElementById("bLoadJson").onclick=function(){
+  var v=document.getElementById("ta").value.trim();
+  if(!v){alert("Paste a backup into the box first.");return;}
+  var d;
+  try{d=JSON.parse(v);}catch(e){alert("That doesn't look like a backup. Paste the whole thing, including the braces.");return;}
+  if(!d||!d.sections||!d.sections.length){alert("No checklist found in that backup.");return;}
+  if(!confirm("Replace your current list with this backup?"))return;
+  S=d.sections; hunting=d.hunting!==false; theme=d.theme==="night"?"night":"day";
+  document.documentElement.dataset.theme=theme;
+  document.getElementById("panel").hidden=true;
+  save();render();};
+
+banner();
+stamp();
 render();
 })();
 </script>
